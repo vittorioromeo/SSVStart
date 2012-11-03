@@ -16,7 +16,8 @@ namespace ssvs
 	{
 		private:
 			Clock clock;
-			int width, height, pixelMultiplier;
+			unsigned int width, height;
+			int pixelMultiplier;
 			bool running { true };
 			float frameTime { 0 }, fps { 0 };
 			Game* gamePtr { nullptr }; // not owned, just pointed to
@@ -31,7 +32,7 @@ namespace ssvs
 		public:
 			RenderWindow renderWindow;
 			
-			GameWindow(int, int, int, bool);
+			GameWindow(unsigned int, unsigned int, int, bool);
 
 			void setGame(Game*);
 			void run();

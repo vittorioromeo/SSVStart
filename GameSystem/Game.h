@@ -14,24 +14,24 @@ namespace ssvs
 	
 	class Game
 	{
-		typedef std::function<void()> drawFuncType;
-		typedef std::function<void(float)> updateFuncType;
-		typedef std::pair<int, drawFuncType> updateFuncPair;
+		typedef std::function<void()> DrawFunc;
+		typedef std::function<void(float)> UpdateFunc;
+		typedef std::pair<int, DrawFunc> DrawFuncPair;
 		friend class GameWindow;
 
 		private:
 			GameWindow* gameWindowPtr { nullptr }; // not owned, just pointed to
-			vector<updateFuncType> updateFuncs;
-			std::multimap<int, drawFuncType> drawFuncsMap;
+			vector<UpdateFunc> updateFuncs;
+			multimap<int, DrawFunc> drawFuncsMap;
 
 			Game(const Game&); // non construction-copyable
 			Game& operator=(const Game&); // non copyable
 			
 		public:
 			Game() = default;
-			void addUpdateFunc(updateFuncType);
-			void addDrawFunc(drawFuncType, int);
-			void removeDrawFunc(drawFuncType);
+			void addUpdateFunc(UpdateFunc);
+			void addDrawFunc(DrawFunc, int);
+			void removeDrawFunc(DrawFunc);
 			void update(float);
 			void draw();
 		};

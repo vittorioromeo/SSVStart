@@ -1,17 +1,18 @@
 #include "Game.h"
+#include "GameWindow.h"
 #include <algorithm>
 
 namespace ssvs
 {
-	void Game::addUpdateFunc(updateFuncType mUpdateFunc)
+	void Game::addUpdateFunc(UpdateFunc mUpdateFunc)
 	{
 		updateFuncs.push_back(mUpdateFunc);
 	}
-	void Game::addDrawFunc(drawFuncType mDrawFunc, int mPriority = 0)
+	void Game::addDrawFunc(DrawFunc mDrawFunc, int mPriority = 0)
 	{
-		drawFuncsMap.insert(updateFuncPair(mPriority, mDrawFunc));
+		drawFuncsMap.insert(DrawFuncPair(mPriority, mDrawFunc));
 	}
-	
+
 	void Game::update(float mFrameTime)
 	{
 		for (auto updateFunc : updateFuncs)

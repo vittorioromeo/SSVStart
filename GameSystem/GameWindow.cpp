@@ -8,8 +8,8 @@
 
 namespace ssvs
 {
-	GameWindow::GameWindow(int mScreenWidth = 320, int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false) :
-			width(mScreenWidth), height(mScreenHeight), pixelMultiplier(mPixelMultiplier), renderWindow(VideoMode(width, height), "title")
+	GameWindow::GameWindow(unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false) :
+			width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, renderWindow{VideoMode{width, height}, "title"}
 	{
 		renderWindow.setVerticalSyncEnabled(false);
 		if (mLimitFps) renderWindow.setFramerateLimit(60);
