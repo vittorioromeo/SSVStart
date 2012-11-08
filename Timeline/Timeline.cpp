@@ -75,7 +75,7 @@ namespace ssvs
 		finished = false;
 		for (auto commandPtr : commandPtrs) commandPtr->reset();
 
-		if(commandPtrs.size() > 0) currentCommandPtr = commandPtrs[0];
+		if(!commandPtrs.empty()) currentCommandPtr = commandPtrs[0];
 		else currentCommandPtr = nullptr;
 	}
 } /* namespace sses */

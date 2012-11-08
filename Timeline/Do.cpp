@@ -11,6 +11,6 @@ namespace ssvs
 	void Do::update()
 	{
 		action();
-		timelinePtr->next();
+		timelinePtr->next();		
 	}
 } /* namespace sses */
