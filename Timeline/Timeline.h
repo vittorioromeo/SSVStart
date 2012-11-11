@@ -35,6 +35,7 @@ namespace ssvs
 			void update(float);
 			void jumpTo(int);
 			void reset();
+			void clear();
 	};
 } /* namespace sses */
 #endif /* TIMELINE_H_ */

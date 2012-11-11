@@ -78,4 +78,9 @@ namespace ssvs
 		if(!commandPtrs.empty()) currentCommandPtr = commandPtrs[0];
 		else currentCommandPtr = nullptr;
 	}
+	void Timeline::clear()
+	{
+		for (auto commandPtr : commandPtrs) delete commandPtr;
+		commandPtrs.clear();
+	}
 } /* namespace sses */
