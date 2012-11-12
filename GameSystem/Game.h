@@ -31,7 +31,6 @@ namespace ssvs
 			Game() = default;
 			void addUpdateFunc(UpdateFunc);
 			void addDrawFunc(DrawFunc, int);
-			void removeDrawFunc(DrawFunc);
 			void update(float);
 			void draw();
 		};
