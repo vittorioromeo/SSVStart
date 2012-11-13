@@ -8,7 +8,7 @@
 
 namespace ssvs
 {
-	GameWindow::GameWindow(unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false) :
+	GameWindow::GameWindow(unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mLimitFps) :
 			width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, renderWindow{VideoMode{width, height}, "title"}
 	{
 		renderWindow.setVerticalSyncEnabled(false);
@@ -51,7 +51,9 @@ namespace ssvs
 	}
 	inline void GameWindow::runFps()
 	{
-		frameTime = clock.restart().asSeconds() * 60.f;
+		if(isFrameTimeStatic) frameTime = staticFrameTime;
+		else frameTime = clock.restart().asSeconds() * 60.f;
+		
 		fps = 60.f / frameTime;
 		renderWindow.setTitle(toStr(fps)); // DEBUG
 	}

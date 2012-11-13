@@ -18,9 +18,9 @@ namespace ssvs
 			Clock clock;
 			unsigned int width, height;
 			int pixelMultiplier;
-			bool running { true };
-			float frameTime { 0 }, fps { 0 };
-			Game* gamePtr { nullptr }; // not owned, just pointed to
+			bool running{true};
+			float frameTime{0}, fps{0};
+			Game* gamePtr{nullptr}; // not owned, just pointed to
 			
 			GameWindow(const GameWindow&); // non construction-copyable
 			GameWindow& operator=(const GameWindow&); // non copyable
@@ -31,8 +31,10 @@ namespace ssvs
 
 		public:
 			RenderWindow renderWindow;
-			
-			GameWindow(unsigned int, unsigned int, int, bool);
+			bool isFrameTimeStatic{false};
+			float staticFrameTime{1};
+
+			GameWindow(unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false);
 
 			void setGame(Game*);
 			void run();
