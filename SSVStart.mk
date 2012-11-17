@@ -2,18 +2,18 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Debug
+## Release
 ProjectName            :=SSVStart
-ConfigurationName      :=Debug
+ConfigurationName      :=Release
 WorkspacePath          := "D:\Vee\Software\WIP\CL\WorkspaceOH\OH"
 ProjectPath            := "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\SSVStart"
-IntermediateDirectory  :=./Debug
+IntermediateDirectory  :=./Release
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=11/13/12
+Date                   :=11/17/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -41,8 +41,8 @@ LinkOptions            :=  -shared
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/WIP/SFMLMinGW/include 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := $(LibrarySwitch)sfml-system-d $(LibrarySwitch)sfml-window-d $(LibrarySwitch)sfml-audio-d $(LibrarySwitch)sfml-graphics-d 
-ArLibs                 :=  "sfml-system-d" "sfml-window-d" "sfml-audio-d" "sfml-graphics-d" 
+Libs                   := $(LibrarySwitch)sfml-system $(LibrarySwitch)sfml-window $(LibrarySwitch)sfml-audio $(LibrarySwitch)sfml-graphics 
+ArLibs                 :=  "sfml-system" "sfml-window" "sfml-audio" "sfml-graphics" 
 LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)"D:/Vee/Software/WIP/SFMLMinGW/lib" 
 
 ##
@@ -52,8 +52,8 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)"D:/Vee/Soft
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -pedantic -Wall -O0 -g3 -c -fmessage-length=0 -std=c++11 $(Preprocessors)
-CFLAGS   :=  -g $(Preprocessors)
+CXXFLAGS :=  -O3 -pedantic -Wall -c -std=c++11 -Wextra $(Preprocessors)
+CFLAGS   :=   $(Preprocessors)
 
 
 ##
@@ -76,11 +76,11 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects) > $(ObjectsFileList)
 	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
-	@$(MakeDirCommand) "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-debug"
-	@echo rebuilt > "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-debug\SSVStart"
+	@$(MakeDirCommand) "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-release"
+	@echo rebuilt > "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-release\SSVStart"
 
 $(IntermediateDirectory)/.d:
-	@$(MakeDirCommand) "./Debug"
+	@$(MakeDirCommand) "./Release"
 
 PreBuild:
 
@@ -173,6 +173,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
-	$(RM) "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-debug\SSVStart"
+	$(RM) "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-release\SSVStart"
 
 

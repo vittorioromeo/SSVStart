@@ -1,1 +1,1 @@
-./Debug/GameSystem_Game.o ./Debug/GameSystem_GameWindow.o ./Debug/Timeline_Command.o ./Debug/Timeline_Do.o ./Debug/Timeline_Goto.o ./Debug/Timeline_Timeline.o ./Debug/Timeline_Wait.o  
+./Release/GameSystem_Game.o ./Release/GameSystem_GameWindow.o ./Release/Timeline_Command.o ./Release/Timeline_Do.o ./Release/Timeline_Goto.o ./Release/Timeline_Timeline.o ./Release/Timeline_Wait.o  

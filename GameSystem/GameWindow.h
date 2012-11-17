@@ -34,10 +34,11 @@ namespace ssvs
 			bool isFrameTimeStatic{false};
 			float staticFrameTime{1};
 
-			GameWindow(unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false);
+			GameWindow(unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
 
 			void setGame(Game*);
 			void run();
+			void stop();
 			float getFps();
 	};
 } /* namespace ssvs */

@@ -8,11 +8,14 @@
 
 namespace ssvs
 {
-	GameWindow::GameWindow(unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mLimitFps) :
-			width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, renderWindow{VideoMode{width, height}, "title"}
+	GameWindow::GameWindow(unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mLimitFps, bool mFullscreen) :
+			width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}
 	{
+		if(mFullscreen) renderWindow.create(VideoMode{width, height}, "title", Style::Fullscreen);
+		else renderWindow.create(VideoMode{width, height}, "title", Style::Default);
+
 		renderWindow.setVerticalSyncEnabled(false);
-		if (mLimitFps) renderWindow.setFramerateLimit(60);
+		if (mLimitFps) renderWindow.setFramerateLimit(60);		
 		renderWindow.setSize(Vector2u(width * pixelMultiplier, height * pixelMultiplier));
 	}
 
@@ -36,6 +39,7 @@ namespace ssvs
 			runFps();
 		}
 	}
+	void GameWindow::stop() { running = false; }
 	float GameWindow::getFps() { return fps; }
 	
 	inline void GameWindow::runGame()
@@ -55,6 +59,6 @@ namespace ssvs
 		else frameTime = clock.restart().asSeconds() * 60.f;
 		
 		fps = 60.f / frameTime;
-		renderWindow.setTitle(toStr(fps)); // DEBUG
+		//renderWindow.setTitle(toStr(fps)); // DEBUG
 	}
 } /* namespace ssvs */
