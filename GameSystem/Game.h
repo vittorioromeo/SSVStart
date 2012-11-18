@@ -5,8 +5,11 @@
 #include <vector>
 #include <functional>
 #include <map>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
+using namespace sf;
 
 namespace ssvs
 {
@@ -14,13 +17,13 @@ namespace ssvs
 	
 	class Game
 	{
-		typedef std::function<void()> DrawFunc;
-		typedef std::function<void(float)> UpdateFunc;
-		typedef std::pair<int, DrawFunc> DrawFuncPair;
+		typedef function<void()> DrawFunc;
+		typedef function<void(float)> UpdateFunc;
+		typedef pair<int, DrawFunc> DrawFuncPair;
 		friend class GameWindow;
 
 		private:
-			GameWindow* gameWindowPtr { nullptr }; // not owned, just pointed to
+			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
 			vector<UpdateFunc> updateFuncs;
 			multimap<int, DrawFunc> drawFuncsMap;
 
