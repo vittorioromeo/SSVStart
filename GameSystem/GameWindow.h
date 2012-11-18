@@ -1,9 +1,9 @@
 #ifndef GAMEWINDOW_H_
 #define GAMEWINDOW_H_
 
-#include <SFML\System.hpp>
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 using namespace sf;
