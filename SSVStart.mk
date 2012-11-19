@@ -5,15 +5,15 @@
 ## Release
 ProjectName            :=SSVStart
 ConfigurationName      :=Release
-WorkspacePath          := "D:\Vee\Software\WIP\CL\WorkspaceOH\OH"
-ProjectPath            := "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\SSVStart"
+WorkspacePath          := "D:\Vee\Software\GitHub\OHWorkspace"
+ProjectPath            := "D:\Vee\Software\GitHub\OHWorkspace\SSVStart"
 IntermediateDirectory  :=./Release
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=11/18/12
+Date                   :=11/19/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -32,7 +32,7 @@ Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E 
-ObjectsFileList        :="D:\Vee\Software\WIP\CL\WorkspaceOH\OH\SSVStart\SSVStart.txt"
+ObjectsFileList        :="D:\Vee\Software\GitHub\OHWorkspace\SSVStart\SSVStart.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
@@ -76,8 +76,8 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects) > $(ObjectsFileList)
 	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
-	@$(MakeDirCommand) "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-release"
-	@echo rebuilt > "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-release\SSVStart"
+	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace\.build-release"
+	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVStart"
 
 $(IntermediateDirectory)/.d:
 	@$(MakeDirCommand) "./Release"
@@ -89,60 +89,60 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/GameSystem_Game$(ObjectSuffix): GameSystem/Game.cpp $(IntermediateDirectory)/GameSystem_Game$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/GameSystem/Game.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_Game$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/Game.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_Game$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/GameSystem_Game$(DependSuffix): GameSystem/Game.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameSystem_Game$(ObjectSuffix) -MF$(IntermediateDirectory)/GameSystem_Game$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/GameSystem/Game.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameSystem_Game$(ObjectSuffix) -MF$(IntermediateDirectory)/GameSystem_Game$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/Game.cpp"
 
 $(IntermediateDirectory)/GameSystem_Game$(PreprocessSuffix): GameSystem/Game.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_Game$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/GameSystem/Game.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_Game$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/Game.cpp"
 
 $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix): GameSystem/GameWindow.cpp $(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/GameSystem/GameWindow.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix): GameSystem/GameWindow.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) -MF$(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/GameSystem/GameWindow.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) -MF$(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp"
 
 $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix): GameSystem/GameWindow.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/GameSystem/GameWindow.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp"
 
 $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix): Timeline/Command.cpp $(IntermediateDirectory)/Timeline_Command$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Command.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Command.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timeline_Command$(DependSuffix): Timeline/Command.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Command$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Command.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Command$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Command.cpp"
 
 $(IntermediateDirectory)/Timeline_Command$(PreprocessSuffix): Timeline/Command.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Command$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Command.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Command$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Command.cpp"
 
 $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix): Timeline/Do.cpp $(IntermediateDirectory)/Timeline_Do$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Do.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Do.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timeline_Do$(DependSuffix): Timeline/Do.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Do$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Do.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Do$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Do.cpp"
 
 $(IntermediateDirectory)/Timeline_Do$(PreprocessSuffix): Timeline/Do.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Do$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Do.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Do$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Do.cpp"
 
 $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix): Timeline/Goto.cpp $(IntermediateDirectory)/Timeline_Goto$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Goto.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Goto.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timeline_Goto$(DependSuffix): Timeline/Goto.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Goto$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Goto.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Goto$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Goto.cpp"
 
 $(IntermediateDirectory)/Timeline_Goto$(PreprocessSuffix): Timeline/Goto.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Goto$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Goto.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Goto$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Goto.cpp"
 
 $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix): Timeline/Timeline.cpp $(IntermediateDirectory)/Timeline_Timeline$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Timeline.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Timeline.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timeline_Timeline$(DependSuffix): Timeline/Timeline.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Timeline$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Timeline.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Timeline$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Timeline.cpp"
 
 $(IntermediateDirectory)/Timeline_Timeline$(PreprocessSuffix): Timeline/Timeline.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Timeline$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Timeline.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Timeline$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Timeline.cpp"
 
 $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix): Timeline/Wait.cpp $(IntermediateDirectory)/Timeline_Wait$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Wait.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Wait.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timeline_Wait$(DependSuffix): Timeline/Wait.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Wait$(DependSuffix) -MM "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Wait.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Wait$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Wait.cpp"
 
 $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix): Timeline/Wait.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix) "D:/Vee/Software/WIP/CL/WorkspaceOH/OH/SSVStart/Timeline/Wait.cpp"
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Wait.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
@@ -173,6 +173,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
-	$(RM) "D:\Vee\Software\WIP\CL\WorkspaceOH\OH\.build-release\SSVStart"
+	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVStart"
 
 
