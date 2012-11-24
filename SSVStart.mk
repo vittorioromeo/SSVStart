@@ -37,7 +37,7 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=windres
-LinkOptions            :=  -shared
+LinkOptions            :=  -shared -g
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/WIP/SFMLMinGW/include 
 IncludePCH             := 
 RcIncludePath          := 
@@ -52,7 +52,7 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)"D:/Vee/Soft
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -O3 -pedantic -Wall -c -std=c++11 -Wextra $(Preprocessors)
+CXXFLAGS :=  -O3 -pedantic -Wall -c -std=c++11 -Wextra -g $(Preprocessors)
 CFLAGS   :=   $(Preprocessors)
 
 

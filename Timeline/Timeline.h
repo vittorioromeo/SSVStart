@@ -60,6 +60,7 @@ namespace ssvs
 			void reset();
 			void clear();
 			int getSize();
+			int getCurrentIndex();
 	};
 } /* namespace sses */
 #endif /* TIMELINE_H_ */

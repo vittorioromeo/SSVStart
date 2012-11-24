@@ -60,13 +60,15 @@ namespace ssvs
 
 	void Timeline::next()
 	{
+		if(currentCommandPtr == nullptr) return;
+		
 		auto iter = find(commandPtrs.begin(), commandPtrs.end(), currentCommandPtr);
 		if (iter == commandPtrs.end() - 1)
 		{
 			currentCommandPtr = nullptr; // no more commands
 			return;
 		}
-		else
+		else if (iter < commandPtrs.end() - 1 && iter >= commandPtrs.begin())
 		{
 			iter++;
 			currentCommandPtr = *iter;
@@ -111,8 +113,20 @@ namespace ssvs
 	}
 	void Timeline::clear()
 	{
+		currentCommandPtr = nullptr;
 		for (auto commandPtr : commandPtrs) delete commandPtr;
 		commandPtrs.clear();
+		finished = true;
 	}
 	int Timeline::getSize() { return commandPtrs.size(); }
+	int Timeline::getCurrentIndex()
+	{
+		int pos = find(commandPtrs.begin(), commandPtrs.end(), currentCommandPtr) - commandPtrs.begin();
+
+		if( pos < commandPtrs.size() )
+			return pos;
+
+		cout << "not found";
+		return -1;
+	}
 } /* namespace sses */
