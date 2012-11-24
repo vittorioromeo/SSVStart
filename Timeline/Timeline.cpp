@@ -37,7 +37,15 @@ namespace ssvs
 	}
 
 	bool Timeline::isFinished() { return finished; }
-	void Timeline::add(Command* mCommandPtr)
+
+	void Timeline::insert(int mIndex, Command* mCommandPtr)
+	{
+		mCommandPtr->timelinePtr = this;
+		mCommandPtr->initialize();
+		commandPtrs.insert(commandPtrs.begin() + mIndex, mCommandPtr);
+		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
+	}
+	void Timeline::push_back(Command* mCommandPtr)
 	{
 		mCommandPtr->timelinePtr = this;
 		mCommandPtr->initialize();
@@ -49,6 +57,7 @@ namespace ssvs
 		delFromVector<Command*>(commandPtrs, mCommandPtr);
 		delete mCommandPtr;
 	}
+
 	void Timeline::next()
 	{
 		auto iter = find(commandPtrs.begin(), commandPtrs.end(), currentCommandPtr);
@@ -105,4 +114,5 @@ namespace ssvs
 		for (auto commandPtr : commandPtrs) delete commandPtr;
 		commandPtrs.clear();
 	}
+	int Timeline::getSize() { return commandPtrs.size(); }
 } /* namespace sses */

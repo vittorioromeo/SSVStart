@@ -52,12 +52,14 @@ namespace ssvs
 			~Timeline();
 
 			bool isFinished();
-			void add(Command*);
+			void insert(int, Command*);
+			void push_back(Command*);
 			void del(Command*);
 			void update(float);
 			void jumpTo(int);
 			void reset();
 			void clear();
+			int getSize();
 	};
 } /* namespace sses */
 #endif /* TIMELINE_H_ */
