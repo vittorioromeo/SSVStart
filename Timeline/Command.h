@@ -29,15 +29,11 @@ namespace ssvs
 {
 	class Command
 	{
-		friend class Timeline;
-
-		protected:
+		public:
 			Timeline* timelinePtr;
-
 			virtual ~Command();
-			virtual void initialize();
 			virtual void update(float mFrameTime);
-			virtual void reset();
+			virtual void reset();		
 	};
 } /* namespace ssvs */
 #endif /* COMMAND_H_ */

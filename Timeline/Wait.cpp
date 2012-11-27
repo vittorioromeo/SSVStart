@@ -24,7 +24,7 @@
 
 namespace ssvs
 {
-	Wait::Wait(float mTime) : time(mTime), currentTime(mTime) { }
+	Wait::Wait(float mTime) : time{mTime}, currentTime{mTime} { }
 
 	void Wait::update(float mFrameTime)
 	{

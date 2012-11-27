@@ -32,19 +32,8 @@ using namespace std;
 
 namespace ssvs
 {
-	template<class T>
-	string toStr(const T &t)
-	{
-		ostringstream oss;
-		oss << t;
-		return string(oss.str());
-	}
-
-	template <class T>
-	void delFromVector(vector<T>& mVector, T mItem)
-	{
-		mVector.erase(remove(mVector.begin(), mVector.end(), mItem), mVector.end());
-	}
+	template<class T> string toStr(const T &t) { ostringstream oss; oss << t; return string(oss.str()); }
+	template<class T> void delFromVector(vector<T>& mVector, T mItem) { mVector.erase(remove(begin(mVector), end(mVector), mItem), end(mVector)); }
 }
 
 #endif /* UTILS_H_SSVS */

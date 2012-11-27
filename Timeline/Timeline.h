@@ -41,7 +41,6 @@ namespace ssvs
 			vector<Command*> commandPtrs; // owned
 			Command* currentCommandPtr{nullptr};
 
-			float timeNext{0};
 			bool ready{true};
 			bool finished{false};
 
@@ -50,9 +49,9 @@ namespace ssvs
 		public:
 			~Timeline();
 
-			void push_back(Command*);
-			void insert(int, Command*);			
-			void del(Command*);
+			void push_back(Command* mCommandPtr);
+			void insert(int mIndex, Command* mCommandPtr);			
+			void del(Command* mCommandPtr);
 			
 			void update(float mFrameTime);
 			void jumpTo(int mIndex);

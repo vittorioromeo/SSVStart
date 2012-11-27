@@ -36,14 +36,12 @@ namespace ssvs
 	void Timeline::push_back(Command* mCommandPtr)
 	{
 		mCommandPtr->timelinePtr = this;
-		mCommandPtr->initialize();
 		commandPtrs.push_back(mCommandPtr);
 		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
 	}
 	void Timeline::insert(int mIndex, Command* mCommandPtr)
 	{
 		mCommandPtr->timelinePtr = this;
-		mCommandPtr->initialize();
 		commandPtrs.insert(commandPtrs.begin() + mIndex, mCommandPtr);
 		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
 	}	
