@@ -39,28 +39,30 @@ namespace ssvs
 
 		private:
 			vector<Command*> commandPtrs; // owned
-			Command* currentCommandPtr { nullptr };
+			Command* currentCommandPtr{nullptr};
 
-			float timeNext { 0 };
-			bool ready { true };
-			bool finished { false };
+			float timeNext{0};
+			bool ready{true};
+			bool finished{false};
 
 			void next();
-			void step();
 
 		public:
 			~Timeline();
 
-			bool isFinished();
-			void insert(int, Command*);
 			void push_back(Command*);
+			void insert(int, Command*);			
 			void del(Command*);
-			void update(float);
-			void jumpTo(int);
+			
+			void update(float mFrameTime);
+			void jumpTo(int mIndex);
+
 			void reset();
 			void clear();
+
 			int getSize();
 			int getCurrentIndex();
+			bool getFinished();
 	};
 } /* namespace sses */
 #endif /* TIMELINE_H_ */

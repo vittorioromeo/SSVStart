@@ -31,20 +31,8 @@ using namespace std;
 
 namespace ssvs
 {
-	Timeline::~Timeline()
-	{
-		for (auto commandPtr : commandPtrs) delete commandPtr;
-	}
+	Timeline::~Timeline() { clear(); }
 
-	bool Timeline::isFinished() { return finished; }
-
-	void Timeline::insert(int mIndex, Command* mCommandPtr)
-	{
-		mCommandPtr->timelinePtr = this;
-		mCommandPtr->initialize();
-		commandPtrs.insert(commandPtrs.begin() + mIndex, mCommandPtr);
-		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
-	}
 	void Timeline::push_back(Command* mCommandPtr)
 	{
 		mCommandPtr->timelinePtr = this;
@@ -52,10 +40,52 @@ namespace ssvs
 		commandPtrs.push_back(mCommandPtr);
 		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
 	}
+	void Timeline::insert(int mIndex, Command* mCommandPtr)
+	{
+		mCommandPtr->timelinePtr = this;
+		mCommandPtr->initialize();
+		commandPtrs.insert(commandPtrs.begin() + mIndex, mCommandPtr);
+		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
+	}	
 	void Timeline::del(Command* mCommandPtr)
 	{
 		delFromVector<Command*>(commandPtrs, mCommandPtr);
 		delete mCommandPtr;
+	}
+
+	void Timeline::update(float mFrameTime)
+	{
+		if (finished) return;
+		ready = true;
+
+		do
+		{
+			if (currentCommandPtr == nullptr)
+			{
+				finished = true;
+				ready = false;
+				break;
+			}
+
+			currentCommandPtr->update(mFrameTime);
+		} while (ready);
+	}
+	void Timeline::jumpTo(int mTargetIndex) { currentCommandPtr = commandPtrs[mTargetIndex]; }
+
+	void Timeline::reset()
+	{
+		finished = false;
+		for (auto commandPtr : commandPtrs) commandPtr->reset();
+
+		if(!commandPtrs.empty()) currentCommandPtr = commandPtrs[0];
+		else currentCommandPtr = nullptr;
+	}
+	void Timeline::clear()
+	{
+		currentCommandPtr = nullptr;
+		for (auto commandPtr : commandPtrs) delete commandPtr;
+		commandPtrs.clear();
+		finished = true;
 	}
 
 	void Timeline::next()
@@ -74,57 +104,14 @@ namespace ssvs
 			currentCommandPtr = *iter;
 		}
 	}
-	void Timeline::step()
-	{
-		do
-		{
-			if (currentCommandPtr == nullptr)
-			{
-				finished = true;
-				ready = false;
-				break;
-			}
-
-			currentCommandPtr->update();
-		} while (ready);
-	}
-	void Timeline::update(float mFrameTime)
-	{
-		timeNext += mFrameTime;
-		if (timeNext < 1) return;
-
-		auto remainder = timeNext - floor(timeNext);
-
-		if (finished) return;
-		ready = true;
-
-		for (int i = 0; i < floor(timeNext); i++) step();
-
-		timeNext = remainder;
-	}
-	void Timeline::jumpTo(int mTargetIndex) { currentCommandPtr = commandPtrs[mTargetIndex]; }
-	void Timeline::reset()
-	{
-		finished = false;
-		for (auto commandPtr : commandPtrs) commandPtr->reset();
-
-		if(!commandPtrs.empty()) currentCommandPtr = commandPtrs[0];
-		else currentCommandPtr = nullptr;
-	}
-	void Timeline::clear()
-	{
-		currentCommandPtr = nullptr;
-		for (auto commandPtr : commandPtrs) delete commandPtr;
-		commandPtrs.clear();
-		finished = true;
-	}
+	
+	bool Timeline::getFinished() { return finished; }
 	int Timeline::getSize() { return commandPtrs.size(); }
 	int Timeline::getCurrentIndex()
 	{
 		int pos = find(commandPtrs.begin(), commandPtrs.end(), currentCommandPtr) - commandPtrs.begin();
 
-		if( pos < commandPtrs.size() )
-			return pos;
+		if((unsigned int)pos < commandPtrs.size()) return pos;
 
 		cout << "not found";
 		return -1;

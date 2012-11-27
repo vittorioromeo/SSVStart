@@ -26,11 +26,11 @@ namespace ssvs
 {
 	Wait::Wait(float mTime) : time(mTime), currentTime(mTime) { }
 
-	void Wait::update()
+	void Wait::update(float mFrameTime)
 	{
 		timelinePtr->ready = false;
 
-		currentTime--;
+		currentTime -= 1 * mFrameTime;
 		if (currentTime > 0) return;
 
 		timelinePtr->next();

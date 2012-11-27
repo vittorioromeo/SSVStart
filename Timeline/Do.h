@@ -36,10 +36,10 @@ namespace ssvs
 
 		protected:
 			Action action;
-			void update() override;
+			void update(float mFrameTime) override;
 
 		public:
-			Do(Action);
+			Do(Action mAction);
 	};
 } /* namespace sses */
 #endif /* DO_H_ */

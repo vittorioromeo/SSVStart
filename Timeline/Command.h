@@ -36,7 +36,7 @@ namespace ssvs
 
 			virtual ~Command();
 			virtual void initialize();
-			virtual void update();
+			virtual void update(float mFrameTime);
 			virtual void reset();
 	};
 } /* namespace ssvs */

@@ -34,7 +34,7 @@ namespace ssvs
 			int times;
 			int currentTimes;
 
-			void update() override;
+			void update(float mFrameTime) override;
 			void reset() override;
 
 		public:

@@ -32,7 +32,7 @@ namespace ssvs
 		protected:
 			float time;
 			float currentTime;
-			void update() override;
+			void update(float mFrameTime) override;
 			void reset() override;
 
 		public:

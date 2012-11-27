@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=11/24/12
+Date                   :=11/27/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -52,7 +52,7 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)"D:/Vee/Soft
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -O3 -pedantic -Wall -c -std=c++11 -Wextra -g $(Preprocessors)
+CXXFLAGS :=  -O3 -pedantic -Wall -c -std=c++11 -Wextra $(Preprocessors)
 CFLAGS   :=   $(Preprocessors)
 
 
