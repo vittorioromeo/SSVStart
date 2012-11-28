@@ -73,6 +73,7 @@ namespace ssvs
 	void Timeline::reset()
 	{
 		finished = false;
+		ready = true;
 		for (auto commandPtr : commandPtrs) commandPtr->reset();
 
 		if(!commandPtrs.empty()) currentCommandPtr = commandPtrs[0];

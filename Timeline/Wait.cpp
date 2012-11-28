@@ -21,6 +21,7 @@
  */
 
 #include "Wait.h"
+#include <cmath>
 
 namespace ssvs
 {
@@ -30,8 +31,8 @@ namespace ssvs
 	{
 		timelinePtr->ready = false;
 
-		currentTime -= 1 * mFrameTime;
-		if (currentTime > 0) return;
+		currentTime -= mFrameTime;
+		if (currentTime - mFrameTime > mFrameTime) return;
 
 		timelinePtr->next();
 		reset();
