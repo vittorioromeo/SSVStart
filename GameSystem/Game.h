@@ -51,7 +51,7 @@ namespace ssvs
 
 			Game(const Game&); // non construction-copyable
 			Game& operator=(const Game&); // non copyable
-			
+
 		public:
 			Game() = default;
 			void addUpdateFunc(UpdateFunc);

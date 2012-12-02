@@ -9,12 +9,12 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="SSVStart.h"/>
-    <File Name="Utils.h"/>
     <VirtualDirectory Name="GameSystem">
       <File Name="GameSystem/Game.cpp"/>
       <File Name="GameSystem/Game.h"/>
       <File Name="GameSystem/GameWindow.cpp"/>
       <File Name="GameSystem/GameWindow.h"/>
+      <File Name="GameSystem/GWProperties.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Timeline">
       <File Name="Timeline/Command.cpp"/>
@@ -27,6 +27,10 @@
       <File Name="Timeline/Timeline.h"/>
       <File Name="Timeline/Wait.cpp"/>
       <File Name="Timeline/Wait.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Utils">
+      <File Name="Utils/Utils.cpp"/>
+      <File Name="Utils/Utils.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="include"/>

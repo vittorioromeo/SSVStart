@@ -23,9 +23,12 @@
 #ifndef GAMEWINDOW_H_
 #define GAMEWINDOW_H_
 
+#include <string>
+#include <sstream>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SSVStart.h>
 
 using namespace std;
 using namespace sf;
@@ -38,11 +41,14 @@ namespace ssvs
 	{
 		private:
 			Game* gamePtr{nullptr}; // not owned, just pointed to
+			RenderWindow renderWindow;
 			Clock clock;
 			string title{""};
 			unsigned int width, height;
 			int pixelMultiplier;
-			bool isFullscreen;
+			bool fullscreen;
+			bool staticFrameTime{false};
+			float staticFrameTimeValue{1};
 			float frameTime{0};
 			float fps{0};
 			bool running{true};
@@ -56,24 +62,27 @@ namespace ssvs
 			inline void runFps();
 
 		public:
-			RenderWindow renderWindow;
-			bool isFrameTimeStatic{false};
-			float staticFrameTime{1};
-
 			GameWindow(string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
 
-			void setGame(Game*);
 			void run();
 			void stop();
-			float getFps();
-			bool isKeyPressed(Keyboard::Key mKey);
-			bool getFullscreen();
-			void setFullscreen(bool mFullscreen);
 			void recreateWindow();
+			void draw(Drawable& mDrawable);
+			void pollEvent(Event& mEvent);
 
-			void setSize(unsigned int mWidth, unsigned int mHeight);
+			// Properties
+			bool isKeyPressed(Keyboard::Key mKey);
+			float getFps();
 			unsigned int getWidth();
 			unsigned int getHeight();
+			bool getFullscreen();
+			void setGame(Game*);
+			void setSize(unsigned int mWidth, unsigned int mHeight);
+			void setFullscreen(bool mFullscreen);
+			void setStaticFrameTime(bool mEnabled);
+			void setVsync(bool mEnabled);
+			void setMouseCursorVisible(bool mEnabled);
+			void setStaticFrameTimeValue(float mValue);
 	};
 } /* namespace ssvs */
 #endif /* GAMEWINDOW_H_ */

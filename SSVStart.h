@@ -30,5 +30,6 @@
 #include "Timeline/Do.h"
 #include "Timeline/Wait.h"
 #include "Timeline/Goto.h"
+#include "Utils/Utils.h"
 
 #endif /* SSVSTART_H_ */
