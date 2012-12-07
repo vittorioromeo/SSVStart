@@ -25,8 +25,6 @@
 
 #include <vector>
 
-using namespace std;
-
 namespace ssvs
 {
 	class Command;
@@ -38,7 +36,7 @@ namespace ssvs
 		friend class Goto;
 
 		private:
-			vector<Command*> commandPtrs; // owned
+			std::vector<Command*> commandPtrs; // owned
 			Command* currentCommandPtr{nullptr};
 
 			bool ready{true};

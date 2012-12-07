@@ -30,26 +30,23 @@
 #include <SSVStart.h>
 #include <SFML/Graphics.hpp>
 
-using namespace std;
-using namespace sf;
-
 namespace ssvs
 {
-	template<class T> string toStr(const T &t) { ostringstream oss; oss << t; return string(oss.str()); }
-	template<class T> void delFromVector(vector<T>& mVector, T mItem) { mVector.erase(remove(begin(mVector), end(mVector), mItem), end(mVector)); }
-	template<class T> int getSign(T mValue) { if (mValue > 0) return 1; else return -1; }
-	template<class T> T clamp(const T& value, const T& low, const T& high) { return value < low ? low : (value > high ? high : value); }
-	template<class T> int countNewLines(T mValue) { int result{0}; for(auto c : mValue) if (c == '\n') result++; return result; }
-	template<class T> T toRadians(const T mValue) { return mValue / 57.3f; }
+	template<typename T> std::string toStr(const T &t) { std::ostringstream oss; oss << t; return std::string(oss.str()); }
+	template<typename T> void easyErase(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+	template<typename T> int getSign(T mValue) { if (mValue > 0) return 1; else return -1; }
+	template<typename T> T clamp(const T& value, const T& low, const T& high) { return value < low ? low : (value > high ? high : value); }
+	template<typename T> int countNewLines(T mValue) { int result{0}; for(auto c : mValue) if (c == '\n') result++; return result; }
+	template<typename T> T toRadians(const T mValue) { return mValue / 57.3f; }
 
 	int getRnd(int, int);
 	float getSaturated(float);
 	float getSmootherStep(float, float, float);
-	bool isPointInPolygon(std::vector<Vector2f*>, Vector2f);
+	bool isPointInPolygon(std::vector<sf::Vector2f*>, sf::Vector2f);
 
-	Vector2f getOrbit(const Vector2f&, const float, const float);
-	Vector2f getNormalized(const Vector2f);
-	void movePointTowardsCenter(Vector2f &mVector, const Vector2f mCenter, const float mSpeed);
+	sf::Vector2f getOrbit(const sf::Vector2f&, const float, const float);
+	sf::Vector2f getNormalized(const sf::Vector2f);
+	void movePointTowardsCenter(sf::Vector2f &mVector, const sf::Vector2f mCenter, const float mSpeed);
 
 	void clearAndResetTimeline(Timeline& mTimeline);
 }

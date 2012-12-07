@@ -30,24 +30,21 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-using namespace std;
-using namespace sf;
-
 namespace ssvs
 {
 	class GameWindow;
 	
 	class Game
 	{
-		typedef function<void()> DrawFunc;
-		typedef function<void(float)> UpdateFunc;
-		typedef pair<int, DrawFunc> DrawFuncPair;
+		typedef std::function<void()> DrawFunc;
+		typedef std::function<void(float)> UpdateFunc;
+		typedef std::pair<int, DrawFunc> DrawFuncPair;
 		friend class GameWindow;
 
 		private:
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
-			vector<UpdateFunc> updateFuncs;
-			multimap<int, DrawFunc> drawFuncsMap;
+			std::vector<UpdateFunc> updateFuncs;
+			std::multimap<int, DrawFunc> drawFuncsMap;
 
 			Game(const Game&); // non construction-copyable
 			Game& operator=(const Game&); // non copyable

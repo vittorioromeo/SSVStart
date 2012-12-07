@@ -47,7 +47,7 @@ namespace ssvs
 	}	
 	void Timeline::del(Command* mCommandPtr)
 	{
-		delFromVector<Command*>(commandPtrs, mCommandPtr);
+		easyErase<Command*>(commandPtrs, mCommandPtr);
 		delete mCommandPtr;
 	}
 

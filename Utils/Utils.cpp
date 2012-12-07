@@ -1,5 +1,8 @@
 #include "Utils.h"
 
+using namespace std;
+using namespace sf;
+
 namespace ssvs
 {
 	int getRnd(int min, int max)
@@ -16,24 +19,25 @@ namespace ssvs
 	}
 	bool isPointInPolygon(vector<Vector2f*> verts, Vector2f test)
 	{
-		int nvert = verts.size();
-		int i, j, c = 0;
-		for (i = 0, j = nvert-1; i < nvert; j = i++) {
-			if ( ((verts[i]->y>test.y) != (verts[j]->y>test.y)) &&
-					(test.x < (verts[j]->x-verts[i]->x) * (test.y-verts[i]->y) / (verts[j]->y-verts[i]->y) + verts[i]->x) )
+		size_t nvert{verts.size()};
+		size_t i, j;
+		bool c{0};
+		
+		for (i = 0, j = nvert-1; i < nvert; j = i++)
+			if (((verts[i]->y>test.y) != (verts[j]->y>test.y)) && (test.x < (verts[j]->x-verts[i]->x) * (test.y-verts[i]->y) / (verts[j]->y-verts[i]->y) + verts[i]->x))
 				c = !c;
-		}
+
 		return c;
 	}
 
 	Vector2f getOrbit(const Vector2f& mParent, const float mDegrees, const float mRadius)
 	{
-		return Vector2f{ mParent.x + cos(toRadians(mDegrees)) * mRadius, mParent.y + sin(toRadians(mDegrees)) * mRadius };
+		return Vector2f{mParent.x + cos(toRadians(mDegrees)) * mRadius, mParent.y + sin(toRadians(mDegrees)) * mRadius};
 	}
 	Vector2f getNormalized(const Vector2f mVector)
 	{
-		float length { std::sqrt((mVector.x * mVector.x) + (mVector.y * mVector.y)) };
-		return Vector2f{ mVector.x / length, mVector.y / length };
+		float length{std::sqrt((mVector.x * mVector.x) + (mVector.y * mVector.y))};
+		return Vector2f{mVector.x / length, mVector.y / length};
 	}
 	void movePointTowardsCenter(Vector2f &mVector, const Vector2f mCenter, const float mSpeed)
 	{

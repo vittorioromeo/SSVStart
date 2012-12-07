@@ -47,7 +47,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-pedantic;-Wall;-c -std=c++11" C_Options="-g" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-pedantic;-Wall;-std=c++11;-c" C_Options="-g" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="D:/Vee/Software/WIP/SFMLMinGW/include"/>
       </Compiler>
       <Linker Options="-shared" Required="yes">
@@ -91,10 +91,10 @@
     </Configuration>
     <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-O3;-pedantic;-Wall;-c;-std=c++11;-Wextra" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
-        <IncludePath Value="D:/Vee/Software/WIP/SFMLMinGW/include"/>
+        <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
       </Compiler>
       <Linker Options="-shared;-g" Required="yes">
-        <LibraryPath Value="&quot;D:/Vee/Software/WIP/SFMLMinGW/lib&quot;"/>
+        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/lib"/>
         <Library Value="sfml-system"/>
         <Library Value="sfml-window"/>
         <Library Value="sfml-audio"/>

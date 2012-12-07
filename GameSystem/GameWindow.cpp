@@ -23,6 +23,9 @@
 #include "GameWindow.h"
 #include "Game.h"
 
+using namespace std;
+using namespace sf;
+
 namespace ssvs
 {
 	GameWindow::GameWindow(string mTitle, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mLimitFps, bool mFullscreen) :
@@ -69,18 +72,20 @@ namespace ssvs
 	}
 	inline void GameWindow::runInput()
 	{
-		sf::Event event;
+		Event event;
 		renderWindow.pollEvent(event);
 
-		if(event.type == sf::Event::GainedFocus) hasFocus = true;
-		if(event.type == sf::Event::LostFocus) hasFocus = false;
-		if(event.type == sf::Event::Closed) running = false; // DEBUG
+		if(event.type == Event::GainedFocus) hasFocus = true;
+		if(event.type == Event::LostFocus) hasFocus = false;
+		if(event.type == Event::Closed) running = false;
 	}
 	inline void GameWindow::runFps()
 	{
 		if(staticFrameTime) frameTime = staticFrameTimeValue;
 		else frameTime = clock.restart().asSeconds() * 60.f;
-		
+
+		if (frameTime > 4) frameTime = 4;
+
 		fps = 60.f / frameTime;
 	}
 } /* namespace ssvs */

@@ -30,9 +30,6 @@
 #include <SFML/Graphics.hpp>
 #include <SSVStart.h>
 
-using namespace std;
-using namespace sf;
-
 namespace ssvs
 {
 	class Game;
@@ -41,9 +38,9 @@ namespace ssvs
 	{
 		private:
 			Game* gamePtr{nullptr}; // not owned, just pointed to
-			RenderWindow renderWindow;
-			Clock clock;
-			string title{""};
+			sf::RenderWindow renderWindow;
+			sf::Clock clock;
+			std::string title{""};
 			unsigned int width, height;
 			int pixelMultiplier;
 			bool fullscreen;
@@ -62,16 +59,16 @@ namespace ssvs
 			inline void runFps();
 
 		public:
-			GameWindow(string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
+			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
 
 			void run();
 			void stop();
 			void recreateWindow();
-			void draw(Drawable& mDrawable);
-			void pollEvent(Event& mEvent);
+			void draw(sf::Drawable& mDrawable);
+			void pollEvent(sf::Event& mEvent);
 
 			// Properties
-			bool isKeyPressed(Keyboard::Key mKey);
+			bool isKeyPressed(sf::Keyboard::Key mKey);
 			float getFps();
 			unsigned int getWidth();
 			unsigned int getHeight();

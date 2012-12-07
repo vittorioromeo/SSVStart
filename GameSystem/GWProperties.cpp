@@ -1,5 +1,7 @@
 #include "GameWindow.h"
 
+using namespace sf;
+
 namespace ssvs
 {
 	void GameWindow::setGame(Game* mGamePtr)
@@ -22,13 +24,13 @@ namespace ssvs
 		renderWindow.close();
 		recreateWindow();
 	}	
-	float GameWindow::getFps() { return fps; }
-	bool GameWindow::getFullscreen() { return fullscreen; }
-	unsigned int GameWindow::getWidth() { return width; }
-	unsigned int GameWindow::getHeight() { return height; }
-	bool GameWindow::isKeyPressed(Keyboard::Key mKey) { return hasFocus && Keyboard::isKeyPressed(mKey); }
-	void GameWindow::setStaticFrameTime(bool mEnabled) { staticFrameTime = mEnabled; }
-	void GameWindow::setVsync(bool mEnabled) { renderWindow.setVerticalSyncEnabled(mEnabled); }
-	void GameWindow::setMouseCursorVisible(bool mEnabled) { renderWindow.setMouseCursorVisible(mEnabled); }
-	void GameWindow::setStaticFrameTimeValue(float mValue) { staticFrameTimeValue = mValue; }
+	float GameWindow::getFps() 								{ return fps; }
+	bool GameWindow::getFullscreen() 						{ return fullscreen; }
+	unsigned int GameWindow::getWidth() 					{ return width; }
+	unsigned int GameWindow::getHeight() 					{ return height; }
+	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return hasFocus && Keyboard::isKeyPressed(mKey); }
+	void GameWindow::setStaticFrameTime(bool mEnabled) 		{ staticFrameTime = mEnabled; }
+	void GameWindow::setVsync(bool mEnabled)				{ renderWindow.setVerticalSyncEnabled(mEnabled); }
+	void GameWindow::setMouseCursorVisible(bool mEnabled) 	{ renderWindow.setMouseCursorVisible(mEnabled); }
+	void GameWindow::setStaticFrameTimeValue(float mValue) 	{ staticFrameTimeValue = mValue; }
 }

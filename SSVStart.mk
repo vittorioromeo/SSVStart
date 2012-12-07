@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=12/02/12
+Date                   :=12/07/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -38,12 +38,12 @@ MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=windres
 LinkOptions            :=  -shared -g
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/WIP/SFMLMinGW/include 
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/include 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := $(LibrarySwitch)sfml-system $(LibrarySwitch)sfml-window $(LibrarySwitch)sfml-audio $(LibrarySwitch)sfml-graphics 
 ArLibs                 :=  "sfml-system" "sfml-window" "sfml-audio" "sfml-graphics" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)"D:/Vee/Software/WIP/SFMLMinGW/lib" 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/lib 
 
 ##
 ## Common variables

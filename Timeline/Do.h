@@ -26,13 +26,11 @@
 #include "Command.h"
 #include <functional>
 
-using namespace std;
-
 namespace ssvs
 {
 	class Do: public Command
 	{
-		typedef function<void()> Action;
+		typedef std::function<void()> Action;
 
 		protected:
 			Action action;
