@@ -30,7 +30,7 @@ using namespace std;
 namespace ssvs
 {
 	Do::Do(Action mAction) : action{mAction} { }
-	void Do::update(float mFrameTime)
+	void Do::update(float)
 	{
 		action();
 		timelinePtr->next();		

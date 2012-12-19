@@ -25,6 +25,6 @@
 namespace ssvs
 {
 	Command::~Command() { }
-	void Command::update(float mFrameTime) { }
+	void Command::update(float) { }
 	void Command::reset() { }
 } /* namespace ssvs */

@@ -2,9 +2,9 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Release
+## Debug
 ProjectName            :=SSVStart
-ConfigurationName      :=Release
+ConfigurationName      :=Debug
 WorkspacePath          := "D:\Vee\Software\GitHub\OHWorkspace"
 ProjectPath            := "D:\Vee\Software\GitHub\OHWorkspace\SSVStart"
 IntermediateDirectory  :=./Release
@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=12/07/12
+Date                   :=12/17/12
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -37,13 +37,13 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=windres
-LinkOptions            :=  -shared -g
+LinkOptions            :=  -shared
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/include 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := $(LibrarySwitch)sfml-system $(LibrarySwitch)sfml-window $(LibrarySwitch)sfml-audio $(LibrarySwitch)sfml-graphics 
-ArLibs                 :=  "sfml-system" "sfml-window" "sfml-audio" "sfml-graphics" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/lib 
+Libs                   := $(LibrarySwitch)sfml-system-d $(LibrarySwitch)sfml-window-d $(LibrarySwitch)sfml-audio-d $(LibrarySwitch)sfml-graphics-d 
+ArLibs                 :=  "sfml-system-d" "sfml-window-d" "sfml-audio-d" "sfml-graphics-d" 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib 
 
 ##
 ## Common variables
@@ -52,8 +52,8 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)D:/Vee/Softw
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -O3 -pedantic -Wall -c -std=c++11 -Wextra $(Preprocessors)
-CFLAGS   :=   $(Preprocessors)
+CXXFLAGS :=  -g -pedantic -Wall -std=c++11 -c -O0 $(Preprocessors)
+CFLAGS   :=  -g $(Preprocessors)
 
 
 ##
@@ -76,8 +76,8 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects) > $(ObjectsFileList)
 	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
-	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace\.build-release"
-	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVStart"
+	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace\.build-debug"
+	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace\.build-debug\SSVStart"
 
 $(IntermediateDirectory)/.d:
 	@$(MakeDirCommand) "./Release"
@@ -195,6 +195,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
-	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVStart"
+	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-debug\SSVStart"
 
 

@@ -26,7 +26,7 @@ namespace ssvs
 {
 	Goto::Goto(int mTargetIndex, int mTimes = -1) : targetIndex{mTargetIndex}, times{mTimes}, currentTimes{mTimes} { }
 
-	void Goto::update(float mFrameTime)
+	void Goto::update(float)
 	{
 		if (currentTimes <= 0) timelinePtr->next();
 		else

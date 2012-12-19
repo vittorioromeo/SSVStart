@@ -47,15 +47,15 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-pedantic;-Wall;-std=c++11;-c" C_Options="-g" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
-        <IncludePath Value="D:/Vee/Software/WIP/SFMLMinGW/include"/>
+      <Compiler Options="-g;-pedantic;-Wall;-std=c++11;-c;-O0" C_Options="-g" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
       </Compiler>
       <Linker Options="-shared" Required="yes">
-        <LibraryPath Value="&quot;D:/Vee/Software/WIP/SFMLMinGW/lib&quot;"/>
-        <Library Value="sfml-system"/>
-        <Library Value="sfml-window"/>
-        <Library Value="sfml-audio"/>
-        <Library Value="sfml-graphics"/>
+        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib"/>
+        <Library Value="sfml-system-d"/>
+        <Library Value="sfml-window-d"/>
+        <Library Value="sfml-audio-d"/>
+        <Library Value="sfml-graphics-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName).dll" IntermediateDirectory="./Release" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
@@ -93,8 +93,8 @@
       <Compiler Options="-O3;-pedantic;-Wall;-c;-std=c++11;-Wextra" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
       </Compiler>
-      <Linker Options="-shared;-g" Required="yes">
-        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/lib"/>
+      <Linker Options="-shared" Required="yes">
+        <LibraryPath Value="D:\Vee\Software\GitHub\OHWorkspace\SFML\build2\lib"/>
         <Library Value="sfml-system"/>
         <Library Value="sfml-window"/>
         <Library Value="sfml-audio"/>
