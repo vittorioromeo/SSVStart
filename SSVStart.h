@@ -23,6 +23,7 @@
 #ifndef SSVSTART_H_
 #define SSVSTART_H_
 
+#include "Camera/Camera.h"
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/Game.h"
 #include "Timeline/Timeline.h"

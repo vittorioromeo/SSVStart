@@ -28,7 +28,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SSVStart.h>
+
 
 namespace ssvs
 {
@@ -64,10 +64,12 @@ namespace ssvs
 			void run();
 			void stop();
 			void recreateWindow();
+			void clear(sf::Color mColor);
 			void draw(sf::Drawable& mDrawable);
 			void pollEvent(sf::Event& mEvent);
 
 			// Properties
+			sf::RenderWindow& getRenderWindow();
 			bool isKeyPressed(sf::Keyboard::Key mKey);
 			float getFps();
 			unsigned int getWidth();
@@ -80,6 +82,7 @@ namespace ssvs
 			void setVsync(bool mEnabled);
 			void setMouseCursorVisible(bool mEnabled);
 			void setStaticFrameTimeValue(float mValue);
+			void setTitle(std::string mTitle);
 	};
 } /* namespace ssvs */
 #endif /* GAMEWINDOW_H_ */

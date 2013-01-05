@@ -1,4 +1,5 @@
 #include "GameWindow.h"
+#include "Game.h" 
 
 using namespace sf;
 
@@ -23,7 +24,8 @@ namespace ssvs
 
 		renderWindow.close();
 		recreateWindow();
-	}	
+	}
+	RenderWindow& GameWindow::getRenderWindow() 			{ return renderWindow; }
 	float GameWindow::getFps() 								{ return fps; }
 	bool GameWindow::getFullscreen() 						{ return fullscreen; }
 	unsigned int GameWindow::getWidth() 					{ return width; }
@@ -33,4 +35,5 @@ namespace ssvs
 	void GameWindow::setVsync(bool mEnabled)				{ renderWindow.setVerticalSyncEnabled(mEnabled); }
 	void GameWindow::setMouseCursorVisible(bool mEnabled) 	{ renderWindow.setMouseCursorVisible(mEnabled); }
 	void GameWindow::setStaticFrameTimeValue(float mValue) 	{ staticFrameTimeValue = mValue; }
+	void GameWindow::setTitle(std::string mTitle)			{ renderWindow.setTitle(mTitle); }
 }

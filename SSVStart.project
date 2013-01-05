@@ -32,10 +32,12 @@
       <File Name="Utils/Utils.cpp"/>
       <File Name="Utils/Utils.h"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Camera">
+      <File Name="Camera/Camera.h"/>
+      <File Name="Camera/Camera.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="include"/>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -133,4 +135,6 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

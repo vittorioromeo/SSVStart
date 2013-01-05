@@ -52,7 +52,7 @@ namespace ssvs
 		public:
 			Game() = default;
 			void addUpdateFunc(UpdateFunc);
-			void addDrawFunc(DrawFunc, int);
+			void addDrawFunc(DrawFunc, int mPriority = 0);
 			void update(float);
 			void draw();
 		};

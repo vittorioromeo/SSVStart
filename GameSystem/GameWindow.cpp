@@ -54,6 +54,7 @@ namespace ssvs
 	}
 	void GameWindow::stop() { running = false; }
 
+	void GameWindow::clear(Color mColor) { renderWindow.clear(mColor); }
 	void GameWindow::draw(Drawable& mDrawable) { renderWindow.draw(mDrawable); }
 	void GameWindow::pollEvent(Event& mEvent) { renderWindow.pollEvent(mEvent); }
 
