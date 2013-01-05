@@ -75,6 +75,7 @@ namespace ssvs
 			unsigned int getWidth();
 			unsigned int getHeight();
 			bool getFullscreen();
+			sf::Vector2f getMousePosition();
 			void setGame(Game*);
 			void setSize(unsigned int mWidth, unsigned int mHeight);
 			void setFullscreen(bool mFullscreen);
