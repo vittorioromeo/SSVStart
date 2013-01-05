@@ -32,12 +32,12 @@
 
 namespace ssvs
 {
-	class Game;
+	class GameState;
 	
 	class GameWindow
 	{
 		private:
-			Game* gamePtr{nullptr}; // not owned, just pointed to
+			GameState* gamePtr{nullptr}; // not owned, just pointed to
 			sf::RenderWindow renderWindow;
 			sf::Clock clock;
 			std::string title{""};
@@ -76,7 +76,7 @@ namespace ssvs
 			unsigned int getHeight();
 			bool getFullscreen();
 			sf::Vector2f getMousePosition();
-			void setGame(Game*);
+			void setGame(GameState*);
 			void setSize(unsigned int mWidth, unsigned int mHeight);
 			void setFullscreen(bool mFullscreen);
 			void setStaticFrameTime(bool mEnabled);

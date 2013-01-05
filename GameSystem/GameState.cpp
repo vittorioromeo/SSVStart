@@ -20,41 +20,15 @@
  * SOFTWARE.
  */
 
-#ifndef GAME_H_
-#define GAME_H_
-
-#include <memory>
-#include <vector>
-#include <functional>
-#include <map>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
+#include "GameState.h"
+#include "GameWindow.h"
+#include <algorithm>
 
 namespace ssvs
 {
-	class GameWindow;
-	
-	class Game
-	{
-		typedef std::function<void()> DrawFunc;
-		typedef std::function<void(float)> UpdateFunc;
-		typedef std::pair<int, DrawFunc> DrawFuncPair;
-		friend class GameWindow;
+	void GameState::addUpdateFunc(UpdateFunc mUpdateFunc) { updateFuncs.push_back(mUpdateFunc); }
+	void GameState::addDrawFunc(DrawFunc mDrawFunc, int mPriority) { drawFuncsMap.insert(DrawFuncPair(mPriority, mDrawFunc)); }
 
-		private:
-			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
-			std::vector<UpdateFunc> updateFuncs;
-			std::multimap<int, DrawFunc> drawFuncsMap;
-
-			Game(const Game&); // non construction-copyable
-			Game& operator=(const Game&); // non copyable
-
-		public:
-			Game() = default;
-			void addUpdateFunc(UpdateFunc);
-			void addDrawFunc(DrawFunc, int mPriority = 0);
-			void update(float);
-			void draw();
-		};
-	} /* namespace ssvs */
-#endif /* GAME_H_ */
+	void GameState::update(float mFrameTime) { for (auto& updateFunc : updateFuncs) updateFunc(mFrameTime); }
+	void GameState::draw() { for (auto& drawFuncPair : drawFuncsMap) drawFuncPair.second(); }
+} /* namespace ssvs */

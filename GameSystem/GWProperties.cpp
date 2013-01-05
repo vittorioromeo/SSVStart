@@ -1,11 +1,11 @@
 #include "GameWindow.h"
-#include "Game.h" 
+#include "GameState.h"
 
 using namespace sf;
 
 namespace ssvs
 {
-	void GameWindow::setGame(Game* mGamePtr)
+	void GameWindow::setGame(GameState* mGamePtr)
 	{
 		gamePtr = mGamePtr;
 		mGamePtr->gameWindowPtr = this;

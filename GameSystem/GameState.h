@@ -20,17 +20,41 @@
  * SOFTWARE.
  */
 
-#ifndef SSVSTART_H_
-#define SSVSTART_H_
+#ifndef GAME_H_
+#define GAME_H_
 
-#include "Camera/Camera.h"
-#include "GameSystem/GameWindow.h"
-#include "GameSystem/GameState.h"
-#include "Timeline/Timeline.h"
-#include "Timeline/Command.h"
-#include "Timeline/Do.h"
-#include "Timeline/Wait.h"
-#include "Timeline/Goto.h"
-#include "Utils/Utils.h"
+#include <memory>
+#include <vector>
+#include <functional>
+#include <map>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
-#endif /* SSVSTART_H_ */
+namespace ssvs
+{
+	class GameWindow;
+	
+	class GameState
+	{
+		typedef std::function<void()> DrawFunc;
+		typedef std::function<void(float)> UpdateFunc;
+		typedef std::pair<int, DrawFunc> DrawFuncPair;
+		friend class GameWindow;
+
+		private:
+			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
+			std::vector<UpdateFunc> updateFuncs;
+			std::multimap<int, DrawFunc> drawFuncsMap;
+
+			GameState(const GameState&); // non construction-copyable
+			GameState& operator=(const GameState&); // non copyable
+
+		public:
+			GameState() = default;
+			void addUpdateFunc(UpdateFunc);
+			void addDrawFunc(DrawFunc, int mPriority = 0);
+			void update(float);
+			void draw();
+		};
+	} /* namespace ssvs */
+#endif /* GAME_H_ */

@@ -21,7 +21,7 @@
  */
 
 #include "GameWindow.h"
-#include "Game.h"
+#include "GameState.h"
 
 using namespace std;
 using namespace sf;
@@ -34,7 +34,7 @@ namespace ssvs
 		recreateWindow();
 
 		renderWindow.setVerticalSyncEnabled(false);
-		if (mLimitFps) renderWindow.setFramerateLimit(60);		
+		if (mLimitFps) renderWindow.setFramerateLimit(60);
 	}
 
 	void GameWindow::run()
@@ -43,12 +43,12 @@ namespace ssvs
 		{
 			renderWindow.setActive(true);
 			renderWindow.clear();
-			
+
 			runInput();
 			runGame();
-			
+
 			renderWindow.display();
-			
+
 			runFps();
 		}
 	}
@@ -65,7 +65,7 @@ namespace ssvs
 
 		renderWindow.setSize(Vector2u(width * pixelMultiplier, height * pixelMultiplier));
 	}
-	
+
 	inline void GameWindow::runGame()
 	{
 		gamePtr->update(frameTime);
