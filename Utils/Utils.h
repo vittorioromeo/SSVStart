@@ -27,11 +27,15 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
-#include <SSVStart.h>
+#include "Timeline/Timeline.h"
 #include <SFML/Graphics.hpp>
 
 namespace ssvs
 {
+	// Randomness
+	int getRnd(int, int);
+
+
 	template<typename T> std::string toStr(const T &t) { std::ostringstream oss; oss << t; return std::string(oss.str()); }
 	template<typename T> void easyErase(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
 	template<typename T> int getSign(T mValue) { if (mValue > 0) return 1; else return -1; }
@@ -39,7 +43,7 @@ namespace ssvs
 	template<typename T> int countNewLines(T mValue) { int result{0}; for(auto c : mValue) if (c == '\n') result++; return result; }
 	template<typename T> T toRadians(const T mValue) { return mValue / 57.3f; }
 
-	int getRnd(int, int);
+
 	float getSaturated(float);
 	float getSmootherStep(float, float, float);
 	bool isPointInPolygon(std::vector<sf::Vector2f*>, sf::Vector2f);

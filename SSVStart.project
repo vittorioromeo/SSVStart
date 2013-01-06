@@ -36,6 +36,10 @@
       <File Name="Camera/Camera.h"/>
       <File Name="Camera/Camera.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Log">
+      <File Name="Log/Log.h"/>
+      <File Name="Log/Log.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="include"/>
   <Settings Type="Dynamic Library">

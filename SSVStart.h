@@ -26,6 +26,7 @@
 #include "Camera/Camera.h"
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/GameState.h"
+#include "Log/Log.h"
 #include "Timeline/Timeline.h"
 #include "Timeline/Command.h"
 #include "Timeline/Do.h"

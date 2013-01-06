@@ -77,8 +77,8 @@ namespace ssvs
 		renderWindow.pollEvent(event);
 
 		if(event.type == Event::GainedFocus) hasFocus = true;
-		if(event.type == Event::LostFocus) hasFocus = false;
-		if(event.type == Event::Closed) running = false;
+		else if(event.type == Event::LostFocus) hasFocus = false;
+		else if(event.type == Event::Closed) running = false;
 	}
 	inline void GameWindow::runFps()
 	{

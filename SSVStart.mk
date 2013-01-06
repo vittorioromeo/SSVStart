@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=01/05/13
+Date                   :=01/06/13
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -64,7 +64,7 @@ WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
 Objects=$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	
+	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) 
 
 ##
 ## Main Build Targets 
@@ -169,6 +169,14 @@ $(IntermediateDirectory)/Camera_Camera$(DependSuffix): Camera/Camera.cpp
 $(IntermediateDirectory)/Camera_Camera$(PreprocessSuffix): Camera/Camera.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Camera_Camera$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Camera/Camera.cpp"
 
+$(IntermediateDirectory)/Log_Log$(ObjectSuffix): Log/Log.cpp $(IntermediateDirectory)/Log_Log$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Log/Log.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Log_Log$(DependSuffix): Log/Log.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Log_Log$(ObjectSuffix) -MF$(IntermediateDirectory)/Log_Log$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Log/Log.cpp"
+
+$(IntermediateDirectory)/Log_Log$(PreprocessSuffix): Log/Log.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Log_Log$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Log/Log.cpp"
+
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
 ##
@@ -205,6 +213,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Camera_Camera$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Camera_Camera$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Log_Log$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Log_Log$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Log_Log$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
 	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVStart"

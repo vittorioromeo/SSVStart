@@ -19,14 +19,14 @@ namespace ssvs
 
 			void apply();
 			void unapply();
-			sf::Vector2f getMousePosition();
-			sf::Vector2f getConvertedCoords(int mX, int mY);
 			void resize(float mXOffset, float mYOffset, float mWidth, float mHeight);
 			bool isInView(sf::Vector2f mPosition);
 			void move(sf::Vector2f mVector);
 			void zoom(float mFactor);
 			void centerOn(sf::Vector2f mPosition);
 			void rotate(float mAngle);
+			sf::Vector2f getMousePosition();
+			sf::Vector2f getConvertedCoords(int mX, int mY);
 	};
 }
 

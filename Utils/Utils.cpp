@@ -11,6 +11,8 @@ namespace ssvs
 	   int that = min + static_cast<int>( x * (max - min) );
 	   return that;
 	}
+	
+	
 	float getSaturated(float x) { return std::max(0.0f, std::min(1.0f, x)); }
 	float getSmootherStep(float edge0, float edge1, float x)
 	{

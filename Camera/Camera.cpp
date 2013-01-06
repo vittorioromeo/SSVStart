@@ -8,12 +8,6 @@ namespace ssvs
 
 	void Camera::apply() { renderWindow.setView(view); }
 	void Camera::unapply() { renderWindow.setView(renderWindow.getDefaultView()); }
-	Vector2f Camera::getMousePosition()
-	{
-		Vector2i mPos{Mouse::getPosition(renderWindow)};
-		return renderWindow.mapPixelToCoords({mPos.x, mPos.y}, view);
-	}
-	Vector2f Camera::getConvertedCoords(int mX, int mY) { return renderWindow.mapPixelToCoords({mX, mY}, view); }
 	void Camera::resize(float mXOffset, float mYOffset, float mWidth, float mHeight)
 	{
 		auto size = renderWindow.getSize();
@@ -29,4 +23,10 @@ namespace ssvs
 	void Camera::zoom(float mFactor) 			{ view.zoom(mFactor); }
 	void Camera::centerOn(Vector2f mPosition) 	{ view.setCenter(mPosition); }
 	void Camera::rotate(float mAngle)			{ view.rotate(mAngle); }
+	Vector2f Camera::getMousePosition()
+	{
+		Vector2i mPos{Mouse::getPosition(renderWindow)};
+		return renderWindow.mapPixelToCoords({mPos.x, mPos.y}, view);
+	}
+	Vector2f Camera::getConvertedCoords(int mX, int mY) { return renderWindow.mapPixelToCoords({mX, mY}, view); }
 }
