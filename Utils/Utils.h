@@ -23,6 +23,7 @@
 #ifndef UTILS_H_SSVS
 #define UTILS_H_SSVS
 
+#include <math.h>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -32,17 +33,20 @@
 
 namespace ssvs
 {
-	// Randomness
-	int getRnd(int, int);
-
-
 	template<typename T> std::string toStr(const T &t) { std::ostringstream oss; oss << t; return std::string(oss.str()); }
-	template<typename T> void easyErase(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
-	template<typename T> int getSign(T mValue) { if (mValue > 0) return 1; else return -1; }
-	template<typename T> T clamp(const T& value, const T& low, const T& high) { return value < low ? low : (value > high ? high : value); }
+	template<typename T> void eraseFromVector(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+	template<typename T> constexpr int getSign(T mValue) { return mValue > 0 ? 1 : -1; }
+	template<typename T> constexpr T clamp(const T& mValue, const T& mLow, const T& mHigh) { return mValue < mLow ? mLow : (mValue > mHigh ? mHigh : mValue); }
 	template<typename T> int countNewLines(T mValue) { int result{0}; for(auto c : mValue) if (c == '\n') result++; return result; }
-	template<typename T> T toRadians(const T mValue) { return mValue / 57.3f; }
 
+	// Angles
+	template<typename T> constexpr T toRadians(const T mValue) { return mValue / 57.3f; }
+	template<typename T> constexpr T toDegrees(const T mValue) { return mValue * 57.3f; }
+	template<typename T> T wrapRadians(const T mValue) { T result = fmod(mValue, 3.14f); if (result < 0) result += 3.14f; return result; }
+	template<typename T> T wrapDegrees(const T mValue) { T result = fmod(mValue, 360.f); if (result < 0) result += 360.f; return result; }
+
+	// Random
+	int getRnd(int, int);
 
 	float getSaturated(float);
 	float getSmootherStep(float, float, float);
