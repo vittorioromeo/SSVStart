@@ -60,10 +60,10 @@ namespace ssvs
 
 	void GameWindow::recreateWindow()
 	{
-		if(fullscreen) renderWindow.create(VideoMode{width, height}, title, Style::Fullscreen);
-		else renderWindow.create(VideoMode{width, height}, title, Style::Default);
+		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen);
+		else renderWindow.create({width, height}, title, Style::Default);
 
-		renderWindow.setSize(Vector2u(width * pixelMultiplier, height * pixelMultiplier));
+		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
 	}
 
 	inline void GameWindow::runGame()
