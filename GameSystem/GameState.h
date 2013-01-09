@@ -51,10 +51,14 @@ namespace ssvs
 
 		public:
 			GameState() = default;
-			void addUpdateFunc(UpdateFunc);
-			void addDrawFunc(DrawFunc, int mPriority = 0);
+
+			// Main
 			void update(float);
 			void draw();
+
+			// Function addition
+			void addUpdateFunc(UpdateFunc);
+			void addDrawFunc(DrawFunc, int mPriority = 0);
 		};
 	} /* namespace ssvs */
 #endif /* GAME_H_ */

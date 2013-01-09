@@ -23,15 +23,24 @@
 #ifndef SSVSTART_H_
 #define SSVSTART_H_
 
+// Camera
 #include "Camera/Camera.h"
+
+// GameSystem
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/GameState.h"
+
+// Log
 #include "Log/Log.h"
+
+// Timeline
 #include "Timeline/Timeline.h"
 #include "Timeline/Command.h"
 #include "Timeline/Do.h"
 #include "Timeline/Wait.h"
 #include "Timeline/Goto.h"
+
+// Utils
 #include "Utils/Utils.h"
 
 #endif /* SSVSTART_H_ */
