@@ -46,8 +46,8 @@ namespace ssvs
 			std::vector<UpdateFunc> updateFuncs;
 			std::multimap<int, DrawFunc> drawFuncsMap;
 
-			GameState(const GameState&); // non construction-copyable
-			GameState& operator=(const GameState&); // non copyable
+			GameState(const GameState&) = delete; // non construction-copyable
+			GameState& operator=(const GameState&) = delete; // non copyable
 
 		public:
 			GameState() = default;

@@ -32,7 +32,6 @@ namespace ssvs
 			title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}
 	{
 		recreateWindow();
-
 		renderWindow.setVerticalSyncEnabled(false);
 		if (mLimitFps) renderWindow.setFramerateLimit(60);
 	}
@@ -43,12 +42,8 @@ namespace ssvs
 		{
 			renderWindow.setActive(true);
 			renderWindow.clear();
-
-			runInput();
-			runGame();
-
+			runInput(); runGame();
 			renderWindow.display();
-
 			runFps();
 		}
 	}
@@ -62,19 +57,13 @@ namespace ssvs
 	{
 		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen);
 		else renderWindow.create({width, height}, title, Style::Default);
-
 		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
 	}
 
-	inline void GameWindow::runGame()
-	{
-		gamePtr->update(frameTime);
-		gamePtr->draw();
-	}
+	inline void GameWindow::runGame() { gamePtr->update(frameTime); gamePtr->draw(); }
 	inline void GameWindow::runInput()
 	{
-		Event event;
-		renderWindow.pollEvent(event);
+		Event event; renderWindow.pollEvent(event);
 
 		if(event.type == Event::GainedFocus) hasFocus = true;
 		else if(event.type == Event::LostFocus) hasFocus = false;
@@ -85,8 +74,10 @@ namespace ssvs
 		if(staticFrameTime) frameTime = staticFrameTimeValue;
 		else frameTime = clock.restart().asSeconds() * 60.f;
 
-		if (frameTime > 4) frameTime = 4;
-
+		if (frameTime > frameTimeLimit) frameTime = frameTimeLimit;
 		fps = 60.f / frameTime;
 	}
+
+	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return hasFocus && Keyboard::isKeyPressed(mKey); }
+	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return hasFocus && Mouse::isButtonPressed(mButton); }
 } /* namespace ssvs */
