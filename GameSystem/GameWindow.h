@@ -61,6 +61,7 @@ namespace ssvs
 		public:
 			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
 
+			// Main methods
 			void run();
 			void stop();
 			void recreateWindow();
@@ -71,6 +72,7 @@ namespace ssvs
 			// Properties
 			sf::RenderWindow& getRenderWindow();
 			bool isKeyPressed(sf::Keyboard::Key mKey);
+			bool isButtonPressed(sf::Mouse::Button mButton);
 			float getFps();
 			unsigned int getWidth();
 			unsigned int getHeight();

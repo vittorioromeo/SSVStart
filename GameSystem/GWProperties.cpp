@@ -32,6 +32,7 @@ namespace ssvs
 	unsigned int GameWindow::getHeight() 					{ return height; }
 	sf::Vector2f GameWindow::getMousePosition()				{ return renderWindow.mapPixelToCoords(Mouse::getPosition(renderWindow)); }
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return hasFocus && Keyboard::isKeyPressed(mKey); }
+	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return hasFocus && Mouse::isButtonPressed(mButton); }
 	void GameWindow::setStaticFrameTime(bool mEnabled) 		{ staticFrameTime = mEnabled; }
 	void GameWindow::setVsync(bool mEnabled)				{ renderWindow.setVerticalSyncEnabled(mEnabled); }
 	void GameWindow::setMouseCursorVisible(bool mEnabled) 	{ renderWindow.setMouseCursorVisible(mEnabled); }
