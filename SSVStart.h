@@ -23,8 +23,14 @@
 #ifndef SSVSTART_H_
 #define SSVSTART_H_
 
+// Assets
+#include "Assets/Assets.h"
+
 // Camera
 #include "Camera/Camera.h"
+
+// FileSystem
+#include "FileSystem/FileSystem.h"
 
 // GameSystem
 #include "GameSystem/GameWindow.h"

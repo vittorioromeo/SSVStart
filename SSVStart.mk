@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=01/09/13
+Date                   :=01/10/13
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -63,8 +63,8 @@ CodeLiteDir:=c:\Program Files (x86)\CodeLite
 WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
-Objects=$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) 
+Objects=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
+	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
 
 ##
 ## Main Build Targets 
@@ -89,14 +89,6 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix): GameSystem/GameWindow.cpp $(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix): GameSystem/GameWindow.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) -MF$(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp"
-
-$(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix): GameSystem/GameWindow.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp"
-
 $(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix): GameSystem/GWProperties.cpp $(IntermediateDirectory)/GameSystem_GWProperties$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GWProperties.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/GameSystem_GWProperties$(DependSuffix): GameSystem/GWProperties.cpp
@@ -112,6 +104,14 @@ $(IntermediateDirectory)/GameSystem_GameState$(DependSuffix): GameSystem/GameSta
 
 $(IntermediateDirectory)/GameSystem_GameState$(PreprocessSuffix): GameSystem/GameState.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_GameState$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameState.cpp"
+
+$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix): GameSystem/GameWindow.cpp $(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix): GameSystem/GameWindow.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) -MF$(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp"
+
+$(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix): GameSystem/GameWindow.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/GameSystem/GameWindow.cpp"
 
 $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix): Timeline/Command.cpp $(IntermediateDirectory)/Timeline_Command$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Command.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IncludePath)
@@ -177,21 +177,37 @@ $(IntermediateDirectory)/Log_Log$(DependSuffix): Log/Log.cpp
 $(IntermediateDirectory)/Log_Log$(PreprocessSuffix): Log/Log.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Log_Log$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Log/Log.cpp"
 
+$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix): Assets/Assets.cpp $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/Assets.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Assets_Assets$(DependSuffix): Assets/Assets.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) -MF$(IntermediateDirectory)/Assets_Assets$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/Assets.cpp"
+
+$(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix): Assets/Assets.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/Assets.cpp"
+
+$(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix): FileSystem/FileSystem.cpp $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/FileSystem/FileSystem.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix): FileSystem/FileSystem.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) -MF$(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix) -MM "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/FileSystem/FileSystem.cpp"
+
+$(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix): FileSystem/FileSystem.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/FileSystem/FileSystem.cpp"
+
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
 ##
 ## Clean
 ##
 clean:
-	$(RM) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/GameSystem_GWProperties$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/GameSystem_GWProperties$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/GameSystem_GameState$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/GameSystem_GameState$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/GameSystem_GameWindow$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/GameSystem_GameWindow$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Command$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Command$(PreprocessSuffix)
@@ -216,6 +232,12 @@ clean:
 	$(RM) $(IntermediateDirectory)/Log_Log$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Log_Log$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Log_Log$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
 	$(RM) "D:\Vee\Software\GitHub\OHWorkspace\.build-release\SSVStart"

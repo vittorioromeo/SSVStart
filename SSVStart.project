@@ -10,11 +10,11 @@
   <VirtualDirectory Name="src">
     <File Name="SSVStart.h"/>
     <VirtualDirectory Name="GameSystem">
-      <File Name="GameSystem/GameWindow.cpp"/>
       <File Name="GameSystem/GameWindow.h"/>
       <File Name="GameSystem/GWProperties.cpp"/>
       <File Name="GameSystem/GameState.h"/>
       <File Name="GameSystem/GameState.cpp"/>
+      <File Name="GameSystem/GameWindow.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Timeline">
       <File Name="Timeline/Command.cpp"/>
@@ -39,6 +39,14 @@
     <VirtualDirectory Name="Log">
       <File Name="Log/Log.h"/>
       <File Name="Log/Log.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Assets">
+      <File Name="Assets/Assets.h"/>
+      <File Name="Assets/Assets.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="FileSystem">
+      <File Name="FileSystem/FileSystem.cpp"/>
+      <File Name="FileSystem/FileSystem.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="include"/>

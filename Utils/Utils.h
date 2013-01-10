@@ -33,11 +33,29 @@
 
 namespace ssvs
 {
-	template<typename T> std::string toStr(const T &t) { std::ostringstream oss; oss << t; return std::string(oss.str()); }
+	// std::string
+	template<typename T> std::string toStr(const T &mString) { std::ostringstream oss; oss << mString; return std::string(oss.str()); }
+	int countNewLines(const std::string mString);
+	bool replace(std::string& mString, const std::string& mFrom, const std::string& mTo);
+	bool endsWith(const std::string &mString, const std::string &mEnding);
+	std::string toLower(const std::string &mString);
+
+	// std::vector
 	template<typename T> void eraseFromVector(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+
+	// std::map
+	template<typename K, typename V>std::vector<K> getKeys(std::map<K, V> mMap)
+	{
+		std::vector<K> result;
+		for(auto itr = mMap.begin(); itr != mMap.end(); ++itr) result.push_back(itr->first);
+		return result;
+	}
+
+	// Maths
 	template<typename T> constexpr int getSign(T mValue) { return mValue > 0 ? 1 : -1; }
 	template<typename T> constexpr T clamp(const T& mValue, const T& mLow, const T& mHigh) { return mValue < mLow ? mLow : (mValue > mHigh ? mHigh : mValue); }
-	template<typename T> int countNewLines(T mValue) { int result{0}; for(auto c : mValue) if (c == '\n') result++; return result; }
+	float getSaturated(float);
+	float getSmootherStep(float, float, float);
 
 	// Angles
 	template<typename T> constexpr T toRadians(const T mValue) { return mValue / 57.3f; }
@@ -52,14 +70,15 @@ namespace ssvs
 	// Random
 	int getRnd(int, int);
 
-	float getSaturated(float);
-	float getSmootherStep(float, float, float);
+	// Collision
 	bool isPointInPolygon(std::vector<sf::Vector2f*>, sf::Vector2f);
 
+	// Vectors
 	sf::Vector2f getOrbit(const sf::Vector2f&, const float, const float);
 	sf::Vector2f getNormalized(const sf::Vector2f);
 	void movePointTowardsCenter(sf::Vector2f &mVector, const sf::Vector2f mCenter, const float mSpeed);
 
+	// Timelines
 	void clearAndResetTimeline(Timeline& mTimeline);
 }
 
