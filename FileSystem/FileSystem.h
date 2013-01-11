@@ -19,7 +19,7 @@ namespace ssvs
 		bool isFolder(const std::string& mPath);
 		bool isRootOrParent(const std::string& mPath);
 		std::string getNormalizedPath(const std::string& mPath);
-		std::string getFileNameFromFilePath(const std::string& mFilePath, const std::string& mPrefix, const std::string& mSuffix);
+		std::string getNameFromPath(const std::string& mPath, const std::string& mPrefix, const std::string& mSuffix);		
 		
 		// Traversing
 		void traverse(const std::string& mPath, std::function<void(std::string, std::string)> mFunction);

@@ -25,9 +25,9 @@ namespace ssvs
 
 			return result;
 		}
-		string getFileNameFromFilePath(const string& mFilePath, const string& mPrefix, const string& mSuffix)
+		string getNameFromPath(const string& mPath, const string& mPrefix, const string& mSuffix)
 		{
-			return mFilePath.substr(mPrefix.length(), mFilePath.length() - mPrefix.length() - mSuffix.length());
+			return mPath.substr(mPrefix.length(), mPath.length() - mPrefix.length() - mSuffix.length());
 		}
 
 		void traverse(const string& mPath, function<void(string, string)> mFunction)
