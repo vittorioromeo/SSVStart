@@ -28,6 +28,7 @@
 #include <sstream>
 
 using namespace std;
+using namespace ssvs::Utils;
 
 namespace ssvs
 {

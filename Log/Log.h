@@ -17,7 +17,7 @@ namespace ssvs
 		std::ostringstream entryStream;
 
 		if(mTitle != "") entryStream << "[" << mTitle << "] ";
-		entryStream << toStr(mValue) << std::endl;
+		entryStream << Utils::toStr(mValue) << std::endl;
 
 		std::cout << entryStream.str();
 		getLogEntries().push_back(entryStream.str());

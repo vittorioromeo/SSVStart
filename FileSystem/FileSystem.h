@@ -23,18 +23,22 @@ namespace ssvs
 		
 		// Traversing
 		void traverse(const std::string& mPath, std::function<void(std::string, std::string)> mFunction);
-
-		// Lists (they do not recurse and return a vector)
-		std::vector<std::string> listFiles(const std::string& mPath);
-		std::vector<std::string> listFilesByExtension(const std::string& mPath, const std::string& mExtension);
-		std::vector<std::string> listFolders(const std::string& mPath);
-		std::vector<std::string> listAll(const std::string& mPath);
-
-		// Fills (they recurse and fill an existing vector)
+		
+		// Fills (they fill an existing vector)
 		void recursiveFillFiles(std::vector<std::string>& mResult, const std::string& mPath);
 		void recursiveFillFilesByExtension(std::vector<std::string>& mResult, const std::string& mPath, const std::string& mExtension);
 		void recursiveFillFolders(std::vector<std::string>& mResult, const std::string& mPath);
 		void recursiveFillAll(std::vector<std::string>& mResult, const std::string& mPath);
+
+		// Lists (they return a vector)
+		std::vector<std::string> listFiles(const std::string& mPath);
+		std::vector<std::string> listFilesByExtension(const std::string& mPath, const std::string& mExtension);
+		std::vector<std::string> listFolders(const std::string& mPath);
+		std::vector<std::string> listAll(const std::string& mPath);
+		std::vector<std::string> listRecursiveFiles(const std::string& mPath);
+		std::vector<std::string> listRecursiveFilesByExtension(const std::string& mPath, const std::string& mExtension);
+		std::vector<std::string> listRecursiveFolders(const std::string& mPath);
+		std::vector<std::string> listRecursiveAll(const std::string& mPath);
 	}
 }
 

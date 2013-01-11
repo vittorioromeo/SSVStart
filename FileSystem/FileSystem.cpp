@@ -1,6 +1,7 @@
 #include "FileSystem.h"
 
 using namespace std;
+using namespace ssvs::Utils;
 
 namespace ssvs
 {
@@ -17,9 +18,6 @@ namespace ssvs
 		bool isRootOrParent(const string& mPath) { return (endsWith(mPath, ".") || endsWith(mPath, "..")); }
 		string getNormalizedPath(const string& mPath)
 		{
-			//if(!isFolder(mPath)) return mPath;
-			//if(isRootOrParent(mPath)) return mPath;
-
 			string result{mPath};
 
 			while(endsWith(result, R"(\)")) result = result.substr(0, result.size() - 1);
@@ -47,39 +45,6 @@ namespace ssvs
 			}
 
 			closedir(dir);
-		}
-
-		vector<string> listFiles(const string& mPath)
-		{
-			vector<string> result;
-			traverse(mPath, [&](string, string path){
-				if(!isRootOrParent(path)) if(!isFolder(path)) result.push_back(path);
-			});
-			return result;
-		}
-		vector<string> listFilesByExtension(const string& mPath, const string& mExtension)
-		{
-			vector<string> result;
-			traverse(mPath, [&](string name, string path){
-				if(!isRootOrParent(path)) if(!isFolder(path)) if(endsWith(name, mExtension)) result.push_back(path);
-			});
-			return result;
-		}
-		vector<string> listFolders(const string& mPath)
-		{
-			vector<string> result;
-			traverse(mPath, [&](string, string path){
-				if(!isRootOrParent(path)) if(isFolder(path)) result.push_back(path);
-			});
-			return result;
-		}
-		vector<string> listAll(const string& mPath)
-		{
-			vector<string> result;
-			traverse(mPath, [&](string, string path){
-				if(!isRootOrParent(path)) result.push_back(path);
-			});
-			return result;
 		}
 
 		void recursiveFillFiles(vector<string>& mResult, const string& mPath)
@@ -121,7 +86,44 @@ namespace ssvs
 					mResult.push_back(path);
 				}
 			});
-		}		
+		}
+
+		vector<string> listFiles(const string& mPath)
+		{
+			vector<string> result;
+			traverse(mPath, [&](string, string path){
+				if(!isRootOrParent(path)) if(!isFolder(path)) result.push_back(path);
+			});
+			return result;
+		}
+		vector<string> listFilesByExtension(const string& mPath, const string& mExtension)
+		{
+			vector<string> result;
+			traverse(mPath, [&](string name, string path){
+				if(!isRootOrParent(path)) if(!isFolder(path)) if(endsWith(name, mExtension)) result.push_back(path);
+			});
+			return result;
+		}
+		vector<string> listFolders(const string& mPath)
+		{
+			vector<string> result;
+			traverse(mPath, [&](string, string path){
+				if(!isRootOrParent(path)) if(isFolder(path)) result.push_back(path);
+			});
+			return result;
+		}
+		vector<string> listAll(const string& mPath)
+		{
+			vector<string> result;
+			traverse(mPath, [&](string, string path){
+				if(!isRootOrParent(path)) result.push_back(path);
+			});
+			return result;
+		}
+		vector<string> listRecursiveFiles(const string& mPath) { vector<string> result; recursiveFillFiles(result, mPath); return result; }
+		vector<string> listRecursiveFilesByExtension(const string& mPath, const string& mExtension) { vector<string> result; recursiveFillFilesByExtension(result, mPath, mExtension); return result; }
+		vector<string> listRecursiveFolders(const string& mPath) { vector<string> result; recursiveFillFolders(result, mPath); return result; }
+		vector<string> listRecursiveAll(const string& mPath) { vector<string> result; recursiveFillAll(result, mPath); return result; }
 	}
 }
 
