@@ -25,6 +25,7 @@
 
 // Assets
 #include "Assets/Assets.h"
+#include "Assets/AssetManager.h"
 
 // Camera
 #include "Camera/Camera.h"

@@ -5,71 +5,16 @@ using namespace sf;
 using namespace ssvs::FileSystem;
 using namespace ssvs::Utils;
 
-namespace ssvs 
+namespace ssvs
 {
 	namespace Assets
 	{
-		string dataPath{"Data/"};
-		string imagesPath{dataPath + "Images/"};
+		AssetManager* assetManager;
 
-		bool loadImages{true};
-		bool loadTextures{true};
-
-		map<string, Image*> imagesMap;
-		map<string, Texture*> texturesMap;
-
-		void init()
-		{
-			if (loadImages) initImages();
-			if (loadTextures) initTextures();
-		}
-
-		void initImages()
-		{
-			// Default 16x16 magenta missing image
-			Image* missingImage{new Image};
-			missingImage->create(16, 16, Color::Magenta);
-			imagesMap["missingImage"] = missingImage;
-
-			// Does the images folder exist?
-			if (!exists(imagesPath)) { log(imagesPath + " does not exist", "Assets::initImages"); return; }
-
-			// Valid image extensions
-			vector<string> extensions{".png", ".jpg", ".bmp", ".jpeg"};
-
-			// Get all folders in the images folder (and add the parent folder)
-			vector<string> imagesFolders{listRecursiveFolders(imagesPath)};			
-			imagesFolders.push_back(imagesPath);
-
-			// Get all the images in all folders
-			for(auto imageFolder : imagesFolders)
-			{
-				log(imageFolder + " folder entered", "Assets::initImages");
-				for(auto imageFile : listFiles(imageFolder))
-				{
-					for(auto extension : extensions)
-						if(endsWith(toLower(imageFile), extension))
-						{
-							Image* image{new Image};
-							image->loadFromFile(imageFile);
-							string imageId{replace(imageFile, imagesPath, "")};
-							imagesMap[imageId] = image;
-							log(imageId + " image added", "Assets::initImages");
-						}
-				}
-			}
-		}
-
-		void initTextures()
-		{
-			for(string key : getKeys(imagesMap))
-			{
-				Texture* texture{new Texture}; texture->loadFromImage(*imagesMap[key]); texturesMap[key] = texture;
-				log(key + " texture created", "Assets::initTextures");							
-			}
-		}
-
-		Texture& getTexture(const string& mId) { return *texturesMap[mId]; }
+		void init() { assetManager = new AssetManager{"Data/"}; }
+		
+		Texture& getTexture(const string& mId) { return assetManager->getTexture(mId); }
+		Sound& getSound(const string& mId) { return assetManager->getSound(mId); }
+		Music& getMusic(const string& mId) { return assetManager->getMusic(mId); }
 	}
 }
-

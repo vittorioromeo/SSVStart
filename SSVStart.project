@@ -41,6 +41,8 @@
       <File Name="Log/Log.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Assets">
+      <File Name="Assets/AssetManager.h"/>
+      <File Name="Assets/AssetManager.cpp"/>
       <File Name="Assets/Assets.h"/>
       <File Name="Assets/Assets.cpp"/>
     </VirtualDirectory>
@@ -49,7 +51,8 @@
       <File Name="FileSystem/FileSystem.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <VirtualDirectory Name="include"/>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -108,7 +111,13 @@
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
       </Compiler>
       <Linker Options="-shared" Required="yes">
-        <LibraryPath Value="D:\Vee\Software\GitHub\OHWorkspace\SFML\build2\lib"/>
+        <LibraryPath Value="../SSVStart/Release"/>
+        <LibraryPath Value="../SSVEntitySystem/Release"/>
+        <LibraryPath Value="../SSVLuaWrapper/Release"/>
+        <LibraryPath Value="./Release"/>
+        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib"/>
+        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/libs/mingw"/>
+        <LibraryPath Value="c:/lua"/>
         <Library Value="sfml-system"/>
         <Library Value="sfml-window"/>
         <Library Value="sfml-audio"/>
@@ -147,6 +156,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>

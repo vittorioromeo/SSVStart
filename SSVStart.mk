@@ -43,7 +43,7 @@ IncludePCH             :=
 RcIncludePath          := 
 Libs                   := $(LibrarySwitch)sfml-system $(LibrarySwitch)sfml-window $(LibrarySwitch)sfml-audio $(LibrarySwitch)sfml-graphics 
 ArLibs                 :=  "sfml-system" "sfml-window" "sfml-audio" "sfml-graphics" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVStart/Release $(LibraryPathSwitch)../SSVEntitySystem/Release $(LibraryPathSwitch)../SSVLuaWrapper/Release $(LibraryPathSwitch)./Release $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/libs/mingw $(LibraryPathSwitch)c:/lua 
 
 ##
 ## Common variables
@@ -64,7 +64,7 @@ WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
 Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
+	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -179,6 +179,14 @@ $(IntermediateDirectory)/Log_Log$(DependSuffix): Log/Log.cpp
 $(IntermediateDirectory)/Log_Log$(PreprocessSuffix): Log/Log.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Log_Log$(PreprocessSuffix) "Log/Log.cpp"
 
+$(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix): Assets/AssetManager.cpp $(IntermediateDirectory)/Assets_AssetManager$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/AssetManager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Assets_AssetManager$(DependSuffix): Assets/AssetManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) -MF$(IntermediateDirectory)/Assets_AssetManager$(DependSuffix) -MM "Assets/AssetManager.cpp"
+
+$(IntermediateDirectory)/Assets_AssetManager$(PreprocessSuffix): Assets/AssetManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Assets_AssetManager$(PreprocessSuffix) "Assets/AssetManager.cpp"
+
 $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix): Assets/Assets.cpp $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/Assets.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Assets_Assets$(DependSuffix): Assets/Assets.cpp
@@ -234,6 +242,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/Log_Log$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Log_Log$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Log_Log$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_AssetManager$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_AssetManager$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix)
