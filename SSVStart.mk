@@ -64,7 +64,7 @@ WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
 Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
+	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -187,14 +187,6 @@ $(IntermediateDirectory)/Assets_AssetManager$(DependSuffix): Assets/AssetManager
 $(IntermediateDirectory)/Assets_AssetManager$(PreprocessSuffix): Assets/AssetManager.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Assets_AssetManager$(PreprocessSuffix) "Assets/AssetManager.cpp"
 
-$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix): Assets/Assets.cpp $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/Assets.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Assets_Assets$(DependSuffix): Assets/Assets.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) -MF$(IntermediateDirectory)/Assets_Assets$(DependSuffix) -MM "Assets/Assets.cpp"
-
-$(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix): Assets/Assets.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix) "Assets/Assets.cpp"
-
 $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix): Assets/AssetFolder.cpp $(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/AssetFolder.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix): Assets/AssetFolder.cpp
@@ -253,9 +245,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_AssetManager$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_AssetManager$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_AssetFolder$(PreprocessSuffix)

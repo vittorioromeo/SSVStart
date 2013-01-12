@@ -24,7 +24,7 @@
 #define SSVSTART_H_
 
 // Assets
-#include "Assets/Assets.h"
+#include "Assets/AssetFolder.h"
 #include "Assets/AssetManager.h"
 
 // Camera

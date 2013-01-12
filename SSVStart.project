@@ -43,8 +43,6 @@
     <VirtualDirectory Name="Assets">
       <File Name="Assets/AssetManager.h"/>
       <File Name="Assets/AssetManager.cpp"/>
-      <File Name="Assets/Assets.h"/>
-      <File Name="Assets/Assets.cpp"/>
       <File Name="Assets/AssetFolder.h"/>
       <File Name="Assets/AssetFolder.cpp"/>
     </VirtualDirectory>

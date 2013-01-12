@@ -8,13 +8,16 @@ using namespace ssvs::Utils;
 
 namespace ssvs
 {
-	AssetManager::~AssetManager() { uninitImages(); uninitSounds(); uninitMusics(); }
-
-	void AssetManager::loadFolder(const std::string& mPath)
+	AssetManager::~AssetManager()
 	{
-		AssetFolder folder{mPath};
-		folder.loadToManager(*this);
+		for(auto pair : images) delete pair.second;
+		for(auto pair : textures) delete pair.second;
+		for(auto pair : soundBuffers) delete pair.second;
+		for(auto pair : sounds) delete pair.second;
+		for(auto pair : musics) delete pair.second;
 	}
+
+	void AssetManager::loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
 	void AssetManager::loadImage(const string& mId, const string& mPath)
 	{
 		Image* image{new Image}; image->loadFromFile(mPath); images[mId] = image;
@@ -34,10 +37,6 @@ namespace ssvs
 		Music* music{new Music}; music->openFromFile(mPath); musics[mId] = music;
 		log(mId + " music added", "loadMusic");
 	}
-
-	inline void AssetManager::uninitImages() { for(auto pair : images) delete pair.second; for(auto pair : textures) delete pair.second; }
-	inline void AssetManager::uninitSounds() { for(auto pair : soundBuffers) delete pair.second; for(auto pair : sounds) delete pair.second; }
-	inline void AssetManager::uninitMusics() { for(auto pair : musics) delete pair.second; }
 
 	Texture& AssetManager::getTexture(const string& mId) { return *textures[mId]; }
 	Sound& AssetManager::getSound(const string& mId) { return *sounds[mId]; }
