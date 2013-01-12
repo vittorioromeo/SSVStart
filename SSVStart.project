@@ -45,14 +45,14 @@
       <File Name="Assets/AssetManager.cpp"/>
       <File Name="Assets/Assets.h"/>
       <File Name="Assets/Assets.cpp"/>
+      <File Name="Assets/AssetFolder.h"/>
+      <File Name="Assets/AssetFolder.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="FileSystem">
       <File Name="FileSystem/FileSystem.cpp"/>
       <File Name="FileSystem/FileSystem.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -156,4 +156,6 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

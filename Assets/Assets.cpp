@@ -11,7 +11,12 @@ namespace ssvs
 	{
 		AssetManager* assetManager;
 
-		void init() { assetManager = new AssetManager{"Data/"}; }
+		void init()
+		{
+			assetManager = new AssetManager;
+			AssetFolder dataFolders{"Data/"};
+			dataFolders.fillManager(*assetManager);
+		}
 		
 		Texture& getTexture(const string& mId) { return assetManager->getTexture(mId); }
 		Sound& getSound(const string& mId) { return assetManager->getSound(mId); }

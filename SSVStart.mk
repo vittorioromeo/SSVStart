@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=01/11/13
+Date                   :=01/12/13
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -64,7 +64,7 @@ WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
 Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
+	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -195,6 +195,14 @@ $(IntermediateDirectory)/Assets_Assets$(DependSuffix): Assets/Assets.cpp
 $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix): Assets/Assets.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix) "Assets/Assets.cpp"
 
+$(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix): Assets/AssetFolder.cpp $(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Assets/AssetFolder.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix): Assets/AssetFolder.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) -MF$(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix) -MM "Assets/AssetFolder.cpp"
+
+$(IntermediateDirectory)/Assets_AssetFolder$(PreprocessSuffix): Assets/AssetFolder.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Assets_AssetFolder$(PreprocessSuffix) "Assets/AssetFolder.cpp"
+
 $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix): FileSystem/FileSystem.cpp $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/FileSystem/FileSystem.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix): FileSystem/FileSystem.cpp
@@ -248,6 +256,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/Assets_Assets$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_Assets$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Assets_Assets$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_AssetFolder$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Assets_AssetFolder$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix)

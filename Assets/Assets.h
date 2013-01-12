@@ -9,6 +9,7 @@
 #include <SFML/Audio.hpp>
 #include "../Log/Log.h"
 #include "../FileSystem/FileSystem.h"
+#include "AssetFolder.h"
 #include "AssetManager.h"
 
 namespace ssvs

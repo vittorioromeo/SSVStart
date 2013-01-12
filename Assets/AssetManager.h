@@ -12,44 +12,37 @@
 
 namespace ssvs
 {
-	namespace Assets
+	class AssetManager
 	{
-		class AssetManager
-		{
-			private:
-				std::string rootPath;
-				std::vector<std::string> files;
-				std::map<std::string, sf::Image*> images; // owned
-				std::map<std::string, sf::Texture*> textures; // owned
-				std::map<std::string, sf::SoundBuffer*> soundBuffers; // owned
-				std::map<std::string, sf::Sound*> sounds; // owned
-				std::map<std::string, sf::Music*> musics; // owned
+		private:
+			std::map<std::string, sf::Image*> images; // owned
+			std::map<std::string, sf::Texture*> textures; // owned
+			std::map<std::string, sf::SoundBuffer*> soundBuffers; // owned
+			std::map<std::string, sf::Sound*> sounds; // owned
+			std::map<std::string, sf::Music*> musics; // owned
 
-				AssetManager(const AssetManager&) = delete; // non construction-copyable
-				AssetManager& operator=(const AssetManager&) = delete; // non copyable
+			//AssetManager(const AssetManager&) = delete; // non construction-copyable
+			//AssetManager& operator=(const AssetManager&) = delete; // non copyable
 
-				// Init
-				void initImages();
-				void initTextures();
-				void initSounds();
-				void initMusics();
+			// Uninit
+			inline void uninitImages();
+			inline void uninitSounds();
+			inline void uninitMusics();
 
-				// Uninit
-				void uninitImages();
-				void uninitTextures();
-				void uninitSounds();
-				void uninitMusics();
+		public:
+			AssetManager() = default;
+			~AssetManager();
 
-			public:
-				AssetManager(const std::string& mRootPath);
-				~AssetManager();				
+			// Load
+			void loadImage(const std::string& mId, const std::string& mPath);
+			void loadSound(const std::string& mId, const std::string& mPath);
+			void loadMusic(const std::string& mId, const std::string& mPath);
 
-				// Getters
-				sf::Texture& getTexture(const std::string& mId);
-				sf::Sound& getSound(const std::string& mId);
-				sf::Music& getMusic(const std::string& mId);
-		};
-	}
+			// Getters
+			sf::Texture& getTexture(const std::string& mId);
+			sf::Sound& getSound(const std::string& mId);
+			sf::Music& getMusic(const std::string& mId);
+	};
 }
 
 #endif // ASSETREPOSITORY_H
