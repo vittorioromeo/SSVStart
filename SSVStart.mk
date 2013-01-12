@@ -64,7 +64,7 @@ WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
 Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) 
+	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -203,6 +203,22 @@ $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix): FileSystem/FileSy
 $(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix): FileSystem/FileSystem.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix) "FileSystem/FileSystem.cpp"
 
+$(IntermediateDirectory)/Input_InputManager$(ObjectSuffix): Input/InputManager.cpp $(IntermediateDirectory)/Input_InputManager$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Input/InputManager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Input_InputManager$(DependSuffix): Input/InputManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) -MF$(IntermediateDirectory)/Input_InputManager$(DependSuffix) -MM "Input/InputManager.cpp"
+
+$(IntermediateDirectory)/Input_InputManager$(PreprocessSuffix): Input/InputManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Input_InputManager$(PreprocessSuffix) "Input/InputManager.cpp"
+
+$(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix): Input/InputCombination.cpp $(IntermediateDirectory)/Input_InputCombination$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Input/InputCombination.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Input_InputCombination$(DependSuffix): Input/InputCombination.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) -MF$(IntermediateDirectory)/Input_InputCombination$(DependSuffix) -MM "Input/InputCombination.cpp"
+
+$(IntermediateDirectory)/Input_InputCombination$(PreprocessSuffix): Input/InputCombination.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Input_InputCombination$(PreprocessSuffix) "Input/InputCombination.cpp"
+
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
 ##
@@ -251,6 +267,12 @@ clean:
 	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/FileSystem_FileSystem$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputManager$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputManager$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputCombination$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputCombination$(PreprocessSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
 	$(RM) "../.build-release/SSVStart"

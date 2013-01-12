@@ -7,7 +7,7 @@ namespace ssvs
 	vector<string> logEntries;
 	vector<string>& getLogEntries() { return logEntries; }
 
-	void saveLogToFile(string mPath)
+	void saveLogToFile(const string& mPath)
 	{
 		ofstream o; o.open(mPath);
 		for(auto& logEntry : logEntries) o << logEntry;

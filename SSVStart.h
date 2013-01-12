@@ -37,6 +37,9 @@
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/GameState.h"
 
+// Input
+#include "Input/InputManager.h"
+
 // Log
 #include "Log/Log.h"
 

@@ -29,7 +29,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-
 namespace ssvs
 {
 	class GameState;

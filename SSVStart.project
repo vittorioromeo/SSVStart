@@ -50,6 +50,12 @@
       <File Name="FileSystem/FileSystem.cpp"/>
       <File Name="FileSystem/FileSystem.h"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Input">
+      <File Name="Input/InputManager.cpp"/>
+      <File Name="Input/InputManager.h"/>
+      <File Name="Input/InputCombination.h"/>
+      <File Name="Input/InputCombination.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

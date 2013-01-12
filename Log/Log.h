@@ -23,7 +23,7 @@ namespace ssvs
 		getLogEntries().push_back(entryStream.str());
 	}
 
-	void saveLogToFile(std::string mPath);
+	void saveLogToFile(const std::string& mPath);
 }
 
 #endif // LOG_H
