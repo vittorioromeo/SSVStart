@@ -1,4 +1,5 @@
 #include "AssetManager.h"
+#include "AssetFolder.h"
 
 using namespace std;
 using namespace sf;
@@ -9,6 +10,11 @@ namespace ssvs
 {
 	AssetManager::~AssetManager() { uninitImages(); uninitSounds(); uninitMusics(); }
 
+	void AssetManager::loadFolder(const std::string& mPath)
+	{
+		AssetFolder folder{mPath};
+		folder.loadToManager(*this);
+	}
 	void AssetManager::loadImage(const string& mId, const string& mPath)
 	{
 		Image* image{new Image}; image->loadFromFile(mPath); images[mId] = image;

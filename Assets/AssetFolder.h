@@ -15,13 +15,13 @@ namespace ssvs
 			std::vector<std::string> files;
 
 			std::vector<std::string> getFilteredFiles(const std::vector<std::string> mExtensions);
-			void initImages(AssetManager& mAssetManager);
-			void initSounds(AssetManager& mAssetManager);
-			void initMusics(AssetManager& mAssetManager);
+			void loadImagesToManager(AssetManager& mAssetManager);
+			void loadSoundsToManager(AssetManager& mAssetManager);
+			void loadMusicsToManager(AssetManager& mAssetManager);
 			
 		public:
 			AssetFolder(const std::string& mRootPath);
-			void fillManager(AssetManager& mAssetManager);
+			void loadToManager(AssetManager& mAssetManager);
 	};
 }
 

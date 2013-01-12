@@ -34,6 +34,7 @@ namespace ssvs
 			~AssetManager();
 
 			// Load
+			void loadFolder(const std::string& mPath);
 			void loadImage(const std::string& mId, const std::string& mPath);
 			void loadSound(const std::string& mId, const std::string& mPath);
 			void loadMusic(const std::string& mId, const std::string& mPath);

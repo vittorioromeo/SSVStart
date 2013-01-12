@@ -14,8 +14,7 @@ namespace ssvs
 		void init()
 		{
 			assetManager = new AssetManager;
-			AssetFolder dataFolders{"Data/"};
-			dataFolders.fillManager(*assetManager);
+			assetManager->loadFolder("Data/");
 		}
 		
 		Texture& getTexture(const string& mId) { return assetManager->getTexture(mId); }

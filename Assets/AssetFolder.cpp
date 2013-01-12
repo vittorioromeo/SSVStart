@@ -8,12 +8,7 @@ using namespace ssvs::Utils;
 namespace ssvs
 {
 	AssetFolder::AssetFolder(const string& mRootPath) : rootPath{mRootPath}, files{getRecursiveFiles(rootPath)} { }
-	void AssetFolder::fillManager(AssetManager& mAssetManager)
-	{
-		initImages(mAssetManager);
-		initSounds(mAssetManager);
-		initMusics(mAssetManager);
-	}
+	void AssetFolder::loadToManager(AssetManager& mAssetManager) { loadImagesToManager(mAssetManager); loadSoundsToManager(mAssetManager); loadMusicsToManager(mAssetManager); }
 
 	vector<string> AssetFolder::getFilteredFiles(const vector<string> mExtensions)
 	{
@@ -21,21 +16,18 @@ namespace ssvs
 		for(auto file : files) for(auto extension : mExtensions) if(hasExtension(file, extension)) result.push_back(file);
 		return result;
 	}
-
-	void AssetFolder::initImages(AssetManager& mAssetManager)
+	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
 	{
-		static vector<string> extensions{".png", ".jpg", ".bmp", ".jpeg"};
-		for(auto file : getFilteredFiles(extensions))
+		for(auto file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadImage(id, file);
 			log(id + " image added", "initImages(" + rootPath + ")");
 		}
 	}
-	void AssetFolder::initSounds(AssetManager& mAssetManager)
+	void AssetFolder::loadSoundsToManager(AssetManager& mAssetManager)
 	{
-		static vector<string> extensions{".wav", ".ogg"};
-		for(auto file : getFilteredFiles(extensions))
+		for(auto file : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadSound(id, file);
@@ -43,10 +35,9 @@ namespace ssvs
 			log(id + " sound added", "initSounds(" + rootPath + ")");
 		}
 	}
-	void AssetFolder::initMusics(AssetManager& mAssetManager)
+	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
 	{
-		static vector<string> extensions{".wav", ".ogg"};
-		for(auto file : getFilteredFiles(extensions))
+		for(auto file : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadMusic(id, file);
