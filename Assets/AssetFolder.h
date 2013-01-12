@@ -15,6 +15,7 @@ namespace ssvs
 			std::vector<std::string> files;
 
 			std::vector<std::string> getFilteredFiles(const std::vector<std::string> mExtensions);
+			void loadFontsToManager(AssetManager& mAssetManager);
 			void loadImagesToManager(AssetManager& mAssetManager);
 			void loadSoundsToManager(AssetManager& mAssetManager);
 			void loadMusicsToManager(AssetManager& mAssetManager);

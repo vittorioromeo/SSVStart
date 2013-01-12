@@ -72,9 +72,12 @@ namespace ssvs
 	inline void GameWindow::runFps()
 	{
 		if(staticFrameTime) frameTime = staticFrameTimeValue;
-		else frameTime = clock.restart().asSeconds() * 60.f;
+		else
+		{
+			frameTime = clock.restart().asSeconds() * 60.f;
+			if (frameTime > frameTimeLimit) frameTime = frameTimeLimit;
+		}
 
-		if (frameTime > frameTimeLimit) frameTime = frameTimeLimit;
 		fps = 60.f / frameTime;
 	}
 

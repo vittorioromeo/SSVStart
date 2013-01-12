@@ -8,7 +8,13 @@ using namespace ssvs::Utils;
 namespace ssvs
 {
 	AssetFolder::AssetFolder(const string& mRootPath) : rootPath{mRootPath}, files{getRecursiveFiles(rootPath)} { }
-	void AssetFolder::loadToManager(AssetManager& mAssetManager) { loadImagesToManager(mAssetManager); loadSoundsToManager(mAssetManager); loadMusicsToManager(mAssetManager); }
+	void AssetFolder::loadToManager(AssetManager& mAssetManager)
+	{
+		loadImagesToManager(mAssetManager);
+		loadSoundsToManager(mAssetManager);
+		loadMusicsToManager(mAssetManager);
+		loadFontsToManager(mAssetManager);
+	}
 
 	vector<string> AssetFolder::getFilteredFiles(const vector<string> mExtensions)
 	{
@@ -16,13 +22,22 @@ namespace ssvs
 		for(auto file : files) for(auto extension : mExtensions) if(hasExtension(file, extension)) result.push_back(file);
 		return result;
 	}
+	void AssetFolder::loadFontsToManager(AssetManager& mAssetManager)
+	{
+		for(auto file : getFilteredFiles({".ttf", ".otf", ".pfm"}))
+		{
+			string id{replace(file, rootPath, "")};
+			mAssetManager.loadFont(id, file);
+			log(id + " font added", "loadFontsToManager(" + rootPath + ")");
+		}
+	}
 	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
 	{
 		for(auto file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadImage(id, file);
-			log(id + " image added", "initImages(" + rootPath + ")");
+			log(id + " image added", "loadImagesToManager(" + rootPath + ")");
 		}
 	}
 	void AssetFolder::loadSoundsToManager(AssetManager& mAssetManager)
@@ -31,8 +46,8 @@ namespace ssvs
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadSound(id, file);
-			log(id + " soundBuffer added", "initSounds(" + rootPath + ")");
-			log(id + " sound added", "initSounds(" + rootPath + ")");
+			log(id + " soundBuffer added", "loadSoundsToManager(" + rootPath + ")");
+			log(id + " sound added", "loadSoundsToManager(" + rootPath + ")");
 		}
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
@@ -41,7 +56,7 @@ namespace ssvs
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadMusic(id, file);
-			log(id + " music added", "initMusics(" + rootPath + ")");
+			log(id + " music added", "loadMusicsToManager(" + rootPath + ")");
 		}
 	}
 }

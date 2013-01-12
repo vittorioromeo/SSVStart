@@ -20,10 +20,8 @@ namespace ssvs
 		string getNormalizedPath(const string& mPath)
 		{
 			string result{mPath};
-
 			while(endsWith(result, R"(\)")) result = result.substr(0, result.size() - 1);
 			while(endsWith(result, "/")) result = result.substr(0, result.size() - 1);
-
 			return result;
 		}
 		string getNameFromPath(const string& mPath, const string& mPrefix, const string& mSuffix)
@@ -39,7 +37,6 @@ namespace ssvs
 			{
 				string name{entry->d_name};
 				string path{getNormalizedPath(mPath) + "/" + name};
-
 				mFunction(name, path);
 				entry = readdir(dir);
 			}

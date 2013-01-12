@@ -15,6 +15,7 @@ namespace ssvs
 	class AssetManager
 	{
 		private:
+			std::map<std::string, sf::Font*> fonts; // owned
 			std::map<std::string, sf::Image*> images; // owned
 			std::map<std::string, sf::Texture*> textures; // owned
 			std::map<std::string, sf::SoundBuffer*> soundBuffers; // owned
@@ -26,10 +27,12 @@ namespace ssvs
 			~AssetManager();
 
 			void loadFolder(const std::string& mPath);
+			void loadFont(const std::string& mId, const std::string& mPath);
 			void loadImage(const std::string& mId, const std::string& mPath);
 			void loadSound(const std::string& mId, const std::string& mPath);
 			void loadMusic(const std::string& mId, const std::string& mPath);
 
+			sf::Font& getFont(const std::string& mId);
 			sf::Texture& getTexture(const std::string& mId);
 			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);

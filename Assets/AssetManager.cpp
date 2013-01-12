@@ -18,6 +18,11 @@ namespace ssvs
 	}
 
 	void AssetManager::loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
+	void AssetManager::loadFont(const string& mId, const string& mPath)
+	{
+		Font* font{new Font}; font->loadFromFile(mPath); fonts[mId] = font;
+		log(mId + " font added", "loadFonts");
+	}
 	void AssetManager::loadImage(const string& mId, const string& mPath)
 	{
 		Image* image{new Image}; image->loadFromFile(mPath); images[mId] = image;
@@ -38,6 +43,7 @@ namespace ssvs
 		log(mId + " music added", "loadMusic");
 	}
 
+	Font& AssetManager::getFont(const string& mId) { return *fonts[mId]; }
 	Texture& AssetManager::getTexture(const string& mId) { return *textures[mId]; }
 	Sound& AssetManager::getSound(const string& mId) { return *sounds[mId]; }
 	Music& AssetManager::getMusic(const string& mId) { return *musics[mId]; }
