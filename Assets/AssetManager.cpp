@@ -10,11 +10,11 @@ namespace ssvs
 {
 	AssetManager::~AssetManager()
 	{
-		for(auto pair : images) delete pair.second;
-		for(auto pair : textures) delete pair.second;
-		for(auto pair : soundBuffers) delete pair.second;
-		for(auto pair : sounds) delete pair.second;
-		for(auto pair : musics) delete pair.second;
+		for(auto& pair : images) delete pair.second;
+		for(auto& pair : textures) delete pair.second;
+		for(auto& pair : soundBuffers) delete pair.second;
+		for(auto& pair : sounds) delete pair.second;
+		for(auto& pair : musics) delete pair.second;
 	}
 
 	void AssetManager::loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }

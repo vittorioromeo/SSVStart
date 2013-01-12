@@ -69,7 +69,7 @@ namespace ssvs
 
 			// Drawing
 			void clear(sf::Color mColor);
-			void draw(sf::Drawable& mDrawable);
+			void draw(const sf::Drawable& mDrawable);
 			void pollEvent(sf::Event& mEvent);
 
 			// Input
@@ -92,7 +92,7 @@ namespace ssvs
 			void setVsync(bool mEnabled);
 			void setMouseCursorVisible(bool mEnabled);
 			void setStaticFrameTimeValue(float mValue);
-			void setTitle(std::string mTitle);
+			void setTitle(const std::string& mTitle);
 	};
 } /* namespace ssvs */
 #endif /* GAMEWINDOW_H_ */

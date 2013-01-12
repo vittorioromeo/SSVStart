@@ -35,5 +35,5 @@ namespace ssvs
 	void GameWindow::setVsync(bool mEnabled)				{ renderWindow.setVerticalSyncEnabled(mEnabled); }
 	void GameWindow::setMouseCursorVisible(bool mEnabled) 	{ renderWindow.setMouseCursorVisible(mEnabled); }
 	void GameWindow::setStaticFrameTimeValue(float mValue) 	{ staticFrameTimeValue = mValue; }
-	void GameWindow::setTitle(std::string mTitle)			{ renderWindow.setTitle(mTitle); }
+	void GameWindow::setTitle(const std::string& mTitle)	{ renderWindow.setTitle(mTitle); }
 }

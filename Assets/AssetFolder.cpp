@@ -24,7 +24,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadFontsToManager(AssetManager& mAssetManager)
 	{
-		for(auto file : getFilteredFiles({".ttf", ".otf", ".pfm"}))
+		for(auto& file : getFilteredFiles({".ttf", ".otf", ".pfm"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadFont(id, file);
@@ -33,7 +33,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
 	{
-		for(auto file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
+		for(auto& file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadImage(id, file);
@@ -42,7 +42,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadSoundsToManager(AssetManager& mAssetManager)
 	{
-		for(auto file : getFilteredFiles({".wav", ".ogg"}))
+		for(auto& file : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadSound(id, file);
@@ -52,7 +52,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
 	{
-		for(auto file : getFilteredFiles({".wav", ".ogg"}))
+		for(auto& file : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{replace(file, rootPath, "")};
 			mAssetManager.loadMusic(id, file);

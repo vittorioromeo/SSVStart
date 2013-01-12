@@ -10,7 +10,7 @@ namespace ssvs
 	void saveLogToFile(string mPath)
 	{
 		ofstream o; o.open(mPath);
-		for(string logEntry : logEntries) o << logEntry;
+		for(auto& logEntry : logEntries) o << logEntry;
 		o.flush(); o.close();
 	}
 }
