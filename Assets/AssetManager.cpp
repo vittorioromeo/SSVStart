@@ -43,9 +43,37 @@ namespace ssvs
 		log(mId + " music added", "loadMusic");
 	}
 
-	Font& AssetManager::getFont(const string& mId) { return *fonts[mId]; }
-	Texture& AssetManager::getTexture(const string& mId) { return *textures[mId]; }
-	Sound& AssetManager::getSound(const string& mId) { return *sounds[mId]; }
-	Music& AssetManager::getMusic(const string& mId) { return *musics[mId]; }
+	Font& AssetManager::getFont(const string& mId)
+	{
+		#ifndef SSVS_RELEASE
+			if(fonts.count(mId) == 0) log(mId + " font doesn't exist", "getFont");
+		#endif
+		
+		return *fonts[mId];
+	}
+	Texture& AssetManager::getTexture(const string& mId)
+	{
+		#ifndef SSVS_RELEASE
+			if(textures.count(mId) == 0) log(mId + " texture doesn't exist", "getTexture");
+		#endif
+
+		return *textures[mId];
+	}
+	Sound& AssetManager::getSound(const string& mId)
+	{
+		#ifndef SSVS_RELEASE
+			if(sounds.count(mId) == 0) log(mId + " sound doesn't exist", "getSound");
+		#endif
+
+		return *sounds[mId];
+	}
+	Music& AssetManager::getMusic(const string& mId)
+	{
+		#ifndef SSVS_RELEASE
+			if(musics.count(mId) == 0) log(mId + " music doesn't exist", "getMusic");
+		#endif
+
+		return *musics[mId];
+	}
 }
 

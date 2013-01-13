@@ -14,13 +14,15 @@ namespace ssvs
 	std::vector<std::string>& getLogEntries();
 	template<class T> void log(T mValue, std::string mTitle = "")
 	{
-		std::ostringstream entryStream;
+		#ifndef SSVS_RELEASE
+			std::ostringstream entryStream;
 
-		if(mTitle != "") entryStream << "[" << mTitle << "] ";
-		entryStream << Utils::toStr(mValue) << std::endl;
+			if(mTitle != "") entryStream << "[" << mTitle << "] ";
+			entryStream << Utils::toStr(mValue) << std::endl;
 
-		std::cout << entryStream.str();
-		getLogEntries().push_back(entryStream.str());
+			std::cout << entryStream.str();
+			getLogEntries().push_back(entryStream.str());
+		#endif
 	}
 
 	void saveLogToFile(const std::string& mPath);
