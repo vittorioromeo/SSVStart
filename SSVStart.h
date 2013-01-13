@@ -51,6 +51,7 @@
 #include "Timeline/Goto.h"
 
 // Utils
+#include "Utils/Delegate.h"
 #include "Utils/Utils.h"
 
 #endif /* SSVSTART_H_ */

@@ -31,6 +31,7 @@
     <VirtualDirectory Name="Utils">
       <File Name="Utils/Utils.cpp"/>
       <File Name="Utils/Utils.h"/>
+      <File Name="Utils/Delegate.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>
@@ -57,6 +58,8 @@
       <File Name="Input/InputCombination.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -112,6 +115,7 @@
     </Configuration>
     <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-O3;-pedantic;-Wall;-c;-std=c++11;-Wextra" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="."/>
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
       </Compiler>
       <Linker Options="-shared" Required="yes">
@@ -160,6 +164,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>

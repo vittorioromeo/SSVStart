@@ -27,13 +27,11 @@
 namespace ssvs
 {
 	void GameState::addInput(InputCombination mInputCombination, InputManager::InputFunc mInputFunc) { inputManager.addInput(mInputCombination, mInputFunc); }
-	void GameState::addUpdateFunc(UpdateFunc mUpdateFunc) { updateFuncs.push_back(mUpdateFunc); }
-	void GameState::addDrawFunc(DrawFunc mDrawFunc, int mPriority) { drawFuncsMap.insert(DrawFuncPair(mPriority, mDrawFunc)); }
 	void GameState::update(float mFrameTime)
 	{
 		inputManager.update(*gameWindowPtr, mFrameTime);
-		for (auto& updateFunc : updateFuncs) updateFunc(mFrameTime);
+		onUpdate(mFrameTime);
 	}
-	void GameState::draw() { for (auto& drawFuncPair : drawFuncsMap) drawFuncPair.second(); }
+	void GameState::draw() { onDraw(); }
 
 }

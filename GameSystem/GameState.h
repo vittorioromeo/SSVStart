@@ -30,6 +30,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "../Input/InputManager.h"
+#include "../Utils/Delegate.h"
 
 namespace ssvs
 {
@@ -45,10 +46,11 @@ namespace ssvs
 		private:
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
 			InputManager inputManager;
-			std::vector<UpdateFunc> updateFuncs;
-			std::multimap<int, DrawFunc> drawFuncsMap;
 
 		public:
+			Delegate<void> onDraw;
+			Delegate<void, float> onUpdate;
+
 			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable
 			GameState& operator=(const GameState&) = delete; // non copyable
@@ -56,9 +58,7 @@ namespace ssvs
 			void update(float mFrameTime);
 			void draw();
 
-			void addInput(InputCombination mInputCombination, InputManager::InputFunc mInputFunc);
-			void addUpdateFunc(UpdateFunc);
-			void addDrawFunc(DrawFunc, int mPriority = 0);
+			void addInput(InputCombination mInputCombination, InputManager::InputFunc mInputFunc);			
 		};
 	} /* namespace ssvs */
 #endif /* GAME_H_ */

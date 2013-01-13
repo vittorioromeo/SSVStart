@@ -78,7 +78,7 @@ namespace ssvs
 			if (frameTime > frameTimeLimit) frameTime = frameTimeLimit;
 		}
 
-		fps = 60.f / frameTime;
+		fps = 60.f / frameTime;		
 	}
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return hasFocus && Keyboard::isKeyPressed(mKey); }
