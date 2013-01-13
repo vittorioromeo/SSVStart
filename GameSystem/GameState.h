@@ -29,6 +29,7 @@
 #include <map>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "../Input/InputManager.h"
 
 namespace ssvs
 {
@@ -43,20 +44,19 @@ namespace ssvs
 
 		private:
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
+			InputManager inputManager;
 			std::vector<UpdateFunc> updateFuncs;
 			std::multimap<int, DrawFunc> drawFuncsMap;
 
+		public:
+			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable
 			GameState& operator=(const GameState&) = delete; // non copyable
 
-		public:
-			GameState() = default;
-
-			// Main
-			void update(float);
+			void update(float mFrameTime);
 			void draw();
 
-			// Function addition
+			void addInput(InputCombination mInputCombination, InputManager::InputFunc mInputFunc);
 			void addUpdateFunc(UpdateFunc);
 			void addDrawFunc(DrawFunc, int mPriority = 0);
 		};

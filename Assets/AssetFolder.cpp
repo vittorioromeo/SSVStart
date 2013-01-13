@@ -16,7 +16,7 @@ namespace ssvs
 		loadFontsToManager(mAssetManager);
 	}
 
-	vector<string> AssetFolder::getFilteredFiles(const vector<string> mExtensions)
+	vector<string> AssetFolder::getFilteredFiles(const vector<string>& mExtensions)
 	{
 		vector<string> result;
 		for(auto file : files) for(auto extension : mExtensions) if(hasExtension(file, extension)) result.push_back(file);

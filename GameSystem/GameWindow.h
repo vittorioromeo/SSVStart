@@ -51,15 +51,14 @@ namespace ssvs
 			bool running{true};
 			bool hasFocus{true};
 			
-			GameWindow(const GameWindow&) = delete; // non construction-copyable
-			GameWindow& operator=(const GameWindow&) = delete; // non copyable
-			
 			inline void runInput();
 			inline void runGame();
 			inline void runFps();
 
 		public:
 			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
+			GameWindow(const GameWindow&) = delete; // non construction-copyable
+			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 
 			// Main
 			void run();

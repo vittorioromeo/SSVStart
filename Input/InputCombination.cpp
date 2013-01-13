@@ -5,7 +5,7 @@ using namespace std;
 
 namespace ssvs
 {
-	InputCombination::InputCombination(initializer_list<Keyboard::Key> mKeys,initializer_list<Mouse::Button> mButtons) : keys{mKeys}, buttons{mButtons} { }
+	InputCombination::InputCombination(initializer_list<Keyboard::Key> mKeys, initializer_list<Mouse::Button> mButtons) : keys{mKeys}, buttons{mButtons} { }
 	InputCombination::InputCombination(initializer_list<Mouse::Button> mButtons) : InputCombination{{}, mButtons} { }
 
 	bool InputCombination::isDown(GameWindow& mGameWindow)

@@ -14,15 +14,14 @@ namespace ssvs
 {
 	class InputManager
 	{
-		typedef std::function<void(float)> InputFunc;
-		typedef std::pair<InputCombination, InputFunc> InputFuncPair;
+		public:
+			typedef std::function<void(float)> InputFunc;
+			typedef std::pair<InputCombination, InputFunc> InputFuncPair;
+			void addInput(InputCombination mInputCombination, InputFunc mInputFunc);
+			void update(GameWindow& mGameWindow, float mFrameTime);
 
 		private:
 			std::vector<InputFuncPair> inputFuncPairs;
-
-		public:
-			void addInput(InputCombination mInputCombination, InputFunc mInputFunc);
-			void update(GameWindow& mGameWindow, float mFrameTime);
 	};
 }
 

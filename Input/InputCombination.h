@@ -9,7 +9,6 @@
 #include <SFML/Graphics.hpp>
 #include "../GameSystem/GameWindow.h"
 
-
 namespace ssvs
 {
 	struct InputCombination
