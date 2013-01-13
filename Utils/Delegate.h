@@ -16,8 +16,25 @@ namespace ssvs
 			std::vector<Func> funcs;
 
 		public:
-			template<typename T> Delegate& operator += (T mFunc) { funcs.push_back(Func(mFunc)); return *this; }
-			void operator () (TArgs... mParams) { for (auto& f : funcs) f(mParams...); }
+			template<typename T> Delegate& operator+=(T mFunc) { funcs.push_back(Func(mFunc)); return *this; }
+			std::vector<TReturn> operator()(TArgs... mParams)
+			{
+				std::vector<TReturn> result;
+				for (auto& f : funcs) result.push_back(f(mParams...));
+				return result;
+			}
+	};
+
+	template<typename... TArgs>
+	class Delegate<void, TArgs...>
+	{
+		private:
+			using Func = std::function<void(TArgs...)>;
+			std::vector<Func> funcs;
+
+		public:
+			template<typename T> Delegate& operator+=(T mFunc) { funcs.push_back(Func(mFunc)); return *this; }
+			void operator()(TArgs... mParams) { for (auto& f : funcs) f(mParams...); }
 	};
 }
 
