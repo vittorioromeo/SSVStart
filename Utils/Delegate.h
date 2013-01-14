@@ -17,10 +17,10 @@ namespace ssvs
 
 		public:
 			template<typename T> Delegate& operator+=(T mFunc) { funcs.push_back(Func(mFunc)); return *this; }
-			std::vector<TReturn> operator()(TArgs... mParams)
+			std::vector<TReturn> operator()(TArgs... mArgs)
 			{
 				std::vector<TReturn> result;
-				for (auto& f : funcs) result.push_back(f(mParams...));
+				for (auto& f : funcs) result.push_back(f(mArgs...));
 				return result;
 			}
 	};
@@ -34,7 +34,7 @@ namespace ssvs
 
 		public:
 			template<typename T> Delegate& operator+=(T mFunc) { funcs.push_back(Func(mFunc)); return *this; }
-			void operator()(TArgs... mParams) { for (auto& f : funcs) f(mParams...); }
+			void operator()(TArgs... mArgs) { for (auto& f : funcs) f(mArgs...); }
 	};
 }
 
