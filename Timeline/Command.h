@@ -23,10 +23,10 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
-#include "Timeline.h"
-
 namespace ssvs
 {
+	class Timeline;
+
 	class Command
 	{
 		public:

@@ -21,7 +21,7 @@
  */
 
 #include "Wait.h"
-#include <cmath>
+#include "Timeline.h"
 
 namespace ssvs
 {

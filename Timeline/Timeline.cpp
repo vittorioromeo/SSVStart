@@ -20,15 +20,15 @@
  * SOFTWARE.
  */
 
-#include "Timeline.h"
-#include "Command.h"
-#include "Utils/Utils.h"
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include "Timeline.h"
+#include "Command.h"
 #include "Do.h"
 #include "Go.h"
 #include "Wait.h"
+#include "Utils/Utils.h"
 
 using namespace std;
 using namespace ssvs::Utils;
@@ -51,7 +51,7 @@ namespace ssvs
 	}	
 	void Timeline::del(Command* mCommandPtr)
 	{
-		eraseFromVector<Command*>(commandPtrs, mCommandPtr);
+		eraseFromVector(commandPtrs, mCommandPtr);
 		delete mCommandPtr;
 	}
 
@@ -111,12 +111,8 @@ namespace ssvs
 	int Timeline::getSize() { return commandPtrs.size(); }
 	int Timeline::getCurrentIndex()
 	{
-		int pos = find(commandPtrs.begin(), commandPtrs.end(), currentCommandPtr) - commandPtrs.begin();
-
-		if((unsigned int)pos < commandPtrs.size()) return pos;
-
-		cout << "not found";
-		return -1;
+		unsigned int pos(find(begin(commandPtrs), end(commandPtrs), currentCommandPtr) - begin(commandPtrs));
+		return pos < commandPtrs.size() ? pos : -1;
 	}
 
 	// Shortcuts

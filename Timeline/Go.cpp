@@ -21,6 +21,7 @@
  */
 
 #include "Go.h"
+#include "Timeline.h"
 
 namespace ssvs
 {
