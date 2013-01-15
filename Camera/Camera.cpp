@@ -22,11 +22,11 @@ namespace ssvs
 	void Camera::rotate(float mAngle)			{ view.rotate(mAngle); }
 
 	// Getters
-	Vector2f Camera::getMousePosition() { Vector2i mPos{Mouse::getPosition(renderWindow)}; return renderWindow.mapPixelToCoords(mPos, view); }
+	Vector2f Camera::getMousePosition() { return renderWindow.mapPixelToCoords({Mouse::getPosition(renderWindow)}, view); }
 	Vector2f Camera::getConvertedCoords(int mX, int mY) { return renderWindow.mapPixelToCoords({mX, mY}, view); }
 	bool Camera::isInView(Vector2f mPosition)
 	{
 		return mPosition.x <= view.getCenter().x + view.getSize().x && (mPosition.x >= view.getCenter().x - view.getSize().x &&
-				(mPosition.y <= view.getCenter().y + view.getSize().y && mPosition.y >= view.getCenter().y - view.getSize().y));
+			(mPosition.y <= view.getCenter().y + view.getSize().y && mPosition.y >= view.getCenter().y - view.getSize().y));
 	}
 }

@@ -17,7 +17,6 @@ namespace ssvs
 		public:
 			Camera(GameWindow& mGameWindow, float mWidth, float mHeight);
 
-			// Main
 			void apply();
 			void unapply();
 
