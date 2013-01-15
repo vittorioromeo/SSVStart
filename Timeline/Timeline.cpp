@@ -26,6 +26,9 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include "Do.h"
+#include "Go.h"
+#include "Wait.h"
 
 using namespace std;
 using namespace ssvs::Utils;
@@ -65,7 +68,6 @@ namespace ssvs
 				ready = false;
 				break;
 			}
-
 			currentCommandPtr->update(mFrameTime);
 		} while (ready);
 	}
@@ -116,4 +118,9 @@ namespace ssvs
 		cout << "not found";
 		return -1;
 	}
+
+	// Shortcuts
+	Timeline& Timeline::operator+=(Action mAction) { push_back(new Do{mAction}); return *this; }
+	void Timeline::wait(float mTime) { push_back(new Wait{mTime}); }
+	void Timeline::go(int mTargetIndex, int mTimes) { push_back(new Go{mTargetIndex, mTimes}); }
 } /* namespace sses */

@@ -21,12 +21,12 @@
       <File Name="Timeline/Command.h"/>
       <File Name="Timeline/Do.cpp"/>
       <File Name="Timeline/Do.h"/>
-      <File Name="Timeline/Goto.cpp"/>
-      <File Name="Timeline/Goto.h"/>
       <File Name="Timeline/Timeline.cpp"/>
       <File Name="Timeline/Timeline.h"/>
       <File Name="Timeline/Wait.cpp"/>
       <File Name="Timeline/Wait.h"/>
+      <File Name="Timeline/Go.h"/>
+      <File Name="Timeline/Go.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Utils">
       <File Name="Utils/Utils.cpp"/>

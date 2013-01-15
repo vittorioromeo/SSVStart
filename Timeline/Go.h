@@ -20,54 +20,25 @@
  * SOFTWARE.
  */
 
-#ifndef TIMELINE_H_
-#define TIMELINE_H_
+#ifndef GOTO_H_
+#define GOTO_H_
 
-#include <vector>
-#include <functional>
+#include "Command.h"
 
 namespace ssvs
 {
-	typedef std::function<void()> Action;
-
-	class Command;
-
-	class Timeline
+	class Go : public Command
 	{
-		friend class Wait;
-		friend class Do;
-		friend class Go;
+		protected:
+			int targetIndex;
+			int times;
+			int currentTimes;
 
-		private:
-			std::vector<Command*> commandPtrs; // owned
-			Command* currentCommandPtr{nullptr};
-
-			bool ready{true};
-			bool finished{false};
-
-			void push_back(Command* mCommandPtr);
-			void next();
+			void update(float mFrameTime) override;
+			void reset() override;
 
 		public:
-			~Timeline();
-
-			void insert(int mIndex, Command* mCommandPtr);			
-			void del(Command* mCommandPtr);
-			
-			void update(float mFrameTime);
-			void jumpTo(int mIndex);
-
-			void reset();
-			void clear();
-
-			int getSize();
-			int getCurrentIndex();
-			bool getFinished();
-
-			// Shortcuts
-			Timeline& operator+=(Action mAction);
-			void wait(float mTime);
-			void go(int mTargetIndex, int mTimes = -1);
+			Go(int, int);
 	};
-} /* namespace sses */
-#endif /* TIMELINE_H_ */
+} /* namespace ssvs */
+#endif /* GOTO_H_ */

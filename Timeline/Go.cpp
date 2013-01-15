@@ -20,25 +20,20 @@
  * SOFTWARE.
  */
 
-#ifndef GOTO_H_
-#define GOTO_H_
-
-#include "Command.h"
+#include "Go.h"
 
 namespace ssvs
 {
-	class Goto: public Command
+	Go::Go(int mTargetIndex, int mTimes = -1) : targetIndex{mTargetIndex}, times{mTimes}, currentTimes{mTimes} { }
+
+	void Go::update(float)
 	{
-		protected:
-			int targetIndex;
-			int times;
-			int currentTimes;
-
-			void update(float mFrameTime) override;
-			void reset() override;
-
-		public:
-			Goto(int, int);
-	};
+		if (currentTimes <= 0) timelinePtr->next();
+		else
+		{
+			currentTimes--;
+			timelinePtr->jumpTo(targetIndex);
+		}
+	}
+	void Go::reset() { currentTimes = times; }
 } /* namespace ssvs */
-#endif /* GOTO_H_ */

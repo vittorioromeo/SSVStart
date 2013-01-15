@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=01/14/13
+Date                   :=01/15/13
 CodeLitePath           :="c:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -63,7 +63,7 @@ CodeLiteDir:=c:\Program Files (x86)\CodeLite
 WXWIN:=C:\wxWidgets
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXCFG:=gcc_dll\mswu
-Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
+Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Go$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
 	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) 
 
 Objects=$(Objects0) 
@@ -131,14 +131,6 @@ $(IntermediateDirectory)/Timeline_Do$(DependSuffix): Timeline/Do.cpp
 $(IntermediateDirectory)/Timeline_Do$(PreprocessSuffix): Timeline/Do.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Do$(PreprocessSuffix) "Timeline/Do.cpp"
 
-$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix): Timeline/Goto.cpp $(IntermediateDirectory)/Timeline_Goto$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Goto.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Timeline_Goto$(DependSuffix): Timeline/Goto.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Goto$(DependSuffix) -MM "Timeline/Goto.cpp"
-
-$(IntermediateDirectory)/Timeline_Goto$(PreprocessSuffix): Timeline/Goto.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Goto$(PreprocessSuffix) "Timeline/Goto.cpp"
-
 $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix): Timeline/Timeline.cpp $(IntermediateDirectory)/Timeline_Timeline$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Timeline.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timeline_Timeline$(DependSuffix): Timeline/Timeline.cpp
@@ -154,6 +146,14 @@ $(IntermediateDirectory)/Timeline_Wait$(DependSuffix): Timeline/Wait.cpp
 
 $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix): Timeline/Wait.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix) "Timeline/Wait.cpp"
+
+$(IntermediateDirectory)/Timeline_Go$(ObjectSuffix): Timeline/Go.cpp $(IntermediateDirectory)/Timeline_Go$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/Go.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_Go$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Timeline_Go$(DependSuffix): Timeline/Go.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_Go$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_Go$(DependSuffix) -MM "Timeline/Go.cpp"
+
+$(IntermediateDirectory)/Timeline_Go$(PreprocessSuffix): Timeline/Go.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Go$(PreprocessSuffix) "Timeline/Go.cpp"
 
 $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix): Utils/Utils.cpp $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Utils/Utils.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IncludePath)
@@ -240,15 +240,15 @@ clean:
 	$(RM) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Do$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Do$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/Timeline_Goto$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/Timeline_Goto$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/Timeline_Goto$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Timeline$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Timeline$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Wait$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Wait$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Timeline_Go$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Timeline_Go$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Timeline_Go$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix)

@@ -48,7 +48,7 @@
 #include "Timeline/Command.h"
 #include "Timeline/Do.h"
 #include "Timeline/Wait.h"
-#include "Timeline/Goto.h"
+#include "Timeline/Go.h"
 
 // Utils
 #include "Utils/Delegate.h"
