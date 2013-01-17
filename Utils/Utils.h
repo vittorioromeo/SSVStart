@@ -43,7 +43,7 @@ namespace ssvs
 		std::string toLower(const std::string &mString);
 
 		// std::vector
-		template<typename T> void eraseFromVector(std::vector<T>& mVector, T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+		template<typename T> void eraseFromVector(std::vector<T>& mVector, const T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
 
 		// std::map
 		template<typename K, typename V>std::vector<K> getKeys(std::map<K, V> mMap)

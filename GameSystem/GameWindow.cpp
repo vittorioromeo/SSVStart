@@ -38,7 +38,7 @@ namespace ssvs
 
 	void GameWindow::run()
 	{
-		while (running)
+		while(running)
 		{
 			renderWindow.setActive(true);
 			renderWindow.clear();
