@@ -36,8 +36,8 @@ namespace ssvs
 	namespace Utils
 	{
 		// std::string
-		template<typename T> std::string toStr(const T &mString) { std::ostringstream oss; oss << mString; return std::string(oss.str()); }
-		int countNewLines(const std::string mString);
+		template<typename T> std::string toStr(const T &mValue) { std::ostringstream oss; oss << mValue; return std::string(oss.str()); }
+		int countNewLines(const std::string& mString);
 		std::string replace(const std::string& mString, const std::string& mFrom, const std::string& mTo);
 		bool endsWith(const std::string &mString, const std::string &mEnding);
 		std::string toLower(const std::string &mString);

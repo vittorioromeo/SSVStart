@@ -7,7 +7,7 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		int countNewLines(const string mString) { int result{0}; for(auto c : mString) if (c == '\n') result++; return result; }
+		int countNewLines(const string& mString) { int result{0}; for(auto c : mString) if (c == '\n') result++; return result; }
 		string replace(const string& mString, const string& mFrom, const string& mTo)
 		{
 			string result{mString};
