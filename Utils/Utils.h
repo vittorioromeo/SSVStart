@@ -42,8 +42,8 @@ namespace ssvs
 		bool endsWith(const std::string &mString, const std::string &mEnding);
 		std::string toLower(const std::string &mString);
 
-		// std::vector
-		template<typename T> void eraseFromVector(std::vector<T>& mVector, const T& mItem) { mVector.erase(std::remove(std::begin(mVector), std::end(mVector), mItem), std::end(mVector)); }
+		// Collections
+		template<typename T, typename V> void eraseRemove(T& mItems, const V& mValue) { mItems.erase(std::remove(std::begin(mItems), std::end(mItems), mValue), std::end(mItems)); }
 
 		// std::map
 		template<typename K, typename V>std::vector<K> getKeys(std::map<K, V> mMap)
