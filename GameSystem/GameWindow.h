@@ -14,31 +14,33 @@
 namespace ssvs
 {
 	class GameState;
-	
+
 	class GameWindow
 	{
 		private:
-			static constexpr float frameTimeLimit{4.f};
 			GameState* gamePtr{nullptr}; // not owned, just pointed to
 			sf::RenderWindow renderWindow;
 			sf::Clock clock;
 			std::string title{""};
+			
+			float frameTime{0};
+			float fps{0};
+			bool running{true};
+			bool hasFocus{true};
+
 			unsigned int width, height;
 			int pixelMultiplier;
 			bool fullscreen;
 			bool staticFrameTime{false};
 			float staticFrameTimeValue{1};
-			float frameTime{0};
-			float fps{0};
-			bool running{true};
-			bool hasFocus{true};
+			float frameTimeLimit{4.f};
 			
-			inline void runInput();
-			inline void runGame();
-			inline void runFps();
+			void runInput();
+			void runGame();
+			void runFps();
 
 		public:
-			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mLimitFps = false, bool mFullscreen = false);
+			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 
@@ -59,7 +61,7 @@ namespace ssvs
 			// Getters
 			sf::RenderWindow& getRenderWindow();
 			sf::Vector2f getMousePosition();
-			float getFps();
+			float getFPS();
 			unsigned int getWidth();
 			unsigned int getHeight();
 			bool getFullscreen();
@@ -73,6 +75,7 @@ namespace ssvs
 			void setMouseCursorVisible(bool mEnabled);
 			void setStaticFrameTimeValue(float mValue);
 			void setTitle(const std::string& mTitle);
+			void setFPSLimit(float mFPSLimit);
 	};
 } /* namespace ssvs */
 #endif /* GAMEWINDOW_H_ */

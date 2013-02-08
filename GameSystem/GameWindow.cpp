@@ -10,12 +10,10 @@ using namespace sf;
 
 namespace ssvs
 {
-	GameWindow::GameWindow(string mTitle, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mLimitFps, bool mFullscreen) :
+	GameWindow::GameWindow(string mTitle, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier,bool mFullscreen) :
 		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}
 	{
 		recreateWindow();
-		renderWindow.setVerticalSyncEnabled(false);
-		if (mLimitFps) renderWindow.setFramerateLimit(60);
 	}
 
 	void GameWindow::run()
@@ -37,13 +35,14 @@ namespace ssvs
 
 	void GameWindow::recreateWindow()
 	{
+		if(renderWindow.isOpen()) renderWindow.close();
 		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen);
 		else renderWindow.create({width, height}, title, Style::Default);
 		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
 	}
 
-	inline void GameWindow::runGame() { gamePtr->update(frameTime); gamePtr->draw(); }
-	inline void GameWindow::runInput()
+	void GameWindow::runGame() { gamePtr->update(frameTime); gamePtr->draw(); }
+	void GameWindow::runInput()
 	{
 		Event event; renderWindow.pollEvent(event);
 
@@ -51,7 +50,7 @@ namespace ssvs
 		else if(event.type == Event::LostFocus) hasFocus = false;
 		else if(event.type == Event::Closed) running = false;
 	}
-	inline void GameWindow::runFps()
+	void GameWindow::runFps()
 	{
 		if(staticFrameTime) frameTime = staticFrameTimeValue;
 		else
