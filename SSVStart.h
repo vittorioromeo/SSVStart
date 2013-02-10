@@ -32,6 +32,9 @@
 #include "Timeline/Wait.h"
 #include "Timeline/Go.h"
 
+// Tileset
+#include "Tileset/Tileset.h"
+
 // Utils
 #include "Utils/Delegate.h"
 #include "Utils/Utils.h"
