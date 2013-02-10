@@ -58,8 +58,8 @@
       <File Name="Input/InputCombination.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Tileset">
-      <File Name="Tileset.h"/>
-      <File Name="Tileset.cpp"/>
+      <File Name="Tileset/Tileset.cpp"/>
+      <File Name="Tileset/Tileset.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>

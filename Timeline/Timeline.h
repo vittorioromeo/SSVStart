@@ -23,17 +23,27 @@ namespace ssvs
 		private:
 			std::vector<Command*> commandPtrs; // owned
 			Command* currentCommandPtr{nullptr};
+			bool ready{true}, finished{false};
 
-			bool ready{true};
-			bool finished{false};
-
-			void push_back(Command* mCommandPtr);
+			void append(Command* mCommandPtr);
+			void insert(int mIndex, Command* mCommandPtr);
 			void next();
 
 		public:
 			~Timeline();
 
-			void insert(int mIndex, Command* mCommandPtr);			
+			template<typename T, typename... Args> T* insert(int mIndex, Args&&... args)
+			{
+				T* result{new T(std::forward<Args>(args)...)};
+				insert(mIndex, result);
+				return result;
+			}
+			template<typename T, typename... Args> T* append(Args&&... args)
+			{
+				T* result{new T(std::forward<Args>(args)...)};
+				append(new T(std::forward<Args>(args)...));
+				return result;
+			}
 			void del(Command* mCommandPtr);
 			
 			void update(float mFrameTime);
@@ -45,11 +55,6 @@ namespace ssvs
 			int getSize();
 			int getCurrentIndex();
 			bool getFinished();
-
-			// Shortcuts
-			Timeline& operator+=(Action mAction);
-			void wait(float mTime);
-			void go(int mTargetIndex, int mTimes = -1);
 	};
 } /* namespace sses */
 #endif /* TIMELINE_H_ */

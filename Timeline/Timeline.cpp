@@ -19,7 +19,7 @@ namespace ssvs
 {
 	Timeline::~Timeline() { clear(); }
 
-	void Timeline::push_back(Command* mCommandPtr)
+	void Timeline::append(Command* mCommandPtr)
 	{
 		mCommandPtr->timelinePtr = this;
 		commandPtrs.push_back(mCommandPtr);
@@ -53,7 +53,7 @@ namespace ssvs
 			currentCommandPtr->update(mFrameTime);
 		} while (ready);
 	}
-	void Timeline::jumpTo(int mTargetIndex) { currentCommandPtr = commandPtrs[mTargetIndex]; }
+	void Timeline::jumpTo(int mIndex) { currentCommandPtr = commandPtrs[mIndex]; }
 
 	void Timeline::reset()
 	{
@@ -97,8 +97,4 @@ namespace ssvs
 		return pos < commandPtrs.size() ? pos : -1;
 	}
 
-	// Shortcuts
-	Timeline& Timeline::operator+=(Action mAction) { push_back(new Do{mAction}); return *this; }
-	void Timeline::wait(float mTime) { push_back(new Wait{mTime}); }
-	void Timeline::go(int mTargetIndex, int mTimes) { push_back(new Go{mTargetIndex, mTimes}); }
 } /* namespace sses */
