@@ -21,13 +21,11 @@ namespace ssvs
 
 	void Timeline::append(Command* mCommandPtr)
 	{
-		mCommandPtr->timelinePtr = this;
 		commandPtrs.push_back(mCommandPtr);
 		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
 	}
 	void Timeline::insert(int mIndex, Command* mCommandPtr)
 	{
-		mCommandPtr->timelinePtr = this;
 		commandPtrs.insert(commandPtrs.begin() + mIndex, mCommandPtr);
 		if(currentCommandPtr == nullptr) currentCommandPtr = mCommandPtr;
 	}	

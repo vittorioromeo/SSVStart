@@ -18,7 +18,7 @@ namespace ssvs
 			void reset() override;
 
 		public:
-			Wait(float);
+			Wait(Timeline& mTimeline, float);
 	};
 
 } /* namespace sses */

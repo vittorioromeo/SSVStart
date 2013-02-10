@@ -19,7 +19,8 @@ namespace ssvs
 			void update(float mFrameTime) override;
 
 		public:
-			Do(Action mAction);
+			Do(Timeline& mTimeline, Action mAction);
 	};
-} /* namespace sses */
+}
+
 #endif /* DO_H_ */

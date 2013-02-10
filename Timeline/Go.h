@@ -20,7 +20,7 @@ namespace ssvs
 			void reset() override;
 
 		public:
-			Go(int, int);
+			Go(Timeline& mTimeline, int, int);
 	};
 } /* namespace ssvs */
 #endif /* GOTO_H_ */

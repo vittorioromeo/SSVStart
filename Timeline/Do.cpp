@@ -11,6 +11,6 @@ using namespace std;
 
 namespace ssvs
 {
-	Do::Do(Action mAction) : action{mAction} { }
-	void Do::update(float) { action(); timelinePtr->next(); }
-} /* namespace sses */
+	Do::Do(Timeline& mTimeline, Action mAction) : Command{mTimeline}, action{mAction} { }
+	void Do::update(float) { action(); timeline.next(); }
+}

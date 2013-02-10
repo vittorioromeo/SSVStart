@@ -34,14 +34,14 @@ namespace ssvs
 
 			template<typename T, typename... Args> T* insert(int mIndex, Args&&... args)
 			{
-				T* result{new T(std::forward<Args>(args)...)};
+				T* result{new T(*this, std::forward<Args>(args)...)};
 				insert(mIndex, result);
 				return result;
 			}
 			template<typename T, typename... Args> T* append(Args&&... args)
 			{
-				T* result{new T(std::forward<Args>(args)...)};
-				append(new T(std::forward<Args>(args)...));
+				T* result{new T(*this, std::forward<Args>(args)...)};
+				append(result);
 				return result;
 			}
 			void del(Command* mCommandPtr);

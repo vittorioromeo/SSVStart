@@ -6,7 +6,8 @@
 
 namespace ssvs
 {
+	Command::Command(Timeline& mTimeline) : timeline(mTimeline) { }
 	Command::~Command() { }
 	void Command::update(float) { }
 	void Command::reset() { }
-} /* namespace ssvs */
+}
