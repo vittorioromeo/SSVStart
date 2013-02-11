@@ -12,15 +12,13 @@ namespace ssvs
 	class Go : public Command
 	{
 		protected:
-			int targetIndex;
-			int times;
-			int currentTimes;
+			int targetIndex, times, currentTimes;
 
 			void update(float mFrameTime) override;
 			void reset() override;
 
 		public:
-			Go(Timeline& mTimeline, int, int);
+			Go(Timeline& mTimeline, int mTargetIndex, int mTimes);
 	};
 } /* namespace ssvs */
 #endif /* GOTO_H_ */

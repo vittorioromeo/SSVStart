@@ -10,7 +10,7 @@
 
 namespace ssvs
 {
-	class Do: public Command
+	class Do : public Command
 	{
 		typedef std::function<void()> Action;
 

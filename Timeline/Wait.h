@@ -9,16 +9,15 @@
 
 namespace ssvs
 {
-	class Wait: public Command
+	class Wait : public Command
 	{
 		protected:
-			float time;
-			float currentTime;
+			float time, currentTime;
 			void update(float mFrameTime) override;
 			void reset() override;
 
 		public:
-			Wait(Timeline& mTimeline, float);
+			Wait(Timeline& mTimeline, float mTime);
 	};
 
 } /* namespace sses */

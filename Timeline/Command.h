@@ -9,15 +9,14 @@
 
 namespace ssvs
 {
-	class Command
+	struct Command
 	{
-		public:
-			Timeline& timeline;
+		Timeline& timeline;
 
-			Command(Timeline& mTimeline);
-			virtual ~Command();
-			virtual void update(float mFrameTime);
-			virtual void reset();		
+		Command(Timeline& mTimeline);
+		virtual ~Command();
+		virtual void update(float mFrameTime);
+		virtual void reset();
 	};
 } /* namespace ssvs */
 #endif /* COMMAND_H_ */

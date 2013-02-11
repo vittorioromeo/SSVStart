@@ -15,21 +15,19 @@ namespace ssvs
 			sf::View view;
 
 		public:
-			Camera(GameWindow& mGameWindow, float mWidth, float mHeight);
+			Camera(GameWindow& mGameWindow, sf::Vector2f mSize);
 
 			void apply();
 			void unapply();
 
-			// Manipulation
-			void resize(float mXOffset, float mYOffset, float mWidth, float mHeight);
+			void resize(sf::Vector2f mOffset, sf::Vector2f mSize);
 			void move(sf::Vector2f mVector);
 			void zoom(float mFactor);
 			void centerOn(sf::Vector2f mPosition);
 			void rotate(float mAngle);
 			
-			// Getters
 			sf::Vector2f getMousePosition();
-			sf::Vector2f getConvertedCoords(int mX, int mY);
+			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition);
 			bool isInView(sf::Vector2f mPosition);
 	};
 }
