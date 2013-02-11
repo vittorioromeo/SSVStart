@@ -32,16 +32,17 @@ namespace ssvs
 		public:
 			~Timeline();
 
-			template<typename T, typename... TArgs> T* insert(int mIndex, TArgs&&... mArgs)
-			{
-				T* result{new T(*this, std::forward<TArgs>(mArgs)...)};
-				insert(mIndex, result); return result;
-			}
 			template<typename T, typename... TArgs> T* append(TArgs&&... mArgs)
 			{
 				T* result{new T(*this, std::forward<TArgs>(mArgs)...)};
 				append(result); return result;
 			}
+			template<typename T, typename... TArgs> T* insert(int mIndex, TArgs&&... mArgs)
+			{
+				T* result{new T(*this, std::forward<TArgs>(mArgs)...)};
+				insert(mIndex, result); return result;
+			}
+
 			void del(Command* mCommandPtr);
 			
 			void update(float mFrameTime);

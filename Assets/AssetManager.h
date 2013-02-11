@@ -20,7 +20,7 @@ namespace ssvs
 			std::map<std::string, sf::Texture*> textures; // owned
 			std::map<std::string, sf::SoundBuffer*> soundBuffers; // owned
 			std::map<std::string, sf::Sound*> sounds; // owned
-			std::map<std::string, sf::Music*> musics; // owned			
+			std::map<std::string, sf::Music*> musics; // owned
 
 		public:
 			AssetManager() = default;

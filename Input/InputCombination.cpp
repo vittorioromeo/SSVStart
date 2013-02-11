@@ -10,8 +10,8 @@ namespace ssvs
 
 	bool InputCombination::isDown(GameWindow& mGameWindow)
 	{
-		for (auto& key : keys) if (!mGameWindow.isKeyPressed(key)) return false;
-		for (auto& button : buttons) if (!mGameWindow.isButtonPressed(button)) return false;		
+		for(auto& key : keys) if (!mGameWindow.isKeyPressed(key)) return false;
+		for(auto& button : buttons) if (!mGameWindow.isButtonPressed(button)) return false;	
 		return true;
 	}
 }

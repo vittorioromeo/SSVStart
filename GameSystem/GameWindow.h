@@ -44,27 +44,16 @@ namespace ssvs
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 
-			// Main
 			void run();
 			void stop();
 			void recreateWindow();
 
-			// Drawing
 			void clear(sf::Color mColor);
 			void draw(const sf::Drawable& mDrawable);
 			void pollEvent(sf::Event& mEvent);
 
-			// Input
 			bool isKeyPressed(sf::Keyboard::Key mKey);
 			bool isButtonPressed(sf::Mouse::Button mButton);
-
-			// Getters
-			sf::RenderWindow& getRenderWindow();
-			sf::Vector2f getMousePosition();
-			float getFPS();
-			unsigned int getWidth();
-			unsigned int getHeight();
-			bool getFullscreen();
 
 			// Setters
 			void setGame(GameState*);
@@ -76,6 +65,14 @@ namespace ssvs
 			void setStaticFrameTimeValue(float mValue);
 			void setTitle(const std::string& mTitle);
 			void setFPSLimit(float mFPSLimit);
+
+			// Getters
+			sf::RenderWindow& getRenderWindow();
+			sf::Vector2f getMousePosition();
+			float getFPS();
+			unsigned int getWidth();
+			unsigned int getHeight();
+			bool getFullscreen();
 	};
 } /* namespace ssvs */
 #endif /* GAMEWINDOW_H_ */
