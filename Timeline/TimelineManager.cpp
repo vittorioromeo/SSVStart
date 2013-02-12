@@ -23,5 +23,11 @@ namespace ssvs
 
 		timelinesToRemove.clear();
 	}
+	void TimelineManager::clear()
+	{
+		for(auto& timeline : timelines) delete timeline;
+		timelines.clear();
+		timelinesToRemove.clear();
+	}
 }
 

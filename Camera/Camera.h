@@ -30,6 +30,7 @@ namespace ssvs
 			void setRotation(float mAngle);
 
 			sf::View getView();
+			float getRotation();
 			sf::Vector2f getCenter();
 			sf::Vector2f getMousePosition();
 			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition);

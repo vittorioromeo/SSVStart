@@ -17,8 +17,8 @@ namespace ssvs
 			~TimelineManager();
 
 			Timeline& create();
-
 			void update(float mFrameTime);
+			void clear();
 };
 
 }

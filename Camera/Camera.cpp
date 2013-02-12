@@ -23,6 +23,7 @@ namespace ssvs
 	void Camera::setRotation(float mAngle)		{ view.setRotation(mAngle); }
 
 	sf::View Camera::getView() { return view; }
+	float Camera::getRotation() { return view.getRotation(); }
 	sf::Vector2f Camera::getCenter() { return view.getCenter(); }
 	Vector2f Camera::getMousePosition() { return renderWindow.mapPixelToCoords({Mouse::getPosition(renderWindow)}, view); }
 	Vector2f Camera::getConvertedCoords(Vector2i mPosition) { return renderWindow.mapPixelToCoords(mPosition, view); }
