@@ -75,5 +75,7 @@ namespace ssvs
 
 		return *musics[mId];
 	}
+
+	void AssetManager::stopSounds() { for(auto& pair : sounds) pair.second->stop(); }
 }
 

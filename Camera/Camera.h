@@ -15,7 +15,7 @@ namespace ssvs
 			sf::View view;
 
 		public:
-			Camera(GameWindow& mGameWindow, sf::Vector2f mSize);
+			Camera(GameWindow& mGameWindow, sf::View mView);
 
 			void apply();
 			void unapply();

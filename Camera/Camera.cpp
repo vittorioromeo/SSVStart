@@ -4,7 +4,7 @@ using namespace sf;
 
 namespace ssvs
 {
-	Camera::Camera(GameWindow& mGameWindow, Vector2f mSize) : gameWindow(mGameWindow), renderWindow(gameWindow.getRenderWindow()), view{{0, 0, mSize.x, mSize.y}} { }
+	Camera::Camera(GameWindow& mGameWindow, View mView) : gameWindow(mGameWindow), renderWindow(gameWindow.getRenderWindow()), view{mView} { }
 
 	void Camera::apply() 	{ renderWindow.setView(view); }
 	void Camera::unapply() 	{ renderWindow.setView(renderWindow.getDefaultView()); }

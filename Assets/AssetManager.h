@@ -36,6 +36,8 @@ namespace ssvs
 			sf::Texture& getTexture(const std::string& mId);
 			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
+
+			void stopSounds();
 	};
 }
 
