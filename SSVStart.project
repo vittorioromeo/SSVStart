@@ -27,6 +27,8 @@
       <File Name="Timeline/Wait.h"/>
       <File Name="Timeline/Go.h"/>
       <File Name="Timeline/Go.cpp"/>
+      <File Name="Timeline/TimelineManager.h"/>
+      <File Name="Timeline/TimelineManager.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Utils">
       <File Name="Utils/Utils.cpp"/>

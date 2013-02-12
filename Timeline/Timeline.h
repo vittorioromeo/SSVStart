@@ -53,7 +53,7 @@ namespace ssvs
 
 			int getSize();
 			int getCurrentIndex();
-			bool getFinished();
+			bool isFinished();
 	};
 } /* namespace sses */
 #endif /* TIMELINE_H_ */

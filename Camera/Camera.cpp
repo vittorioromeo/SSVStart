@@ -19,6 +19,11 @@ namespace ssvs
 	void Camera::centerOn(Vector2f mPosition) 	{ view.setCenter(mPosition); }
 	void Camera::rotate(float mAngle)			{ view.rotate(mAngle); }
 
+	void Camera::setView(sf::View mView) 		{ view = mView; }
+	void Camera::setRotation(float mAngle)		{ view.setRotation(mAngle); }
+
+	sf::View Camera::getView() { return view; }
+	sf::Vector2f Camera::getCenter() { return view.getCenter(); }
 	Vector2f Camera::getMousePosition() { return renderWindow.mapPixelToCoords({Mouse::getPosition(renderWindow)}, view); }
 	Vector2f Camera::getConvertedCoords(Vector2i mPosition) { return renderWindow.mapPixelToCoords(mPosition, view); }
 	bool Camera::isInView(Vector2f mPosition)

@@ -25,6 +25,9 @@ namespace ssvs
 		#endif
 	}
 
+	void startBenchmark();
+	std::string endBenchmark();
+
 	void saveLogToFile(const std::string& mPath);
 }
 

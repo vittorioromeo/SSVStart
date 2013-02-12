@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Vittorio
-Date                   :=11/02/2013
+Date                   :=12/02/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -61,8 +61,8 @@ CFLAGS   :=   $(Preprocessors)
 ##
 CodeLiteDir:=C:\Program Files (x86)\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Go$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) \
-	$(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Go$(ObjectSuffix) $(IntermediateDirectory)/Timeline_TimelineManager$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) \
+	$(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -152,6 +152,14 @@ $(IntermediateDirectory)/Timeline_Go$(DependSuffix): Timeline/Go.cpp
 
 $(IntermediateDirectory)/Timeline_Go$(PreprocessSuffix): Timeline/Go.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_Go$(PreprocessSuffix) "Timeline/Go.cpp"
+
+$(IntermediateDirectory)/Timeline_TimelineManager$(ObjectSuffix): Timeline/TimelineManager.cpp $(IntermediateDirectory)/Timeline_TimelineManager$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Timeline/TimelineManager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timeline_TimelineManager$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Timeline_TimelineManager$(DependSuffix): Timeline/TimelineManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Timeline_TimelineManager$(ObjectSuffix) -MF$(IntermediateDirectory)/Timeline_TimelineManager$(DependSuffix) -MM "Timeline/TimelineManager.cpp"
+
+$(IntermediateDirectory)/Timeline_TimelineManager$(PreprocessSuffix): Timeline/TimelineManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timeline_TimelineManager$(PreprocessSuffix) "Timeline/TimelineManager.cpp"
 
 $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix): Utils/Utils.cpp $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Utils/Utils.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IncludePath)
@@ -255,6 +263,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/Timeline_Go$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Go$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Timeline_Go$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Timeline_TimelineManager$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Timeline_TimelineManager$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Timeline_TimelineManager$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix)

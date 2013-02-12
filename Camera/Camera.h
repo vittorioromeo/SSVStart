@@ -25,7 +25,12 @@ namespace ssvs
 			void zoom(float mFactor);
 			void centerOn(sf::Vector2f mPosition);
 			void rotate(float mAngle);
-			
+
+			void setView(sf::View mView);
+			void setRotation(float mAngle);
+
+			sf::View getView();
+			sf::Vector2f getCenter();
 			sf::Vector2f getMousePosition();
 			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition);
 			bool isInView(sf::Vector2f mPosition);

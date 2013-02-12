@@ -37,19 +37,19 @@ namespace ssvs
 
 	void Timeline::update(float mFrameTime)
 	{
-		if (finished) return;
+		if(finished) return;
 		ready = true;
 
 		do
 		{
-			if (currentCommandPtr == nullptr)
+			if(currentCommandPtr == nullptr)
 			{
 				finished = true;
 				ready = false;
 				break;
 			}
 			currentCommandPtr->update(mFrameTime);
-		} while (ready);
+		} while(ready);
 	}
 	void Timeline::jumpTo(int mIndex) { currentCommandPtr = commandPtrs[mIndex]; }
 
@@ -57,7 +57,7 @@ namespace ssvs
 	{
 		finished = false;
 		ready = true;
-		for (auto commandPtr : commandPtrs) commandPtr->reset();
+		for(auto& commandPtr : commandPtrs) commandPtr->reset();
 
 		if(!commandPtrs.empty()) currentCommandPtr = commandPtrs[0];
 		else currentCommandPtr = nullptr;
@@ -65,7 +65,7 @@ namespace ssvs
 	void Timeline::clear()
 	{
 		currentCommandPtr = nullptr;
-		for (auto commandPtr : commandPtrs) delete commandPtr;
+		for(auto& commandPtr : commandPtrs) delete commandPtr;
 		commandPtrs.clear();
 		finished = true;
 	}
@@ -87,10 +87,11 @@ namespace ssvs
 		}
 	}
 	
-	bool Timeline::getFinished() { return finished; }
+	bool Timeline::isFinished() { return finished; }
 	int Timeline::getSize() { return commandPtrs.size(); }
 	int Timeline::getCurrentIndex()
 	{
+		if(currentCommandPtr == nullptr) return 0;
 		unsigned int pos(find(begin(commandPtrs), end(commandPtrs), currentCommandPtr) - begin(commandPtrs));
 		return pos < commandPtrs.size() ? pos : -1;
 	}

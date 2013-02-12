@@ -27,6 +27,7 @@
 
 // Timeline
 #include "Timeline/Timeline.h"
+#include "Timeline/TimelineManager.h"
 #include "Timeline/Command.h"
 #include "Timeline/Do.h"
 #include "Timeline/Wait.h"
