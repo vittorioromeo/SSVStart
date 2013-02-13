@@ -51,13 +51,12 @@ namespace ssvs
 		
 		return *fonts[mId];
 	}
-	Texture& AssetManager::getTexture(const string& mId, bool mSmooth)
+	Texture& AssetManager::getTexture(const string& mId)
 	{
 		#ifndef SSVS_RELEASE
 			if(textures.count(mId) == 0) log(mId + " texture doesn't exist", "getTexture");
 		#endif
 
-		textures[mId]->setSmooth(mSmooth);
 		return *textures[mId];
 	}
 	Sound& AssetManager::getSound(const string& mId)
