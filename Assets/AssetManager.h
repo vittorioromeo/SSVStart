@@ -33,7 +33,7 @@ namespace ssvs
 			void loadMusic(const std::string& mId, const std::string& mPath);
 
 			sf::Font& getFont(const std::string& mId);
-			sf::Texture& getTexture(const std::string& mId);
+			sf::Texture& getTexture(const std::string& mId, bool mSmooth = true);
 			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
 
