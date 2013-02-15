@@ -22,7 +22,7 @@ namespace ssvs
 			sf::RenderWindow renderWindow;
 			sf::Clock clock;
 			std::string title{""};
-			
+
 			float frameTime{0};
 			float fps{0};
 			bool running{true};
@@ -34,7 +34,7 @@ namespace ssvs
 			bool staticFrameTime{false};
 			float staticFrameTimeValue{1};
 			float frameTimeLimit{4.f};
-			
+
 			void runInput();
 			void runGame();
 			void runFps();
@@ -56,7 +56,7 @@ namespace ssvs
 			bool isButtonPressed(sf::Mouse::Button mButton);
 
 			// Setters
-			void setGame(GameState*);
+			void setGameState(GameState& mGameState);
 			void setSize(unsigned int mWidth, unsigned int mHeight);
 			void setFullscreen(bool mFullscreen);
 			void setStaticFrameTime(bool mEnabled);

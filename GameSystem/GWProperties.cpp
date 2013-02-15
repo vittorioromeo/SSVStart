@@ -5,10 +5,10 @@ using namespace sf;
 
 namespace ssvs
 {
-	void GameWindow::setGame(GameState* mGamePtr)
+	void GameWindow::setGameState(GameState& mGameState)
 	{
-		gamePtr = mGamePtr;
-		mGamePtr->gameWindowPtr = this;
+		gamePtr = &mGameState;
+		mGameState.gameWindowPtr = this;
 	}
 	void GameWindow::setFullscreen(bool mFullscreen)
 	{
