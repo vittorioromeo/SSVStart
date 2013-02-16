@@ -15,7 +15,7 @@ namespace ssvs
 		return true;
 	}
 
-	void InputCombo::updateRelease(GameWindow& mGameWindow) { if(!isDown(mGameWindow)) released = true; }
+	void InputCombo::updateRelease(GameWindow& mGameWindow) { released = !isDown(mGameWindow); }
 
 	bool InputCombo::isActive(GameWindow& mGameWindow)
 	{

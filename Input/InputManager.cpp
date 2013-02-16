@@ -12,13 +12,10 @@ namespace ssvs
 	{
 		for(auto& pair : inputFuncPairs)
 		{
-			pair.first.updateRelease(mGameWindow);
-			
-			if(pair.first.isActive(mGameWindow))
-			{
-				pair.second(mFrameTime);
-				pair.first.setReleased(false);
-			}
+			auto& inputCombo(pair.first);
+
+			if(inputCombo.isActive(mGameWindow)) pair.second(mFrameTime);
+			inputCombo.updateRelease(mGameWindow);
 		}
 	}
 }

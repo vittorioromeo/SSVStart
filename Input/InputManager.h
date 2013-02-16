@@ -7,21 +7,24 @@
 #include <map>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "../GameSystem/GameWindow.h"
 #include "InputCombo.h"
 
 namespace ssvs
 {
+	class GameWindow;
+
 	class InputManager
 	{
 		public:
 			typedef std::function<void(float)> InputFunc;
 			typedef std::pair<InputCombo, InputFunc> InputFuncPair;
-			void addInput(InputCombo mInputCombination, InputFunc mInputFunc);
-			void update(GameWindow& mGameWindow, float mFrameTime);
 
 		private:
 			std::vector<InputFuncPair> inputFuncPairs;
+
+		public:
+			void addInput(InputCombo mInputCombination, InputFunc mInputFunc);
+			void update(GameWindow& mGameWindow, float mFrameTime);
 	};
 }
 
