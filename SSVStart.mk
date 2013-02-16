@@ -62,7 +62,7 @@ CFLAGS   :=   $(Preprocessors)
 CodeLiteDir:=C:\Program Files (x86)\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Command$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Do$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Timeline$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Wait$(ObjectSuffix) $(IntermediateDirectory)/Timeline_Go$(ObjectSuffix) $(IntermediateDirectory)/Timeline_TimelineManager$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) \
-	$(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
+	$(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IntermediateDirectory)/Log_Log$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/FileSystem_FileSystem$(ObjectSuffix) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix) $(IntermediateDirectory)/Input_InputCombo$(ObjectSuffix) $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -217,13 +217,13 @@ $(IntermediateDirectory)/Input_InputManager$(DependSuffix): Input/InputManager.c
 $(IntermediateDirectory)/Input_InputManager$(PreprocessSuffix): Input/InputManager.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Input_InputManager$(PreprocessSuffix) "Input/InputManager.cpp"
 
-$(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix): Input/InputCombination.cpp $(IntermediateDirectory)/Input_InputCombination$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Input/InputCombination.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Input_InputCombination$(DependSuffix): Input/InputCombination.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix) -MF$(IntermediateDirectory)/Input_InputCombination$(DependSuffix) -MM "Input/InputCombination.cpp"
+$(IntermediateDirectory)/Input_InputCombo$(ObjectSuffix): Input/InputCombo.cpp $(IntermediateDirectory)/Input_InputCombo$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Input/InputCombo.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Input_InputCombo$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Input_InputCombo$(DependSuffix): Input/InputCombo.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Input_InputCombo$(ObjectSuffix) -MF$(IntermediateDirectory)/Input_InputCombo$(DependSuffix) -MM "Input/InputCombo.cpp"
 
-$(IntermediateDirectory)/Input_InputCombination$(PreprocessSuffix): Input/InputCombination.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Input_InputCombination$(PreprocessSuffix) "Input/InputCombination.cpp"
+$(IntermediateDirectory)/Input_InputCombo$(PreprocessSuffix): Input/InputCombo.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Input_InputCombo$(PreprocessSuffix) "Input/InputCombo.cpp"
 
 $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix): Tileset/Tileset.cpp $(IntermediateDirectory)/Tileset_Tileset$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Tileset/Tileset.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) $(IncludePath)
@@ -287,9 +287,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/Input_InputManager$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Input_InputManager$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Input_InputManager$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/Input_InputCombination$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/Input_InputCombination$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/Input_InputCombination$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputCombo$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputCombo$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/Input_InputCombo$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Tileset_Tileset$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Tileset_Tileset$(PreprocessSuffix)

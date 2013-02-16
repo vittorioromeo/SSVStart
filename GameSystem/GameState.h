@@ -11,8 +11,8 @@
 #include <map>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "../Input/InputManager.h"
-#include "../Utils/Delegate.h"
+#include "Input/InputManager.h"
+#include "Utils/Delegate.h"
 
 namespace ssvs
 {
@@ -40,7 +40,8 @@ namespace ssvs
 			void update(float mFrameTime);
 			void draw();
 
-			void addInput(InputCombination mInputCombination, InputManager::InputFunc mInputFunc);			
+			void addInput(InputCombo mInputCombination, InputManager::InputFunc mInputFunc,
+				InputCombo::ComboType mType = InputCombo::ComboType::CONTINUOUS);			
 		};
 	} /* namespace ssvs */
 #endif /* GAME_H_ */

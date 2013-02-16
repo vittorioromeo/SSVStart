@@ -8,7 +8,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "../GameSystem/GameWindow.h"
-#include "InputCombination.h"
+#include "InputCombo.h"
 
 namespace ssvs
 {
@@ -16,8 +16,8 @@ namespace ssvs
 	{
 		public:
 			typedef std::function<void(float)> InputFunc;
-			typedef std::pair<InputCombination, InputFunc> InputFuncPair;
-			void addInput(InputCombination mInputCombination, InputFunc mInputFunc);
+			typedef std::pair<InputCombo, InputFunc> InputFuncPair;
+			void addInput(InputCombo mInputCombination, InputFunc mInputFunc);
 			void update(GameWindow& mGameWindow, float mFrameTime);
 
 		private:

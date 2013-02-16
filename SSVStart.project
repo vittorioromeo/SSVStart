@@ -57,8 +57,8 @@
     <VirtualDirectory Name="Input">
       <File Name="Input/InputManager.cpp"/>
       <File Name="Input/InputManager.h"/>
-      <File Name="Input/InputCombination.h"/>
-      <File Name="Input/InputCombination.cpp"/>
+      <File Name="Input/InputCombo.h"/>
+      <File Name="Input/InputCombo.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Tileset">
       <File Name="Tileset/Tileset.cpp"/>
