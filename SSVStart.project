@@ -34,6 +34,7 @@
       <File Name="Utils/Utils.cpp"/>
       <File Name="Utils/Utils.h"/>
       <File Name="Utils/Delegate.h"/>
+      <File Name="Utils/MemoryManager.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>

@@ -38,6 +38,7 @@
 
 // Utils
 #include "Utils/Delegate.h"
+#include "Utils/MemoryManager.h"
 #include "Utils/Utils.h"
 
 #endif /* SSVSTART_H_ */
