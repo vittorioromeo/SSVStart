@@ -10,12 +10,13 @@ namespace ssvs
 
 	void Go::update(float)
 	{
-		if (currentTimes <= 0) timeline.next();
-		else
+		if(currentTimes == 0) timeline.next();
+		else if(currentTimes > 0)
 		{
 			currentTimes--;
 			timeline.jumpTo(targetIndex);
 		}
+		else if(currentTimes < 0) timeline.jumpTo(targetIndex);
 	}
 	void Go::reset() { currentTimes = times; }
 }
