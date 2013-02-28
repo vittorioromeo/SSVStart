@@ -13,8 +13,7 @@ namespace ssvs
 			GameWindow& gameWindow;
 			sf::RenderWindow& renderWindow;
 			sf::View view;
-			sf::Vector2f skew{1, 1};
-			float offsetRadius{0}, offsetDegrees{0};
+			sf::Vector2f skew{1, 1}, offset{0, 0};
 
 		public:
 			Camera(GameWindow& mGameWindow, sf::View mView);
@@ -32,15 +31,11 @@ namespace ssvs
 			void setRotation(float mAngle);
 			void setSkew(sf::Vector2f mSkew);
 			void setOffset(sf::Vector2f mOffset);
-			void setOffsetRadius(float mOffsetRadius);
-			void setOffsetDegrees(float mOffsetDegrees);
 
 			sf::View getView();
 			float getRotation();
 			sf::Vector2f getSkew();
 			sf::Vector2f getOffset();
-			float getOffsetRadius();
-			float getOffsetDegrees();
 			sf::Vector2f getCenter();
 			sf::Vector2f getMousePosition();
 			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition);

@@ -12,7 +12,7 @@ namespace ssvs
 	{
 		View computedView{view};
 		computedView.setSize(computedView.getSize().x * skew.x, computedView.getSize().y * skew.y);
-		computedView.setCenter(view.getCenter() - getVectorFromDegrees(view.getRotation() + offsetDegrees, offsetRadius));
+		if(getMagnitude(offset) != 0) computedView.setCenter(view.getCenter() - getVectorFromDegrees(view.getRotation() + getDegrees(offset), getMagnitude(offset)));
 		renderWindow.setView(computedView); 
 	}
 	void Camera::unapply() { renderWindow.setView(renderWindow.getDefaultView()); }
@@ -30,16 +30,12 @@ namespace ssvs
 	void Camera::setView(View mView) 						{ view = mView; }
 	void Camera::setRotation(float mAngle)					{ view.setRotation(mAngle); }
 	void Camera::setSkew(Vector2f mSkew)					{ skew = mSkew; }
-	void Camera::setOffset(sf::Vector2f mOffset)			{ offsetDegrees = getDegrees(mOffset); offsetRadius = getMagnitude(mOffset); }
-	void Camera::setOffsetRadius(float mOffsetRadius)		{ offsetRadius = mOffsetRadius; }
-	void Camera::setOffsetDegrees(float mOffsetDegrees)		{ offsetDegrees = mOffsetDegrees; }
+	void Camera::setOffset(Vector2f mOffset)			{ offset = mOffset; }
 
 	View Camera::getView() 									{ return view; }
 	float Camera::getRotation() 							{ return view.getRotation(); }
 	Vector2f Camera::getSkew() 								{ return skew; }
-	Vector2f Camera::getOffset() 							{ return getVectorFromDegrees(offsetDegrees, offsetRadius); }
-	float Camera::getOffsetRadius() 						{ return offsetRadius; }
-	float Camera::getOffsetDegrees() 						{ return offsetDegrees; }
+	Vector2f Camera::getOffset() 							{ return offset; }
 	Vector2f Camera::getCenter() 							{ return view.getCenter(); }
 	Vector2f Camera::getMousePosition() 					{ return renderWindow.mapPixelToCoords({Mouse::getPosition(renderWindow)}, view); }
 	Vector2f Camera::getConvertedCoords(Vector2i mPosition)	{ return renderWindow.mapPixelToCoords(mPosition, view); }
