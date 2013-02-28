@@ -7,7 +7,7 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		int countNewLines(const string& mString) { int result{0}; for(auto c : mString) if (c == '\n') result++; return result; }
+		int countNewLines(const string& mString) { int result{0}; for(auto c : mString) if(c == '\n') result++; return result; }
 		string replace(const string& mString, const string& mFrom, const string& mTo)
 		{
 			string result{mString};
@@ -18,7 +18,7 @@ namespace ssvs
 		}
 		bool endsWith(const string &mString, const string &mEnding)
 		{
-			if (mString.length() >= mEnding.length()) return (0 == mString.compare (mString.length() - mEnding.length(), mEnding.length(), mEnding));
+			if(mString.length() >= mEnding.length()) return (0 == mString.compare (mString.length() - mEnding.length(), mEnding.length(), mEnding));
 			return false;
 		}
 		string toLower(const string &mString) { string result{mString}; transform(begin(result), end(result), begin(result), ::tolower); return result; }
@@ -44,7 +44,7 @@ namespace ssvs
 			bool c{0};
 
 			for (i = 0, j = nvert-1; i < nvert; j = i++)
-				if (((verts[i]->y>test.y) != (verts[j]->y>test.y)) && (test.x < (verts[j]->x-verts[i]->x) * (test.y-verts[i]->y) / (verts[j]->y-verts[i]->y) + verts[i]->x))
+				if(((verts[i]->y>test.y) != (verts[j]->y>test.y)) && (test.x < (verts[j]->x-verts[i]->x) * (test.y-verts[i]->y) / (verts[j]->y-verts[i]->y) + verts[i]->x))
 					c = !c;
 
 			return c;
@@ -53,11 +53,6 @@ namespace ssvs
 		Vector2f getOrbit(const Vector2f& mParent, const float mDegrees, const float mRadius)
 		{
 			return Vector2f{mParent.x + cos(toRadians(mDegrees)) * mRadius, mParent.y + sin(toRadians(mDegrees)) * mRadius};
-		}
-		Vector2f getNormalized(const Vector2f mVector)
-		{
-			float length{std::sqrt((mVector.x * mVector.x) + (mVector.y * mVector.y))};
-			return Vector2f{mVector.x / length, mVector.y / length};
 		}
 		void movePointTowardsCenter(Vector2f &mVector, const Vector2f mCenter, const float mSpeed)
 		{

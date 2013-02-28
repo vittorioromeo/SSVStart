@@ -13,7 +13,7 @@ namespace ssvs
 		{
 			struct stat fileStat;
 			int err{stat(getNormalizedPath(mPath).c_str(), &fileStat)};
-			if (err != 0) return false;
+			if(err != 0) return false;
 			return (fileStat.st_mode & S_IFMT) == S_IFDIR;
 		}
 		bool isRootOrParent(const string& mPath) { return (endsWith(mPath, ".") || endsWith(mPath, "..")); }

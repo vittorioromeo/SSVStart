@@ -13,7 +13,7 @@ namespace ssvs
 		timeline.ready = false;
 
 		currentTime -= mFrameTime;
-		if (currentTime - mFrameTime > mFrameTime) return;
+		if(currentTime - mFrameTime > mFrameTime) return;
 
 		timeline.next();
 		reset();

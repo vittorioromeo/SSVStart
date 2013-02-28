@@ -1,32 +1,48 @@
 #include "Camera.h"
+#include "Utils/Utils.h"
 
 using namespace sf;
+using namespace ssvs::Utils;
 
 namespace ssvs
 {
 	Camera::Camera(GameWindow& mGameWindow, View mView) : gameWindow(mGameWindow), renderWindow(gameWindow.getRenderWindow()), view{mView} { }
 
-	void Camera::apply() 	{ renderWindow.setView(view); }
-	void Camera::unapply() 	{ renderWindow.setView(renderWindow.getDefaultView()); }
+	void Camera::apply()
+	{
+		View computedView{view};
+		computedView.setSize(computedView.getSize().x * skew.x, computedView.getSize().y * skew.y);
+		computedView.setCenter(view.getCenter() - getVectorFromDegrees(view.getRotation() + offsetDegrees, offsetRadius));
+		renderWindow.setView(computedView); 
+	}
+	void Camera::unapply() { renderWindow.setView(renderWindow.getDefaultView()); }
 
 	void Camera::resize(Vector2f mOffset, Vector2f mSize)
 	{
 		auto size = renderWindow.getSize(); view = View{{0, 0, mSize.x, mSize.y}};
 		view.setViewport({mOffset.x / size.x, mOffset.y / size.y, mSize.x / size.x, mSize.y / size.y});
 	}	
-	void Camera::move(Vector2f mVector) 		{ view.move(mVector); }
-	void Camera::zoom(float mFactor) 			{ view.zoom(mFactor); }
-	void Camera::centerOn(Vector2f mPosition) 	{ view.setCenter(mPosition); }
-	void Camera::rotate(float mAngle)			{ view.rotate(mAngle); }
+	void Camera::move(Vector2f mVector) 					{ view.move(mVector); }
+	void Camera::zoom(float mFactor) 						{ view.zoom(mFactor); }
+	void Camera::centerOn(Vector2f mPosition) 				{ view.setCenter(mPosition); }
+	void Camera::rotate(float mAngle)						{ view.rotate(mAngle); }
 
-	void Camera::setView(sf::View mView) 		{ view = mView; }
-	void Camera::setRotation(float mAngle)		{ view.setRotation(mAngle); }
+	void Camera::setView(View mView) 						{ view = mView; }
+	void Camera::setRotation(float mAngle)					{ view.setRotation(mAngle); }
+	void Camera::setSkew(Vector2f mSkew)					{ skew = mSkew; }
+	void Camera::setOffset(sf::Vector2f mOffset)			{ offsetDegrees = getDegrees(mOffset); offsetRadius = getMagnitude(mOffset); }
+	void Camera::setOffsetRadius(float mOffsetRadius)		{ offsetRadius = mOffsetRadius; }
+	void Camera::setOffsetDegrees(float mOffsetDegrees)		{ offsetDegrees = mOffsetDegrees; }
 
-	sf::View Camera::getView() { return view; }
-	float Camera::getRotation() { return view.getRotation(); }
-	sf::Vector2f Camera::getCenter() { return view.getCenter(); }
-	Vector2f Camera::getMousePosition() { return renderWindow.mapPixelToCoords({Mouse::getPosition(renderWindow)}, view); }
-	Vector2f Camera::getConvertedCoords(Vector2i mPosition) { return renderWindow.mapPixelToCoords(mPosition, view); }
+	View Camera::getView() 									{ return view; }
+	float Camera::getRotation() 							{ return view.getRotation(); }
+	Vector2f Camera::getSkew() 								{ return skew; }
+	Vector2f Camera::getOffset() 							{ return getVectorFromDegrees(offsetDegrees, offsetRadius); }
+	float Camera::getOffsetRadius() 						{ return offsetRadius; }
+	float Camera::getOffsetDegrees() 						{ return offsetDegrees; }
+	Vector2f Camera::getCenter() 							{ return view.getCenter(); }
+	Vector2f Camera::getMousePosition() 					{ return renderWindow.mapPixelToCoords({Mouse::getPosition(renderWindow)}, view); }
+	Vector2f Camera::getConvertedCoords(Vector2i mPosition)	{ return renderWindow.mapPixelToCoords(mPosition, view); }
 	bool Camera::isInView(Vector2f mPosition)
 	{
 		return mPosition.x <= view.getCenter().x + view.getSize().x && (mPosition.x >= view.getCenter().x - view.getSize().x &&

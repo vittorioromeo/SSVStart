@@ -75,12 +75,12 @@ namespace ssvs
 		if(currentCommandPtr == nullptr) return;
 		
 		auto iter = find(commandPtrs.begin(), commandPtrs.end(), currentCommandPtr);
-		if (iter == commandPtrs.end() - 1)
+		if(iter == commandPtrs.end() - 1)
 		{
 			currentCommandPtr = nullptr; // no more commands
 			return;
 		}
-		else if (iter < commandPtrs.end() - 1 && iter >= commandPtrs.begin())
+		else if(iter < commandPtrs.end() - 1 && iter >= commandPtrs.begin())
 		{
 			iter++;
 			currentCommandPtr = *iter;

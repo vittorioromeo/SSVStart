@@ -56,7 +56,7 @@ namespace ssvs
 		else
 		{
 			frameTime = clock.restart().asSeconds() * 60.f;
-			if (frameTime > frameTimeLimit) frameTime = frameTimeLimit;
+			if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
 		}
 
 		fps = 60.f / frameTime;		
