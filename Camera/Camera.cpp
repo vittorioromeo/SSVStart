@@ -30,7 +30,7 @@ namespace ssvs
 	void Camera::setView(View mView) 						{ view = mView; }
 	void Camera::setRotation(float mAngle)					{ view.setRotation(mAngle); }
 	void Camera::setSkew(Vector2f mSkew)					{ skew = mSkew; }
-	void Camera::setOffset(Vector2f mOffset)			{ offset = mOffset; }
+	void Camera::setOffset(Vector2f mOffset)				{ offset = mOffset; }
 
 	View Camera::getView() 									{ return view; }
 	float Camera::getRotation() 							{ return view.getRotation(); }
