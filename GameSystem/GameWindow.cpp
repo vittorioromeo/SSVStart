@@ -35,9 +35,11 @@ namespace ssvs
 
 	void GameWindow::recreateWindow()
 	{
+		ContextSettings contextSettings{0, 0, antialiasingLevel, 0, 0};
+
 		if(renderWindow.isOpen()) renderWindow.close();
-		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen);
-		else renderWindow.create({width, height}, title, Style::Default);
+		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen, contextSettings);
+		else renderWindow.create({width, height}, title, Style::Default, contextSettings);
 		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
 	}
 

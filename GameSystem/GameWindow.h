@@ -23,12 +23,10 @@ namespace ssvs
 			sf::Clock clock;
 			std::string title{""};
 
-			float frameTime{0};
-			float fps{0};
-			bool running{true};
-			bool hasFocus{true};
+			float frameTime{0}, fps{0};
+			bool running{true}, hasFocus{true};
 
-			unsigned int width, height;
+			unsigned int width, height, antialiasingLevel{3};
 			int pixelMultiplier;
 			bool fullscreen;
 			bool staticFrameTime{false};
@@ -58,6 +56,7 @@ namespace ssvs
 			// Setters
 			void setGameState(GameState& mGameState);
 			void setSize(unsigned int mWidth, unsigned int mHeight);
+			void setAntialiasingLevel(unsigned int mAntialiasingLevel);
 			void setFullscreen(bool mFullscreen);
 			void setStaticFrameTime(bool mEnabled);
 			void setVsync(bool mEnabled);
@@ -72,6 +71,7 @@ namespace ssvs
 			float getFPS();
 			unsigned int getWidth();
 			unsigned int getHeight();
+			unsigned int getAntialiasingLevel();
 			bool getFullscreen();
 	};
 } /* namespace ssvs */
