@@ -30,18 +30,25 @@ namespace ssvs
 		}
 		void traverse(const string& mPath, function<void(string, string)> mFunction)
 		{
-			DIR *dir{opendir(mPath.c_str())};
-			struct dirent *entry{readdir(dir)};
-
-			while (entry != NULL)
+			if (isFolder(mPath))
 			{
-				string name{entry->d_name};
-				string path{getNormalizedPath(mPath) + "/" + name};
-				mFunction(name, path);
-				entry = readdir(dir);
-			}
+				DIR *dir{opendir(mPath.c_str())};
+				struct dirent *entry{readdir(dir)};
 
-			closedir(dir);
+				while (entry != NULL)
+				{
+					string name{entry->d_name};
+					string path{getNormalizedPath(mPath) + "/" + name};
+					mFunction(name, path);
+					entry = readdir(dir);
+				}
+
+				closedir(dir);
+			}
+			else
+			{
+				std::cerr << "[WRN] Directory \"" << mPath << "\" not found!" << std::endl;
+			}
 		}
 
 		void recursiveFillFiles(vector<string>& mResult, const string& mPath)
