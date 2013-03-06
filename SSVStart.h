@@ -22,9 +22,6 @@
 // Input
 #include "Input/Manager.h"
 
-// Log
-#include "Log/Log.h"
-
 // Timeline
 #include "Timeline/Timeline.h"
 #include "Timeline/TimelineManager.h"
@@ -40,5 +37,8 @@
 #include "Utils/Delegate.h"
 #include "Utils/MemoryManager.h"
 #include "Utils/Utils.h"
+
+// Log
+#include "Log/Log.h"
 
 #endif

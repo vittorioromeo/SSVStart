@@ -1,6 +1,7 @@
 #ifndef SSVS_ASSETFOLDER
 #define SSVS_ASSETFOLDER
 
+#include <vector>
 #include <string>
 
 namespace ssvs
