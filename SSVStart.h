@@ -20,7 +20,7 @@
 #include "GameSystem/GameState.h"
 
 // Input
-#include "Input/InputManager.h"
+#include "Input/Manager.h"
 
 // Log
 #include "Log/Log.h"

@@ -55,10 +55,12 @@
       <File Name="FileSystem/FileSystem.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Input">
-      <File Name="Input/InputManager.cpp"/>
-      <File Name="Input/InputManager.h"/>
-      <File Name="Input/InputCombo.h"/>
-      <File Name="Input/InputCombo.cpp"/>
+      <File Name="Input/Trigger.h"/>
+      <File Name="Input/Trigger.cpp"/>
+      <File Name="Input/Combo.h"/>
+      <File Name="Input/Combo.cpp"/>
+      <File Name="Input/Manager.h"/>
+      <File Name="Input/Manager.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Tileset">
       <File Name="Tileset/Tileset.cpp"/>

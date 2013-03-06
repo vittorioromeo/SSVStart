@@ -11,13 +11,14 @@
 #include <map>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "Input/InputManager.h"
+#include "Input/Manager.h"
+#include "Input/Trigger.h"
 #include "Utils/Delegate.h"
 
 namespace ssvs
 {
 	class GameWindow;
-	
+
 	class GameState
 	{
 		typedef std::function<void()> DrawFunc;
@@ -27,7 +28,7 @@ namespace ssvs
 
 		private:
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
-			InputManager inputManager;
+			Input::Manager inputManager;
 
 		public:
 			Delegate<void> onDraw;
@@ -40,8 +41,7 @@ namespace ssvs
 			void update(float mFrameTime);
 			void draw();
 
-			void addInput(InputCombo mInputCombination, InputManager::InputFunc mInputFunc,
-				InputCombo::Types mType = InputCombo::Types::CONTINUOUS);			
+			void addInput(Input::Trigger mTrigger, Input::Manager::InputFunc mInputFunc, Input::Trigger::Types mType = Input::Trigger::Types::CONTINUOUS);
 		};
 	} /* namespace ssvs */
 #endif /* GAME_H_ */

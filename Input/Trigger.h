@@ -1,0 +1,40 @@
+#ifndef SSVS_INPUT_TRIGGER
+#define SSVS_INPUT_TRIGGER
+
+#include <memory>
+#include <vector>
+#include <functional>
+#include <map>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include "GameSystem/GameWindow.h"
+#include "Input/Combo.h"
+
+namespace ssvs
+{
+	namespace Input
+	{
+		class Trigger
+		{
+			public:
+				enum class Types{CONTINUOUS, SINGLE};
+
+			private:
+				Types type{Types::CONTINUOUS};
+				std::vector<Combo> combos;
+				bool released{true};
+
+				bool isDown(GameWindow& mGameWindow);
+
+			public:
+				Trigger(std::initializer_list<Combo> mCombos);
+
+				bool isActive(GameWindow& mGameWindow);
+				void updateRelease(GameWindow& mGameWindow);
+				void setType(Types mType);
+				void setReleased(bool mValue);
+		};
+	}
+}
+
+#endif

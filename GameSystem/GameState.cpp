@@ -6,10 +6,14 @@
 #include "GameWindow.h"
 #include <algorithm>
 
+using namespace ssvs::Input;
+
 namespace ssvs
 {
-	void GameState::addInput(InputCombo mInputCombination, InputManager::InputFunc mInputFunc,
-		InputCombo::Types mType) { mInputCombination.setType(mType); inputManager.addInput(mInputCombination, mInputFunc); }
+	void GameState::addInput(Trigger mTrigger, Manager::InputFunc mInputFunc, Trigger::Types mType)
+	{
+		mTrigger.setType(mType); inputManager.addInput(mTrigger, mInputFunc);
+	}
 	void GameState::update(float mFrameTime)
 	{
 		inputManager.update(*gameWindowPtr, mFrameTime);
