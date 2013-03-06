@@ -19,11 +19,11 @@ namespace ssvs
 
 	bool InputCombo::isActive(GameWindow& mGameWindow)
 	{
-		if(type == ComboType::SINGLE) return released && isDown(mGameWindow);
-		else if(type == ComboType::CONTINUOUS) return isDown(mGameWindow);
+		if(type == Types::SINGLE) return released && isDown(mGameWindow);
+		else if(type == Types::CONTINUOUS) return isDown(mGameWindow);
 		return false;
 	}
-	void InputCombo::setType(ComboType mType) { type = mType; }
+	void InputCombo::setType(Types mType) { type = mType; }
 	void InputCombo::setReleased(bool mValue) { released = mValue; }
 }
 

@@ -53,7 +53,7 @@ namespace ssvs
 				if(!isRootOrParent(path))
 				{
 					if(isFolder(path)) recursiveFillFiles(mResult, path);
-					if(!isFolder(path)) mResult.push_back(path);
+					else if(!isFolder(path)) mResult.push_back(path);
 				}
 			});
 		}
@@ -63,18 +63,14 @@ namespace ssvs
 				if(!isRootOrParent(path))
 				{
 					if(isFolder(path)) recursiveFillFiles(mResult, path);
-					if(!isFolder(path)) if(endsWith(name, mExtension)) mResult.push_back(path);
+					else if(!isFolder(path)) if(endsWith(name, mExtension)) mResult.push_back(path);
 				}
 			});
 		}
 		void recursiveFillFolders(vector<string>& mResult, const string& mPath)
 		{
 			traverse(mPath, [&](string, string path){
-				if(!isRootOrParent(path))
-				{
-					if(isFolder(path)) recursiveFillFolders(mResult, path);
-					if(isFolder(path)) mResult.push_back(path);
-				}
+				if(!isRootOrParent(path)) if(isFolder(path)) { recursiveFillFolders(mResult, path); mResult.push_back(path); }
 			});
 		}
 		void recursiveFillAll(vector<string>& mResult, const string& mPath)

@@ -9,7 +9,7 @@
 namespace ssvs
 {
 	void GameState::addInput(InputCombo mInputCombination, InputManager::InputFunc mInputFunc,
-		InputCombo::ComboType mType) { mInputCombination.setType(mType); inputManager.addInput(mInputCombination, mInputFunc); }
+		InputCombo::Types mType) { mInputCombination.setType(mType); inputManager.addInput(mInputCombination, mInputFunc); }
 	void GameState::update(float mFrameTime)
 	{
 		inputManager.update(*gameWindowPtr, mFrameTime);

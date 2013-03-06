@@ -14,10 +14,10 @@ namespace ssvs
 	class InputCombo
 	{
 		public:
-			enum class ComboType{CONTINUOUS, SINGLE};
+			enum class Types{CONTINUOUS, SINGLE};
 
 		private:
-			ComboType type{ComboType::CONTINUOUS};
+			Types type{Types::CONTINUOUS};
 			std::vector<sf::Keyboard::Key> keys;
 			std::vector<sf::Mouse::Button> buttons;
 			bool released{true};
@@ -30,7 +30,7 @@ namespace ssvs
 
 			bool isActive(GameWindow& mGameWindow);
 			void updateRelease(GameWindow& mGameWindow);
-			void setType(ComboType mType);
+			void setType(Types mType);
 			void setReleased(bool mValue);
 	};
 }

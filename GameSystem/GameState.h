@@ -41,7 +41,7 @@ namespace ssvs
 			void draw();
 
 			void addInput(InputCombo mInputCombination, InputManager::InputFunc mInputFunc,
-				InputCombo::ComboType mType = InputCombo::ComboType::CONTINUOUS);			
+				InputCombo::Types mType = InputCombo::Types::CONTINUOUS);			
 		};
 	} /* namespace ssvs */
 #endif /* GAME_H_ */
