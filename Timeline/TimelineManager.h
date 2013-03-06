@@ -1,5 +1,5 @@
-#ifndef TIMELINEMANAGER_H
-#define TIMELINEMANAGER_H
+#ifndef SSVS_TIMELINE_MANAGER
+#define SSVS_TIMELINE_MANAGER
 
 #include "Timeline.h"
 #include "Utils/MemoryManager.h"
@@ -20,4 +20,4 @@ namespace ssvs
 	};
 }
 
-#endif // TIMELINEMANAGER_H
+#endif 

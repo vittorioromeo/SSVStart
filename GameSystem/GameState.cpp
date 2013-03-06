@@ -3,8 +3,6 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include "GameState.h"
-#include "GameWindow.h"
-#include <algorithm>
 
 using namespace ssvs::Input;
 

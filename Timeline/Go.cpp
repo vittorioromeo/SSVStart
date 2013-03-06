@@ -3,6 +3,7 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include "Go.h"
+#include "Timeline.h"
 
 namespace ssvs
 {

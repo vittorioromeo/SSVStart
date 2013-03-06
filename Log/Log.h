@@ -1,13 +1,12 @@
-#ifndef LOG_H
-#define LOG_H
+#ifndef SSVS_LOG
+#define SSVS_LOG
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <sstream>
 #include <ostream>
-#include <fstream>
-#include "../Utils/Utils.h"
+#include "Utils/Utils.h"
 
 namespace ssvs
 {
@@ -31,4 +30,4 @@ namespace ssvs
 	void saveLogToFile(const std::string& mPath);
 }
 
-#endif // LOG_H
+#endif

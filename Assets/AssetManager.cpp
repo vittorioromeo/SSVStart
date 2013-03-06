@@ -1,9 +1,9 @@
 #include "AssetManager.h"
 #include "AssetFolder.h"
+#include "Log/Log.h"
 
 using namespace std;
 using namespace sf;
-using namespace ssvs::FileSystem;
 using namespace ssvs::Utils;
 
 namespace ssvs

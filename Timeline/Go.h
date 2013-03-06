@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef GOTO_H_
-#define GOTO_H_
+#ifndef SSVS_TIMELINE_GO
+#define SSVS_TIMELINE_GO
 
 #include "Command.h"
 
@@ -20,5 +20,6 @@ namespace ssvs
 		public:
 			Go(Timeline& mTimeline, int mTargetIndex, int mTimes);
 	};
-} /* namespace ssvs */
-#endif /* GOTO_H_ */
+}
+
+#endif

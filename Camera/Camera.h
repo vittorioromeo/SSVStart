@@ -1,12 +1,13 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef SSVS_CAMERA
+#define SSVS_CAMERA
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "../GameSystem/GameWindow.h"
 
 namespace ssvs
 {
+	class GameWindow;
+
 	class Camera
 	{
 		private:
@@ -43,4 +44,4 @@ namespace ssvs
 	};
 }
 
-#endif // CAMERA_H
+#endif

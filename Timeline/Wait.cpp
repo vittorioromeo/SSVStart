@@ -3,6 +3,7 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include "Wait.h"
+#include "Timeline.h"
 
 namespace ssvs
 {
@@ -19,4 +20,4 @@ namespace ssvs
 		reset();
 	}
 	void Wait::reset() { currentTime = time; }
-} /* namespace sses */
+}

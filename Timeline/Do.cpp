@@ -4,8 +4,6 @@
 
 #include "Do.h"
 #include "Timeline.h"
-#include <iostream>
-#include <sstream>
 
 using namespace std;
 

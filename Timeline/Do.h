@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef DO_H_
-#define DO_H_
+#ifndef SSVS_TIMELINE_DO
+#define SSVS_TIMELINE_DO
 
 #include "Command.h"
 #include <functional>
@@ -23,4 +23,4 @@ namespace ssvs
 	};
 }
 
-#endif /* DO_H_ */
+#endif

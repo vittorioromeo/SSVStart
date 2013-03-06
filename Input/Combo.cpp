@@ -1,4 +1,5 @@
 #include "Combo.h"
+#include "GameSystem/GameWindow.h"
 
 using namespace sf;
 using namespace std;

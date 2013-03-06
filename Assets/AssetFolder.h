@@ -1,13 +1,12 @@
-#ifndef ASSETFOLDER_H
-#define ASSETFOLDER_H
+#ifndef SSVS_ASSETFOLDER
+#define SSVS_ASSETFOLDER
 
 #include <string>
-#include "../Log/Log.h"
-#include "../FileSystem/FileSystem.h"
-#include "AssetManager.h"
 
 namespace ssvs
 {
+	class AssetManager;
+
 	class AssetFolder
 	{
 		private:
@@ -26,4 +25,4 @@ namespace ssvs
 	};
 }
 
-#endif // ASSETFOLDER_H
+#endif

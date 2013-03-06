@@ -1,5 +1,5 @@
-#ifndef MEMORYMANAGER_H
-#define MEMORYMANAGER_H
+#ifndef SSVS_UTILS_MEMORYMANAGER
+#define SSVS_UTILS_MEMORYMANAGER
 
 #include <vector>
 #include "Utils.h"
@@ -40,4 +40,4 @@ namespace ssvs
 	}
 }
 
-#endif // MEMORYMANAGER_H
+#endif

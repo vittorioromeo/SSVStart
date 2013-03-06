@@ -1,5 +1,5 @@
-#ifndef TILESET_H
-#define TILESET_H
+#ifndef SSVS_TILESET
+#define SSVS_TILESET
 
 #include <string>
 #include <map>
@@ -26,4 +26,4 @@ namespace ssvs
 	};
 }
 
-#endif // TILESET_H
+#endif

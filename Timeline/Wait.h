@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef WAIT_H_
-#define WAIT_H_
+#ifndef SSVS_TIMELINE_WAIT
+#define SSVS_TIMELINE_WAIT
 
 #include "Command.h"
 
@@ -20,5 +20,5 @@ namespace ssvs
 			Wait(Timeline& mTimeline, float mTime);
 	};
 
-} /* namespace sses */
-#endif /* WAIT_H_ */
+}
+#endif

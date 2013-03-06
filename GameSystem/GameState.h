@@ -2,13 +2,11 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef GAME_H_
-#define GAME_H_
+#ifndef SSVS_GAMESTATE
+#define SSVS_GAMESTATE
 
-#include <memory>
 #include <vector>
 #include <functional>
-#include <map>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "Input/Manager.h"
@@ -18,6 +16,7 @@
 namespace ssvs
 {
 	class GameWindow;
+	namespace Input { class Trigger; }
 
 	class GameState
 	{
@@ -31,8 +30,8 @@ namespace ssvs
 			Input::Manager inputManager;
 
 		public:
-			Delegate<void> onDraw;
-			Delegate<void, float> onUpdate;
+			Utils::Delegate<void> onDraw;
+			Utils::Delegate<void, float> onUpdate;
 
 			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable
@@ -43,5 +42,6 @@ namespace ssvs
 
 			void addInput(Input::Trigger mTrigger, Input::Manager::InputFunc mInputFunc, Input::Trigger::Types mType = Input::Trigger::Types::CONTINUOUS);
 		};
-	} /* namespace ssvs */
-#endif /* GAME_H_ */
+	}
+	
+#endif

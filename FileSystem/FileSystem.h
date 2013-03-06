@@ -1,14 +1,9 @@
-#ifndef FILESYSTEM_H
-#define FILESYSTEM_H
+#ifndef SSVS_FILESYSTEM
+#define SSVS_FILESYSTEM
 
 #include <vector>
 #include <string>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sstream>
 #include <functional>
-#include <string.h>
-#include "../Log/Log.h"
 
 namespace ssvs
 {
@@ -41,4 +36,4 @@ namespace ssvs
 	}
 }
 
-#endif // FILESYSTEM_H
+#endif

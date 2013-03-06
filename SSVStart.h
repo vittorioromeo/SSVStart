@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVSTART_H_
-#define SSVSTART_H_
+#ifndef SSVS_SSVSTART
+#define SSVS_SSVSTART
 
 // Assets
 #include "Assets/AssetFolder.h"
@@ -41,4 +41,4 @@
 #include "Utils/MemoryManager.h"
 #include "Utils/Utils.h"
 
-#endif /* SSVSTART_H_ */
+#endif

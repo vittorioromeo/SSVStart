@@ -1,17 +1,13 @@
 #ifndef SSVS_INPUT_TRIGGER
 #define SSVS_INPUT_TRIGGER
 
-#include <memory>
 #include <vector>
-#include <functional>
-#include <map>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include "GameSystem/GameWindow.h"
 #include "Input/Combo.h"
 
 namespace ssvs
 {
+	class GameWindow;
+
 	namespace Input
 	{
 		class Trigger

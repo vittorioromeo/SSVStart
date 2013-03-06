@@ -1,4 +1,5 @@
 #include "Input/Manager.h"
+#include "Input/Trigger.h"
 
 using namespace std;
 

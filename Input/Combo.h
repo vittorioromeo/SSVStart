@@ -1,16 +1,14 @@
-#ifndef INPUTCOMBINATION_H
-#define INPUTCOMBINATION_H
+#ifndef SSVS_INPUT_COMBO
+#define SSVS_INPUT_COMBO
 
-#include <memory>
 #include <vector>
 #include <functional>
-#include <map>
 #include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include "GameSystem/GameWindow.h"
 
 namespace ssvs
 {
+	class GameWindow;
+
 	namespace Input
 	{
 		class Combo
@@ -28,4 +26,4 @@ namespace ssvs
 	}
 }
 
-#endif // INPUTCOMBINATION_H
+#endif

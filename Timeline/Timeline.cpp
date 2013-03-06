@@ -2,14 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <algorithm>
-#include <iostream>
-#include <sstream>
 #include "Timeline.h"
 #include "Command.h"
-#include "Do.h"
-#include "Go.h"
-#include "Wait.h"
 #include "Utils/Utils.h"
 
 using namespace std;

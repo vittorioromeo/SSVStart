@@ -1,5 +1,5 @@
-#ifndef ASSETREPOSITORY_H
-#define ASSETREPOSITORY_H
+#ifndef SSVS_ASSETREPOSITORY
+#define SSVS_ASSETREPOSITORY
 
 #include <map>
 #include <string>
@@ -7,8 +7,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "../Log/Log.h"
-#include "../FileSystem/FileSystem.h"
 
 namespace ssvs
 {
@@ -41,4 +39,4 @@ namespace ssvs
 	};
 }
 
-#endif // ASSETREPOSITORY_H
+#endif

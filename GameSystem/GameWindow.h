@@ -2,12 +2,10 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef GAMEWINDOW_H_
-#define GAMEWINDOW_H_
+#ifndef SSVS_GAMEWINDOW
+#define SSVS_GAMEWINDOW
 
 #include <string>
-#include <sstream>
-#include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -74,5 +72,6 @@ namespace ssvs
 			unsigned int getAntialiasingLevel();
 			bool getFullscreen();
 	};
-} /* namespace ssvs */
-#endif /* GAMEWINDOW_H_ */
+}
+
+#endif

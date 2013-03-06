@@ -1,4 +1,7 @@
+#include <dirent.h>
+#include <sys/stat.h>
 #include "FileSystem.h"
+#include "Log/Log.h"
 
 using namespace std;
 using namespace ssvs::Utils;

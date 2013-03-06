@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Utils/Utils.h"
+#include "GameSystem/GameWindow.h"
 
 using namespace sf;
 using namespace ssvs::Utils;

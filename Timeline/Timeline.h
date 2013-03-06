@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef TIMELINE_H_
-#define TIMELINE_H_
+#ifndef SSVS_TIMELINE
+#define SSVS_TIMELINE
 
 #include <vector>
 #include <functional>
@@ -55,5 +55,6 @@ namespace ssvs
 			int getCurrentIndex();
 			bool isFinished();
 	};
-} /* namespace sses */
-#endif /* TIMELINE_H_ */
+}
+
+#endif

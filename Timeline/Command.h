@@ -2,13 +2,13 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef COMMAND_H_
-#define COMMAND_H_
-
-#include "Timeline.h"
+#ifndef SSVS_TIMELINE_COMMAND
+#define SSVS_TIMELINE_COMMAND
 
 namespace ssvs
 {
+	class Timeline;
+
 	struct Command
 	{
 		Timeline& timeline;
@@ -18,5 +18,5 @@ namespace ssvs
 		virtual void update(float mFrameTime);
 		virtual void reset();
 	};
-} /* namespace ssvs */
-#endif /* COMMAND_H_ */
+}
+#endif

@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef UTILS_H_SSVS
-#define UTILS_H_SSVS
+#ifndef SSVS_UTILS
+#define SSVS_UTILS
 
 #include <math.h>
 #include <string>
@@ -74,4 +74,4 @@ namespace ssvs
 	}
 }
 
-#endif /* UTILS_H_SSVS */
+#endif

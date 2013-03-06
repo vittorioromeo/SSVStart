@@ -1,3 +1,6 @@
+#include "Log/Log.h"
+#include "FileSystem/FileSystem.h"
+#include "AssetManager.h"
 #include "AssetFolder.h"
 
 using namespace std;

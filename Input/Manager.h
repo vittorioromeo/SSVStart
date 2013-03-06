@@ -1,13 +1,9 @@
-#ifndef INPUTMANAGER_H
-#define INPUTMANAGER_H
+#ifndef SSVS_INPUT_MANAGER
+#define SSVS_INPUT_MANAGER
 
-#include <memory>
 #include <vector>
 #include <functional>
-#include <map>
 #include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include "Input/Trigger.h"
 
 namespace ssvs
 {
@@ -15,6 +11,8 @@ namespace ssvs
 
 	namespace Input
 	{
+		class Trigger;
+
 		class Manager
 		{
 			public:
@@ -31,4 +29,4 @@ namespace ssvs
 	}
 }
 
-#endif // INPUTMANAGER_H
+#endif
