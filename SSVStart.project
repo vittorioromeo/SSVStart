@@ -35,6 +35,9 @@
       <File Name="Utils/Utils.h"/>
       <File Name="Utils/Delegate.h"/>
       <File Name="Utils/MemoryManager.h"/>
+      <VirtualDirectory Name="Traits">
+        <File Name="Utils/Traits/Traits.h"/>
+      </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>
