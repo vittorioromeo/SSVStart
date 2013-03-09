@@ -16,6 +16,17 @@ namespace ssvs
 			result.replace(start_pos, mFrom.length(), mTo);
 			return result;
 		}
+		string replaceAll(const string& mString, const string& mFrom, const string& mTo)
+		{
+			string result{mString};
+			size_t start_pos = result.find(mFrom);
+			while(start_pos != string::npos)
+			{
+				result.replace(start_pos, mFrom.length(), mTo);
+				start_pos = result.find(mFrom);
+			}
+			return result;
+		}
 		bool endsWith(const string &mString, const string &mEnding)
 		{
 			if(mString.length() >= mEnding.length()) return (0 == mString.compare (mString.length() - mEnding.length(), mEnding.length(), mEnding));

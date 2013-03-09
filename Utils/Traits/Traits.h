@@ -2,7 +2,7 @@
 #define SSVS_UTILS_TRAITS
 
 #include <vector>
-#include <sparsehash/dense_hash_set>
+#include <google/dense_hash_set>
 
 namespace ssvs
 {
