@@ -48,8 +48,8 @@ namespace ssvs
 	{
 		Event event; renderWindow.pollEvent(event);
 
-		if(event.type == Event::GainedFocus) hasFocus = true;
-		else if(event.type == Event::LostFocus) hasFocus = false;
+		if(event.type == Event::GainedFocus) focus = true;
+		else if(event.type == Event::LostFocus) focus = false;
 		else if(event.type == Event::Closed) running = false;
 	}
 	void GameWindow::runFps()
@@ -64,6 +64,6 @@ namespace ssvs
 		fps = 60.f / frameTime;		
 	}
 
-	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return hasFocus && Keyboard::isKeyPressed(mKey); }
-	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return hasFocus && Mouse::isButtonPressed(mButton); }
-} /* namespace ssvs */
+	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }
+	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return focus && Mouse::isButtonPressed(mButton); }
+}

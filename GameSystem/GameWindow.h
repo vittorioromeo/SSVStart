@@ -22,7 +22,7 @@ namespace ssvs
 			std::string title{""};
 
 			float frameTime{0}, fps{0};
-			bool running{true}, hasFocus{true};
+			bool running{true}, focus{true};
 
 			unsigned int width, height, antialiasingLevel{3};
 			int pixelMultiplier;
@@ -71,6 +71,7 @@ namespace ssvs
 			unsigned int getHeight();
 			unsigned int getAntialiasingLevel();
 			bool getFullscreen();
+			bool hasFocus();
 	};
 }
 
