@@ -20,12 +20,13 @@ namespace ssvs
 
 	class GameState
 	{
-		typedef std::function<void()> DrawFunc;
-		typedef std::function<void(float)> UpdateFunc;
-		typedef std::pair<int, DrawFunc> DrawFuncPair;
 		friend class GameWindow;
-
+		
 		private:
+			typedef Input::Trigger ITrigger;
+			typedef Input::Trigger::Types ITypes;
+			typedef Input::Manager::InputFunc IFunc;
+
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
 			Input::Manager inputManager;
 
@@ -40,7 +41,7 @@ namespace ssvs
 			void update(float mFrameTime);
 			void draw();
 
-			void addInput(Input::Trigger mTrigger, Input::Manager::InputFunc mInputFunc, Input::Trigger::Types mType = Input::Trigger::Types::CONTINUOUS);
+			void addInput(ITrigger mTrigger, IFunc mInputFunc, ITypes mType = ITypes::CONTINUOUS);
 		};
 	}
 	

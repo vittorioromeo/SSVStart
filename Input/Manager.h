@@ -1,3 +1,7 @@
+// Copyright (c) 2013 Vittorio Romeo
+// License: Academic Free License ("AFL") v. 3.0
+// AFL License page: http://opensource.org/licenses/AFL-3.0
+
 #ifndef SSVS_INPUT_MANAGER
 #define SSVS_INPUT_MANAGER
 
@@ -23,7 +27,7 @@ namespace ssvs
 				std::vector<InputFuncPair> inputFuncPairs;
 
 			public:
-				void addInput(Trigger mInputCombination, InputFunc mInputFunc);
+				void add(Trigger mInputCombination, InputFunc mInputFunc);
 				void update(GameWindow& mGameWindow, float mFrameTime);
 		};
 	}

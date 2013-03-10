@@ -89,5 +89,4 @@ namespace ssvs
 		unsigned int pos(find(begin(commandPtrs), end(commandPtrs), currentCommandPtr) - begin(commandPtrs));
 		return pos < commandPtrs.size() ? pos : -1;
 	}
-
-} /* namespace sses */
+}
