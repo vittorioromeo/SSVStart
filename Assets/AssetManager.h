@@ -39,6 +39,13 @@ namespace ssvs
 			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
 
+			std::map<std::string, sf::Font*>& getFonts();
+			std::map<std::string, sf::Image*>& getImages();
+			std::map<std::string, sf::Texture*>& getTextures();
+			std::map<std::string, sf::SoundBuffer*>& getSoundBuffers();
+			std::map<std::string, sf::Sound*>& getSounds();
+			std::map<std::string, sf::Music*>& getMusics();
+
 			void stopSounds();
 	};
 }

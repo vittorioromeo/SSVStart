@@ -80,6 +80,13 @@ namespace ssvs
 		return *musics[mId];
 	}
 
+	map<string, Font*>& AssetManager::getFonts()				{ return fonts; }
+	map<string, Image*>& AssetManager::getImages()				{ return images; }
+	map<string, Texture*>& AssetManager::getTextures()			{ return textures; }
+	map<string, SoundBuffer*>& AssetManager::getSoundBuffers() 	{ return soundBuffers; }
+	map<string, Sound*>& AssetManager::getSounds()				{ return sounds; }
+	map<string, Music*>& AssetManager::getMusics()				{ return musics; }
+
 	void AssetManager::stopSounds() { for(auto& pair : sounds) pair.second->stop(); }
 }
 
