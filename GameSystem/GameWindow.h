@@ -12,16 +12,22 @@
 namespace ssvs
 {
 	class GameState;
+	class TimerBase;
+	class StaticTimer;
+	class DynamicTimer;
 
 	class GameWindow
 	{
+		friend class TimerBase;
+		friend class StaticTimer;
+		friend class DynamicTimer;
+
 		private:
 			GameState* gamePtr{nullptr}; // not owned, just pointed to
 			sf::RenderWindow renderWindow;
-			sf::Clock clock;
 			std::string title{""};
+			sf::Clock clock;
 
-			float frameTime{0}, fps{0};
 			bool running{true}, focus{true};
 
 			unsigned int width, height, antialiasingLevel{3};
@@ -29,10 +35,12 @@ namespace ssvs
 			bool fullscreen;
 			bool staticFrameTime{false};
 			float staticFrameTimeValue{1};
-			float frameTimeLimit{4.f};
+
+			TimerBase* timer;
 
 			void runInput();
-			void runGame();
+			void runUpdate();
+			void runDraw();
 			void runFps();
 
 		public:

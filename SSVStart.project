@@ -15,6 +15,7 @@
       <File Name="GameSystem/GameState.h"/>
       <File Name="GameSystem/GameState.cpp"/>
       <File Name="GameSystem/GameWindow.cpp"/>
+      <File Name="GameSystem/Timers.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Timeline">
       <File Name="Timeline/Command.cpp"/>

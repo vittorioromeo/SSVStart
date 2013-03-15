@@ -9,6 +9,7 @@ using namespace ssvs::Input;
 namespace ssvs
 {
 	void GameState::addInput(Trigger mTrigger, IFunc mInputFunc, ITypes mType) { mTrigger.setType(mType); inputManager.add(mTrigger, mInputFunc); }
-	void GameState::update(float mFrameTime) { inputManager.update(*gameWindowPtr, mFrameTime); onUpdate(mFrameTime); }
+	void GameState::update(float mFrameTime) { onUpdate(mFrameTime); }
+	void GameState::updateInput(float mFrameTime) { inputManager.update(*gameWindowPtr, mFrameTime); }
 	void GameState::draw() { onDraw(); }
 }

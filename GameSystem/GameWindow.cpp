@@ -4,6 +4,7 @@
 
 #include "GameWindow.h"
 #include "GameState.h"
+#include "Timers.h"
 
 using namespace std;
 using namespace sf;
@@ -11,7 +12,7 @@ using namespace sf;
 namespace ssvs
 {
 	GameWindow::GameWindow(string mTitle, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
-		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}
+		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer{new DynamicTimer{*this}}
 	{
 		recreateWindow();
 	}
@@ -22,9 +23,12 @@ namespace ssvs
 		{
 			renderWindow.setActive(true);
 			renderWindow.clear();
-			runInput(); runGame();
+			runInput();
+			timer->runUpdate();
+			timer->runDraw();
 			renderWindow.display();
-			runFps();
+			timer->runFrameTime();
+			timer->runFps();
 		}
 	}
 	void GameWindow::stop() { running = false; }
@@ -43,26 +47,18 @@ namespace ssvs
 		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
 	}
 
-	void GameWindow::runGame() { gamePtr->update(frameTime); gamePtr->draw(); }
 	void GameWindow::runInput()
 	{
 		Event event; renderWindow.pollEvent(event);
+		gamePtr->updateInput(timer->getFrameTime());
 
 		if(event.type == Event::GainedFocus) focus = true;
 		else if(event.type == Event::LostFocus) focus = false;
 		else if(event.type == Event::Closed) running = false;
 	}
-	void GameWindow::runFps()
-	{
-		if(staticFrameTime) frameTime = staticFrameTimeValue;
-		else
-		{
-			frameTime = clock.restart().asSeconds() * 60.f;
-			if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
-		}
-
-		fps = 60.f / frameTime;		
-	}
+	void GameWindow::runUpdate() { gamePtr->update(timer->getFrameTime()); }
+	void GameWindow::runDraw() { gamePtr->draw(); }	
+	void GameWindow::runFps() { }
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }
 	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return focus && Mouse::isButtonPressed(mButton); }
