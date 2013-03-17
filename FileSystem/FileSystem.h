@@ -37,6 +37,9 @@ namespace ssvs
 		std::vector<std::string> getRecursiveFilesByExtension(const std::string& mPath, const std::string& mExtension);
 		std::vector<std::string> getRecursiveFolders(const std::string& mPath);
 		std::vector<std::string> getRecursiveAll(const std::string& mPath);
+
+		// Utilities
+		std::string getFileContents(const std::string& mPath);
 	}
 }
 

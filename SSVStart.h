@@ -36,7 +36,9 @@
 // Utils
 #include "Utils/Delegate.h"
 #include "Utils/MemoryManager.h"
+#include "Utils/ThreadWrapper.h"
 #include "Utils/Utils.h"
+#include "Utils/UtilsJson.h"
 
 // Log
 #include "Log/Log.h"

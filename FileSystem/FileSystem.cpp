@@ -127,6 +127,17 @@ namespace ssvs
 		vector<string> getRecursiveFilesByExtension(const string& mPath, const string& mExtension) { vector<string> result; recursiveFillFilesByExtension(result, mPath, mExtension); return result; }
 		vector<string> getRecursiveFolders(const string& mPath) { vector<string> result; recursiveFillFolders(result, mPath); return result; }
 		vector<string> getRecursiveAll(const string& mPath) { vector<string> result; recursiveFillAll(result, mPath); return result; }
+
+		string getFileContents(const string& mPath)
+		{
+			FILE* fptr{fopen(mPath.c_str(), "rb")};
+			fseek(fptr, 0, SEEK_END);
+			size_t fsize(ftell(fptr));
+			fseek(fptr, 0, SEEK_SET);
+			string content; content.resize(fsize);
+			if(fread(const_cast<char*>(content.c_str()), 1, fsize, fptr) != fsize) log("Error: " + mPath, "File loading");
+			fclose(fptr); return content;
+		}
 	}
 }
 

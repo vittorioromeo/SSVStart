@@ -11,7 +11,9 @@
 #include <vector>
 #include <algorithm>
 #include "Timeline/Timeline.h"
+#include "Utils/ThreadWrapper.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
 namespace ssvs
 {
@@ -74,6 +76,13 @@ namespace ssvs
 
 		// Timelines
 		void clearAndResetTimeline(Timeline& mTimeline);
+
+		// ThreadWrapper
+		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(10));
+
+		// sf::Network
+		sf::Http::Response getGetResponse(const std::string& mHost, const std::string& mHostFolder, const std::string& mRequestFile);
+		sf::Http::Response getPostResponse(const std::string& mHost, const std::string& mHostFolder, const std::string& mRequestFile, const std::string& mBody);
 	}
 }
 

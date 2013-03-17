@@ -40,6 +40,8 @@
         <File Name="Utils/Traits/Traits.h"/>
       </VirtualDirectory>
       <File Name="Utils/ThreadWrapper.h"/>
+      <File Name="Utils/UtilsJson.h"/>
+      <File Name="Utils/UtilsJson.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>
@@ -132,6 +134,7 @@
         <IncludePath Value="."/>
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
         <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include"/>
+        <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/include"/>
       </Compiler>
       <Linker Options="-shared" Required="yes">
         <LibraryPath Value="../SSVStart/Release"/>
@@ -145,6 +148,8 @@
         <Library Value="sfml-window"/>
         <Library Value="sfml-audio"/>
         <Library Value="sfml-graphics"/>
+        <Library Value="sfml-network"/>
+        <Library Value="json_mingw_libmt"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="./_RELEASE/$(ProjectName).dll" IntermediateDirectory="./_INTERMEDIATE" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./_RELEASE/" PauseExecWhenProcTerminates="yes"/>

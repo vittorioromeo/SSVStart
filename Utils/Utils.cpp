@@ -11,6 +11,10 @@ namespace ssvs
 {
 	namespace Utils
 	{
+		using Request = Http::Request;
+		using Response = Http::Response;
+		using Status = Http::Response::Status;
+
 		int countNewLines(const string& mString) { int result{0}; for(auto c : mString) if(c == '\n') result++; return result; }
 		string replace(const string& mString, const string& mFrom, const string& mTo)
 		{
@@ -95,6 +99,18 @@ namespace ssvs
 			m = getNormalized(m) * mSpeed;
 			mVector += m;
 		}
+		
 		void clearAndResetTimeline(Timeline& mTimeline) { mTimeline.clear(); mTimeline.reset(); }
+
+		void waitFor(ThreadWrapper& mThreadWrapper, Time mTime) { while(!mThreadWrapper.getFinished()) sleep(mTime); }
+
+		Response getGetResponse(const string& mHost, const string& mHostFolder, const string& mRequestFile)
+		{
+			return Http(mHost).sendRequest({mHostFolder + mRequestFile});
+		}
+		Response getPostResponse(const string& mHost, const string& mHostFolder, const string& mRequestFile, const string& mBody)
+		{
+			return Http(mHost).sendRequest({mHostFolder + mRequestFile, Request::Post, mBody});
+		}
 	}
 }
