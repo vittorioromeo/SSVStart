@@ -39,6 +39,7 @@
       <VirtualDirectory Name="Traits">
         <File Name="Utils/Traits/Traits.h"/>
       </VirtualDirectory>
+      <File Name="Utils/ThreadWrapper.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>

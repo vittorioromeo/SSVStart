@@ -22,8 +22,10 @@ namespace ssvs
 		int countNewLines(const std::string& mString);
 		std::string replace(const std::string& mString, const std::string& mFrom, const std::string& mTo);
 		std::string replaceAll(const std::string& mString, const std::string& mFrom, const std::string& mTo);
+		bool startsWith(const std::string& mString, const std::string& mStart);
 		bool endsWith(const std::string &mString, const std::string &mEnding);
 		std::string toLower(const std::string &mString);
+		std::vector<std::string> split(const std::string& mString, char mSplitter, bool mKeepSplitter = false);
 
 		// Collections
 		template<typename T, typename V> void eraseRemove(T& mItems, const V& mValue) { mItems.erase(std::remove(std::begin(mItems), std::end(mItems), mValue), std::end(mItems)); }
