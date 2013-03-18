@@ -2,10 +2,10 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "TimelineManager.h"
-#include "Utils/Utils.h"
+#include "Utils/TimelineManager.h"
 
-using namespace ssvs::Utils;
+using namespace ssvu;
+using namespace ssvu::Utils;
 
 namespace ssvs
 {

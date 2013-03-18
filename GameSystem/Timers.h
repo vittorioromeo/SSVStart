@@ -15,6 +15,7 @@ namespace ssvs
 		float frameTime{0}, fps{0};
 
 		TimerBase(GameWindow& mGameWindow) : gameWindow(mGameWindow) { }
+		virtual ~TimerBase() { }
 
 		virtual void runUpdate() 	{ }
 		virtual void runDraw() 		{ gameWindow.gamePtr->draw(); }
@@ -28,10 +29,10 @@ namespace ssvs
 	
 	struct StaticTimer : public TimerBase
 	{
-		float step{1.f};
-		float accumulatedTime{0}, loops{0}, maxLoops{10};
+		float step{1.f}, accumulatedTime{0}, loops{0}, maxLoops{10};
 
 		StaticTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
+		~StaticTimer() { }
 
 		void runUpdate() override
 		{
@@ -46,6 +47,7 @@ namespace ssvs
 		float frameTimeLimit{4.f};
 
 		DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
+		~DynamicTimer() { }
 
 		void runUpdate() override { gameWindow.gamePtr->update(frameTime); }
 		void runFps() override

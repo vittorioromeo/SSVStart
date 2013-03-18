@@ -5,8 +5,8 @@
 #ifndef SSVS_ASSETREPOSITORY
 #define SSVS_ASSETREPOSITORY
 
-#include <map>
 #include <string>
+#include <map>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

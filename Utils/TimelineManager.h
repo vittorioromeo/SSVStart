@@ -5,7 +5,7 @@
 #ifndef SSVS_TIMELINE_MANAGER
 #define SSVS_TIMELINE_MANAGER
 
-#include "Timeline.h"
+#include <SSVUtils.h>
 #include "Utils/MemoryManager.h"
 
 namespace ssvs
@@ -13,12 +13,12 @@ namespace ssvs
 	class TimelineManager
 	{
 		private:
-			Utils::MemoryManager<Timeline> memoryManager;
+			Utils::MemoryManager<ssvu::Timeline> memoryManager;
 
 		public:
 			TimelineManager() = default;
 
-			Timeline& create();
+			ssvu::Timeline& create();
 			void update(float mFrameTime);
 			void clear();
 	};

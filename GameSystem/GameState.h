@@ -7,11 +7,11 @@
 
 #include <vector>
 #include <functional>
+#include <SSVUtils.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "Input/Manager.h"
 #include "Input/Trigger.h"
-#include "Utils/Delegate.h"
 
 namespace ssvs
 {
@@ -31,8 +31,8 @@ namespace ssvs
 			Input::Manager inputManager;
 
 		public:
-			Utils::Delegate<void> onDraw;
-			Utils::Delegate<void, float> onUpdate;
+			ssvu::Delegate<void> onDraw;
+			ssvu::Delegate<void, float> onUpdate;
 
 			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable

@@ -2,9 +2,9 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "GameWindow.h"
-#include "GameState.h"
-#include "Timers.h"
+#include "GameSystem/GameWindow.h"
+#include "GameSystem/GameState.h"
+#include "GameSystem/Timers.h"
 
 using namespace std;
 using namespace sf;
@@ -16,6 +16,7 @@ namespace ssvs
 	{
 		recreateWindow();
 	}
+	GameWindow::~GameWindow() { delete timer; }
 
 	void GameWindow::run()
 	{

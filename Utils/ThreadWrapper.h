@@ -5,8 +5,8 @@
 #ifndef SSVS_UTILS_THREADWRAPPER
 #define SSVS_UTILS_THREADWRAPPER
 
-#include <SFML/System.hpp>
 #include <functional>
+#include <SFML/System.hpp>
 
 namespace ssvs
 {

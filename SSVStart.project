@@ -17,49 +17,26 @@
       <File Name="GameSystem/GameWindow.cpp"/>
       <File Name="GameSystem/Timers.h"/>
     </VirtualDirectory>
-    <VirtualDirectory Name="Timeline">
-      <File Name="Timeline/Command.cpp"/>
-      <File Name="Timeline/Command.h"/>
-      <File Name="Timeline/Do.cpp"/>
-      <File Name="Timeline/Do.h"/>
-      <File Name="Timeline/Timeline.cpp"/>
-      <File Name="Timeline/Timeline.h"/>
-      <File Name="Timeline/Wait.cpp"/>
-      <File Name="Timeline/Wait.h"/>
-      <File Name="Timeline/Go.h"/>
-      <File Name="Timeline/Go.cpp"/>
-      <File Name="Timeline/TimelineManager.h"/>
-      <File Name="Timeline/TimelineManager.cpp"/>
-    </VirtualDirectory>
     <VirtualDirectory Name="Utils">
       <File Name="Utils/Utils.cpp"/>
       <File Name="Utils/Utils.h"/>
-      <File Name="Utils/Delegate.h"/>
       <File Name="Utils/MemoryManager.h"/>
       <VirtualDirectory Name="Traits">
         <File Name="Utils/Traits/Traits.h"/>
       </VirtualDirectory>
       <File Name="Utils/ThreadWrapper.h"/>
-      <File Name="Utils/UtilsJson.h"/>
-      <File Name="Utils/UtilsJson.cpp"/>
+      <File Name="Utils/TimelineManager.h"/>
+      <File Name="Utils/TimelineManager.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>
       <File Name="Camera/Camera.cpp"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="Log">
-      <File Name="Log/Log.h"/>
-      <File Name="Log/Log.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Assets">
       <File Name="Assets/AssetManager.h"/>
       <File Name="Assets/AssetManager.cpp"/>
       <File Name="Assets/AssetFolder.h"/>
       <File Name="Assets/AssetFolder.cpp"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="FileSystem">
-      <File Name="FileSystem/FileSystem.cpp"/>
-      <File Name="FileSystem/FileSystem.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Input">
       <File Name="Input/Trigger.h"/>
@@ -130,26 +107,22 @@
       </Completion>
     </Configuration>
     <Configuration Name="Release" CompilerType="nuwen" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-W;-pedantic;-O3;-Wextra;-std=c++11;-Wall" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
-        <IncludePath Value="."/>
+      <Compiler Options="-W;-s;-pedantic;-O3;-Wextra;-std=c++11;-Wall" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../SSVUtils"/>
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/include"/>
         <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include"/>
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/include"/>
       </Compiler>
       <Linker Options="-shared" Required="yes">
-        <LibraryPath Value="../SSVStart/Release"/>
-        <LibraryPath Value="../SSVEntitySystem/Release"/>
-        <LibraryPath Value="../SSVLuaWrapper/Release"/>
-        <LibraryPath Value="./Release"/>
+        <LibraryPath Value="../SSVUtils/_RELEASE"/>
         <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib"/>
-        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/libs/mingw"/>
         <LibraryPath Value="c:/lua"/>
+        <Library Value="SSVUtils"/>
         <Library Value="sfml-system"/>
         <Library Value="sfml-window"/>
         <Library Value="sfml-audio"/>
         <Library Value="sfml-graphics"/>
         <Library Value="sfml-network"/>
-        <Library Value="json_mingw_libmt"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="./_RELEASE/$(ProjectName).dll" IntermediateDirectory="./_INTERMEDIATE" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./_RELEASE/" PauseExecWhenProcTerminates="yes"/>

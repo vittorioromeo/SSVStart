@@ -47,6 +47,7 @@ namespace ssvs
 			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
+			~GameWindow();
 
 			void run();
 			void stop();

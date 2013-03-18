@@ -2,15 +2,15 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "Log/Log.h"
-#include "FileSystem/FileSystem.h"
-#include "AssetManager.h"
-#include "AssetFolder.h"
+#include <SSVUtils.h>
+#include "Assets/AssetManager.h"
+#include "Assets/AssetFolder.h"
 
 using namespace std;
 using namespace sf;
-using namespace ssvs::FileSystem;
-using namespace ssvs::Utils;
+using namespace ssvu;
+using namespace ssvu::FileSystem;
+using namespace ssvu::Utils;
 
 namespace ssvs
 {

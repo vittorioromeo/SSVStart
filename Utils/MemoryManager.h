@@ -5,8 +5,7 @@
 #ifndef SSVS_UTILS_MEMORYMANAGER
 #define SSVS_UTILS_MEMORYMANAGER
 
-#include "Utils.h"
-#include "Traits/Traits.h"
+#include "Utils/Traits/Traits.h"
 
 namespace ssvs
 {

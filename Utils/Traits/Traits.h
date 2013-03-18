@@ -5,6 +5,7 @@
 #ifndef SSVS_UTILS_TRAITS
 #define SSVS_UTILS_TRAITS
 
+#include <SSVUtils.h>
 #include <vector>
 #include <google/dense_hash_set>
 
@@ -29,7 +30,7 @@ namespace ssvs
 				static void init(TContainer&) { }
 				static void clear(TContainer& mContainer) { mContainer.clear(); }
 				static void add(TContainer& mContainer, const TItem& mItem) { mContainer.push_back(mItem); }
-				static void del(TContainer& mContainer, const TItem& mItem) { eraseRemove(mContainer, mItem); }
+				static void del(TContainer& mContainer, const TItem& mItem) { ssvu::Utils::eraseRemove(mContainer, mItem); }
 			};
 
 			template<typename TItem> struct Container<google::dense_hash_set<TItem>, TItem>
