@@ -37,7 +37,7 @@ namespace ssvs
 		void movePointTowardsCenter(sf::Vector2f &mVector, const sf::Vector2f mCenter, const float mSpeed);
 
 		// ThreadWrapper
-		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(10));
+		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(1));
 
 		// sf::Network
 		sf::Http::Response getGetResponse(const std::string& mHost, const std::string& mHostFolder, const std::string& mRequestFile);
