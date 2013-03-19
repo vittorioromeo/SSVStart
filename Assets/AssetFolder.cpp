@@ -33,7 +33,7 @@ namespace ssvs
 	{
 		for(auto& file : getFilteredFiles({".ttf", ".otf", ".pfm"}))
 		{
-			string id{replace(file, rootPath, "")};
+			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadFont(id, file);
 			log(id + " font added", "loadFontsToManager(" + rootPath + ")");
 		}
@@ -42,7 +42,7 @@ namespace ssvs
 	{
 		for(auto& file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
-			string id{replace(file, rootPath, "")};
+			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadImage(id, file);
 			log(id + " image added", "loadImagesToManager(" + rootPath + ")");
 		}
@@ -51,7 +51,7 @@ namespace ssvs
 	{
 		for(auto& file : getFilteredFiles({".wav", ".ogg"}))
 		{
-			string id{replace(file, rootPath, "")};
+			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadSound(id, file);
 			log(id + " soundBuffer added", "loadSoundsToManager(" + rootPath + ")");
 			log(id + " sound added", "loadSoundsToManager(" + rootPath + ")");
@@ -61,7 +61,7 @@ namespace ssvs
 	{
 		for(auto& file : getFilteredFiles({".wav", ".ogg"}))
 		{
-			string id{replace(file, rootPath, "")};
+			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadMusic(id, file);
 			log(id + " music added", "loadMusicsToManager(" + rootPath + ")");
 		}

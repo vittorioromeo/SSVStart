@@ -20,13 +20,10 @@
     <VirtualDirectory Name="Utils">
       <File Name="Utils/Utils.cpp"/>
       <File Name="Utils/Utils.h"/>
-      <File Name="Utils/MemoryManager.h"/>
       <VirtualDirectory Name="Traits">
         <File Name="Utils/Traits/Traits.h"/>
       </VirtualDirectory>
       <File Name="Utils/ThreadWrapper.h"/>
-      <File Name="Utils/TimelineManager.h"/>
-      <File Name="Utils/TimelineManager.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
       <File Name="Camera/Camera.h"/>
@@ -113,9 +110,9 @@
         <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include"/>
         <IncludePath Value="D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/include"/>
       </Compiler>
-      <Linker Options="-shared" Required="yes">
+      <Linker Options="" Required="yes">
         <LibraryPath Value="../SSVUtils/_RELEASE"/>
-        <LibraryPath Value="D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib"/>
+        <LibraryPath Value="../SFML/build2/lib"/>
         <LibraryPath Value="c:/lua"/>
         <Library Value="SSVUtils"/>
         <Library Value="sfml-system"/>

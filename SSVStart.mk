@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=vittorio.romeo
-Date                   :=18/03/2013
+Date                   :=19/03/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -37,13 +37,13 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=windres
-LinkOptions            :=  -shared
+LinkOptions            :=  
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)../SSVUtils $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/include $(IncludeSwitch)D:/Vee/Software/Repos/sparsehash/build/built/include $(IncludeSwitch)D:/Vee/Software/GitHub/OHWorkspace/jsoncpp/include 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := $(LibrarySwitch)SSVUtils $(LibrarySwitch)sfml-system $(LibrarySwitch)sfml-window $(LibrarySwitch)sfml-audio $(LibrarySwitch)sfml-graphics $(LibrarySwitch)sfml-network 
 ArLibs                 :=  "SSVUtils" "sfml-system" "sfml-window" "sfml-audio" "sfml-graphics" "sfml-network" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVUtils/_RELEASE $(LibraryPathSwitch)D:/Vee/Software/GitHub/OHWorkspace/SFML/build2/lib $(LibraryPathSwitch)c:/lua 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVUtils/_RELEASE $(LibraryPathSwitch)../SFML/build2/lib $(LibraryPathSwitch)c:/lua 
 
 ##
 ## Common variables
@@ -63,8 +63,8 @@ CodeLiteDir:=C:\Program Files (x86)\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:\UnitTest++-1.3
 WXWIN:=C:\wxWidgets-2.9.4
 WXCFG:=gcc_dll\mswu
-Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Utils_TimelineManager$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/Input_Trigger$(ObjectSuffix) $(IntermediateDirectory)/Input_Combo$(ObjectSuffix) \
-	$(IntermediateDirectory)/Input_Manager$(ObjectSuffix) $(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/Input_Trigger$(ObjectSuffix) $(IntermediateDirectory)/Input_Combo$(ObjectSuffix) $(IntermediateDirectory)/Input_Manager$(ObjectSuffix) \
+	$(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
 
 Objects=$(Objects0) 
 
@@ -122,14 +122,6 @@ $(IntermediateDirectory)/Utils_Utils$(DependSuffix): Utils/Utils.cpp
 
 $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix): Utils/Utils.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix) "Utils/Utils.cpp"
-
-$(IntermediateDirectory)/Utils_TimelineManager$(ObjectSuffix): Utils/TimelineManager.cpp $(IntermediateDirectory)/Utils_TimelineManager$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Utils/TimelineManager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Utils_TimelineManager$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Utils_TimelineManager$(DependSuffix): Utils/TimelineManager.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Utils_TimelineManager$(ObjectSuffix) -MF$(IntermediateDirectory)/Utils_TimelineManager$(DependSuffix) -MM "Utils/TimelineManager.cpp"
-
-$(IntermediateDirectory)/Utils_TimelineManager$(PreprocessSuffix): Utils/TimelineManager.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Utils_TimelineManager$(PreprocessSuffix) "Utils/TimelineManager.cpp"
 
 $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix): Camera/Camera.cpp $(IntermediateDirectory)/Camera_Camera$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "D:/Vee/Software/GitHub/OHWorkspace/SSVStart/Camera/Camera.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IncludePath)
@@ -205,9 +197,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Utils_Utils$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/Utils_TimelineManager$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/Utils_TimelineManager$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/Utils_TimelineManager$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/Camera_Camera$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/Camera_Camera$(PreprocessSuffix)
