@@ -2,7 +2,7 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <SSVUtils.h>
+#include <SSVUtils/SSVUtils.h>
 #include "Assets/AssetManager.h"
 #include "Assets/AssetFolder.h"
 
@@ -10,7 +10,6 @@ using namespace std;
 using namespace sf;
 using namespace ssvu;
 using namespace ssvu::FileSystem;
-using namespace ssvu::Utils;
 
 namespace ssvs
 {

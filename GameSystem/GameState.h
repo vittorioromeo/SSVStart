@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <functional>
-#include <SSVUtils.h>
+#include <SSVUtils/SSVUtils.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "Input/Manager.h"

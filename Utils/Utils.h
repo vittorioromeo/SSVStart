@@ -13,7 +13,7 @@
 #include "Utils/ThreadWrapper.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
-#include <SSVUtils.h>
+#include <SSVUtils/SSVUtils.h>
 
 namespace ssvs
 {
@@ -30,9 +30,9 @@ namespace ssvs
 		template<typename T> T getMagnitude(const sf::Vector2<T>& mVector) { return sqrt(mVector.x * mVector.x + mVector.y * mVector.y); }
 		template<typename T> sf::Vector2<T> getNormalized(const sf::Vector2<T>& mVector) { T m = getMagnitude(mVector); return {mVector.x / m, mVector.y / m}; }
 		template<typename T> T getRadians(const sf::Vector2<T>& mVector) { auto n = getNormalized(mVector); return atan2(n.y, n.x); }
-		template<typename T> T getDegrees(const sf::Vector2<T>& mVector) { return ssvu::Utils::toDegrees(getRadians(mVector)); }
+		template<typename T> T getDegrees(const sf::Vector2<T>& mVector) { return ssvu::toDegrees(getRadians(mVector)); }
 		template<typename T> sf::Vector2<T> getVectorFromRadians(T mRadians, T mMagnitude) { return sf::Vector2<T>(mMagnitude * cos(mRadians), mMagnitude * sin(mRadians)); }
-		template<typename T> sf::Vector2<T> getVectorFromDegrees(T mDegrees, T mMagnitude) { return getVectorFromRadians(ssvu::Utils::toRadians(mDegrees), mMagnitude); }
+		template<typename T> sf::Vector2<T> getVectorFromDegrees(T mDegrees, T mMagnitude) { return getVectorFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
 		sf::Vector2f getOrbit(const sf::Vector2f&, const float, const float);
 		void movePointTowardsCenter(sf::Vector2f &mVector, const sf::Vector2f mCenter, const float mSpeed);
 

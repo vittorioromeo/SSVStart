@@ -4,7 +4,7 @@
 
 #include "Utils/Utils.h"
 
-using namespace ssvu::Utils;
+using namespace ssvu;
 using namespace std;
 using namespace sf;
 
