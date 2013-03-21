@@ -134,7 +134,6 @@
       <Linker Options="" Required="yes">
         <LibraryPath Value="../SSVUtils/_RELEASE"/>
         <LibraryPath Value="../SFML/build2/lib"/>
-        <LibraryPath Value="c:/lua"/>
         <Library Value="SSVUtils"/>
         <Library Value="sfml-system"/>
         <Library Value="sfml-window"/>
