@@ -6,7 +6,7 @@
 #define SSVS_INPUT_TRIGGER
 
 #include <vector>
-#include "Input/Combo.h"
+#include "SSVStart/Input/Combo.h"
 
 namespace ssvs
 {

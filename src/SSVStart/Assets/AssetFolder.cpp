@@ -3,8 +3,8 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include <SSVUtils/SSVUtils.h>
-#include "Assets/AssetManager.h"
-#include "Assets/AssetFolder.h"
+#include "SSVStart/Assets/AssetManager.h"
+#include "SSVStart/Assets/AssetFolder.h"
 
 using namespace std;
 using namespace sf;

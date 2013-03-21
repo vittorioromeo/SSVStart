@@ -10,8 +10,8 @@
 #include <SSVUtils/SSVUtils.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "Input/Manager.h"
-#include "Input/Trigger.h"
+#include "SSVStart/Input/Manager.h"
+#include "SSVStart/Input/Trigger.h"
 
 namespace ssvs
 {

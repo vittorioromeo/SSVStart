@@ -3,9 +3,9 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include <SSVUtils/SSVUtils.h>
-#include "Camera/Camera.h"
-#include "Utils/Utils.h"
-#include "GameSystem/GameWindow.h"
+#include "SSVStart/Camera/Camera.h"
+#include "SSVStart/Utils/Utils.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 using namespace sf;
 using namespace ssvu;

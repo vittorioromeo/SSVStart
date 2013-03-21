@@ -2,9 +2,9 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "GameWindow.h"
-#include "GameState.h"
-#include "Timers.h"
+#include "SSVStart/GameSystem/GameWindow.h"
+#include "SSVStart/GameSystem/GameState.h"
+#include "SSVStart/GameSystem/Timers.h"
 
 using namespace sf;
 

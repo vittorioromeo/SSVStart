@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "Input/Manager.h"
-#include "Input/Trigger.h"
+#include "SSVStart/Input/Manager.h"
+#include "SSVStart/Input/Trigger.h"
 
 using namespace std;
 

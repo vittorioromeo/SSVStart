@@ -13,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include <SSVUtils/SSVUtils.h>
-#include "Utils/ThreadWrapper.h"
+#include "SSVStart/Utils/ThreadWrapper.h"
 
 namespace ssvs
 {

@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "Input/Combo.h"
-#include "GameSystem/GameWindow.h"
+#include "SSVStart/Input/Combo.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 using namespace sf;
 using namespace std;

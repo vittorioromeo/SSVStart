@@ -5,51 +5,71 @@
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
     </Plugin>
   </Plugins>
+  <Reconciliation>
+    <Regexes/>
+    <Excludepaths/>
+    <Ignorefiles/>
+    <Extensions>
+      <![CDATA[cpp;c;h;hpp;xrc;wxcp;fbp]]>
+    </Extensions>
+    <Topleveldir>../SSVStart</Topleveldir>
+  </Reconciliation>
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="SSVStart.h"/>
     <VirtualDirectory Name="GameSystem">
-      <File Name="GameSystem/GameWindow.h"/>
-      <File Name="GameSystem/GWProperties.cpp"/>
-      <File Name="GameSystem/GameState.h"/>
-      <File Name="GameSystem/GameState.cpp"/>
-      <File Name="GameSystem/GameWindow.cpp"/>
-      <File Name="GameSystem/Timers.h"/>
+      <File Name="src/SSVStart/GameSystem/GameState.cpp"/>
+      <File Name="src/SSVStart/GameSystem/GameWindow.cpp"/>
+      <File Name="src/SSVStart/GameSystem/GWProperties.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Utils">
-      <File Name="Utils/Utils.cpp"/>
-      <File Name="Utils/Utils.h"/>
-      <VirtualDirectory Name="Traits">
-        <File Name="Utils/Traits/Traits.h"/>
-      </VirtualDirectory>
-      <File Name="Utils/ThreadWrapper.h"/>
+      <File Name="src/SSVStart/Utils/Utils.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Camera">
-      <File Name="Camera/Camera.h"/>
-      <File Name="Camera/Camera.cpp"/>
+      <File Name="src/SSVStart/Camera/Camera.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Assets">
-      <File Name="Assets/AssetManager.h"/>
-      <File Name="Assets/AssetManager.cpp"/>
-      <File Name="Assets/AssetFolder.h"/>
-      <File Name="Assets/AssetFolder.cpp"/>
+      <File Name="src/SSVStart/Assets/AssetFolder.cpp"/>
+      <File Name="src/SSVStart/Assets/AssetManager.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Input">
-      <File Name="Input/Trigger.h"/>
-      <File Name="Input/Trigger.cpp"/>
-      <File Name="Input/Combo.h"/>
-      <File Name="Input/Combo.cpp"/>
-      <File Name="Input/Manager.h"/>
-      <File Name="Input/Manager.cpp"/>
+      <File Name="src/SSVStart/Input/Combo.cpp"/>
+      <File Name="src/SSVStart/Input/Manager.cpp"/>
+      <File Name="src/SSVStart/Input/Trigger.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Tileset">
-      <File Name="Tileset/Tileset.cpp"/>
-      <File Name="Tileset/Tileset.h"/>
+      <File Name="src/SSVStart/Tileset/Tileset.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
+  <VirtualDirectory Name="include">
+    <VirtualDirectory Name="Assets">
+      <File Name="include/SSVStart/Assets/AssetFolder.h"/>
+      <File Name="include/SSVStart/Assets/AssetManager.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Camera">
+      <File Name="include/SSVStart/Camera/Camera.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="GameSystem">
+      <File Name="include/SSVStart/GameSystem/GameState.h"/>
+      <File Name="include/SSVStart/GameSystem/GameWindow.h"/>
+      <File Name="include/SSVStart/GameSystem/Timers.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Input">
+      <File Name="include/SSVStart/Input/Combo.h"/>
+      <File Name="include/SSVStart/Input/Trigger.h"/>
+      <File Name="include/SSVStart/Input/Manager.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Tileset">
+      <File Name="include/SSVStart/Tileset/Tileset.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Utils">
+      <File Name="include/SSVStart/Utils/ThreadWrapper.h"/>
+      <File Name="include/SSVStart/Utils/Utils.h"/>
+    </VirtualDirectory>
+    <File Name="include/SSVStart/SSVStart.h"/>
+  </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -105,10 +125,11 @@
     </Configuration>
     <Configuration Name="Release" CompilerType="nuwen" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-W;-s;-pedantic;-O3;-Wextra;-std=c++11;-Wall" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
-        <IncludePath Value="../SSVUtils/include"/>
-        <IncludePath Value="../SFML/include"/>
-        <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include"/>
-        <IncludePath Value="../jsoncpp/include"/>
+        <IncludePath Value="./include/"/>
+        <IncludePath Value="../SSVUtils/include/"/>
+        <IncludePath Value="../SFML/include/"/>
+        <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include/"/>
+        <IncludePath Value="../jsoncpp/include/"/>
       </Compiler>
       <Linker Options="" Required="yes">
         <LibraryPath Value="../SSVUtils/_RELEASE"/>

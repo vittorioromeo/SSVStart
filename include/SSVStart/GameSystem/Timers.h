@@ -3,8 +3,8 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "GameSystem/GameState.h"
-#include "GameSystem/GameWindow.h"
+#include "SSVStart/GameSystem/GameState.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 namespace ssvs
 {
