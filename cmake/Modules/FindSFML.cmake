@@ -72,10 +72,11 @@ find_path(SFML_INCLUDE_DIR SFML/Config.hpp
           /Library/Frameworks
           /usr/local/
           /usr/
-          /sw          # Fink
-          /opt/local/  # DarwinPorts
-          /opt/csw/    # Blastwave
-          /opt/)
+          /sw/
+          /opt/local/
+          /opt/csw/
+          /opt/
+)
 
 # check the version number
 set(SFML_VERSION_OK TRUE)
@@ -125,11 +126,13 @@ set(FIND_SFML_LIB_PATHS
     ~/Library/Frameworks
     /Library/Frameworks
     /usr/local
-    /usr
-    /sw
+    /usr/
+    /sw/
     /opt/local
     /opt/csw
-    /opt)
+    /opt
+)
+
 foreach(FIND_SFML_COMPONENT ${SFML_FIND_COMPONENTS})
     string(TOLOWER ${FIND_SFML_COMPONENT} FIND_SFML_COMPONENT_LOWER)
     string(TOUPPER ${FIND_SFML_COMPONENT} FIND_SFML_COMPONENT_UPPER)
