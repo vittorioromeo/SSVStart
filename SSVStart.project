@@ -128,8 +128,6 @@
         <IncludePath Value="./include/"/>
         <IncludePath Value="../SSVUtils/include/"/>
         <IncludePath Value="../SFML/include/"/>
-        <IncludePath Value="D:/Vee/Software/Repos/sparsehash/build/built/include/"/>
-        <IncludePath Value="../jsoncpp/include/"/>
       </Compiler>
       <Linker Options="" Required="yes">
         <LibraryPath Value="../SSVUtils/lib/"/>
