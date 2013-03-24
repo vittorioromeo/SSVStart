@@ -4,7 +4,8 @@ project(SSVStart)
 set(SSVSTART_BUILD_SHARED_LIB FALSE CACHE BOOL "Build shared libraries.")
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type." FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11" CACHE STRING "" FORCE)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/Modules/;${CMAKE_MODULE_PATH}")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_MODULE_PATH}")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/Modules/;${CMAKE_MODULE_PATH}")
 
 set(SFML_STATIC_LIBRARIES FALSE CACHE BOOL "Look for static SFML libraries.")
 
