@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=vittorio.romeo
-Date                   :=22/03/2013
+Date                   :=24/03/2013
 CodeLitePath           :="C:\Program Files (x86)\CodeLite"
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -27,7 +27,7 @@ OutputSwitch           :=-o
 LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
 SourceSwitch           :=-c 
-OutputFile             :=./_RELEASE/$(ProjectName).dll
+OutputFile             :=./lib/lib$(ProjectName)-s.a
 Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
@@ -41,9 +41,9 @@ LinkOptions            :=
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)./include/ $(IncludeSwitch)../SSVUtils/include/ $(IncludeSwitch)../SFML/include/ $(IncludeSwitch)D:/Vee/Software/Repos/sparsehash/build/built/include/ $(IncludeSwitch)../jsoncpp/include/ 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := $(LibrarySwitch)SSVUtils $(LibrarySwitch)sfml-system $(LibrarySwitch)sfml-window $(LibrarySwitch)sfml-audio $(LibrarySwitch)sfml-graphics $(LibrarySwitch)sfml-network 
-ArLibs                 :=  "SSVUtils" "sfml-system" "sfml-window" "sfml-audio" "sfml-graphics" "sfml-network" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVUtils/_RELEASE $(LibraryPathSwitch)../SFML/build2/lib 
+Libs                   := $(LibrarySwitch)../SSVUtils/lib/libSSVUtils-s $(LibrarySwitch)../SFML/build2/lib/libsfml-system $(LibrarySwitch)../SFML/build2/lib/libsfml-window $(LibrarySwitch)../SFML/build2/lib/libsfml-audio $(LibrarySwitch)../SFML/build2/lib/libsfml-graphics $(LibrarySwitch)../SFML/build2/lib/libsfml-network 
+ArLibs                 :=  "../SSVUtils/lib/libSSVUtils-s.a" "../SFML/build2/lib/libsfml-system.a" "../SFML/build2/lib/libsfml-window.a" "../SFML/build2/lib/libsfml-audio.a" "../SFML/build2/lib/libsfml-graphics.a" "../SFML/build2/lib/libsfml-network.a" 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVUtils/lib/ $(LibraryPathSwitch)../SFML/build2/lib/ 
 
 ##
 ## Common variables
@@ -52,7 +52,7 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)../SSVUtils/
 AR       := ar rcus
 CXX      := g++
 CC       := gcc
-CXXFLAGS :=  -W -s -pedantic -O3 -Wextra -std=c++11 -Wall $(Preprocessors)
+CXXFLAGS :=  -W -s -pedantic -O3 -Wextra -std=c++11 -Wall -DNDEBUG $(Preprocessors)
 CFLAGS   :=   $(Preprocessors)
 
 
@@ -66,23 +66,25 @@ WXCFG:=gcc_dll\mswu
 Objects0=$(IntermediateDirectory)/GameSystem_GameState$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GameWindow$(ObjectSuffix) $(IntermediateDirectory)/GameSystem_GWProperties$(ObjectSuffix) $(IntermediateDirectory)/Utils_Utils$(ObjectSuffix) $(IntermediateDirectory)/Camera_Camera$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetFolder$(ObjectSuffix) $(IntermediateDirectory)/Assets_AssetManager$(ObjectSuffix) $(IntermediateDirectory)/Input_Combo$(ObjectSuffix) $(IntermediateDirectory)/Input_Manager$(ObjectSuffix) $(IntermediateDirectory)/Input_Trigger$(ObjectSuffix) \
 	$(IntermediateDirectory)/Tileset_Tileset$(ObjectSuffix) 
 
+
+
 Objects=$(Objects0) 
 
 ##
 ## Main Build Targets 
 ##
 .PHONY: all clean PreBuild PrePreBuild PostBuild
-all: $(OutputFile)
+all: $(IntermediateDirectory) $(OutputFile)
 
-$(OutputFile): $(IntermediateDirectory)/.d $(Objects) 
+$(OutputFile): $(Objects)
 	@$(MakeDirCommand) $(@D)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
-	$(SharedObjectLinkerName) $(OutputSwitch)$(OutputFile) $(Objects) $(LibPath) $(Libs) $(LinkOptions)
+	$(AR) $(ArchiveOutputSwitch)$(OutputFile) $(Objects) $(ArLibs)
 	@$(MakeDirCommand) "D:\Vee\Software\GitHub\OHWorkspace/.build-release"
 	@echo rebuilt > "D:\Vee\Software\GitHub\OHWorkspace/.build-release/SSVStart"
 
-$(IntermediateDirectory)/.d:
+./_INTERMEDIATE:
 	@$(MakeDirCommand) "./_INTERMEDIATE"
 
 PreBuild:
