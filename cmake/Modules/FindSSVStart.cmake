@@ -11,8 +11,9 @@
 
 FIND_PATH(SSVSTART_INCLUDE_DIR
   NAMES SSVStart/SSVStart.h
-  PATH_SUFFIXES include
-  PATHS "${PROJECT_SOURCE_DIR}/extlibs/SSVStart/"
+  PATH_SUFFIXES include/
+  PATHS "${PROJECT_SOURCE_DIR}/../SSVStart/"
+  "${PROJECT_SOURCE_DIR}/extlibs/SSVStart/"
   ${SSVSTART_ROOT}
   $ENV{SSVSTART_ROOT}
   /usr/local/
@@ -28,7 +29,8 @@ message("\nFound SSVStart include at: ${SSVSTART_INCLUDE_DIR}.\n")
 FIND_LIBRARY(SSVSTART_LIBRARY
   NAMES SSVStart libSSVStart SSVStart-s libSSVStart-s ssvstart libssvstart ssvstart-s libssvstart-s
   PATH_SUFFIXES lib/ lib64/
-  PATHS "${PROJECT_SOURCE_DIR}/extlibs/SSVStart/"
+  PATHS "${PROJECT_SOURCE_DIR}/../SSVStart/"
+  "${PROJECT_SOURCE_DIR}/extlibs/SSVStart/"
   ${SSVSTART_ROOT}
   $ENV{SSVSTART_ROOT}
   /usr/local/
