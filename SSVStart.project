@@ -41,8 +41,6 @@
       <File Name="src/SSVStart/Tileset/Tileset.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <VirtualDirectory Name="include">
     <VirtualDirectory Name="Assets">
       <File Name="include/SSVStart/Assets/AssetFolder.h"/>
@@ -70,6 +68,8 @@
     </VirtualDirectory>
     <File Name="include/SSVStart/SSVStart.h"/>
   </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Static Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="">
@@ -164,7 +164,7 @@
         <CustomPostBuild/>
         <CustomPreBuild/>
       </AdditionalRules>
-      <Completion EnableCpp11="no">
+      <Completion EnableCpp11="yes">
         <ClangCmpFlagsC/>
         <ClangCmpFlags/>
         <ClangPP/>
