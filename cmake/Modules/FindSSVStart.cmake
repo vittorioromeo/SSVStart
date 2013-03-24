@@ -1,14 +1,3 @@
-# -*- cmake -*-
-
-# - Find SSVStart
-# Find the SSVStart includes and library
-# This module defines
-# SSVSTART_INCLUDE_DIR, where to find SSVStart headers.
-# SSVSTART_LIBRARIES, the libraries needed to use SSVStart.
-# SSVSTART_FOUND, If false, do not try to use SSVStart.
-# also defined, but not for general use are
-# SSVSTART_LIBRARY, where to find the SSVStart library.
-
 FIND_PATH(SSVSTART_INCLUDE_DIR
   NAMES SSVStart/SSVStart.h
   PATH_SUFFIXES include/
@@ -18,9 +7,9 @@ FIND_PATH(SSVSTART_INCLUDE_DIR
   $ENV{SSVSTART_ROOT}
   /usr/local/
   /usr/
-  /sw/         # Fink
-  /opt/local/  # DarwinPorts
-  /opt/csw/    # Blastwave
+  /sw/       
+  /opt/local/
+  /opt/csw/  
   /opt/
 )
 
@@ -35,28 +24,28 @@ FIND_LIBRARY(SSVSTART_LIBRARY
   $ENV{SSVSTART_ROOT}
   /usr/local/
   /usr/
-  /sw/         # Fink
-  /opt/local/  # DarwinPorts
-  /opt/csw/    # Blastwave
+  /sw/       
+  /opt/local/
+  /opt/csw/  
   /opt/
 )
 
 message("\nFound SSVStart library at: ${SSVSTART_LIBRARY}.\n")
 
-IF (SSVSTART_LIBRARY AND SSVSTART_INCLUDE_DIR)
-    SET(SSVSTART_LIBRARIES ${SSVSTART_LIBRARY})
-    SET(SSVSTART_FOUND TRUE)
-ELSE (SSVSTART_LIBRARY AND SSVSTART_INCLUDE_DIR)
-    SET(SSVSTART_FOUND FALSE)
-ENDIF (SSVSTART_LIBRARY AND SSVSTART_INCLUDE_DIR)
+IF(SSVSTART_LIBRARY AND SSVSTART_INCLUDE_DIR)
+  SET(SSVSTART_LIBRARIES ${SSVSTART_LIBRARY})
+  SET(SSVSTART_FOUND TRUE)
+ELSE(SSVSTART_LIBRARY AND SSVSTART_INCLUDE_DIR)
+  SET(SSVSTART_FOUND FALSE)
+ENDIF(SSVSTART_LIBRARY AND SSVSTART_INCLUDE_DIR)
 
-IF (SSVSTART_FOUND)
-    MESSAGE(STATUS "Found SSVStart in ${SSVSTART_INCLUDE_DIR}")
-ELSE (SSVSTART_FOUND)
-   IF (SSVSTART_FIND_REQUIRED)
-      MESSAGE(FATAL_ERROR "Could not find SSVStart library")
-   ENDIF (SSVSTART_FIND_REQUIRED)
-ENDIF (SSVSTART_FOUND)
+IF(SSVSTART_FOUND)
+  MESSAGE(STATUS "Found SSVStart in ${SSVSTART_INCLUDE_DIR}")
+ELSE(SSVSTART_FOUND)
+  IF(SSVSTART_FIND_REQUIRED)
+    MESSAGE(FATAL_ERROR "Could not find SSVStart library")
+  ENDIF(SSVSTART_FIND_REQUIRED)
+ENDIF(SSVSTART_FOUND)
 
 MARK_AS_ADVANCED(
   SSVSTART_LIBRARY
