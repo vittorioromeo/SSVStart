@@ -16,9 +16,10 @@ namespace ssvs
 		{
 			for(auto& pair : inputFuncPairs)
 			{
-				auto& combo(pair.first);
-				if(combo.isActive(mGameWindow)) pair.second(mFrameTime);
-				combo.updateRelease(mGameWindow);
+				auto& trigger(pair.first);
+				auto& func(pair.second);
+				if(trigger.isActive(mGameWindow)) func(mFrameTime);
+				trigger.updateRelease(mGameWindow);
 			}
 		}
 	}

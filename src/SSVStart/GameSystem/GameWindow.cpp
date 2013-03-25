@@ -41,11 +41,18 @@ namespace ssvs
 	void GameWindow::recreateWindow()
 	{
 		ContextSettings contextSettings{0, 0, antialiasingLevel, 0, 0};
-
+		unsigned int multipliedWidth{width * pixelMultiplier}, multipliedHeight{height * pixelMultiplier};
+		
 		if(renderWindow.isOpen()) renderWindow.close();
 		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen, contextSettings);
-		else renderWindow.create({width, height}, title, Style::Default, contextSettings);
-		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
+		else 
+		{
+			auto desktopMode(VideoMode::getDesktopMode());
+			renderWindow.create({width, height}, title, Style::Default, contextSettings);
+			renderWindow.setPosition(Vector2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
+		}
+		renderWindow.setSize({multipliedWidth, multipliedHeight});
+		
 	}
 
 	void GameWindow::runInput()
