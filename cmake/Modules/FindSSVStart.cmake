@@ -16,7 +16,8 @@ FIND_PATH(SSVSTART_INCLUDE_DIR
 message("\nFound SSVStart include at: ${SSVSTART_INCLUDE_DIR}.\n")
 
 FIND_LIBRARY(SSVSTART_LIBRARY
-  NAMES SSVStart libSSVStart SSVStart-s libSSVStart-s ssvstart libssvstart ssvstart-s libssvstart-s
+  NAMES SSVStart libSSVStart SSVStart-s libSSVStart-s ssvstart libssvstart ssvstart-s libssvstart-s 
+		SSVStart-s-d libSSVStart-s-d ssvstart-s-d libssvstart-s-d
   PATH_SUFFIXES lib/ lib64/
   PATHS "${PROJECT_SOURCE_DIR}/../SSVStart/"
   "${PROJECT_SOURCE_DIR}/extlibs/SSVStart/"
