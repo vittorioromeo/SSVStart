@@ -64,8 +64,6 @@ namespace ssvs
 		else if(event.type == Event::LostFocus) focus = false;
 		else if(event.type == Event::Closed) running = false;
 	}
-	void GameWindow::runDraw() { gamePtr->draw(); }
-	void GameWindow::runFps() { }
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }
 	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return focus && Mouse::isButtonPressed(mButton); }

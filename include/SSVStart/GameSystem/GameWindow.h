@@ -39,8 +39,6 @@ namespace ssvs
 			TimerBase& timer;
 
 			void runInput();
-			void runDraw();
-			void runFps();
 
 		public:
 			GameWindow(std::string mTitle, TimerBase& mTimer, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
