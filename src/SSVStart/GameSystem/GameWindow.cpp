@@ -25,7 +25,7 @@ namespace ssvs
 			renderWindow.setActive(true);
 			renderWindow.clear();
 			runInput();
-			timer.runUpdate();			
+			timer.runUpdate();
 			timer.runDraw();
 			renderWindow.display();
 			timer.runFrameTime();
@@ -42,17 +42,17 @@ namespace ssvs
 	{
 		ContextSettings contextSettings{0, 0, antialiasingLevel, 0, 0};
 		unsigned int multipliedWidth{width * pixelMultiplier}, multipliedHeight{height * pixelMultiplier};
-		
+
 		if(renderWindow.isOpen()) renderWindow.close();
 		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen, contextSettings);
-		else 
+		else
 		{
 			auto desktopMode(VideoMode::getDesktopMode());
 			renderWindow.create({width, height}, title, Style::Default, contextSettings);
 			renderWindow.setPosition(Vector2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
 		}
 		renderWindow.setSize({multipliedWidth, multipliedHeight});
-		
+
 	}
 
 	void GameWindow::runInput()
@@ -64,8 +64,7 @@ namespace ssvs
 		else if(event.type == Event::LostFocus) focus = false;
 		else if(event.type == Event::Closed) running = false;
 	}
-	void GameWindow::runUpdate() { gamePtr->update(timer.getFrameTime()); }
-	void GameWindow::runDraw() { gamePtr->draw(); }	
+	void GameWindow::runDraw() { gamePtr->draw(); }
 	void GameWindow::runFps() { }
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }

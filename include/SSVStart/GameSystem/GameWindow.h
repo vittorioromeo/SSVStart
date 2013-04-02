@@ -39,7 +39,6 @@ namespace ssvs
 			TimerBase& timer;
 
 			void runInput();
-			void runUpdate();
 			void runDraw();
 			void runFps();
 
