@@ -36,7 +36,7 @@ namespace ssvs
 			bool staticFrameTime{false};
 			float staticFrameTimeValue{1};
 
-			TimerBase* timer;
+			TimerBase& timer;
 
 			void runInput();
 			void runUpdate();
@@ -44,7 +44,7 @@ namespace ssvs
 			void runFps();
 
 		public:
-			GameWindow(std::string mTitle, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
+			GameWindow(std::string mTitle, TimerBase& mTimer, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 			~GameWindow();

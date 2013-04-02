@@ -26,7 +26,8 @@ namespace ssvs
 
 	void Camera::resize(Vector2f mOffset, Vector2f mSize)
 	{
-		auto size = renderWindow.getSize(); view = View{{0, 0, mSize.x, mSize.y}};
+		auto size(renderWindow.getSize());
+		view = View{{0, 0, mSize.x, mSize.y}};
 		view.setViewport({mOffset.x / size.x, mOffset.y / size.y, mSize.x / size.x, mSize.y / size.y});
 	}	
 	void Camera::move(Vector2f mVector) 					{ view.move(mVector); }

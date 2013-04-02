@@ -11,12 +11,12 @@ using namespace sf;
 
 namespace ssvs
 {
-	GameWindow::GameWindow(string mTitle, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
-		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer{new DynamicTimer{*this}}
+	GameWindow::GameWindow(string mTitle, TimerBase& mTimer, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
+		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(mTimer)
 	{
 		recreateWindow();
 	}
-	GameWindow::~GameWindow() { delete timer; }
+	GameWindow::~GameWindow() { delete &timer; }
 
 	void GameWindow::run()
 	{
@@ -25,11 +25,11 @@ namespace ssvs
 			renderWindow.setActive(true);
 			renderWindow.clear();
 			runInput();
-			timer->runUpdate();
-			timer->runDraw();
+			timer.runUpdate();			
+			timer.runDraw();
 			renderWindow.display();
-			timer->runFrameTime();
-			timer->runFps();
+			timer.runFrameTime();
+			timer.runFps();
 		}
 	}
 	void GameWindow::stop() { running = false; }
@@ -58,13 +58,13 @@ namespace ssvs
 	void GameWindow::runInput()
 	{
 		Event event; renderWindow.pollEvent(event);
-		gamePtr->updateInput(timer->getFrameTime());
+		gamePtr->updateInput(timer.getFrameTime());
 
 		if(event.type == Event::GainedFocus) focus = true;
 		else if(event.type == Event::LostFocus) focus = false;
 		else if(event.type == Event::Closed) running = false;
 	}
-	void GameWindow::runUpdate() { gamePtr->update(timer->getFrameTime()); }
+	void GameWindow::runUpdate() { gamePtr->update(timer.getFrameTime()); }
 	void GameWindow::runDraw() { gamePtr->draw(); }	
 	void GameWindow::runFps() { }
 

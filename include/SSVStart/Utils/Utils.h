@@ -21,7 +21,7 @@ namespace ssvs
 	{
 		// Angles
 		template<typename T> T getRadiansToPoint(const sf::Vector2<T>& mStart, const sf::Vector2<T>& mEnd) { return atan2(mEnd.y - mStart.y, mEnd.x - mStart.x); }
-		template<typename T> T getDegreesToPoint(const sf::Vector2<T>& mStart, const sf::Vector2<T>& mEnd) { return toDegrees(getRadiansToPoint(mStart, mEnd)); }
+		template<typename T> T getDegreesToPoint(const sf::Vector2<T>& mStart, const sf::Vector2<T>& mEnd) { return ssvu::toDegrees(getRadiansToPoint(mStart, mEnd)); }
 		
 		// Collision
 		bool isPointInPolygon(std::vector<sf::Vector2f*>, sf::Vector2f);

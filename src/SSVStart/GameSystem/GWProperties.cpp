@@ -21,7 +21,7 @@ namespace ssvs
 	void GameWindow::setTitle(const std::string& mTitle)					{ title = mTitle; renderWindow.setTitle(mTitle); }
 	void GameWindow::setFPSLimit(float mFPSLimit)							{ renderWindow.setFramerateLimit(mFPSLimit); }
 	RenderWindow& GameWindow::getRenderWindow() 							{ return renderWindow; }
-	float GameWindow::getFPS() 												{ return timer->getFps(); }
+	float GameWindow::getFPS() 												{ return timer.getFps(); }
 	bool GameWindow::getFullscreen() 										{ return fullscreen; }
 	unsigned int GameWindow::getWidth() 									{ return width; }
 	unsigned int GameWindow::getHeight() 									{ return height; }

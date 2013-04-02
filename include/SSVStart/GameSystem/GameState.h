@@ -33,6 +33,7 @@ namespace ssvs
 		public:
 			ssvu::Delegate<void> onDraw;
 			ssvu::Delegate<void, float> onUpdate;
+			ssvu::Delegate<void> onPostUpdate;
 
 			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable

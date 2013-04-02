@@ -14,48 +14,41 @@ namespace ssvs
 		sf::Clock clock;
 		float frameTime{0}, fps{0};
 
-		TimerBase(GameWindow& mGameWindow) : gameWindow(mGameWindow) { }
-		virtual ~TimerBase() { }
+		TimerBase(GameWindow& mGameWindow);
+		virtual ~TimerBase();
 
-		virtual void runUpdate() 	{ }
-		virtual void runDraw() 		{ gameWindow.gamePtr->draw(); }
-		virtual void runFrameTime() { frameTime = clock.restart().asSeconds() * 60.f; }
-		virtual void runFps()		{ fps = 60.f / frameTime; }
+		virtual void runUpdate();
+		virtual void runDraw();
+		virtual void runFrameTime();
+		virtual void runFps();
 
-		float getFrameTime() const 	{ return frameTime; }
-		float getFps() const 		{ return fps; }
+		float getFrameTime() const;
+		float getFps() const;
 	};
 
-	
 	struct StaticTimer : public TimerBase
 	{
 		float step{1.f}, accumulatedTime{0}, loops{0}, maxLoops{10};
 
-		StaticTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
-		~StaticTimer() { }
+		StaticTimer(GameWindow& mGameWindow, float mStep = 1.f);
+		~StaticTimer();
 
-		void runUpdate() override
-		{
-			loops = 0;
-			accumulatedTime += frameTime;
-			while(accumulatedTime >= step && loops < maxLoops) { gameWindow.gamePtr->update(step); accumulatedTime -= step; ++loops; }
-		}
+		void runUpdate() override;
 	};
 
 	struct DynamicTimer : public TimerBase
 	{
 		float frameTimeLimit{4.f};
 
-		DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
-		~DynamicTimer() { }
+		DynamicTimer(GameWindow& mGameWindow);
+		~DynamicTimer();
 
-		void runUpdate() override { gameWindow.gamePtr->update(frameTime); }
-		void runFps() override
-		{			
-			if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
-			TimerBase::runFps();
-		}
+		void runUpdate() override;
+		void runFps() override;
 	};
+	
+	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep = 1.f);
+	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow);
 }
 
 #endif

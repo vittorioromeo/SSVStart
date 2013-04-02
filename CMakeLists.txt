@@ -43,8 +43,7 @@ endif()
 set(SRC_DIR "src")
 set(INC_DIR "include")
 
-set(
-	SOURCES
+set(SOURCES
 	${INC_DIR}/${PROJECT_NAME}/Assets/AssetFolder.h
 	${INC_DIR}/${PROJECT_NAME}/Assets/AssetManager.h
 	${INC_DIR}/${PROJECT_NAME}/Camera/Camera.h
@@ -63,6 +62,7 @@ set(
 	${SRC_DIR}/${PROJECT_NAME}/GameSystem/GameState.cpp
 	${SRC_DIR}/${PROJECT_NAME}/GameSystem/GameWindow.cpp
 	${SRC_DIR}/${PROJECT_NAME}/GameSystem/GWProperties.cpp
+	${SRC_DIR}/${PROJECT_NAME}/GameSystem/Timers.cpp
 	${SRC_DIR}/${PROJECT_NAME}/Input/Combo.cpp
 	${SRC_DIR}/${PROJECT_NAME}/Input/Manager.cpp
 	${SRC_DIR}/${PROJECT_NAME}/Input/Trigger.cpp
