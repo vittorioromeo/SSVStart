@@ -24,11 +24,11 @@ namespace ssvs
 		accumulatedTime += frameTime;
 		while(accumulatedTime >= step && loops < maxLoops)
 		{
-			gameWindow.gamePtr->update(step);
-			gameWindow.gamePtr->onPostUpdate();
+			gameWindow.gamePtr->update(step);	
 			accumulatedTime -= step;
 			++loops;
 		}
+		gameWindow.gamePtr->onPostUpdate();
 	}
 
 

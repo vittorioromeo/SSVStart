@@ -57,12 +57,15 @@ namespace ssvs
 
 	void GameWindow::runInput()
 	{
-		Event event; renderWindow.pollEvent(event);
+		Event event;  
+		while(renderWindow.pollEvent(event))
+	    {
+			if(event.type == Event::GainedFocus) focus = true;
+			else if(event.type == Event::LostFocus) focus = false;
+			else if(event.type == Event::Closed) running = false;
+		}
+		
 		gamePtr->updateInput(timer.getFrameTime());
-
-		if(event.type == Event::GainedFocus) focus = true;
-		else if(event.type == Event::LostFocus) focus = false;
-		else if(event.type == Event::Closed) running = false;
 	}
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }
