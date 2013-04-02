@@ -33,8 +33,6 @@ namespace ssvs
 			unsigned int width, height, antialiasingLevel{3};
 			int pixelMultiplier;
 			bool fullscreen;
-			bool staticFrameTime{false};
-			float staticFrameTimeValue{1};
 
 			TimerBase& timer;
 
@@ -62,10 +60,8 @@ namespace ssvs
 			void setSize(unsigned int mWidth, unsigned int mHeight);
 			void setAntialiasingLevel(unsigned int mAntialiasingLevel);
 			void setFullscreen(bool mFullscreen);
-			void setStaticFrameTime(bool mEnabled);
 			void setVsync(bool mEnabled);
 			void setMouseCursorVisible(bool mEnabled);
-			void setStaticFrameTimeValue(float mValue);
 			void setTitle(const std::string& mTitle);
 			void setFPSLimit(float mFPSLimit);
 

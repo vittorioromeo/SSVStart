@@ -12,9 +12,9 @@ namespace ssvs
 
 	float TimerBase::getFrameTime() const 	{ return frameTime; }
 	float TimerBase::getFps() const 		{ return fps; }
-	
-	
-	
+
+
+
 	StaticTimer::StaticTimer(GameWindow& mGameWindow, float mStep) : TimerBase(mGameWindow), step{mStep} { }
 	StaticTimer::~StaticTimer() { }
 
@@ -22,29 +22,29 @@ namespace ssvs
 	{
 		loops = 0;
 		accumulatedTime += frameTime;
-		while(accumulatedTime >= step && loops < maxLoops) 
-		{ 
-			gameWindow.gamePtr->update(step); 
+		while(accumulatedTime >= step && loops < maxLoops)
+		{
+			gameWindow.gamePtr->update(step);
 			gameWindow.gamePtr->onPostUpdate();
-			accumulatedTime -= step; 
-			++loops; 
+			accumulatedTime -= step;
+			++loops;
 		}
 	}
-	
-	
+
+
 
 	DynamicTimer::DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 	DynamicTimer::~DynamicTimer() { }
 
 	void DynamicTimer::runUpdate() { gameWindow.gamePtr->update(frameTime); gameWindow.gamePtr->onPostUpdate(); }
 	void DynamicTimer::runFps()
-	{			
+	{
 		if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
 		TimerBase::runFps();
 	}
-	
-	
-	
+
+
+
 	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep) { return *(new StaticTimer{mGameWindow, mStep}); }
 	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow) { return *(new DynamicTimer{mGameWindow}); }
 }
