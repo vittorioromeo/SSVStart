@@ -25,10 +25,10 @@ namespace ssvs
 			renderWindow.setActive(true);
 			renderWindow.clear();
 			
+			gamePtr->updateInputRelease();
 			timer.runUpdate();
-			gamePtr->updateRelease();
 			
-			timer.runDraw();
+			timer.runDraw();		
 			renderWindow.display();
 			
 			timer.runFrameTime();

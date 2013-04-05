@@ -23,14 +23,7 @@ namespace ssvs
 
 		bool Trigger::isActive(GameWindow& mGameWindow)
 		{
-			if(released && type == Types::SINGLE) 
-			{ 
-				if(isDown(mGameWindow))
-				{ 
-					released = false; 
-					return true; 
-				} 
-			}
+			if(released && type == Types::SINGLE && isDown(mGameWindow)) { released = false; return true; }
 			else if(type == Types::CONTINUOUS) return isDown(mGameWindow);
 			return false;
 		}

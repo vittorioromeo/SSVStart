@@ -41,7 +41,7 @@ namespace ssvs
 
 			void update(float mFrameTime);
 			void updateInput(float mFrameTime);
-			void updateRelease();
+			void updateInputRelease();
 			void draw();
 
 			void addInput(ITrigger mTrigger, IFunc mInputFunc, ITypes mType = ITypes::CONTINUOUS);

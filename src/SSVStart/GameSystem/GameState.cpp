@@ -12,7 +12,7 @@ namespace ssvs
 	void GameState::update(float mFrameTime) { onUpdate(mFrameTime); }
 	void GameState::updateInput(float mFrameTime) { inputManager.update(*gameWindowPtr, mFrameTime); }
 	
-	void GameState::updateRelease()
+	void GameState::updateInputRelease()
 	{
 		inputManager.updateRelease(*gameWindowPtr);
 	}
