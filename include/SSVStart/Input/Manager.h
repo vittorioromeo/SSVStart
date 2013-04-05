@@ -29,6 +29,7 @@ namespace ssvs
 			public:
 				void add(Trigger mInputCombination, InputFunc mInputFunc);
 				void update(GameWindow& mGameWindow, float mFrameTime);
+				void updateRelease(GameWindow& mGameWindow);
 		};
 	}
 }

@@ -24,11 +24,12 @@ namespace ssvs
 		accumulatedTime += frameTime;
 		while(accumulatedTime >= step && loops < maxLoops)
 		{
-			gameWindow.gamePtr->update(step);	
+			gameWindow.runInput();
+			gameWindow.gamePtr->update(step);
+			gameWindow.gamePtr->onPostUpdate();
 			accumulatedTime -= step;
 			++loops;
 		}
-		gameWindow.gamePtr->onPostUpdate();
 	}
 
 
@@ -36,7 +37,12 @@ namespace ssvs
 	DynamicTimer::DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 	DynamicTimer::~DynamicTimer() { }
 
-	void DynamicTimer::runUpdate() { gameWindow.gamePtr->update(frameTime); gameWindow.gamePtr->onPostUpdate(); }
+	void DynamicTimer::runUpdate() 
+	{ 
+		gameWindow.runInput();
+		gameWindow.gamePtr->update(frameTime); 
+		gameWindow.gamePtr->onPostUpdate(); 
+	}
 	void DynamicTimer::runFps()
 	{
 		if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;

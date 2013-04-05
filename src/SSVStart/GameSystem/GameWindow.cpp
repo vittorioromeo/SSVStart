@@ -24,10 +24,13 @@ namespace ssvs
 		{
 			renderWindow.setActive(true);
 			renderWindow.clear();
-			runInput();
+			
 			timer.runUpdate();
+			gamePtr->updateRelease();
+			
 			timer.runDraw();
 			renderWindow.display();
+			
 			timer.runFrameTime();
 			timer.runFps();
 		}

@@ -19,11 +19,18 @@ namespace ssvs
 			return false;
 		}
 
-		void Trigger::updateRelease(GameWindow& mGameWindow) { released = !isDown(mGameWindow); }
+		void Trigger::updateRelease(GameWindow& mGameWindow) { if(!isDown(mGameWindow)) released = true; }
 
 		bool Trigger::isActive(GameWindow& mGameWindow)
 		{
-			if(type == Types::SINGLE) return released && isDown(mGameWindow);
+			if(released && type == Types::SINGLE) 
+			{ 
+				if(isDown(mGameWindow))
+				{ 
+					released = false; 
+					return true; 
+				} 
+			}
 			else if(type == Types::CONTINUOUS) return isDown(mGameWindow);
 			return false;
 		}
