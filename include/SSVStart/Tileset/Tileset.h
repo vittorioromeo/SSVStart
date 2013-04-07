@@ -20,9 +20,6 @@ namespace ssvs
 		public:
 			Tileset(sf::Vector2i mTileSize);
 
-			sf::Sprite getSprite(int mX, int mY, const sf::Texture& mTexture);
-			sf::Sprite getSprite(const std::string& mLabel, const sf::Texture& mTexture);
-
 			sf::IntRect getTextureRect(int mX, int mY);
 			sf::IntRect getTextureRect(const std::string& mLabel);
 
