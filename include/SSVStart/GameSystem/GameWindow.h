@@ -39,7 +39,7 @@ namespace ssvs
 			void runInput();
 
 		public:
-			GameWindow(std::string mTitle, TimerBase& mTimer, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
+			GameWindow(const std::string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 			~GameWindow();

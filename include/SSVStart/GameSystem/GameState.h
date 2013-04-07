@@ -21,7 +21,7 @@ namespace ssvs
 	class GameState
 	{
 		friend class GameWindow;
-		
+
 		private:
 			typedef Input::Trigger ITrigger;
 			typedef Input::Trigger::Types ITypes;
@@ -29,6 +29,7 @@ namespace ssvs
 
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
 			Input::Manager inputManager;
+			std::vector<char> enteredChars;
 
 		public:
 			ssvu::Delegate<void> onDraw;
@@ -45,7 +46,9 @@ namespace ssvs
 			void draw();
 
 			void addInput(ITrigger mTrigger, IFunc mInputFunc, ITypes mType = ITypes::CONTINUOUS);
+
+			std::vector<char>& getEnteredChars();
 		};
 	}
-	
+
 #endif

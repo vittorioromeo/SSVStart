@@ -4,17 +4,22 @@
 
 #include "SSVStart/GameSystem/GameState.h"
 
+using namespace std;
 using namespace ssvs::Input;
 
 namespace ssvs
 {
 	void GameState::addInput(Trigger mTrigger, IFunc mInputFunc, ITypes mType) { mTrigger.setType(mType); inputManager.add(mTrigger, mInputFunc); }
+
+
 	void GameState::update(float mFrameTime) { onUpdate(mFrameTime); }
 	void GameState::updateInput(float mFrameTime) { inputManager.update(*gameWindowPtr, mFrameTime); }
-	
+
 	void GameState::updateInputRelease()
 	{
 		inputManager.updateRelease(*gameWindowPtr);
 	}
 	void GameState::draw() { onDraw(); }
+
+	vector<char>& GameState::getEnteredChars() { return enteredChars; }
 }

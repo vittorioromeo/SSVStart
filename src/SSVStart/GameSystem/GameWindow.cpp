@@ -11,7 +11,7 @@ using namespace sf;
 
 namespace ssvs
 {
-	GameWindow::GameWindow(string mTitle, TimerBase& mTimer, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
+	GameWindow::GameWindow(const string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
 		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(mTimer)
 	{
 		recreateWindow();
@@ -24,13 +24,13 @@ namespace ssvs
 		{
 			renderWindow.setActive(true);
 			renderWindow.clear();
-			
+
 			gamePtr->updateInputRelease();
 			timer.runUpdate();
-			
-			timer.runDraw();		
+
+			timer.runDraw();
 			renderWindow.display();
-			
+
 			timer.runFrameTime();
 			timer.runFps();
 		}
@@ -60,14 +60,17 @@ namespace ssvs
 
 	void GameWindow::runInput()
 	{
-		Event event;  
+		gamePtr->enteredChars.clear();
+
+		Event event;
 		while(renderWindow.pollEvent(event))
-	    {
+		{
 			if(event.type == Event::GainedFocus) focus = true;
 			else if(event.type == Event::LostFocus) focus = false;
 			else if(event.type == Event::Closed) running = false;
+			else if(event.type == Event::TextEntered) gamePtr->enteredChars.push_back(static_cast<char>(event.text.unicode));
 		}
-		
+
 		gamePtr->updateInput(timer.getFrameTime());
 	}
 
