@@ -2,7 +2,7 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <unordered_map>
+#include <map>
 #include "SSVStart/Utils/UtilsInput.h"
 
 using namespace std;
@@ -12,14 +12,11 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		using k = Keyboard::Key;
-		using b = Mouse::Button;
-
 		const string keyPrefix{"k"};
 		const string buttonPrefix{"b"};
 
-		#define SSVS_INSERT_KEY(name) {keyPrefix + #name, k::name}
-		unordered_map<string, k> keys
+		#define SSVS_INSERT_KEY(mName) {keyPrefix + #mName, Keyboard::Key::mName}
+		map<string, Keyboard::Key> keys
 		{
 			SSVS_INSERT_KEY(A),
 			SSVS_INSERT_KEY(B),
@@ -124,8 +121,114 @@ namespace ssvs
 		};
 		#undef SSVS_INSERT_KEY
 
-		#define SSVS_INSERT_BUTTON(name) {buttonPrefix + #name, b::name}
-		unordered_map<string, b> buttons
+		#define SSVS_INSERT_KEYNAME(mName) {Keyboard::Key::mName, keyPrefix + #mName}
+		map<Keyboard::Key, string> keyNames
+		{
+			SSVS_INSERT_KEYNAME(A),
+			SSVS_INSERT_KEYNAME(B),
+			SSVS_INSERT_KEYNAME(C),
+			SSVS_INSERT_KEYNAME(D),
+			SSVS_INSERT_KEYNAME(E),
+			SSVS_INSERT_KEYNAME(F),
+			SSVS_INSERT_KEYNAME(G),
+			SSVS_INSERT_KEYNAME(H),
+			SSVS_INSERT_KEYNAME(I),
+			SSVS_INSERT_KEYNAME(J),
+			SSVS_INSERT_KEYNAME(K),
+			SSVS_INSERT_KEYNAME(L),
+			SSVS_INSERT_KEYNAME(M),
+			SSVS_INSERT_KEYNAME(N),
+			SSVS_INSERT_KEYNAME(O),
+			SSVS_INSERT_KEYNAME(P),
+			SSVS_INSERT_KEYNAME(Q),
+			SSVS_INSERT_KEYNAME(R),
+			SSVS_INSERT_KEYNAME(S),
+			SSVS_INSERT_KEYNAME(T),
+			SSVS_INSERT_KEYNAME(U),
+			SSVS_INSERT_KEYNAME(W),
+			SSVS_INSERT_KEYNAME(X),
+			SSVS_INSERT_KEYNAME(Y),
+			SSVS_INSERT_KEYNAME(Z),
+			SSVS_INSERT_KEYNAME(Num0),
+			SSVS_INSERT_KEYNAME(Num1),
+			SSVS_INSERT_KEYNAME(Num2),
+			SSVS_INSERT_KEYNAME(Num3),
+			SSVS_INSERT_KEYNAME(Num4),
+			SSVS_INSERT_KEYNAME(Num5),
+			SSVS_INSERT_KEYNAME(Num6),
+			SSVS_INSERT_KEYNAME(Num7),
+			SSVS_INSERT_KEYNAME(Num8),
+			SSVS_INSERT_KEYNAME(Num9),
+			SSVS_INSERT_KEYNAME(Escape),
+			SSVS_INSERT_KEYNAME(LControl),
+			SSVS_INSERT_KEYNAME(LShift),
+			SSVS_INSERT_KEYNAME(LAlt),
+			SSVS_INSERT_KEYNAME(LSystem),
+			SSVS_INSERT_KEYNAME(RControl),
+			SSVS_INSERT_KEYNAME(RShift),
+			SSVS_INSERT_KEYNAME(RAlt),
+			SSVS_INSERT_KEYNAME(RSystem),
+			SSVS_INSERT_KEYNAME(Menu),
+			SSVS_INSERT_KEYNAME(LBracket),
+			SSVS_INSERT_KEYNAME(RBracket),
+			SSVS_INSERT_KEYNAME(SemiColon),
+			SSVS_INSERT_KEYNAME(Comma),
+			SSVS_INSERT_KEYNAME(Period),
+			SSVS_INSERT_KEYNAME(Quote),
+			SSVS_INSERT_KEYNAME(Slash),
+			SSVS_INSERT_KEYNAME(BackSlash),
+			SSVS_INSERT_KEYNAME(Tilde),
+			SSVS_INSERT_KEYNAME(Equal),
+			SSVS_INSERT_KEYNAME(Dash),
+			SSVS_INSERT_KEYNAME(Space),
+			SSVS_INSERT_KEYNAME(Return),
+			SSVS_INSERT_KEYNAME(BackSpace),
+			SSVS_INSERT_KEYNAME(Tab),
+			SSVS_INSERT_KEYNAME(PageUp),
+			SSVS_INSERT_KEYNAME(PageDown),
+			SSVS_INSERT_KEYNAME(End),
+			SSVS_INSERT_KEYNAME(Home),
+			SSVS_INSERT_KEYNAME(Insert),
+			SSVS_INSERT_KEYNAME(Delete),
+			SSVS_INSERT_KEYNAME(Add),
+			SSVS_INSERT_KEYNAME(Subtract),
+			SSVS_INSERT_KEYNAME(Multiply),
+			SSVS_INSERT_KEYNAME(Divide),
+			SSVS_INSERT_KEYNAME(Left),
+			SSVS_INSERT_KEYNAME(Right),
+			SSVS_INSERT_KEYNAME(Up),
+			SSVS_INSERT_KEYNAME(Down),
+			SSVS_INSERT_KEYNAME(Numpad0),
+			SSVS_INSERT_KEYNAME(Numpad1),
+			SSVS_INSERT_KEYNAME(Numpad2),
+			SSVS_INSERT_KEYNAME(Numpad3),
+			SSVS_INSERT_KEYNAME(Numpad4),
+			SSVS_INSERT_KEYNAME(Numpad5),
+			SSVS_INSERT_KEYNAME(Numpad6),
+			SSVS_INSERT_KEYNAME(Numpad7),
+			SSVS_INSERT_KEYNAME(Numpad8),
+			SSVS_INSERT_KEYNAME(Numpad9),
+			SSVS_INSERT_KEYNAME(F1),
+			SSVS_INSERT_KEYNAME(F2),
+			SSVS_INSERT_KEYNAME(F3),
+			SSVS_INSERT_KEYNAME(F4),
+			SSVS_INSERT_KEYNAME(F5),
+			SSVS_INSERT_KEYNAME(F6),
+			SSVS_INSERT_KEYNAME(F7),
+			SSVS_INSERT_KEYNAME(F8),
+			SSVS_INSERT_KEYNAME(F9),
+			SSVS_INSERT_KEYNAME(F10),
+			SSVS_INSERT_KEYNAME(F11),
+			SSVS_INSERT_KEYNAME(F12),
+			SSVS_INSERT_KEYNAME(F13),
+			SSVS_INSERT_KEYNAME(F14),
+			SSVS_INSERT_KEYNAME(F15),
+			SSVS_INSERT_KEYNAME(Pause)
+		};
+		#undef SSVS_INSERT_KEYNAME
+
+		#define SSVS_INSERT_BUTTON(mName) {buttonPrefix + #mName, Mouse::Button::mName}
+		map<string, Mouse::Button> buttons
 		{
 			SSVS_INSERT_BUTTON(Left),
 			SSVS_INSERT_BUTTON(Right),
@@ -135,7 +238,20 @@ namespace ssvs
 		};
 		#undef SSVS_INSERT_BUTTON
 
-		k getKey(const string& mName) { return keys.at(mName); }
-		b getButton(const string& mName) { return buttons.at(mName); }
+		#define SSVS_INSERT_BUTTONNAME(mName) {Mouse::Button::mName, buttonPrefix + #mName}
+		map<Mouse::Button, string> buttonNames
+		{
+			SSVS_INSERT_BUTTONNAME(Left),
+			SSVS_INSERT_BUTTONNAME(Right),
+			SSVS_INSERT_BUTTONNAME(Middle),
+			SSVS_INSERT_BUTTONNAME(XButton1),
+			SSVS_INSERT_BUTTONNAME(XButton2)
+		};
+		#undef SSVS_INSERT_BUTTONNAME
+
+		Keyboard::Key getKey(const string& mName)		{ return keys.at(mName); }
+		Mouse::Button getButton(const string& mName)	{ return buttons.at(mName); }
+		string getKeyName(Keyboard::Key mKey)			{ return keyNames.at(mKey); }
+		string getButtonName(Mouse::Button mButton)		{ return buttonNames.at(mButton); }
 	}
 }
