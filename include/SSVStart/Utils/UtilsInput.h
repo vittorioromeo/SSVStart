@@ -6,6 +6,7 @@
 #define SSVS_UTILS_INPUT
 
 #include <SFML/Window.hpp>
+#include "SSVStart/Input/Combo.h"
 
 namespace ssvs
 {
@@ -15,6 +16,8 @@ namespace ssvs
 		sf::Mouse::Button getButton(const std::string& mName);
 		std::string getKeyName(sf::Keyboard::Key mKey);
 		std::string getButtonName(sf::Mouse::Button mButton);
+		bool isKeyNameValid(const std::string& mName);
+		bool isButtonNameValid(const std::string& mName);
 	}
 }
 

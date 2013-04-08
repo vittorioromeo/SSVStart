@@ -253,5 +253,7 @@ namespace ssvs
 		Mouse::Button getButton(const string& mName)	{ return buttons.at(mName); }
 		string getKeyName(Keyboard::Key mKey)			{ return keyNames.at(mKey); }
 		string getButtonName(Mouse::Button mButton)		{ return buttonNames.at(mButton); }
+		bool isKeyNameValid(const string& mName)		{ return keys.find(mName) != end(keys); }
+		bool isButtonNameValid(const string& mName)		{ return buttons.find(mName) != end(buttons); }
 	}
 }

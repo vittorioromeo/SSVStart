@@ -18,6 +18,8 @@
 #include "SSVStart/GameSystem/Timers.h"
 
 // Input
+#include "SSVStart/Input/Combo.h"
+#include "SSVStart/Input/Trigger.h"
 #include "SSVStart/Input/Manager.h"
 
 // Tileset

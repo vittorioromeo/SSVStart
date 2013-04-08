@@ -22,10 +22,14 @@ namespace ssvs
 				std::vector<sf::Mouse::Button> buttons;
 
 			public:
+				Combo() = default;
 				Combo(std::initializer_list<sf::Keyboard::Key> mKeys, std::initializer_list<sf::Mouse::Button> mButtons = {});
 				Combo(std::initializer_list<sf::Mouse::Button> mButtons);
 
 				bool isDown(GameWindow& mGameWindow);
+
+				void addKey(sf::Keyboard::Key mKey);
+				void addButton(sf::Mouse::Button mButton);
 		};
 	}
 }

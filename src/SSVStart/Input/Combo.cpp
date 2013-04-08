@@ -17,10 +17,14 @@ namespace ssvs
 
 		bool Combo::isDown(GameWindow& mGameWindow)
 		{
+			if(keys.empty() && buttons.empty()) return false;
 			for(auto& key : keys) if(!mGameWindow.isKeyPressed(key)) return false;
 			for(auto& button : buttons) if(!mGameWindow.isButtonPressed(button)) return false;
 			return true;
 		}
+
+		void Combo::addKey(Keyboard::Key mKey) { keys.push_back(mKey); }
+		void Combo::addButton(Mouse::Button mButton) { buttons.push_back(mButton); }
 	}
 }
 
