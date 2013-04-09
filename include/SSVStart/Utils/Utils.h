@@ -36,7 +36,7 @@ namespace ssvs
 		template<typename T> sf::Vector2<T> getOrbitFromRadians(const sf::Vector2<T>& mVector, T mRadians, T mRadius) { return mVector + sf::Vector2<T>(cos(mRadians), sin(mRadians)) * mRadius; }
 		template<typename T> sf::Vector2<T> getOrbitFromDegrees(const sf::Vector2<T>& mVector, T mDegrees, T mRadius) { return getOrbitFromRadians(mVector, ssvu::toRadians(mDegrees), mRadius); }
 		template<typename T> sf::Vector2<T> getDirection(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return getNormalized(mTarget - mVector); }
-		template<typename T> sf::Vector2<T> getTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget, T mMagnitude) { return mVector + getDirection(mTarget, mVector) * mMagnitude; }
+		template<typename T> sf::Vector2<T> getTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget, T mMagnitude) { return mVector + getDirection(mVector, mTarget) * mMagnitude; }
 
 		// ThreadWrapper
 		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(1));
