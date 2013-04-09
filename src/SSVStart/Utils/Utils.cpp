@@ -29,17 +29,6 @@ namespace ssvs
 			return result;
 		}
 
-		Vector2f getOrbit(const Vector2f& mParent, const float mDegrees, const float mRadius)
-		{
-			return Vector2f{mParent.x + cos(toRadians(mDegrees)) * mRadius, mParent.y + sin(toRadians(mDegrees)) * mRadius};
-		}
-		void movePointTowardsCenter(Vector2f &mVector, const Vector2f mCenter, const float mSpeed)
-		{
-			Vector2f m{mCenter - mVector};
-			m = getNormalized(m) * mSpeed;
-			mVector += m;
-		}
-
 		void waitFor(ThreadWrapper& mThreadWrapper, Time mTime) { while(!mThreadWrapper.getFinished()) sleep(mTime); }
 
 		using Request = Http::Request;

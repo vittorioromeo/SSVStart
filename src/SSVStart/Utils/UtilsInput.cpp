@@ -21,8 +21,6 @@ namespace ssvs
 			public:
 				Bimap(initializer_list<pair<T, U>> mPairs) { for(auto& pair : mPairs) insert(pair); }
 				void insert(pair<T, U> mPair) { map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
-				T get(U mValue) { return map2[mValue]; }
-				U get(T mValue) { return map1[mValue]; }
 				T at(U mValue) { return map2.at(mValue); }
 				U at(T mValue) { return map1.at(mValue); }
 				bool hasValue(T mValue) { return map1.find(mValue) != end(map1); }
