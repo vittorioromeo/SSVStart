@@ -12,15 +12,12 @@ namespace ssvs
 {
 	void GameState::addInput(Trigger mTrigger, IFunc mInputFunc, ITypes mType) { mTrigger.setType(mType); inputManager.add(mTrigger, mInputFunc); }
 
-	GameState::EventDelegate& GameState::getEventDelegate(Event::EventType mEventType)
-	{
-		return eventDelegates[mEventType];
-	}
+	GameState::EventDelegate& GameState::getEventDelegate(Event::EventType mEventType) { return eventDelegates[mEventType]; }
 
 	void GameState::update(float mFrameTime) { onUpdate(mFrameTime); }
 	void GameState::updateInput(float mFrameTime) { inputManager.update(*gameWindowPtr, mFrameTime); }
 
-	void GameState::updateInputRelease() { inputManager.updateRelease(*gameWindowPtr); }
+	void GameState::refreshInput() { inputManager.refresh(*gameWindowPtr); }
 	void GameState::draw() { onDraw(); }
 
 	void GameState::handleEvent(const Event& mEvent) { eventDelegates[mEvent.type](mEvent); }

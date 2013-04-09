@@ -24,12 +24,12 @@ namespace ssvs
 				typedef std::pair<Trigger, InputFunc> InputFuncPair;
 
 			private:
-				std::vector<InputFuncPair> inputFuncPairs;
+				std::vector<InputFuncPair> pairs;
 
-			public:				
+			public:
 				void add(Trigger mInputCombination, InputFunc mInputFunc);
 				void update(GameWindow& mGameWindow, float mFrameTime);
-				void updateRelease(GameWindow& mGameWindow);
+				void refresh(GameWindow& mGameWindow);
 		};
 	}
 }

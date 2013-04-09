@@ -1,4 +1,5 @@
 #include "SSVStart/GameSystem/Timers.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 namespace ssvs
 {
@@ -6,7 +7,7 @@ namespace ssvs
 	TimerBase::~TimerBase() { }
 
 	void TimerBase::runUpdate()		{ }
-	void TimerBase::runDraw()		{ gameWindow.gamePtr->draw(); }
+	void TimerBase::runDraw()		{ gameWindow.runDraw(); }
 	void TimerBase::runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }
 	void TimerBase::runFps()		{ fps = 60.f / frameTime; }
 
@@ -25,8 +26,7 @@ namespace ssvs
 		while(accumulatedTime >= step && loops < maxLoops)
 		{
 			gameWindow.runInput();
-			gameWindow.gamePtr->update(step);
-			gameWindow.gamePtr->onPostUpdate();
+			gameWindow.runUpdate(step);
 			accumulatedTime -= step;
 			++loops;
 		}
@@ -37,11 +37,10 @@ namespace ssvs
 	DynamicTimer::DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 	DynamicTimer::~DynamicTimer() { }
 
-	void DynamicTimer::runUpdate() 
-	{ 
+	void DynamicTimer::runUpdate()
+	{
 		gameWindow.runInput();
-		gameWindow.gamePtr->update(frameTime); 
-		gameWindow.gamePtr->onPostUpdate(); 
+		gameWindow.runUpdate(frameTime);
 	}
 	void DynamicTimer::runFps()
 	{

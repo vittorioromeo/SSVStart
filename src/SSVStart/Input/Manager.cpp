@@ -11,21 +11,9 @@ namespace ssvs
 {
 	namespace Input
 	{
-		void Manager::add(Trigger mTrigger, InputFunc mInputFunc) { inputFuncPairs.push_back(make_pair(mTrigger, mInputFunc)); }
-		void Manager::update(GameWindow& mGameWindow, float mFrameTime)
-		{
-			for(auto& pair : inputFuncPairs)
-			{
-				auto& trigger(pair.first);
-				auto& func(pair.second);
-				if(trigger.isActive(mGameWindow)) func(mFrameTime);
-			}
-		}
-
-		void Manager::updateRelease(GameWindow& mGameWindow)
-		{
-			for(auto& pair : inputFuncPairs) pair.first.updateRelease(mGameWindow);
-		}
-	} // TODO: make this damn input clear and working, add updateRelease and runInput to DynamicTimer
+		void Manager::add(Trigger mTrigger, InputFunc mInputFunc) { pairs.emplace_back(mTrigger, mInputFunc); }
+		void Manager::update(GameWindow& mGameWindow, float mFrameTime) { for(auto& p : pairs) if(p.first.isActive(mGameWindow)) p.second(mFrameTime); }
+		void Manager::refresh(GameWindow& mGameWindow) { for(auto& p : pairs) p.first.updateRelease(mGameWindow); }
+	}
 }
 

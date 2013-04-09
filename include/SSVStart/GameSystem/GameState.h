@@ -17,7 +17,6 @@
 namespace ssvs
 {
 	class GameWindow;
-	namespace Input { class Trigger; }
 
 	class GameState
 	{
@@ -46,7 +45,7 @@ namespace ssvs
 
 			void update(float mFrameTime);
 			void updateInput(float mFrameTime);
-			void updateInputRelease();
+			void refreshInput();
 			void draw();
 
 			void addInput(ITrigger mTrigger, IFunc mInputFunc, ITypes mType = ITypes::CONTINUOUS);

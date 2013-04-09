@@ -37,6 +37,8 @@ namespace ssvs
 			TimerBase& timer; // owned
 
 			void runInput();
+			void runUpdate(float mFrameTime);
+			void runDraw();
 
 		public:
 			GameWindow(const std::string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);

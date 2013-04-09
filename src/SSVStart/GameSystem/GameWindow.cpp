@@ -25,7 +25,7 @@ namespace ssvs
 			renderWindow.setActive(true);
 			renderWindow.clear();
 
-			gamePtr->updateInputRelease();
+			gamePtr->refreshInput();
 			timer.runUpdate();
 
 			timer.runDraw();
@@ -55,7 +55,6 @@ namespace ssvs
 			renderWindow.setPosition(Vector2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
 		}
 		renderWindow.setSize({multipliedWidth, multipliedHeight});
-
 	}
 
 	void GameWindow::runInput()
@@ -76,6 +75,12 @@ namespace ssvs
 
 		gamePtr->updateInput(timer.getFrameTime());
 	}
+	void GameWindow::runUpdate(float mFrameTime)
+	{
+		gamePtr->update(mFrameTime);
+		gamePtr->onPostUpdate();
+	}
+	void GameWindow::runDraw() { gamePtr->draw(); }
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }
 	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return focus && Mouse::isButtonPressed(mButton); }

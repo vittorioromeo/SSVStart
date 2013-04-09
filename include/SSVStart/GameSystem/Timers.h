@@ -3,11 +3,11 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "SSVStart/GameSystem/GameState.h"
-#include "SSVStart/GameSystem/GameWindow.h"
 
 namespace ssvs
 {
+	class GameWindow;
+
 	struct TimerBase
 	{
 		GameWindow& gameWindow;
@@ -46,7 +46,7 @@ namespace ssvs
 		void runUpdate() override;
 		void runFps() override;
 	};
-	
+
 	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep = 1.f);
 	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow);
 }
