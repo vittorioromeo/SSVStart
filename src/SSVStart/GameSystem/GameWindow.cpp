@@ -60,15 +60,18 @@ namespace ssvs
 
 	void GameWindow::runInput()
 	{
-		gamePtr->enteredChars.clear();
-
 		Event event;
 		while(renderWindow.pollEvent(event))
 		{
-			if(event.type == Event::GainedFocus) focus = true;
-			else if(event.type == Event::LostFocus) focus = false;
-			else if(event.type == Event::Closed) running = false;
-			else if(event.type == Event::TextEntered) gamePtr->enteredChars.push_back(static_cast<char>(event.text.unicode));
+			switch(event.type)
+			{
+				case Event::Closed: running = false; break;
+				case Event::GainedFocus: focus = true; break;
+				case Event::LostFocus: focus = false; break;
+				default: break;
+			}
+
+			gamePtr->handleEvent(event);
 		}
 
 		gamePtr->updateInput(timer.getFrameTime());

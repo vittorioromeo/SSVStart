@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <functional>
+#include <map>
 #include <SSVUtils/SSVUtils.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -23,13 +24,16 @@ namespace ssvs
 		friend class GameWindow;
 
 		private:
-			typedef Input::Trigger ITrigger;
-			typedef Input::Trigger::Types ITypes;
-			typedef Input::Manager::InputFunc IFunc;
+			using ITrigger = Input::Trigger;
+			using ITypes = ITrigger::Types;
+			using IFunc = Input::Manager::InputFunc;
+			using EventDelegate = ssvu::Delegate<void, const sf::Event&>;
 
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
 			Input::Manager inputManager;
-			std::vector<char> enteredChars;
+			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
+
+			void handleEvent(const sf::Event& mEvent);
 
 		public:
 			ssvu::Delegate<void> onDraw;
@@ -46,8 +50,7 @@ namespace ssvs
 			void draw();
 
 			void addInput(ITrigger mTrigger, IFunc mInputFunc, ITypes mType = ITypes::CONTINUOUS);
-
-			std::vector<char>& getEnteredChars();
+			EventDelegate& getEventDelegate(sf::Event::EventType mEventType);
 		};
 	}
 

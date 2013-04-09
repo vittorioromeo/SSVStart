@@ -12,17 +12,21 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		bool isPointInPolygon(vector<Vector2f*> verts, Vector2f test)
+		bool isPointInPolygon(const vector<Vector2f>& mVertices, Vector2f mPoint)
 		{
-			size_t nvert{verts.size()};
-			size_t i, j;
-			bool c{0};
+			bool result{false};
+			size_t vCount{mVertices.size()};
 
-			for (i = 0, j = nvert-1; i < nvert; j = i++)
-				if(((verts[i]->y>test.y) != (verts[j]->y>test.y)) && (test.x < (verts[j]->x-verts[i]->x) * (test.y-verts[i]->y) / (verts[j]->y-verts[i]->y) + verts[i]->x))
-					c = !c;
+			for(size_t i{0}, j{vCount - 1}; i < vCount; j = i++)
+			{
+				const auto& vI(mVertices[i]);
+				const auto& vJ(mVertices[j]);
 
-			return c;
+				if(((vI.y > mPoint.y) != (vJ.y > mPoint.y)) && (mPoint.x < (vJ.x - vI.x) * (mPoint.y - vI.y) / (vJ.y - vI.y) + vI.x))
+					result = !result;
+			}
+
+			return result;
 		}
 
 		Vector2f getOrbit(const Vector2f& mParent, const float mDegrees, const float mRadius)
@@ -35,7 +39,7 @@ namespace ssvs
 			m = getNormalized(m) * mSpeed;
 			mVector += m;
 		}
-		
+
 		void waitFor(ThreadWrapper& mThreadWrapper, Time mTime) { while(!mThreadWrapper.getFinished()) sleep(mTime); }
 
 		using Request = Http::Request;
