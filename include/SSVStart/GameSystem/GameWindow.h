@@ -34,7 +34,7 @@ namespace ssvs
 			int pixelMultiplier;
 			bool fullscreen;
 
-			TimerBase& timer;
+			TimerBase& timer; // owned
 
 			void runInput();
 

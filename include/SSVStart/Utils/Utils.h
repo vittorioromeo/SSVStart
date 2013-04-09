@@ -20,8 +20,8 @@ namespace ssvs
 	namespace Utils
 	{
 		// Angles
-		template<typename T> T getRadiansToPoint(const sf::Vector2<T>& mStart, const sf::Vector2<T>& mEnd) { return atan2(mEnd.y - mStart.y, mEnd.x - mStart.x); }
-		template<typename T> T getDegreesToPoint(const sf::Vector2<T>& mStart, const sf::Vector2<T>& mEnd) { return ssvu::toDegrees(getRadiansToPoint(mStart, mEnd)); }
+		template<typename T> T getRadiansTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return atan2(mTarget.y - mVector.y, mTarget.x - mVector.x); }
+		template<typename T> T getDegreesTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return ssvu::toDegrees(getRadiansToPoint(mVector, mTarget)); }
 
 		// Collision
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& mVertices, sf::Vector2f mPoint);
@@ -36,7 +36,7 @@ namespace ssvs
 		template<typename T> sf::Vector2<T> getOrbitFromRadians(const sf::Vector2<T>& mVector, T mRadians, T mRadius) { return mVector + sf::Vector2<T>(cos(mRadians), sin(mRadians)) * mRadius; }
 		template<typename T> sf::Vector2<T> getOrbitFromDegrees(const sf::Vector2<T>& mVector, T mDegrees, T mRadius) { return getOrbitFromRadians(mVector, ssvu::toRadians(mDegrees), mRadius); }
 		template<typename T> sf::Vector2<T> getDirection(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return getNormalized(mTarget - mVector); }
-		template<typename T> sf::Vector2<T> getTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget, T mMagnitude) { return mVector + getDirection(mVector, mTarget) * mMagnitude; }
+		template<typename T> sf::Vector2<T> getMovedTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget, T mMagnitude) { return mVector + getDirection(mVector, mTarget) * mMagnitude; }
 
 		// ThreadWrapper
 		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(1));
