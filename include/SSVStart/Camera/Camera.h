@@ -37,14 +37,14 @@ namespace ssvs
 			void setSkew(sf::Vector2f mSkew);
 			void setOffset(sf::Vector2f mOffset);
 
-			sf::View getView();
-			float getRotation();
-			sf::Vector2f getSkew();
-			sf::Vector2f getOffset();
-			sf::Vector2f getCenter();
-			sf::Vector2f getMousePosition();
-			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition);
-			bool isInView(sf::Vector2f mPosition);
+			sf::View getView() const;
+			float getRotation() const;
+			sf::Vector2f getSkew() const;
+			sf::Vector2f getOffset() const;
+			sf::Vector2f getCenter() const;
+			sf::Vector2f getMousePosition() const;
+			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition) const;
+			bool isInView(sf::Vector2f mPosition) const;
 	};
 }
 

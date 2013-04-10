@@ -49,15 +49,15 @@ namespace ssvs
 
 	Font& AssetManager::getFont(const string& mId)
 	{
-		#ifndef SSVS_RELEASE
+		#ifndef SSVS_DISABLE_ASSET_CHECKING
 			if(fonts.count(mId) == 0) log(mId + " font doesn't exist", "getFont");
 		#endif
-		
+
 		return *fonts[mId];
 	}
 	Texture& AssetManager::getTexture(const string& mId)
 	{
-		#ifndef SSVS_RELEASE
+		#ifndef SSVS_DISABLE_ASSET_CHECKING
 			if(textures.count(mId) == 0) log(mId + " texture doesn't exist", "getTexture");
 		#endif
 
@@ -65,7 +65,7 @@ namespace ssvs
 	}
 	Sound& AssetManager::getSound(const string& mId)
 	{
-		#ifndef SSVS_RELEASE
+		#ifndef SSVS_DISABLE_ASSET_CHECKING
 			if(sounds.count(mId) == 0) log(mId + " sound doesn't exist", "getSound");
 		#endif
 
@@ -73,7 +73,7 @@ namespace ssvs
 	}
 	Music& AssetManager::getMusic(const string& mId)
 	{
-		#ifndef SSVS_RELEASE
+		#ifndef SSVS_DISABLE_ASSET_CHECKING
 			if(musics.count(mId) == 0) log(mId + " music doesn't exist", "getMusic");
 		#endif
 

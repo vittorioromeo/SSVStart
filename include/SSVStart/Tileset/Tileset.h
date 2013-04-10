@@ -6,7 +6,7 @@
 #define SSVS_TILESET
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 
 namespace ssvs
@@ -15,13 +15,15 @@ namespace ssvs
 	{
 		private:
 			sf::Vector2i tileSize;
-			std::map<std::string, sf::Vector2i> labels;
+			std::unordered_map<std::string, sf::Vector2i> labels;
 
 		public:
 			Tileset(sf::Vector2i mTileSize);
 
-			sf::IntRect getTextureRect(int mX, int mY);
-			sf::IntRect getTextureRect(const std::string& mLabel);
+			sf::IntRect getRect(int mX, int mY) const;
+			sf::IntRect getRect(const std::string& mLabel) const;
+
+			sf::IntRect operator[](const std::string& mLabel) const;
 
 			void setLabel(const std::string& mLabel, int mIndexX, int mIndexY);
 	};
