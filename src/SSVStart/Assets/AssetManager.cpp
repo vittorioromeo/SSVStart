@@ -22,30 +22,39 @@ namespace ssvs
 	}
 
 	void AssetManager::loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
-	void AssetManager::loadFont(const string& mId, const string& mPath)
+	Font& AssetManager::loadFont(const string& mId, const string& mPath)
 	{
 		Font* font{new Font}; font->loadFromFile(mPath); fonts[mId] = font;
 		log(mId + " font added", "loadFonts");
+		return *font;
 	}
-	void AssetManager::loadImage(const string& mId, const string& mPath)
+	Texture& AssetManager::loadImage(const string& mId, const string& mPath)
 	{
 		Image* image{new Image}; image->loadFromFile(mPath); images[mId] = image;
 		log(mId + " image added", "loadImages");
 		Texture* texture{new Texture}; texture->loadFromImage(*image); textures[mId] = texture;
 		log(mId + " texture added", "loadImages");
+		return *texture;
 	}
-	void AssetManager::loadSound(const string& mId, const string& mPath)
+	Sound& AssetManager::loadSound(const string& mId, const string& mPath)
 	{
 		SoundBuffer* soundBuffer{new SoundBuffer}; soundBuffer->loadFromFile(mPath); soundBuffers[mId] = soundBuffer;
 		log(mId + " soundBuffer added", "loadSound");
 		Sound* sound{new Sound{*soundBuffer}}; sounds[mId] = sound;
 		log(mId + " sound added", "loadSound");
+		return *sound;
 	}
-	void AssetManager::loadMusic(const string& mId, const string& mPath)
+	Music& AssetManager::loadMusic(const string& mId, const string& mPath)
 	{
 		Music* music{new Music}; music->openFromFile(mPath); musics[mId] = music;
 		log(mId + " music added", "loadMusic");
+		return *music;
 	}
+
+	bool AssetManager::hasFont(const string& mId)		{ return fonts.count(mId) > 0; }
+	bool AssetManager::hasTexture(const string& mId)	{ return textures.count(mId) > 0; }
+	bool AssetManager::hasSound(const string& mId)		{ return sounds.count(mId) > 0; }
+	bool AssetManager::hasMusic(const string& mId)		{ return musics.count(mId) > 0; }
 
 	Font& AssetManager::getFont(const string& mId)
 	{
@@ -80,13 +89,14 @@ namespace ssvs
 		return *musics[mId];
 	}
 
-	map<string, Font*>& AssetManager::getFonts()				{ return fonts; }
-	map<string, Image*>& AssetManager::getImages()				{ return images; }
-	map<string, Texture*>& AssetManager::getTextures()			{ return textures; }
-	map<string, SoundBuffer*>& AssetManager::getSoundBuffers() 	{ return soundBuffers; }
-	map<string, Sound*>& AssetManager::getSounds()				{ return sounds; }
-	map<string, Music*>& AssetManager::getMusics()				{ return musics; }
+	unordered_map<string, Font*>& AssetManager::getFonts()					{ return fonts; }
+	unordered_map<string, Image*>& AssetManager::getImages()				{ return images; }
+	unordered_map<string, Texture*>& AssetManager::getTextures()			{ return textures; }
+	unordered_map<string, SoundBuffer*>& AssetManager::getSoundBuffers()	{ return soundBuffers; }
+	unordered_map<string, Sound*>& AssetManager::getSounds()				{ return sounds; }
+	unordered_map<string, Music*>& AssetManager::getMusics()				{ return musics; }
 
 	void AssetManager::stopSounds() { for(auto& pair : sounds) pair.second->stop(); }
+	void AssetManager::stopMusics() { for(auto& pair : musics) pair.second->stop(); }
 }
 
