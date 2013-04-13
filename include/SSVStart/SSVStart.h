@@ -15,7 +15,9 @@
 // GameSystem
 #include "SSVStart/GameSystem/GameWindow.h"
 #include "SSVStart/GameSystem/GameState.h"
-#include "SSVStart/GameSystem/Timers.h"
+#include "SSVStart/GameSystem/Timers/TimerBase.h"
+#include "SSVStart/GameSystem/Timers/TimerDynamic.h"
+#include "SSVStart/GameSystem/Timers/TimerStatic.h"
 
 // Input
 #include "SSVStart/Input/Combo.h"

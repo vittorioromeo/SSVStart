@@ -43,6 +43,8 @@ file(GLOB SRC_LIST
 	"${SRC_DIR}/${PROJECT_NAME}/Camera/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/GameSystem/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/GameSystem/*.cpp"
+	"${INC_DIR}/${PROJECT_NAME}/GameSystem/Timers/*.h"
+	"${SRC_DIR}/${PROJECT_NAME}/GameSystem/Timers/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Input/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/Input/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Tileset/*.h"

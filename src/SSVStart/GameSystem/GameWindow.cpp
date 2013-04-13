@@ -4,7 +4,7 @@
 
 #include "SSVStart/GameSystem/GameWindow.h"
 #include "SSVStart/GameSystem/GameState.h"
-#include "SSVStart/GameSystem/Timers.h"
+#include "SSVStart/GameSystem/Timers/TimerBase.h"
 
 using namespace std;
 using namespace sf;

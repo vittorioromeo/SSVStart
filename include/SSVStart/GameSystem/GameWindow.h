@@ -76,6 +76,8 @@ namespace ssvs
 			unsigned int getAntialiasingLevel();
 			bool getFullscreen();
 			bool hasFocus();
+
+			template<typename T> T& getTimer() { return static_cast<T>(timer); }
 	};
 }
 
