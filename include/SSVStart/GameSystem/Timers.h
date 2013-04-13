@@ -28,9 +28,9 @@ namespace ssvs
 
 	struct StaticTimer : public TimerBase
 	{
-		float step{1.f}, accumulatedTime{0}, loops{0}, maxLoops{10};
+		float step{1.f}, accumulatedTime{0}, loops{0}, maxLoops{50}, speedMultiplier{1.f};
 
-		StaticTimer(GameWindow& mGameWindow, float mStep = 1.f);
+		StaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mSpeedMultiplier = 1.f);
 		~StaticTimer();
 
 		void runUpdate() override;
@@ -47,7 +47,7 @@ namespace ssvs
 		void runFps() override;
 	};
 
-	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep = 1.f);
+	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mSpeedMultiplier = 1.f);
 	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow);
 }
 

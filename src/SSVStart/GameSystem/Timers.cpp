@@ -16,18 +16,18 @@ namespace ssvs
 
 
 
-	StaticTimer::StaticTimer(GameWindow& mGameWindow, float mStep) : TimerBase(mGameWindow), step{mStep} { }
+	StaticTimer::StaticTimer(GameWindow& mGameWindow, float mStep, float mSpeedMultiplier) : TimerBase(mGameWindow), step{mStep}, speedMultiplier{mSpeedMultiplier} { }
 	StaticTimer::~StaticTimer() { }
 
 	void StaticTimer::runUpdate()
 	{
 		loops = 0;
 		accumulatedTime += frameTime;
-		while(accumulatedTime >= step && loops < maxLoops)
+		while(accumulatedTime >= step * speedMultiplier && loops < maxLoops)
 		{
 			gameWindow.runInput();
 			gameWindow.runUpdate(step);
-			accumulatedTime -= step;
+			accumulatedTime -= step * speedMultiplier;
 			++loops;
 		}
 	}
@@ -50,6 +50,6 @@ namespace ssvs
 
 
 
-	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep) { return *(new StaticTimer{mGameWindow, mStep}); }
+	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep, float mSpeedMultiplier) { return *(new StaticTimer{mGameWindow, mStep, mSpeedMultiplier}); }
 	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow) { return *(new DynamicTimer{mGameWindow}); }
 }
