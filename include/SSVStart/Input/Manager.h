@@ -8,6 +8,7 @@
 #include <vector>
 #include <functional>
 #include <SFML/Window.hpp>
+#include "SSVStart/Input/Bind.h"
 
 namespace ssvs
 {
@@ -15,19 +16,15 @@ namespace ssvs
 
 	namespace Input
 	{
-		class Trigger;
+		typedef std::function<void(float)> InputFunc;
 
 		class Manager
 		{
-			public:
-				typedef std::function<void(float)> InputFunc;
-				typedef std::pair<Trigger, InputFunc> InputFuncPair;
-
 			private:
-				std::vector<InputFuncPair> pairs;
+				std::vector<Bind> binds;
 
 			public:
-				void add(Trigger mInputCombination, InputFunc mInputFunc);
+				void add(Bind mBind);
 				void update(GameWindow& mGameWindow, float mFrameTime);
 				void refresh(GameWindow& mGameWindow);
 		};

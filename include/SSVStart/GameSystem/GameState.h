@@ -25,7 +25,7 @@ namespace ssvs
 		private:
 			using ITrigger = Input::Trigger;
 			using ITypes = ITrigger::Types;
-			using IFunc = Input::Manager::InputFunc;
+			using IFunc = Input::InputFunc;
 			using EventDelegate = ssvu::Delegate<void, const sf::Event&>;
 
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
@@ -48,7 +48,8 @@ namespace ssvs
 			void refreshInput();
 			void draw();
 
-			void addInput(ITrigger mTrigger, IFunc mInputFunc, ITypes mType = ITypes::CONTINUOUS);
+			void addInput(ITrigger mTrigger, IFunc mFuncOn, ITypes mType = ITypes::CONTINUOUS);
+			void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mInputOff, ITypes mType = ITypes::CONTINUOUS);
 			EventDelegate& getEventDelegate(sf::Event::EventType mEventType);
 		};
 	}
