@@ -27,7 +27,10 @@ namespace ssvs
 				bool isDown(GameWindow& mGameWindow);
 
 			public:
+				Trigger() = default;
 				Trigger(std::initializer_list<Combo> mCombos);
+
+				void addCombo(Combo mCombo);
 
 				bool isActive(GameWindow& mGameWindow);
 				void updateRelease(GameWindow& mGameWindow);

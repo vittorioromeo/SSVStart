@@ -13,6 +13,8 @@ namespace ssvs
 	{
 		Trigger::Trigger(initializer_list<Combo> mCombos) : combos{mCombos} { }
 
+		void Trigger::addCombo(Combo mCombo) { combos.push_back(mCombo); }
+
 		bool Trigger::isDown(GameWindow& mGameWindow)
 		{
 			for(auto& combo : combos) if(combo.isDown(mGameWindow)) return true;
