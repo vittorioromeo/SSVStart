@@ -77,7 +77,7 @@ namespace ssvs
 			bool getFullscreen();
 			bool hasFocus();
 
-			template<typename T> T& getTimer() { return static_cast<T>(timer); }
+			template<typename T> T& getTimer() { return static_cast<T&>(timer); }
 	};
 }
 
