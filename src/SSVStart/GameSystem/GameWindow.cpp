@@ -26,7 +26,9 @@ namespace ssvs
 			renderWindow.clear();
 
 			gamePtr->refreshInput();
+			runInput();
 			timer.runUpdate();
+			gamePtr->onPostUpdate();
 
 			timer.runDraw();
 			renderWindow.display();
@@ -75,11 +77,7 @@ namespace ssvs
 
 		gamePtr->updateInput(timer.getFrameTime());
 	}
-	void GameWindow::runUpdate(float mFrameTime)
-	{
-		gamePtr->update(mFrameTime);
-		gamePtr->onPostUpdate();
-	}
+	void GameWindow::runUpdate(float mFrameTime) { gamePtr->update(mFrameTime); }
 	void GameWindow::runDraw() { gamePtr->draw(); }
 
 	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }

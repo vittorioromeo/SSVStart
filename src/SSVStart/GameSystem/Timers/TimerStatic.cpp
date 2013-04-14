@@ -3,31 +3,30 @@
 
 namespace ssvs
 {
-	StaticTimer::StaticTimer(GameWindow& mGameWindow, float mStep, float mSpeed, float mMaxLoops) : TimerBase(mGameWindow), step{mStep}, speed{mSpeed}, maxLoops{mMaxLoops} { }
+	StaticTimer::StaticTimer(GameWindow& mGameWindow, float mStep, float mTimeSlice, float mMaxLoops) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
 	StaticTimer::~StaticTimer() { }
 
 	void StaticTimer::runUpdate()
 	{
 		loops = 0;
-		accumulatedTime += frameTime;
-		while(accumulatedTime >= speed && loops < maxLoops)
+		time += frameTime;
+		while(time >= timeSlice && loops < maxLoops)
 		{
-			gameWindow.runInput();
 			gameWindow.runUpdate(step);
-			accumulatedTime -= speed;
+			time -= timeSlice;
 			++loops;
 		}
 	}
 
 	float StaticTimer::getStep() const				{ return step; }
-	float StaticTimer::getSpeed() const				{ return speed; }
+	float StaticTimer::getTimeSlice() const			{ return timeSlice; }
 	float StaticTimer::getMaxLoops() const			{ return maxLoops; }
-	float StaticTimer::getAccumulatedTime() const	{ return accumulatedTime; }
+	float StaticTimer::getTime() const				{ return time; }
 	float StaticTimer::getLoops() const				{ return loops; }
 
-	void StaticTimer::setStep(float mStep)			{ step = mStep; }
-	void StaticTimer::setSpeed(float mSpeed)		{ speed = mSpeed; }
-	void StaticTimer::setMaxLoops(float mMaxLoops)	{ maxLoops = mMaxLoops; }
+	void StaticTimer::setStep(float mStep)				{ step = mStep; }
+	void StaticTimer::setTimeSlice(float mTimeSlice)	{ timeSlice = mTimeSlice; }
+	void StaticTimer::setMaxLoops(float mMaxLoops)		{ maxLoops = mMaxLoops; }
 
 	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep, float mSpeed, float mMaxLoops) { return *(new StaticTimer{mGameWindow, mStep, mSpeed, mMaxLoops}); }
 }

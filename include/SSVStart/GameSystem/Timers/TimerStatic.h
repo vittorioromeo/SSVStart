@@ -11,23 +11,23 @@ namespace ssvs
 
 	struct StaticTimer : public TimerBase
 	{
-		float step, speed, maxLoops, accumulatedTime{0}, loops{0};
+		float step, timeSlice, maxLoops, time{0}, loops{0};
 
-		StaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mSpeed = 1.f, float mMaxLoops = 50);
+		StaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mTimeSlice = 1.f, float mMaxLoops = 50);
 		~StaticTimer();
 
 		void runUpdate() override;
 
 		// Getters
 		float getStep() const;
-		float getSpeed() const;
+		float getTimeSlice() const;
 		float getMaxLoops() const;
-		float getAccumulatedTime() const;
+		float getTime() const;
 		float getLoops() const;
 
 		// Setters
 		void setStep(float mStep);
-		void setSpeed(float mSpeed);
+		void setTimeSlice(float mTimeSlice);
 		void setMaxLoops(float mMaxLoops);
 	};
 
