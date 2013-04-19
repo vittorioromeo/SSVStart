@@ -37,6 +37,8 @@ set(INC_DIR "include")
 file(GLOB SRC_LIST
 	"${INC_DIR}/${PROJECT_NAME}/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/*.cpp"
+	"${INC_DIR}/${PROJECT_NAME}/Animation/*.h"
+	"${SRC_DIR}/${PROJECT_NAME}/Animation/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Assets/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/Assets/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Camera/*.h"
