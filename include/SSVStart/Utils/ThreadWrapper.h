@@ -21,9 +21,9 @@ namespace ssvs
 
 			public:
 				ThreadWrapper(std::function<void()> mFunction) : func{[&, mFunction]{ mFunction(); finished = true; }}, thread{func} { }
-				void launch() { thread.launch(); }
-				void terminate() { thread.terminate(); }
-				bool getFinished() { return finished; }
+				void launch()		{ thread.launch(); }
+				void terminate()	{ thread.terminate(); }
+				bool getFinished()	{ return finished; }
 		};
 	}
 }

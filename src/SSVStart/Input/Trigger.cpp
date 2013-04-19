@@ -13,24 +13,32 @@ namespace ssvs
 	{
 		Trigger::Trigger(initializer_list<Combo> mCombos) : combos{mCombos} { }
 
-		void Trigger::addCombo(Combo mCombo) { combos.push_back(mCombo); }
+		void Trigger::refresh(GameWindow& mGameWindow) { if(!isDown(mGameWindow)) released = true; }
+		void Trigger::add(Combo mCombo) { combos.push_back(mCombo); }
+
+		void Trigger::setType(Types mType)		{ type = mType; }
+		void Trigger::setReleased(bool mValue)	{ released = mValue; }
 
 		bool Trigger::isDown(GameWindow& mGameWindow)
 		{
 			for(auto& combo : combos) if(combo.isDown(mGameWindow)) return true;
 			return false;
 		}
-
-		void Trigger::updateRelease(GameWindow& mGameWindow) { if(!isDown(mGameWindow)) released = true; }
-
 		bool Trigger::isActive(GameWindow& mGameWindow)
 		{
-			if(released && type == Types::SINGLE && isDown(mGameWindow)) { released = false; return true; }
-			else if(type == Types::CONTINUOUS) return isDown(mGameWindow);
+			switch(type)
+			{
+				case Types::CONTINUOUS:
+					return isDown(mGameWindow);
+					break;
+				case Types::SINGLE:
+					if(released && isDown(mGameWindow)) { released = false; return true; }
+					break;
+			}
+
 			return false;
 		}
-		void Trigger::setType(Types mType) { type = mType; }
-		void Trigger::setReleased(bool mValue) { released = mValue; }
+
 	}
 }
 

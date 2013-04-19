@@ -5,6 +5,9 @@
 #ifndef SSVSTART
 #define SSVSTART
 
+// Animation
+#include "SSVStart/Animation/Animation.h"
+
 // Assets
 #include "SSVStart/Assets/AssetFolder.h"
 #include "SSVStart/Assets/AssetManager.h"

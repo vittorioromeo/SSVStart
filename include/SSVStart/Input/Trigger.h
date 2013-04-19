@@ -30,12 +30,13 @@ namespace ssvs
 				Trigger() = default;
 				Trigger(std::initializer_list<Combo> mCombos);
 
-				void addCombo(Combo mCombo);
+				void refresh(GameWindow& mGameWindow);
+				void add(Combo mCombo);
 
-				bool isActive(GameWindow& mGameWindow);
-				void updateRelease(GameWindow& mGameWindow);
 				void setType(Types mType);
 				void setReleased(bool mValue);
+
+				bool isActive(GameWindow& mGameWindow);
 		};
 	}
 }

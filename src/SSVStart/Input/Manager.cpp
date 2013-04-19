@@ -16,6 +16,6 @@ namespace ssvs
 		{
 			for(auto& b : binds) b.trigger.isActive(mGameWindow) ? b.callOn(mFrameTime) : b.callOff(mFrameTime);
 		}
-		void Manager::refresh(GameWindow& mGameWindow) { for(auto& b : binds) b.trigger.updateRelease(mGameWindow); }
+		void Manager::refresh(GameWindow& mGameWindow) { for(auto& b : binds) b.trigger.refresh(mGameWindow); }
 	}
 }
