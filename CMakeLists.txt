@@ -9,6 +9,15 @@ set(CMAKE_CXX_FLAGS_DEBUG "-fno-omit-frame-pointer -g3 -gdwarf-2 -O0" CACHE STRI
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_MODULE_PATH}")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../SSVUtils/cmake/Modules/;${CMAKE_MODULE_PATH}")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/Modules/;${CMAKE_MODULE_PATH}")
+
+set(SSVSTART_USE_JSON TRUE CACHE BOOL "Use JSON tools/utilities (Requires SSVJsonCpp and SSVUtilsJson).")
+if(SSVSTART_USE_JSON)
+	set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVJsonCpp/cmake/Modules/;${CMAKE_MODULE_PATH}")
+	set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtilsJson/cmake/Modules/;${CMAKE_MODULE_PATH}")
+else()
+	add_definitions(-DSSVS_N_USE_JSON)
+endif()
+
 set(SSVSTART_BUILD_SHARED_LIB FALSE CACHE BOOL "Build shared libraries.")
 
 if(SSVSTART_BUILD_SHARED_LIB)
@@ -30,6 +39,11 @@ if(NOT SFML_FOUND)
 endif()
 
 find_package(SSVUtils REQUIRED)
+
+if(SSVSTART_USE_JSON)
+	find_package(SSVJsonCpp REQUIRED)
+	find_package(SSVUtilsJson REQUIRED)
+endif()
 
 set(SRC_DIR "src")
 set(INC_DIR "include")
@@ -53,11 +67,18 @@ file(GLOB SRC_LIST
 	"${SRC_DIR}/${PROJECT_NAME}/Tileset/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Utils/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/Utils/*.cpp"
+	"${INC_DIR}/${PROJECT_NAME}/Json/*.h"
+	"${SRC_DIR}/${PROJECT_NAME}/Json/*.cpp"
 )
 
 include_directories(${INC_DIR})
 include_directories(${SFML_INCLUDE_DIR})
 include_directories(${SSVUTILS_INCLUDE_DIR})
+
+if(SSVSTART_USE_JSON)
+	include_directories(${SSVJSONCPP_INCLUDE_DIR})
+	include_directories(${SSVUTILSJSON_INCLUDE_DIR})
+endif()
 
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${SRC_LIST})
 target_link_libraries(SSVStart ${SFML_AUDIO_LIBRARY})
@@ -66,6 +87,11 @@ target_link_libraries(SSVStart ${SFML_WINDOW_LIBRARY})
 target_link_libraries(SSVStart ${SFML_SYSTEM_LIBRARY})
 target_link_libraries(SSVStart ${SFML_NETWORK_LIBRARY})
 target_link_libraries(SSVStart ${SSVUTILS_LIBRARY})
+
+if(SSVSTART_USE_JSON)
+	target_link_libraries(SSVStart ${SSVJSONCPP_LIBRARY})
+	target_link_libraries(SSVStart ${SSVUTILSJSON_LIBRARY})
+endif()
 
 if(SSVSTART_BUILD_SHARED_LIB)
 	set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX -d)
