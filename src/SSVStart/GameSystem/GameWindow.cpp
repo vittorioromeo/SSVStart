@@ -80,6 +80,6 @@ namespace ssvs
 	void GameWindow::runUpdate(float mFrameTime) { gamePtr->update(mFrameTime); }
 	void GameWindow::runDraw() { gamePtr->draw(); }
 
-	bool GameWindow::isKeyPressed(Keyboard::Key mKey) 		{ return focus && Keyboard::isKeyPressed(mKey); }
-	bool GameWindow::isButtonPressed(Mouse::Button mButton) { return focus && Mouse::isButtonPressed(mButton); }
+	bool GameWindow::isKeyPressed(Keyboard::Key mKey)		{ return focus && Keyboard::isKeyPressed(mKey); }
+	bool GameWindow::isButtonPressed(Mouse::Button mButton)	{ return focus && Mouse::isButtonPressed(mButton); }
 }

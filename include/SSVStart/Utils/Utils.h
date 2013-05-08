@@ -14,6 +14,7 @@
 #include <SFML/Network.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Utils/ThreadWrapper.h"
+#include "SSVStart/GameSystem/GameState.h"
 
 namespace ssvs
 {
@@ -45,6 +46,10 @@ namespace ssvs
 		// sf::Network
 		sf::Http::Response getGetResponse(const std::string& mHost, const std::string& mHostFolder, const std::string& mRequestFile);
 		sf::Http::Response getPostResponse(const std::string& mHost, const std::string& mHostFolder, const std::string& mRequestFile, const std::string& mBody);
+
+		// Quick state input additions
+		void add2StateInput(GameState& mGameState, Input::Trigger mTrigger, bool& mValue);
+		void add3StateInput(GameState& mGameState, Input::Trigger mNegative, Input::Trigger mPositive, int& mValue);
 	}
 }
 

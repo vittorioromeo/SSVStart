@@ -43,5 +43,15 @@ namespace ssvs
 		{
 			return Http(mHost).sendRequest({mHostFolder + mRequestFile, Request::Post, mBody});
 		}
+
+		void add2StateInput(GameState& mGameState, Input::Trigger mTrigger, bool& mValue)
+		{
+			mGameState.addInput(mTrigger, [&](float){ mValue = true; }, [&](float){ mValue = false; });
+		}
+		void add3StateInput(GameState& mGameState, Input::Trigger mNegative, Input::Trigger mPositive, int& mValue)
+		{
+			mGameState.addInput(mNegative, [&](float){ mValue = -1; }, [&](float){ if(mValue == -1) mValue = 0; });
+			mGameState.addInput(mPositive, [&](float){ mValue = 1; }, [&](float){ if(mValue == 1) mValue = 0; });
+		}
 	}
 }
