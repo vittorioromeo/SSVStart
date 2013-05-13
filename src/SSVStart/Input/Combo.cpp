@@ -15,11 +15,11 @@ namespace ssvs
 		Combo::Combo(initializer_list<Keyboard::Key> mKeys, initializer_list<Mouse::Button> mButtons) : keys{mKeys}, buttons{mButtons} { }
 		Combo::Combo(initializer_list<Mouse::Button> mButtons) : Combo{{}, mButtons} { }
 
-		bool Combo::isDown(GameWindow& mGameWindow)
+		bool Combo::isDown(GameWindow& mGameWindow) const
 		{
 			if(keys.empty() && buttons.empty()) return false;
-			for(auto& k : keys) if(!mGameWindow.isKeyPressed(k)) return false;
-			for(auto& b : buttons) if(!mGameWindow.isButtonPressed(b)) return false;
+			for(const auto& k : keys) if(!mGameWindow.isKeyPressed(k)) return false;
+			for(const auto& b : buttons) if(!mGameWindow.isButtonPressed(b)) return false;
 			return true;
 		}
 

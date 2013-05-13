@@ -44,8 +44,8 @@ namespace ssvs
 	}
 
 	void Animation::addStep(AnimationStep mStep)								{ steps.push_back(mStep); }
-	void Animation::addSteps(std::vector<AnimationStep> mSteps)					{ for(auto& step : mSteps) steps.push_back(step); }
-	void Animation::addSteps(std::vector<string> mStepLabels, float mStepTime)	{ for(auto& label : mStepLabels) steps.push_back({label, mStepTime}); }
+	void Animation::addSteps(std::vector<AnimationStep> mSteps)					{ for(const auto& step : mSteps) steps.push_back(step); }
+	void Animation::addSteps(std::vector<string> mStepLabels, float mStepTime)	{ for(const auto& label : mStepLabels) steps.push_back({label, mStepTime}); }
 
 	// Getters
 	const AnimationStep& Animation::getCurrentStep() const { return steps[currentIndex]; }

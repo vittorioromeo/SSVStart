@@ -25,12 +25,12 @@ namespace ssvs
 	vector<string> AssetFolder::getFilteredFiles(const vector<string>& mExtensions)
 	{
 		vector<string> result;
-		for(auto& file : files) for(auto& extension : mExtensions) if(hasExtension(file, extension)) result.push_back(file);
+		for(const auto& file : files) for(const auto& extension : mExtensions) if(hasExtension(file, extension)) result.push_back(file);
 		return result;
 	}
 	void AssetFolder::loadFontsToManager(AssetManager& mAssetManager)
 	{
-		for(auto& file : getFilteredFiles({".ttf", ".otf", ".pfm"}))
+		for(const auto& file : getFilteredFiles({".ttf", ".otf", ".pfm"}))
 		{
 			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadFont(id, file);
@@ -39,7 +39,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
 	{
-		for(auto& file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
+		for(const auto& file : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
 			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadImage(id, file);
@@ -48,7 +48,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadSoundsToManager(AssetManager& mAssetManager)
 	{
-		for(auto& file : getFilteredFiles({".wav", ".ogg"}))
+		for(const auto& file : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadSound(id, file);
@@ -58,7 +58,7 @@ namespace ssvs
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
 	{
-		for(auto& file : getFilteredFiles({".wav", ".ogg"}))
+		for(const auto& file : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{getReplaced(file, rootPath, "")};
 			mAssetManager.loadMusic(id, file);

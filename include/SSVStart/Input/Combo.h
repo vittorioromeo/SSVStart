@@ -26,7 +26,7 @@ namespace ssvs
 				Combo(std::initializer_list<sf::Keyboard::Key> mKeys, std::initializer_list<sf::Mouse::Button> mButtons = {});
 				Combo(std::initializer_list<sf::Mouse::Button> mButtons);
 
-				bool isDown(GameWindow& mGameWindow);
+				bool isDown(GameWindow& mGameWindow) const;
 
 				void addKey(sf::Keyboard::Key mKey);
 				void addButton(sf::Mouse::Button mButton);

@@ -14,11 +14,11 @@ namespace ssvs
 {
 	AssetManager::~AssetManager()
 	{
-		for(auto& pair : images) delete pair.second;
-		for(auto& pair : textures) delete pair.second;
-		for(auto& pair : soundBuffers) delete pair.second;
-		for(auto& pair : sounds) delete pair.second;
-		for(auto& pair : musics) delete pair.second;
+		for(const auto& pair : images) delete pair.second;
+		for(const auto& pair : textures) delete pair.second;
+		for(const auto& pair : soundBuffers) delete pair.second;
+		for(const auto& pair : sounds) delete pair.second;
+		for(const auto& pair : musics) delete pair.second;
 	}
 
 	void AssetManager::loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
@@ -96,7 +96,7 @@ namespace ssvs
 	unordered_map<string, Sound*>& AssetManager::getSounds()				{ return sounds; }
 	unordered_map<string, Music*>& AssetManager::getMusics()				{ return musics; }
 
-	void AssetManager::stopSounds() { for(auto& pair : sounds) pair.second->stop(); }
-	void AssetManager::stopMusics() { for(auto& pair : musics) pair.second->stop(); }
+	void AssetManager::stopSounds() { for(const auto& pair : sounds) pair.second->stop(); }
+	void AssetManager::stopMusics() { for(const auto& pair : musics) pair.second->stop(); }
 }
 

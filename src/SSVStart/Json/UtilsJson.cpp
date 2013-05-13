@@ -34,7 +34,7 @@ namespace ssvs
 		{
 			ssvs::Animation result;
 
-			for(auto& frame : mRoot["frames"]) result.addStep({as<string>(frame, 0), as<float>(frame, 1)});
+			for(const auto& frame : mRoot["frames"]) result.addStep({as<string>(frame, 0), as<float>(frame, 1)});
 
 			result.setLoop(as<bool>(mRoot, "loop", true));
 			result.setPingPong(as<bool>(mRoot, "pingPong", false));
@@ -48,7 +48,7 @@ namespace ssvs
 		{
 			Input::Combo result;
 
-			for(auto& inputName : as<vector<string>>(mArray))
+			for(const auto& inputName : as<vector<string>>(mArray))
 			{
 				if(isKeyNameValid(inputName)) result.addKey(getKey(inputName));
 				else if(isButtonNameValid(inputName)) result.addButton(getButton(inputName));
@@ -61,7 +61,7 @@ namespace ssvs
 		{
 			Input::Trigger result;
 
-			for(auto& comboArray : as<vector<Json::Value>>(mArray))
+			for(const auto& comboArray : as<vector<Json::Value>>(mArray))
 				result.add(getInputComboFromJSON(comboArray));
 
 			return result;

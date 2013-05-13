@@ -25,8 +25,8 @@ namespace ssvs
 
 			Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr);
 
-			void callOn(float mFrameTime);
-			void callOff(float mFrameTime);
+			void callOn(float mFrameTime) const;
+			void callOff(float mFrameTime) const;
 		};
 	}
 }

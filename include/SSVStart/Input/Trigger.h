@@ -24,7 +24,7 @@ namespace ssvs
 				std::vector<Combo> combos;
 				bool released{true};
 
-				bool isDown(GameWindow& mGameWindow);
+				bool isDown(GameWindow& mGameWindow) const;
 
 			public:
 				Trigger() = default;

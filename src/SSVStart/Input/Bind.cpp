@@ -12,7 +12,7 @@ namespace ssvs
 	{
 		Bind::Bind(Trigger mTrigger, InputFunc mOn, InputFunc mOff) : trigger{mTrigger}, on{mOn}, off{mOff} { }
 
-		void Bind::callOn(float mFrameTime)		{ if(on != nullptr) on(mFrameTime); }
-		void Bind::callOff(float mFrameTime)	{ if(off != nullptr) off(mFrameTime); }
+		void Bind::callOn(float mFrameTime) const	{ if(on != nullptr) on(mFrameTime); }
+		void Bind::callOff(float mFrameTime) const	{ if(off != nullptr) off(mFrameTime); }
 	}
 }

@@ -19,9 +19,9 @@ namespace ssvs
 		void Trigger::setType(Types mType)		{ type = mType; }
 		void Trigger::setReleased(bool mValue)	{ released = mValue; }
 
-		bool Trigger::isDown(GameWindow& mGameWindow)
+		bool Trigger::isDown(GameWindow& mGameWindow) const
 		{
-			for(auto& combo : combos) if(combo.isDown(mGameWindow)) return true;
+			for(const auto& combo : combos) if(combo.isDown(mGameWindow)) return true;
 			return false;
 		}
 		bool Trigger::isActive(GameWindow& mGameWindow)
