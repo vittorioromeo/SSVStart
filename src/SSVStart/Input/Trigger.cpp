@@ -21,7 +21,7 @@ namespace ssvs
 
 		bool Trigger::isDown(GameWindow& mGameWindow) const
 		{
-			for(const auto& combo : combos) if(combo.isDown(mGameWindow)) return true;
+			for(const auto& c : combos) if(c.isDown(mGameWindow)) return true;
 			return false;
 		}
 		bool Trigger::isActive(GameWindow& mGameWindow)
