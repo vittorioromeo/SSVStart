@@ -12,15 +12,15 @@
 namespace ssvs
 {
 	class GameState;
-	class TimerBase;
-	class StaticTimer;
-	class DynamicTimer;
+	struct TimerBase;
+	struct StaticTimer;
+	struct DynamicTimer;
 
 	class GameWindow
 	{
-		friend class TimerBase;
-		friend class StaticTimer;
-		friend class DynamicTimer;
+		friend struct TimerBase;
+		friend struct StaticTimer;
+		friend struct DynamicTimer;
 
 		private:
 			GameState* gamePtr{nullptr}; // not owned, just pointed to
