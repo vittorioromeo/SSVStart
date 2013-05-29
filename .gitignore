@@ -185,3 +185,4 @@ pip-log.txt
 *.mk
 *.project
 *.so
+*.autosave
