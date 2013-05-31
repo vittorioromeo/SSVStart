@@ -7,7 +7,6 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -W -pedantic" CACHE STRING "" FORC
 set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG -O3" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_DEBUG "-fno-omit-frame-pointer -g3 -gdwarf-2 -O0" CACHE STRING "" FORCE)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules/;${CMAKE_MODULE_PATH}")
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../SSVUtils/cmake/modules/;${CMAKE_MODULE_PATH}")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/modules/;${CMAKE_MODULE_PATH}")
 
 set(SSVSTART_USE_JSON TRUE CACHE BOOL "Use JSON tools/utilities (Requires SSVJsonCpp and SSVUtilsJson).")
@@ -18,7 +17,7 @@ else()
 	add_definitions(-DSSVS_N_USE_JSON)
 endif()
 
-set(SSVSTART_BUILD_SHARED_LIB FALSE CACHE BOOL "Build shared libraries.")
+set(SSVSTART_BUILD_SHARED_LIB TRUE CACHE BOOL "Build shared libraries.")
 
 if(SSVSTART_BUILD_SHARED_LIB)
 	set(LIB_TYPE SHARED)
