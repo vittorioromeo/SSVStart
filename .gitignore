@@ -185,4 +185,4 @@ pip-log.txt
 *.mk
 *.project
 *.so
-*.autosave
+*.autosave/CMakeLists.txt.user.7626ec3
