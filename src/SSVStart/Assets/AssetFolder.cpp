@@ -13,7 +13,7 @@ using namespace ssvu::FileSystem;
 
 namespace ssvs
 {
-	AssetFolder::AssetFolder(const string& mRootPath) : rootPath{mRootPath}, files{getRecursiveFiles(rootPath)} { }
+	AssetFolder::AssetFolder(const string& mRootPath) : rootPath{mRootPath}, files{get<Mode::RECURSIVE, Type::FILES>(rootPath)} { }
 	void AssetFolder::loadToManager(AssetManager& mAssetManager)
 	{
 		loadImagesToManager(mAssetManager);
