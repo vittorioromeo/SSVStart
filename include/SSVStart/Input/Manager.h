@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <functional>
-#include <SFML/Window.hpp>
 #include "SSVStart/Input/Bind.h"
 
 namespace ssvs

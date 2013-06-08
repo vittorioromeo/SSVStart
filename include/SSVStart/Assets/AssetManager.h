@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_ASSETREPOSITORY
-#define SSVS_ASSETREPOSITORY
+#ifndef SSVS_ASSETS_ASSETMANAGER
+#define SSVS_ASSETS_ASSETMANAGER
 
 #include <string>
 #include <unordered_map>

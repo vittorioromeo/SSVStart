@@ -11,13 +11,12 @@ using namespace std;
 using namespace sf;
 using namespace ssvu;
 using namespace ssvuj;
-using namespace ssvs::Utils;
 
 namespace ssvs
 {
 	namespace Utils
 	{
-		Tileset getTilesetFromJSON(const Json::Value mRoot)
+		Tileset getTilesetFromJson(const Json::Value& mRoot)
 		{
 			Vector2i tileSize{as<int>(mRoot, "tileWidth"), as<int>(mRoot, "tileHeight")};
 			Tileset result{tileSize};
@@ -30,11 +29,11 @@ namespace ssvs
 			return result;
 		}
 
-		ssvs::Animation getAnimationFromJSON(const Json::Value mRoot)
+		Animation getAnimationFromJson(const Json::Value& mRoot)
 		{
-			ssvs::Animation result;
+			Animation result;
 
-			for(const auto& frame : mRoot["frames"]) result.addStep({as<string>(frame, 0), as<float>(frame, 1)});
+			for(const auto& f : mRoot["frames"]) result.addStep({as<string>(f, 0), as<float>(f, 1)});
 
 			result.setLoop(as<bool>(mRoot, "loop", true));
 			result.setPingPong(as<bool>(mRoot, "pingPong", false));
@@ -44,7 +43,7 @@ namespace ssvs
 			return result;
 		}
 
-		Input::Combo getInputComboFromJSON(const Json::Value mArray)
+		Input::Combo getInputComboFromJson(const Json::Value& mArray)
 		{
 			Input::Combo result;
 
@@ -57,12 +56,12 @@ namespace ssvs
 
 			return result;
 		}
-		Input::Trigger getInputTriggerFromJSON(const Json::Value mArray)
+		Input::Trigger getInputTriggerFromJson(const Json::Value& mArray)
 		{
 			Input::Trigger result;
 
 			for(const auto& comboArray : as<vector<Json::Value>>(mArray))
-				result.add(getInputComboFromJSON(comboArray));
+				result.add(getInputComboFromJson(comboArray));
 
 			return result;
 		}

@@ -10,8 +10,8 @@ using namespace ssvs::Input;
 
 namespace ssvs
 {
-	void GameState::addInput(Trigger mTrigger, IFunc mFuncOn, ITypes mType) { mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
-	void GameState::addInput(Trigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, ITypes mType)
+	void GameState::addInput(Trigger mTrigger, IFunc mFuncOn, IType mType) { mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
+	void GameState::addInput(Trigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType)
 	{
 		mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn, mFuncOff});
 	}

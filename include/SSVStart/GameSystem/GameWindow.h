@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_GAMEWINDOW
-#define SSVS_GAMEWINDOW
+#ifndef SSVS_GAMESYSTEM_GAMEWINDOW
+#define SSVS_GAMESYSTEM_GAMEWINDOW
 
 #include <string>
 #include <SFML/Window.hpp>

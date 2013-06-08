@@ -17,10 +17,10 @@ namespace ssvs
 		class Trigger
 		{
 			public:
-				enum class Types{CONTINUOUS, SINGLE};
+				enum class Type{Continuous, Single};
 
 			private:
-				Types type{Types::CONTINUOUS};
+				Type type{Type::Continuous};
 				std::vector<Combo> combos;
 				bool released{true};
 
@@ -33,7 +33,7 @@ namespace ssvs
 				void refresh(GameWindow& mGameWindow);
 				void add(Combo mCombo);
 
-				void setType(Types mType);
+				void setType(Type mType);
 				void setReleased(bool mValue);
 
 				bool isActive(GameWindow& mGameWindow);

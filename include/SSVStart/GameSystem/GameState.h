@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_GAMESTATE
-#define SSVS_GAMESTATE
+#ifndef SSVS_GAMESYSTEM_GAMESTATE
+#define SSVS_GAMESYSTEM_GAMESTATE
 
 #include <vector>
 #include <functional>
@@ -24,7 +24,7 @@ namespace ssvs
 
 		private:
 			using ITrigger = Input::Trigger;
-			using ITypes = ITrigger::Types;
+			using IType = ITrigger::Type;
 			using IFunc = Input::InputFunc;
 			using EventDelegate = ssvu::Delegate<void, const sf::Event&>;
 
@@ -48,8 +48,8 @@ namespace ssvs
 			void refreshInput();
 			void draw();
 
-			void addInput(ITrigger mTrigger, IFunc mFuncOn, ITypes mType = ITypes::CONTINUOUS);
-			void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mInputOff, ITypes mType = ITypes::CONTINUOUS);
+			void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Continuous);
+			void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mInputOff, IType mType = IType::Continuous);
 			EventDelegate& getEventDelegate(sf::Event::EventType mEventType);
 		};
 	}

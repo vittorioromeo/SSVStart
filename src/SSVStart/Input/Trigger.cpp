@@ -16,7 +16,7 @@ namespace ssvs
 		void Trigger::refresh(GameWindow& mGameWindow) { if(!isDown(mGameWindow)) released = true; }
 		void Trigger::add(Combo mCombo) { combos.push_back(mCombo); }
 
-		void Trigger::setType(Types mType)		{ type = mType; }
+		void Trigger::setType(Type mType)		{ type = mType; }
 		void Trigger::setReleased(bool mValue)	{ released = mValue; }
 
 		bool Trigger::isDown(GameWindow& mGameWindow) const
@@ -28,10 +28,10 @@ namespace ssvs
 		{
 			switch(type)
 			{
-				case Types::CONTINUOUS:
+				case Type::Continuous:
 					return isDown(mGameWindow);
 					break;
-				case Types::SINGLE:
+				case Type::Single:
 					if(released && isDown(mGameWindow)) { released = false; return true; }
 					break;
 			}

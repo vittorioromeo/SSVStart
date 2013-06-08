@@ -16,10 +16,10 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		Tileset getTilesetFromJSON(const Json::Value mRoot);
-		Animation getAnimationFromJSON(const Json::Value mRoot);
-		Input::Combo getInputComboFromJSON(const Json::Value mArray);
-		Input::Trigger getInputTriggerFromJSON(const Json::Value mArray);
+		Tileset getTilesetFromJson(const Json::Value& mRoot);
+		Animation getAnimationFromJson(const Json::Value& mRoot);
+		Input::Combo getInputComboFromJson(const Json::Value& mArray);
+		Input::Trigger getInputTriggerFromJson(const Json::Value& mArray);
 	}
 }
 
