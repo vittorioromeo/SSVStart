@@ -51,7 +51,7 @@ namespace ssvs
 			{
 				if(isKeyNameValid(inputName)) result.addKey(getKey(inputName));
 				else if(isButtonNameValid(inputName)) result.addButton(getButton(inputName));
-				else log("<" + inputName + "> is not a valid input name", "getInputComboFromJSON");
+				else log("<" + inputName + "> is not a valid input name", "ssvs::Utils::getInputComboFromJSON");
 			}
 
 			return result;

@@ -25,29 +25,29 @@ namespace ssvs
 	Font& AssetManager::loadFont(const string& mId, const string& mPath)
 	{
 		Font* font{new Font}; font->loadFromFile(mPath); fonts[mId] = font;
-		log(mId + " font added", "loadFonts");
+		log(mId + " font added", "ssvs::AssetManager::loadFonts");
 		return *font;
 	}
 	Texture& AssetManager::loadImage(const string& mId, const string& mPath)
 	{
 		Image* image{new Image}; image->loadFromFile(mPath); images[mId] = image;
-		log(mId + " image added", "loadImages");
+		log(mId + " image added", "ssvs::AssetManager::loadImages");
 		Texture* texture{new Texture}; texture->loadFromImage(*image); textures[mId] = texture;
-		log(mId + " texture added", "loadImages");
+		log(mId + " texture added", "ssvs::AssetManager::loadImages");
 		return *texture;
 	}
 	Sound& AssetManager::loadSound(const string& mId, const string& mPath)
 	{
 		SoundBuffer* soundBuffer{new SoundBuffer}; soundBuffer->loadFromFile(mPath); soundBuffers[mId] = soundBuffer;
-		log(mId + " soundBuffer added", "loadSound");
+		log(mId + " soundBuffer added", "ssvs::AssetManager::loadSound");
 		Sound* sound{new Sound{*soundBuffer}}; sounds[mId] = sound;
-		log(mId + " sound added", "loadSound");
+		log(mId + " sound added", "ssvs::AssetManager::loadSound");
 		return *sound;
 	}
 	Music& AssetManager::loadMusic(const string& mId, const string& mPath)
 	{
 		Music* music{new Music}; music->openFromFile(mPath); musics[mId] = music;
-		log(mId + " music added", "loadMusic");
+		log(mId + " music added", "ssvs::AssetManager::loadMusic");
 		return *music;
 	}
 
@@ -59,7 +59,7 @@ namespace ssvs
 	Font& AssetManager::getFont(const string& mId)
 	{
 		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(fonts.count(mId) == 0) log(mId + " font doesn't exist", "getFont");
+			if(fonts.count(mId) == 0) log(mId + " font doesn't exist", "ssvs::AssetManager::getFont");
 		#endif
 
 		return *fonts[mId];
@@ -67,7 +67,7 @@ namespace ssvs
 	Texture& AssetManager::getTexture(const string& mId)
 	{
 		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(textures.count(mId) == 0) log(mId + " texture doesn't exist", "getTexture");
+			if(textures.count(mId) == 0) log(mId + " texture doesn't exist", "ssvs::AssetManager::getTexture");
 		#endif
 
 		return *textures[mId];
@@ -75,7 +75,7 @@ namespace ssvs
 	Sound& AssetManager::getSound(const string& mId)
 	{
 		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(sounds.count(mId) == 0) log(mId + " sound doesn't exist", "getSound");
+			if(sounds.count(mId) == 0) log(mId + " sound doesn't exist", "ssvs::AssetManager::getSound");
 		#endif
 
 		return *sounds[mId];
@@ -83,7 +83,7 @@ namespace ssvs
 	Music& AssetManager::getMusic(const string& mId)
 	{
 		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(musics.count(mId) == 0) log(mId + " music doesn't exist", "getMusic");
+			if(musics.count(mId) == 0) log(mId + " music doesn't exist", "ssvs::AssetManager::getMusic");
 		#endif
 
 		return *musics[mId];

@@ -34,7 +34,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.loadFont(id, f);
-			log(id + " font added", "loadFontsToManager(" + rootPath + ")");
+			log(id + " font added", "ssvs::AssetFolder::loadFontsToManager(" + rootPath + ")");
 		}
 	}
 	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
@@ -43,7 +43,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.loadImage(id, f);
-			log(id + " image added", "loadImagesToManager(" + rootPath + ")");
+			log(id + " image added", "ssvs::AssetFolder::loadImagesToManager(" + rootPath + ")");
 		}
 	}
 	void AssetFolder::loadSoundsToManager(AssetManager& mAssetManager)
@@ -52,8 +52,8 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.loadSound(id, f);
-			log(id + " soundBuffer added", "loadSoundsToManager(" + rootPath + ")");
-			log(id + " sound added", "loadSoundsToManager(" + rootPath + ")");
+			log(id + " soundBuffer added", "ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")");
+			log(id + " sound added", "ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")");
 		}
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
@@ -62,7 +62,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.loadMusic(id, f);
-			log(id + " music added", "loadMusicsToManager(" + rootPath + ")");
+			log(id + " music added", "ssvs::AssetFolder::loadMusicsToManager(" + rootPath + ")");
 		}
 	}
 }
