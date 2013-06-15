@@ -31,19 +31,6 @@ namespace ssvs
 
 		void waitFor(ThreadWrapper& mThreadWrapper, Time mTime) { while(!mThreadWrapper.getFinished()) sleep(mTime); }
 
-		using Request = Http::Request;
-		using Response = Http::Response;
-		using Status = Http::Response::Status;
-
-		Response getGetResponse(const string& mHost, const string& mHostFolder, const string& mRequestFile)
-		{
-			return Http(mHost).sendRequest({mHostFolder + mRequestFile});
-		}
-		Response getPostResponse(const string& mHost, const string& mHostFolder, const string& mRequestFile, const string& mBody)
-		{
-			return Http(mHost).sendRequest({mHostFolder + mRequestFile, Request::Post, mBody});
-		}
-
 		void add2StateInput(GameState& mGameState, Input::Trigger mTrigger, bool& mValue)
 		{
 			mGameState.addInput(mTrigger, [&](float){ mValue = true; }, [&](float){ mValue = false; });
