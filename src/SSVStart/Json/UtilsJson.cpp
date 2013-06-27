@@ -2,10 +2,12 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
+#include <thread>
 #include <SFML/System.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Json/UtilsJson.h"
 #include "SSVStart/Utils/UtilsInput.h"
+#include "SSVStart/Assets/AssetManager.h"
 
 using namespace std;
 using namespace sf;
@@ -21,7 +23,7 @@ namespace ssvs
 			Vector2i tileSize{as<int>(mRoot, "tileWidth"), as<int>(mRoot, "tileHeight")};
 			Tileset result{tileSize};
 
-			Json::Value labels{mRoot["labels"]};
+			const Json::Value& labels(mRoot["labels"]);
 			for(unsigned int iY{0}; iY < labels.size(); ++iY)
 				for(unsigned int iX{0}; iX < labels[iY].size(); ++iX)
 					result.setLabel(labels[iY][iX].asString(), iX, iY);
@@ -64,6 +66,18 @@ namespace ssvs
 				result.add(getInputComboFromJson(comboArray));
 
 			return result;
+		}
+
+		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const Json::Value& mRoot)
+		{
+			thread t1{[&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts", {})) mAssetManager.loadFont(f, mRootPath + f); }};
+			thread t2{[&]{ for(const auto& f : as<vector<string>>(mRoot, "images", {})) mAssetManager.loadImage(f, mRootPath + f); }};
+			thread t3{[&]{ for(const auto& f : as<vector<string>>(mRoot, "textures", {})) mAssetManager.loadTexture(f, mRootPath + f); }};
+			thread t4{[&]{ for(const auto& f : as<vector<string>>(mRoot, "sounds", {})) mAssetManager.loadSound(f, mRootPath + f); }};
+			thread t5{[&]{ for(const auto& f : as<vector<string>>(mRoot, "musics", {})) mAssetManager.loadMusic(f, mRootPath + f); }};
+			thread t6{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersVertex", {})) mAssetManager.loadShader(f, mRootPath + f, Shader::Type::Vertex, Internal::ShaderFromPath{}); }};
+			thread t7{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersFragment", {})) mAssetManager.loadShader(f, mRootPath + f, Shader::Type::Fragment, Internal::ShaderFromPath{}); }};
+			t1.join(); t2.join(); t3.join(); t4.join(); t5.join(); t6.join(); t7.join();
 		}
 	}
 }
