@@ -12,91 +12,46 @@ using namespace ssvu;
 
 namespace ssvs
 {
-	AssetManager::~AssetManager()
-	{
-		for(const auto& pair : images) delete pair.second;
-		for(const auto& pair : textures) delete pair.second;
-		for(const auto& pair : soundBuffers) delete pair.second;
-		for(const auto& pair : sounds) delete pair.second;
-		for(const auto& pair : musics) delete pair.second;
-	}
-
 	void AssetManager::loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
 	Font& AssetManager::loadFont(const string& mId, const string& mPath)
 	{
-		Font* font{new Font}; font->loadFromFile(mPath); fonts[mId] = font;
-		log(mId + " font added", "ssvs::AssetManager::loadFonts");
-		return *font;
+		log(mId + " font loading", "ssvs::AssetManager::loadFonts");
+		return fonts.load(mId, mPath);
 	}
 	Texture& AssetManager::loadImage(const string& mId, const string& mPath)
 	{
-		Image* image{new Image}; image->loadFromFile(mPath); images[mId] = image;
-		log(mId + " image added", "ssvs::AssetManager::loadImages");
-		Texture* texture{new Texture}; texture->loadFromImage(*image); textures[mId] = texture;
-		log(mId + " texture added", "ssvs::AssetManager::loadImages");
-		return *texture;
+		log(mId + " image and texture loading", "ssvs::AssetManager::loadImages");
+		return textures.load(mId, images.load(mId, mPath));
 	}
 	Sound& AssetManager::loadSound(const string& mId, const string& mPath)
 	{
-		SoundBuffer* soundBuffer{new SoundBuffer}; soundBuffer->loadFromFile(mPath); soundBuffers[mId] = soundBuffer;
-		log(mId + " soundBuffer added", "ssvs::AssetManager::loadSound");
-		Sound* sound{new Sound{*soundBuffer}}; sounds[mId] = sound;
-		log(mId + " sound added", "ssvs::AssetManager::loadSound");
-		return *sound;
+		log(mId + " soundBuffer and sound loading", "ssvs::AssetManager::loadSound");
+		return sounds.load(mId, soundBuffers.load(mId, mPath));
 	}
 	Music& AssetManager::loadMusic(const string& mId, const string& mPath)
 	{
-		Music* music{new Music}; music->openFromFile(mPath); musics[mId] = music;
-		log(mId + " music added", "ssvs::AssetManager::loadMusic");
-		return *music;
+		log(mId + " music loading", "ssvs::AssetManager::loadMusic");
+		return musics.load(mId, mPath);
 	}
 
-	bool AssetManager::hasFont(const string& mId)		{ return fonts.count(mId) > 0; }
-	bool AssetManager::hasTexture(const string& mId)	{ return textures.count(mId) > 0; }
-	bool AssetManager::hasSound(const string& mId)		{ return sounds.count(mId) > 0; }
-	bool AssetManager::hasMusic(const string& mId)		{ return musics.count(mId) > 0; }
+	bool AssetManager::hasFont(const string& mId)		{ return fonts.has(mId); }
+	bool AssetManager::hasTexture(const string& mId)	{ return textures.has(mId); }
+	bool AssetManager::hasSound(const string& mId)		{ return sounds.has(mId); }
+	bool AssetManager::hasMusic(const string& mId)		{ return musics.has(mId); }
 
-	Font& AssetManager::getFont(const string& mId)
-	{
-		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(fonts.count(mId) == 0) log(mId + " font doesn't exist", "ssvs::AssetManager::getFont");
-		#endif
+	Font& AssetManager::getFont(const string& mId)			{ assert(hasFont(mId)); return fonts[mId]; }
+	Texture& AssetManager::getTexture(const string& mId)	{ assert(hasTexture(mId)); return textures[mId]; }
+	Sound& AssetManager::getSound(const string& mId)		{ assert(hasSound(mId)); return sounds[mId]; }
+	Music& AssetManager::getMusic(const string& mId)		{ assert(hasMusic(mId)); return musics[mId]; }
 
-		return *fonts[mId];
-	}
-	Texture& AssetManager::getTexture(const string& mId)
-	{
-		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(textures.count(mId) == 0) log(mId + " texture doesn't exist", "ssvs::AssetManager::getTexture");
-		#endif
+	unordered_map<string, unique_ptr<Font>>& AssetManager::getFonts()				{ return fonts.getResources(); }
+	unordered_map<string, unique_ptr<Image>>& AssetManager::getImages()				{ return images.getResources(); }
+	unordered_map<string, unique_ptr<Texture>>& AssetManager::getTextures()			{ return textures.getResources(); }
+	unordered_map<string, unique_ptr<SoundBuffer>>& AssetManager::getSoundBuffers()	{ return soundBuffers.getResources(); }
+	unordered_map<string, unique_ptr<Sound>>& AssetManager::getSounds()				{ return sounds.getResources(); }
+	unordered_map<string, unique_ptr<Music>>& AssetManager::getMusics()				{ return musics.getResources(); }
 
-		return *textures[mId];
-	}
-	Sound& AssetManager::getSound(const string& mId)
-	{
-		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(sounds.count(mId) == 0) log(mId + " sound doesn't exist", "ssvs::AssetManager::getSound");
-		#endif
-
-		return *sounds[mId];
-	}
-	Music& AssetManager::getMusic(const string& mId)
-	{
-		#ifndef SSVS_DISABLE_ASSET_CHECKING
-			if(musics.count(mId) == 0) log(mId + " music doesn't exist", "ssvs::AssetManager::getMusic");
-		#endif
-
-		return *musics[mId];
-	}
-
-	unordered_map<string, Font*>& AssetManager::getFonts()					{ return fonts; }
-	unordered_map<string, Image*>& AssetManager::getImages()				{ return images; }
-	unordered_map<string, Texture*>& AssetManager::getTextures()			{ return textures; }
-	unordered_map<string, SoundBuffer*>& AssetManager::getSoundBuffers()	{ return soundBuffers; }
-	unordered_map<string, Sound*>& AssetManager::getSounds()				{ return sounds; }
-	unordered_map<string, Music*>& AssetManager::getMusics()				{ return musics; }
-
-	void AssetManager::stopSounds() { for(const auto& pair : sounds) pair.second->stop(); }
-	void AssetManager::stopMusics() { for(const auto& pair : musics) pair.second->stop(); }
+	void AssetManager::stopSounds() { for(const auto& p : getSounds()) p.second->stop(); }
+	void AssetManager::stopMusics() { for(const auto& p : getMusics()) p.second->stop(); }
 }
 

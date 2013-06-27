@@ -5,28 +5,36 @@
 #ifndef SSVS_ASSETS_ASSETMANAGER
 #define SSVS_ASSETS_ASSETMANAGER
 
+#include <cassert>
 #include <string>
+#include <memory>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
+#include "SSVStart/Assets/Internal/ResourceHolder.h"
+
+namespace sf
+{
+	class Font;
+	class Image;
+	class Texture;
+	class SoundBuffer;
+	class Sound;
+	class Music;
+}
 
 namespace ssvs
 {
 	class AssetManager
 	{
 		private:
-			std::unordered_map<std::string, sf::Font*> fonts; // owned
-			std::unordered_map<std::string, sf::Image*> images; // owned
-			std::unordered_map<std::string, sf::Texture*> textures; // owned
-			std::unordered_map<std::string, sf::SoundBuffer*> soundBuffers; // owned
-			std::unordered_map<std::string, sf::Sound*> sounds; // owned
-			std::unordered_map<std::string, sf::Music*> musics; // owned
+			Internal::ResourceHolder<sf::Font> fonts;
+			Internal::ResourceHolder<sf::Image> images;
+			Internal::ResourceHolder<sf::Texture> textures;
+			Internal::ResourceHolder<sf::SoundBuffer> soundBuffers;
+			Internal::ResourceHolder<sf::Sound> sounds;
+			Internal::ResourceHolder<sf::Music> musics;
 
 		public:
 			AssetManager() = default;
-			~AssetManager();
 
 			void loadFolder(const std::string& mPath);
 			sf::Font& loadFont(const std::string& mId, const std::string& mPath);
@@ -44,12 +52,12 @@ namespace ssvs
 			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
 
-			std::unordered_map<std::string, sf::Font*>& getFonts();
-			std::unordered_map<std::string, sf::Image*>& getImages();
-			std::unordered_map<std::string, sf::Texture*>& getTextures();
-			std::unordered_map<std::string, sf::SoundBuffer*>& getSoundBuffers();
-			std::unordered_map<std::string, sf::Sound*>& getSounds();
-			std::unordered_map<std::string, sf::Music*>& getMusics();
+			std::unordered_map<std::string, std::unique_ptr<sf::Font>>& getFonts();
+			std::unordered_map<std::string, std::unique_ptr<sf::Image>>& getImages();
+			std::unordered_map<std::string, std::unique_ptr<sf::Texture>>& getTextures();
+			std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>>& getSoundBuffers();
+			std::unordered_map<std::string, std::unique_ptr<sf::Sound>>& getSounds();
+			std::unordered_map<std::string, std::unique_ptr<sf::Music>>& getMusics();
 
 			void stopSounds();
 			void stopMusics();
