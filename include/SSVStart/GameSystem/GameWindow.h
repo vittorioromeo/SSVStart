@@ -51,7 +51,7 @@ namespace ssvs
 			void recreateWindow();
 
 			void clear(sf::Color mColor);
-			void draw(const sf::Drawable& mDrawable);
+			void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default);
 			void pollEvent(sf::Event& mEvent);
 
 			bool isKeyPressed(sf::Keyboard::Key mKey);
