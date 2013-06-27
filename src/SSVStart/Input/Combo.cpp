@@ -12,8 +12,8 @@ namespace ssvs
 {
 	namespace Input
 	{
-		Combo::Combo(initializer_list<Keyboard::Key> mKeys, initializer_list<Mouse::Button> mButtons) : keys{mKeys}, buttons{mButtons} { }
-		Combo::Combo(initializer_list<Mouse::Button> mButtons) : Combo{{}, mButtons} { }
+		Combo::Combo(const initializer_list<Keyboard::Key>& mKeys, const initializer_list<Mouse::Button>& mButtons) : keys{mKeys}, buttons{mButtons} { }
+		Combo::Combo(const initializer_list<Mouse::Button>& mButtons) : Combo{{}, mButtons} { }
 
 		bool Combo::isDown(GameWindow& mGameWindow) const
 		{

@@ -23,8 +23,8 @@ namespace ssvs
 
 			public:
 				Combo() = default;
-				Combo(std::initializer_list<sf::Keyboard::Key> mKeys, std::initializer_list<sf::Mouse::Button> mButtons = {});
-				Combo(std::initializer_list<sf::Mouse::Button> mButtons);
+				Combo(const std::initializer_list<sf::Keyboard::Key>& mKeys, const std::initializer_list<sf::Mouse::Button>& mButtons = {});
+				Combo(const std::initializer_list<sf::Mouse::Button>& mButtons);
 
 				bool isDown(GameWindow& mGameWindow) const;
 

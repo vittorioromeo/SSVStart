@@ -28,7 +28,7 @@ namespace ssvs
 
 			public:
 				Trigger() = default;
-				Trigger(std::initializer_list<Combo> mCombos);
+				Trigger(const std::initializer_list<Combo>& mCombos);
 
 				void refresh(GameWindow& mGameWindow);
 				void add(Combo mCombo);

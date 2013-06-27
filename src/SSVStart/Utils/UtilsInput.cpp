@@ -19,7 +19,7 @@ namespace ssvs
 				map<U, T> map2;
 
 			public:
-				Bimap(initializer_list<pair<T, U>> mPairs) { for(const auto& pair : mPairs) insert(pair); }
+				Bimap(const initializer_list<pair<T, U>>& mPairs) { for(const auto& pair : mPairs) insert(pair); }
 				void insert(pair<T, U> mPair) { map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
 				T at(U mValue) { return map2.at(mValue); }
 				U at(T mValue) { return map1.at(mValue); }

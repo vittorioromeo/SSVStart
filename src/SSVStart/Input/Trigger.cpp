@@ -11,7 +11,7 @@ namespace ssvs
 {
 	namespace Input
 	{
-		Trigger::Trigger(initializer_list<Combo> mCombos) : combos{mCombos} { }
+		Trigger::Trigger(const initializer_list<Combo>& mCombos) : combos{mCombos} { }
 
 		void Trigger::refresh(GameWindow& mGameWindow) { if(!isDown(mGameWindow)) released = true; }
 		void Trigger::add(Combo mCombo) { combos.push_back(mCombo); }
