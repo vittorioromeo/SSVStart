@@ -40,7 +40,7 @@ namespace ssvs
 	void GameWindow::stop() { running = false; }
 
 	void GameWindow::clear(Color mColor) { renderWindow.clear(mColor); }
-	void GameWindow::draw(const Drawable& mDrawable) { renderWindow.draw(mDrawable); }
+	void GameWindow::draw(const Drawable& mDrawable, const RenderStates& mStates) { renderWindow.draw(mDrawable, mStates); }
 	void GameWindow::pollEvent(Event& mEvent) { renderWindow.pollEvent(mEvent); }
 
 	void GameWindow::recreateWindow()
