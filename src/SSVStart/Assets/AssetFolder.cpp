@@ -18,7 +18,7 @@ namespace ssvs
 	{
 		loadImagesToManager(mAssetManager);
 		loadTexturesToManager(mAssetManager);
-		loadSoundsToManager(mAssetManager);
+		loadSoundBuffersToManager(mAssetManager);
 		loadMusicsToManager(mAssetManager);
 		loadFontsToManager(mAssetManager);
 		loadShadersToManager(mAssetManager);
@@ -57,14 +57,13 @@ namespace ssvs
 			log(id + " texture added", "ssvs::AssetFolder::loadTexturesToManager(" + rootPath + ")");
 		}
 	}
-	void AssetFolder::loadSoundsToManager(AssetManager& mAssetManager)
+	void AssetFolder::loadSoundBuffersToManager(AssetManager& mAssetManager)
 	{
 		for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadSound(id, f);
+			mAssetManager.loadSoundBuffer(id, f);
 			log(id + " soundBuffer added", "ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")");
-			log(id + " sound added", "ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")");
 		}
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)

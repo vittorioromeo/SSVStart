@@ -27,6 +27,10 @@
 #include "SSVStart/Input/Trigger.h"
 #include "SSVStart/Input/Manager.h"
 
+// SoundPlayer
+#include "SSVStart/SoundPlayer/SoundInstance.h"
+#include "SSVStart/SoundPlayer/SoundPlayer.h"
+
 // Tileset
 #include "SSVStart/Tileset/Tileset.h"
 

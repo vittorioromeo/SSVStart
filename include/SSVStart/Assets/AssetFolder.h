@@ -22,7 +22,7 @@ namespace ssvs
 			void loadFontsToManager(AssetManager& mAssetManager);
 			void loadImagesToManager(AssetManager& mAssetManager);
 			void loadTexturesToManager(AssetManager& mAssetManager);
-			void loadSoundsToManager(AssetManager& mAssetManager);
+			void loadSoundBuffersToManager(AssetManager& mAssetManager);
 			void loadMusicsToManager(AssetManager& mAssetManager);
 			void loadShadersToManager(AssetManager& mAssetManager);
 

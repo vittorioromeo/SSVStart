@@ -83,11 +83,6 @@ namespace ssvs
 				return result;
 			}
 		};
-		template<> struct Helper<Mode::SoundBuffer, sf::Sound>
-		{
-			using T = sf::Sound;
-			inline static Uptr<T> load(const sf::SoundBuffer& mSoundBuffer)	{ return ssvu::make_unique<T>(mSoundBuffer); }
-		};
 		template<> struct Helper<Mode::Shader, sf::Shader>
 		{
 			using T = sf::Shader;

@@ -33,10 +33,10 @@ namespace ssvs
 		log(mId + "texture loading", "ssvs::AssetManager::loadTextures");
 		return textures.load(mId, mImage);
 	}
-	Sound& AssetManager::loadSound(const string& mId, const string& mPath)
+	SoundBuffer& AssetManager::loadSoundBuffer(const string& mId, const string& mPath)
 	{
-		log(mId + " soundBuffer and sound loading", "ssvs::AssetManager::loadSound");
-		return sounds.load(mId, soundBuffers.load(mId, mPath));
+		log(mId + " soundBuffer loading", "ssvs::AssetManager::loadSoundBuffer");
+		return soundBuffers.load(mId, mPath);
 	}
 	Music& AssetManager::loadMusic(const string& mId, const string& mPath)
 	{
@@ -58,7 +58,6 @@ namespace ssvs
 	bool AssetManager::hasImage(const string& mId)			{ return images.has(mId); }
 	bool AssetManager::hasTexture(const string& mId)		{ return textures.has(mId); }
 	bool AssetManager::hasSoundBuffer(const string& mId)	{ return soundBuffers.has(mId); }
-	bool AssetManager::hasSound(const string& mId)			{ return sounds.has(mId); }
 	bool AssetManager::hasMusic(const string& mId)			{ return musics.has(mId); }
 	bool AssetManager::hasShader(const string& mId)			{ return shaders.has(mId); }
 
@@ -66,7 +65,6 @@ namespace ssvs
 	Image& AssetManager::getImage(const string& mId)				{ assert(hasImage(mId)); return images[mId]; }
 	Texture& AssetManager::getTexture(const string& mId)			{ assert(hasTexture(mId)); return textures[mId]; }
 	SoundBuffer& AssetManager::getSoundBuffer(const string& mId)	{ assert(hasSoundBuffer(mId)); return soundBuffers[mId]; }
-	Sound& AssetManager::getSound(const string& mId)				{ assert(hasSound(mId)); return sounds[mId]; }
 	Music& AssetManager::getMusic(const string& mId)				{ assert(hasMusic(mId)); return musics[mId]; }
 	Shader& AssetManager::getShader(const string& mId)				{ assert(hasShader(mId)); return shaders[mId]; }
 
@@ -74,11 +72,9 @@ namespace ssvs
 	unordered_map<string, unique_ptr<Image>>& AssetManager::getImages()				{ return images.getResources(); }
 	unordered_map<string, unique_ptr<Texture>>& AssetManager::getTextures()			{ return textures.getResources(); }
 	unordered_map<string, unique_ptr<SoundBuffer>>& AssetManager::getSoundBuffers()	{ return soundBuffers.getResources(); }
-	unordered_map<string, unique_ptr<Sound>>& AssetManager::getSounds()				{ return sounds.getResources(); }
 	unordered_map<string, unique_ptr<Music>>& AssetManager::getMusics()				{ return musics.getResources(); }
 	unordered_map<string, unique_ptr<Shader>>& AssetManager::getShaders()			{ return shaders.getResources(); }
 
-	void AssetManager::stopSounds() { for(const auto& p : getSounds()) p.second->stop(); }
 	void AssetManager::stopMusics() { for(const auto& p : getMusics()) p.second->stop(); }
 }
 

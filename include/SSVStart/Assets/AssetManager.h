@@ -17,7 +17,6 @@ namespace sf
 	class Image;
 	class Texture;
 	class SoundBuffer;
-	class Sound;
 	class Music;
 	class Shader;
 }
@@ -31,7 +30,6 @@ namespace ssvs
 			Internal::ResourceHolder<sf::Image> images;
 			Internal::ResourceHolder<sf::Texture> textures;
 			Internal::ResourceHolder<sf::SoundBuffer> soundBuffers;
-			Internal::ResourceHolder<sf::Sound> sounds;
 			Internal::ResourceHolder<sf::Music> musics;
 			Internal::ResourceHolder<sf::Shader> shaders;
 
@@ -43,7 +41,7 @@ namespace ssvs
 			sf::Image& loadImage(const std::string& mId, const std::string& mPath);
 			sf::Texture& loadTexture(const std::string& mId, const std::string& mPath);
 			sf::Texture& loadTexture(const std::string& mId, const sf::Image& mImage);
-			sf::Sound& loadSound(const std::string& mId, const std::string& mPath);
+			sf::SoundBuffer& loadSoundBuffer(const std::string& mId, const std::string& mPath);
 			sf::Music& loadMusic(const std::string& mId, const std::string& mPath);
 			sf::Shader& loadShader(const std::string& mId, const std::string& mPath, sf::Shader::Type mType, Internal::ShaderFromPath);
 			sf::Shader& loadShader(const std::string& mId, const std::string& mShader, sf::Shader::Type mType, Internal::ShaderFromMemory);
@@ -52,7 +50,6 @@ namespace ssvs
 			bool hasImage(const std::string& mId);
 			bool hasTexture(const std::string& mId);
 			bool hasSoundBuffer(const std::string& mId);
-			bool hasSound(const std::string& mId);
 			bool hasMusic(const std::string& mId);
 			bool hasShader(const std::string& mId);
 
@@ -60,7 +57,6 @@ namespace ssvs
 			sf::Image& getImage(const std::string& mId);
 			sf::Texture& getTexture(const std::string& mId);
 			sf::SoundBuffer& getSoundBuffer(const std::string& mId);
-			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
 			sf::Shader& getShader(const std::string& mId);
 
@@ -68,7 +64,6 @@ namespace ssvs
 			std::unordered_map<std::string, std::unique_ptr<sf::Image>>& getImages();
 			std::unordered_map<std::string, std::unique_ptr<sf::Texture>>& getTextures();
 			std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>>& getSoundBuffers();
-			std::unordered_map<std::string, std::unique_ptr<sf::Sound>>& getSounds();
 			std::unordered_map<std::string, std::unique_ptr<sf::Music>>& getMusics();
 			std::unordered_map<std::string, std::unique_ptr<sf::Shader>>& getShaders();
 

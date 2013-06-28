@@ -36,11 +36,6 @@ namespace ssvs
 			inline static Uptr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
 			inline static Uptr<T> load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }
 		};
-		template<> struct Loader<sf::Sound> // Sound is not a real "resource", but it's easy to handle it as such - can be loaded only from SoundBuffer
-		{
-			using T = sf::Sound;
-			inline static Uptr<T> load(const sf::SoundBuffer& mSoundBuffer)	{ return Helper<Mode::SoundBuffer, T>::load(mSoundBuffer); }
-		};
 		template<> struct Loader<sf::Music> // Music can be opened from Path, Memory or StreamloadFromFile
 		{
 			using T = sf::Music;
