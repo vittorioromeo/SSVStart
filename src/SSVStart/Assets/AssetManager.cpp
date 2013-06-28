@@ -54,17 +54,21 @@ namespace ssvs
 		return shaders.load(mId, mShader, mType, Internal::ShaderFromMemory{});
 	}
 
-	bool AssetManager::hasFont(const string& mId)		{ return fonts.has(mId); }
-	bool AssetManager::hasTexture(const string& mId)	{ return textures.has(mId); }
-	bool AssetManager::hasSound(const string& mId)		{ return sounds.has(mId); }
-	bool AssetManager::hasMusic(const string& mId)		{ return musics.has(mId); }
-	bool AssetManager::hasShader(const string& mId)		{ return shaders.has(mId); }
+	bool AssetManager::hasFont(const string& mId)			{ return fonts.has(mId); }
+	bool AssetManager::hasImage(const string& mId)			{ return images.has(mId); }
+	bool AssetManager::hasTexture(const string& mId)		{ return textures.has(mId); }
+	bool AssetManager::hasSoundBuffer(const string& mId)	{ return soundBuffers.has(mId); }
+	bool AssetManager::hasSound(const string& mId)			{ return sounds.has(mId); }
+	bool AssetManager::hasMusic(const string& mId)			{ return musics.has(mId); }
+	bool AssetManager::hasShader(const string& mId)			{ return shaders.has(mId); }
 
-	Font& AssetManager::getFont(const string& mId)			{ assert(hasFont(mId)); return fonts[mId]; }
-	Texture& AssetManager::getTexture(const string& mId)	{ assert(hasTexture(mId)); return textures[mId]; }
-	Sound& AssetManager::getSound(const string& mId)		{ assert(hasSound(mId)); return sounds[mId]; }
-	Music& AssetManager::getMusic(const string& mId)		{ assert(hasMusic(mId)); return musics[mId]; }
-	Shader& AssetManager::getShader(const string& mId)		{ assert(hasShader(mId)); return shaders[mId]; }
+	Font& AssetManager::getFont(const string& mId)					{ assert(hasFont(mId)); return fonts[mId]; }
+	Image& AssetManager::getImage(const string& mId)				{ assert(hasImage(mId)); return images[mId]; }
+	Texture& AssetManager::getTexture(const string& mId)			{ assert(hasTexture(mId)); return textures[mId]; }
+	SoundBuffer& AssetManager::getSoundBuffer(const string& mId)	{ assert(hasSoundBuffer(mId)); return soundBuffers[mId]; }
+	Sound& AssetManager::getSound(const string& mId)				{ assert(hasSound(mId)); return sounds[mId]; }
+	Music& AssetManager::getMusic(const string& mId)				{ assert(hasMusic(mId)); return musics[mId]; }
+	Shader& AssetManager::getShader(const string& mId)				{ assert(hasShader(mId)); return shaders[mId]; }
 
 	unordered_map<string, unique_ptr<Font>>& AssetManager::getFonts()				{ return fonts.getResources(); }
 	unordered_map<string, unique_ptr<Image>>& AssetManager::getImages()				{ return images.getResources(); }

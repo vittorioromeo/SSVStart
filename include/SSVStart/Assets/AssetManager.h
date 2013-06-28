@@ -49,13 +49,17 @@ namespace ssvs
 			sf::Shader& loadShader(const std::string& mId, const std::string& mShader, sf::Shader::Type mType, Internal::ShaderFromMemory);
 
 			bool hasFont(const std::string& mId);
+			bool hasImage(const std::string& mId);
 			bool hasTexture(const std::string& mId);
+			bool hasSoundBuffer(const std::string& mId);
 			bool hasSound(const std::string& mId);
 			bool hasMusic(const std::string& mId);
 			bool hasShader(const std::string& mId);
 
 			sf::Font& getFont(const std::string& mId);
+			sf::Image& getImage(const std::string& mId);
 			sf::Texture& getTexture(const std::string& mId);
+			sf::SoundBuffer& getSoundBuffer(const std::string& mId);
 			sf::Sound& getSound(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
 			sf::Shader& getShader(const std::string& mId);
