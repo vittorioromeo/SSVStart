@@ -20,5 +20,5 @@ namespace ssvs
 	void SoundPlayer::stop() { for(auto& s : memoryManager) s->getSound().stop(); }
 	void SoundPlayer::setVolume(int mVolume) { for(auto& s : memoryManager) s->getSound().setVolume(mVolume); }
 
-	SoundInstance& SoundPlayer::create(const SoundBuffer& mSoundBuffer, bool mManualLifetime) { return memoryManager.create(mSoundBuffer, mManualLifetime); }
+	SoundInstance& SoundPlayer::create(const SoundBuffer& mSoundBuffer, bool mManualLifetime) { cleanUp(); return memoryManager.create(mSoundBuffer, mManualLifetime); }
 }
