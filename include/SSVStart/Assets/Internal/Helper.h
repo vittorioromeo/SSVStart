@@ -59,7 +59,6 @@ namespace ssvs
 			inline static Uptr<T> load(sf::InputStream& mStream)
 			{
 				auto result(ssvu::make_unique<T>());
-#include <unordered_map>
 				if(!result->openFromStream(mStream)) fail("from open stream");
 				return result;
 			}
