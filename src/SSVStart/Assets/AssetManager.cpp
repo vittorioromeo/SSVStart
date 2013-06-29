@@ -25,12 +25,12 @@ namespace ssvs
 	}
 	Texture& AssetManager::loadTexture(const string& mId, const string& mPath)
 	{
-		log(mId + "texture loading", "ssvs::AssetManager::loadTextures");
+		log(mId + " texture loading", "ssvs::AssetManager::loadTextures");
 		return textures.load(mId, mPath);
 	}
 	Texture& AssetManager::loadTexture(const string& mId, const Image& mImage)
 	{
-		log(mId + "texture loading", "ssvs::AssetManager::loadTextures");
+		log(mId + " texture loading", "ssvs::AssetManager::loadTextures");
 		return textures.load(mId, mImage);
 	}
 	SoundBuffer& AssetManager::loadSoundBuffer(const string& mId, const string& mPath)
