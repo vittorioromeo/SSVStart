@@ -14,7 +14,7 @@ namespace ssvs
 	{
 		private:
 			const sf::Texture& texture;
-			BitmapFontData data;
+			const BitmapFontData data;
 
 		public:
 			BitmapFont(const sf::Texture& mTexture, const BitmapFontData& mData);

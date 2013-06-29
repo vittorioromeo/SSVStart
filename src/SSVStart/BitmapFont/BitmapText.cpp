@@ -35,26 +35,26 @@ namespace ssvs
 	{
 		const auto& width(bitmapFont.getCellWidth());
 		const auto& height(bitmapFont.getCellHeight());
-		unsigned int currentX{0}, currentY{0};
+		unsigned int iX{0}, iY{0};
 
 		vertices.clear();
 		for(const auto& c : str)
 		{
 			switch(c)
 			{
-				case L'\t': currentX += 4; continue;
-				case L'\n': ++currentY; currentX = 0; continue;
-				case L'\v': currentY += 4; continue;
+				case L'\t': iX += 4;		continue;
+				case L'\n': ++iY; iX = 0;	continue;
+				case L'\v': iY += 4;		continue;
 			}
 
 			const auto& rect(bitmapFont.getGlyphRect(c));
-			unsigned int spacing{tracking * currentX};
+			unsigned int spacing{tracking * iX};
 
-			vertices.append({Vector2f(currentX * width + spacing,		currentY * height),			color,	Vector2f(rect.left,					rect.top)});
-			vertices.append({Vector2f((currentX + 1) * width + spacing,	currentY * height),			color,	Vector2f(rect.left + rect.width,	rect.top)});
-			vertices.append({Vector2f((currentX + 1) * width + spacing,	(currentY + 1) * height),	color,	Vector2f(rect.left + rect.width,	rect.top + rect.height)});
-			vertices.append({Vector2f(currentX * width + spacing,		(currentY + 1) * height),	color,	Vector2f(rect.left,					rect.top + rect.height)});
-			++currentX;
+			vertices.append({Vector2f(iX * width + spacing,			iY * height),		color,	Vector2f(rect.left,					rect.top)});
+			vertices.append({Vector2f((iX + 1) * width + spacing,	iY * height),		color,	Vector2f(rect.left + rect.width,	rect.top)});
+			vertices.append({Vector2f((iX + 1) * width + spacing,	(iY + 1) * height),	color,	Vector2f(rect.left + rect.width,	rect.top + rect.height)});
+			vertices.append({Vector2f(iX * width + spacing,			(iY + 1) * height),	color,	Vector2f(rect.left,					rect.top + rect.height)});
+			++iX;
 		}
 
 		mustRecalculate = false;

@@ -5,6 +5,7 @@
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Assets/AssetManager.h"
 #include "SSVStart/Assets/AssetFolder.h"
+#include "SSVStart/BitmapFont/BitmapFont.h"
 
 using namespace std;
 using namespace sf;
@@ -53,6 +54,11 @@ namespace ssvs
 		log(mId + " shader loading", "ssvs::AssetManager::loadShader");
 		return shaders.load(mId, mShader, mType, Internal::ShaderFromMemory{});
 	}
+	BitmapFont& AssetManager::loadBitmapFont(const string& mId, const Texture& mTexture, const BitmapFontData& mData)
+	{
+		log(mId + " bitmapFont loading", "ssvs::AssetManager::loadBitmapFont");
+		return bitmapFonts.load(mId, mTexture, mData);
+	}
 
 	bool AssetManager::hasFont(const string& mId)			{ return fonts.has(mId); }
 	bool AssetManager::hasImage(const string& mId)			{ return images.has(mId); }
@@ -60,6 +66,7 @@ namespace ssvs
 	bool AssetManager::hasSoundBuffer(const string& mId)	{ return soundBuffers.has(mId); }
 	bool AssetManager::hasMusic(const string& mId)			{ return musics.has(mId); }
 	bool AssetManager::hasShader(const string& mId)			{ return shaders.has(mId); }
+	bool AssetManager::hasBitmapFont(const string& mId)		{ return bitmapFonts.has(mId); }
 
 	Font& AssetManager::getFont(const string& mId)					{ assert(hasFont(mId)); return fonts[mId]; }
 	Image& AssetManager::getImage(const string& mId)				{ assert(hasImage(mId)); return images[mId]; }
@@ -67,6 +74,7 @@ namespace ssvs
 	SoundBuffer& AssetManager::getSoundBuffer(const string& mId)	{ assert(hasSoundBuffer(mId)); return soundBuffers[mId]; }
 	Music& AssetManager::getMusic(const string& mId)				{ assert(hasMusic(mId)); return musics[mId]; }
 	Shader& AssetManager::getShader(const string& mId)				{ assert(hasShader(mId)); return shaders[mId]; }
+	BitmapFont& AssetManager::getBitmapFont(const string& mId)		{ assert(hasBitmapFont(mId)); return bitmapFonts[mId]; }
 
 	unordered_map<string, unique_ptr<Font>>& AssetManager::getFonts()				{ return fonts.getResources(); }
 	unordered_map<string, unique_ptr<Image>>& AssetManager::getImages()				{ return images.getResources(); }
@@ -74,8 +82,8 @@ namespace ssvs
 	unordered_map<string, unique_ptr<SoundBuffer>>& AssetManager::getSoundBuffers()	{ return soundBuffers.getResources(); }
 	unordered_map<string, unique_ptr<Music>>& AssetManager::getMusics()				{ return musics.getResources(); }
 	unordered_map<string, unique_ptr<Shader>>& AssetManager::getShaders()			{ return shaders.getResources(); }
+	unordered_map<string, unique_ptr<BitmapFont>>& AssetManager::getBitmapFonts()	{ return bitmapFonts.getResources(); }
 
 	void AssetManager::setMusicsVolume(int mVolume) { for(const auto& p : getMusics()) p.second->setVolume(mVolume); }
 	void AssetManager::stopMusics() { for(const auto& p : getMusics()) p.second->stop(); }
 }
-

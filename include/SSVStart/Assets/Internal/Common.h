@@ -12,7 +12,7 @@ namespace ssvs
 	namespace Internal
 	{
 		template<typename T> using Uptr = std::unique_ptr<T>;
-		enum class Mode{Load, Open, Image, Samples, Shader};
+		enum class Mode{Load, Open, Image, Samples, Shader, BitmapFont};
 
 		template<bool> struct ShaderDisambiguationTag {};
 		typedef ShaderDisambiguationTag<true> ShaderFromMemory;

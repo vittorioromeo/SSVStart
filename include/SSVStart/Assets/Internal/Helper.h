@@ -13,6 +13,7 @@
 #include <SFML/Audio.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Assets/Internal/Common.h"
+#include "SSVStart/BitmapFont/BitmapFont.h"
 
 namespace ssvs
 {
@@ -121,6 +122,14 @@ namespace ssvs
 				auto result(ssvu::make_unique<T>());
 				if(!result->loadFromStream(mStreamVertex, mStreamFragment)) fail("shader from stream (2)");
 				return result;
+			}
+		};
+		template<> struct Helper<Mode::BitmapFont, BitmapFont>
+		{
+			using T = BitmapFont;
+			inline static Uptr<T> load(const sf::Texture& mTexture, const BitmapFontData& mData)
+			{
+				return ssvu::make_unique<T>(mTexture, mData);
 			}
 		};
 	}

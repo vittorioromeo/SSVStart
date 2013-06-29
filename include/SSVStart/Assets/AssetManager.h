@@ -23,6 +23,9 @@ namespace sf
 
 namespace ssvs
 {
+	class BitmapFont;
+	struct BitmapFontData;
+
 	class AssetManager
 	{
 		private:
@@ -32,6 +35,7 @@ namespace ssvs
 			Internal::ResourceHolder<sf::SoundBuffer> soundBuffers;
 			Internal::ResourceHolder<sf::Music> musics;
 			Internal::ResourceHolder<sf::Shader> shaders;
+			Internal::ResourceHolder<ssvs::BitmapFont> bitmapFonts;
 
 		public:
 			AssetManager() = default;
@@ -45,6 +49,7 @@ namespace ssvs
 			sf::Music& loadMusic(const std::string& mId, const std::string& mPath);
 			sf::Shader& loadShader(const std::string& mId, const std::string& mPath, sf::Shader::Type mType, Internal::ShaderFromPath);
 			sf::Shader& loadShader(const std::string& mId, const std::string& mShader, sf::Shader::Type mType, Internal::ShaderFromMemory);
+			ssvs::BitmapFont& loadBitmapFont(const std::string& mId, const sf::Texture& mTexture, const BitmapFontData& mData);
 
 			bool hasFont(const std::string& mId);
 			bool hasImage(const std::string& mId);
@@ -52,6 +57,7 @@ namespace ssvs
 			bool hasSoundBuffer(const std::string& mId);
 			bool hasMusic(const std::string& mId);
 			bool hasShader(const std::string& mId);
+			bool hasBitmapFont(const std::string& mId);
 
 			sf::Font& getFont(const std::string& mId);
 			sf::Image& getImage(const std::string& mId);
@@ -59,6 +65,7 @@ namespace ssvs
 			sf::SoundBuffer& getSoundBuffer(const std::string& mId);
 			sf::Music& getMusic(const std::string& mId);
 			sf::Shader& getShader(const std::string& mId);
+			ssvs::BitmapFont& getBitmapFont(const std::string& mId);
 
 			std::unordered_map<std::string, std::unique_ptr<sf::Font>>& getFonts();
 			std::unordered_map<std::string, std::unique_ptr<sf::Image>>& getImages();
@@ -66,6 +73,7 @@ namespace ssvs
 			std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>>& getSoundBuffers();
 			std::unordered_map<std::string, std::unique_ptr<sf::Music>>& getMusics();
 			std::unordered_map<std::string, std::unique_ptr<sf::Shader>>& getShaders();
+			std::unordered_map<std::string, std::unique_ptr<ssvs::BitmapFont>>& getBitmapFonts();
 
 			void setMusicsVolume(int mVolume);
 			void stopMusics();
