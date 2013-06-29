@@ -14,7 +14,7 @@ namespace ssvs
 		template<typename T> using Uptr = std::unique_ptr<T>;
 		enum class Mode{Load, Open, Image, Samples, Shader};
 
-		template <bool> struct ShaderDisambiguationTag {};
+		template<bool> struct ShaderDisambiguationTag {};
 		typedef ShaderDisambiguationTag<true> ShaderFromMemory;
 		typedef ShaderDisambiguationTag<false> ShaderFromPath;
 	}
