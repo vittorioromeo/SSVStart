@@ -75,6 +75,7 @@ namespace ssvs
 	unordered_map<string, unique_ptr<Music>>& AssetManager::getMusics()				{ return musics.getResources(); }
 	unordered_map<string, unique_ptr<Shader>>& AssetManager::getShaders()			{ return shaders.getResources(); }
 
+	void AssetManager::setMusicsVolume(int mVolume) { for(const auto& p : getMusics()) p.second->setVolume(mVolume); }
 	void AssetManager::stopMusics() { for(const auto& p : getMusics()) p.second->stop(); }
 }
 
