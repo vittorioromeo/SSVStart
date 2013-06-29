@@ -11,6 +11,7 @@
 #include "SSVStart/Animation/Animation.h"
 #include "SSVStart/Input/Combo.h"
 #include "SSVStart/Input/Trigger.h"
+#include "SSVStart/BitmapFont/BitmapFontData.h"
 
 namespace ssvs
 {
@@ -22,6 +23,7 @@ namespace ssvs
 		Animation getAnimationFromJson(const Json::Value& mRoot);
 		Input::Combo getInputComboFromJson(const Json::Value& mArray);
 		Input::Trigger getInputTriggerFromJson(const Json::Value& mArray);
+		BitmapFontData getBitmapFontDataFromJson(const Json::Value& mRoot);
 		void loadAssetsFromJson(AssetManager& mAssetManager, const std::string& mRootPath, const Json::Value& mRoot);
 	}
 }

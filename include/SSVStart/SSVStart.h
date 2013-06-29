@@ -12,6 +12,10 @@
 #include "SSVStart/Assets/AssetFolder.h"
 #include "SSVStart/Assets/AssetManager.h"
 
+// BitmapFont
+#include "SSVStart/BitmapFont/BitmapFont.h"
+#include "SSVStart/BitmapFont/BitmapText.h"
+
 // Camera
 #include "SSVStart/Camera/Camera.h"
 

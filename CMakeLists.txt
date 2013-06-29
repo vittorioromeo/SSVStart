@@ -56,6 +56,8 @@ file(GLOB SRC_LIST
 	"${SRC_DIR}/${PROJECT_NAME}/Assets/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Assets/Internal/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/Assets/Internal/*.cpp"
+	"${INC_DIR}/${PROJECT_NAME}/BitmapFont/*.h"
+	"${SRC_DIR}/${PROJECT_NAME}/BitmapFont/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/Camera/*.h"
 	"${SRC_DIR}/${PROJECT_NAME}/Camera/*.cpp"
 	"${INC_DIR}/${PROJECT_NAME}/GameSystem/*.h"

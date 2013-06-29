@@ -67,6 +67,15 @@ namespace ssvs
 
 			return result;
 		}
+		BitmapFontData getBitmapFontDataFromJson(const Json::Value& mRoot)
+		{
+			unsigned int cellColumns(as<int>(mRoot, "cellColumns"));
+			unsigned int cellWidth(as<int>(mRoot, "cellWidth"));
+			unsigned int cellHeight(as<int>(mRoot, "cellHeight"));
+			unsigned int cellStart(as<int>(mRoot, "cellStart"));
+
+			return {cellColumns, cellWidth, cellHeight, cellStart};
+		}
 
 		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const Json::Value& mRoot)
 		{
