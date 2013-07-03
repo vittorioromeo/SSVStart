@@ -26,4 +26,6 @@ namespace ssvs
 	unsigned int GameWindow::getAntialiasingLevel() 						{ return antialiasingLevel; }
 	sf::Vector2f GameWindow::getMousePosition()								{ return renderWindow.mapPixelToCoords(Mouse::getPosition(renderWindow)); }
 	bool GameWindow::hasFocus() 											{ return focus; }
+
+	// TODO: recreateWindow() -> mustBeRecreated bool?
 }

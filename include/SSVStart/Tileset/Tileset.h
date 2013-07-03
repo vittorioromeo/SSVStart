@@ -22,7 +22,6 @@ namespace ssvs
 
 			sf::Vector2u getIndex(const std::string& mLabel) const;
 			sf::IntRect operator[](sf::Vector2u mIndex) const;
-
 			void setLabel(const std::string& mLabel, sf::Vector2u mIndex);
 	};
 }

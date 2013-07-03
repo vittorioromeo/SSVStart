@@ -87,3 +87,5 @@ namespace ssvs
 	void AssetManager::setMusicsVolume(int mVolume) { for(const auto& p : getMusics()) p.second->setVolume(mVolume); }
 	void AssetManager::stopMusics() { for(const auto& p : getMusics()) p.second->stop(); }
 }
+
+// TODO: templatize? MusicPlayer?
