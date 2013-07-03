@@ -23,7 +23,7 @@ namespace ssvs
 				std::vector<Bind> binds;
 
 			public:
-				void add(Bind mBind);
+				void add(const Bind& mBind);
 				void update(GameWindow& mGameWindow, float mFrameTime);
 				void refresh(GameWindow& mGameWindow);
 		};

@@ -11,7 +11,7 @@ namespace ssvs
 {
 	namespace Input
 	{
-		void Manager::add(Bind mBind) { binds.push_back(mBind); }
+		void Manager::add(const Bind& mBind) { binds.push_back(mBind); }
 		void Manager::update(GameWindow& mGameWindow, float mFrameTime)
 		{
 			for(auto& b : binds) b.trigger.isActive(mGameWindow) ? b.callOn(mFrameTime) : b.callOff(mFrameTime);

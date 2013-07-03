@@ -14,8 +14,8 @@ namespace ssvs
 	{
 		sf::Keyboard::Key getKey(const std::string& mName);
 		sf::Mouse::Button getButton(const std::string& mName);
-		std::string getKeyName(sf::Keyboard::Key mKey);
-		std::string getButtonName(sf::Mouse::Button mButton);
+		const std::string& getKeyName(sf::Keyboard::Key mKey);
+		const std::string& getButtonName(sf::Mouse::Button mButton);
 		bool isKeyNameValid(const std::string& mName);
 		bool isButtonNameValid(const std::string& mName);
 	}

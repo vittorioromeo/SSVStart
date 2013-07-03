@@ -32,7 +32,7 @@ namespace ssvs
 			void centerOn(sf::Vector2f mPosition);
 			void rotate(float mAngle);
 
-			void setView(sf::View mView);
+			void setView(const sf::View& mView);
 			void setRotation(float mAngle);
 			void setSkew(sf::Vector2f mSkew);
 			void setOffset(sf::Vector2f mOffset);

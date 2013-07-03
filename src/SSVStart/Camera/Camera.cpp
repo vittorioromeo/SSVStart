@@ -26,7 +26,7 @@ namespace ssvs
 
 	void Camera::resize(Vector2f mOffset, Vector2f mSize)
 	{
-		auto size(renderWindow.getSize());
+		const auto& size(renderWindow.getSize());
 		view = View{{0, 0, mSize.x, mSize.y}};
 		view.setViewport({mOffset.x / size.x, mOffset.y / size.y, mSize.x / size.x, mSize.y / size.y});
 	}
@@ -35,7 +35,7 @@ namespace ssvs
 	void Camera::centerOn(Vector2f mPosition) 				{ view.setCenter(mPosition); }
 	void Camera::rotate(float mAngle)						{ view.rotate(mAngle); }
 
-	void Camera::setView(View mView) 						{ view = mView; }
+	void Camera::setView(const View& mView) 				{ view = mView; }
 	void Camera::setRotation(float mAngle)					{ view.setRotation(mAngle); }
 	void Camera::setSkew(Vector2f mSkew)					{ skew = mSkew; }
 	void Camera::setOffset(Vector2f mOffset)				{ offset = mOffset; }

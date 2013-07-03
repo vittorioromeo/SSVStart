@@ -20,15 +20,15 @@ namespace ssvs
 
 			public:
 				Bimap(const initializer_list<pair<T, U>>& mPairs) { for(const auto& pair : mPairs) insert(pair); }
-				void insert(pair<T, U> mPair) { map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
-				T at(U mValue) { return map2.at(mValue); }
-				U at(T mValue) { return map1.at(mValue); }
-				bool hasValue(T mValue) { return map1.find(mValue) != end(map1); }
-				bool hasValue(U mValue) { return map2.find(mValue) != end(map2); }
+
+				void insert(pair<T, U> mPair)			{ map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
+				const T& at(const U& mValue) const		{ return map2.at(mValue); }
+				const U& at(const T& mValue) const		{ return map1.at(mValue); }
+				bool hasValue(const T& mValue) const	{ return map1.find(mValue) != end(map1); }
+				bool hasValue(const U& mValue) const	{ return map2.find(mValue) != end(map2); }
 		};
 
-		const string keyPrefix{"k"};
-		const string buttonPrefix{"b"};
+		const string keyPrefix{"k"}, buttonPrefix{"b"};
 
 		#define SSVS_INSERT_KEY(mName) {keyPrefix + #mName, Keyboard::Key::mName}
 		Bimap<string, Keyboard::Key> keys
@@ -147,11 +147,11 @@ namespace ssvs
 		};
 		#undef SSVS_INSERT_BUTTON
 
-		Keyboard::Key getKey(const string& mName)		{ return keys.at(mName); }
-		Mouse::Button getButton(const string& mName)	{ return buttons.at(mName); }
-		string getKeyName(Keyboard::Key mKey)			{ return keys.at(mKey); }
-		string getButtonName(Mouse::Button mButton)		{ return buttons.at(mButton); }
-		bool isKeyNameValid(const string& mName)		{ return keys.hasValue(mName); }
-		bool isButtonNameValid(const string& mName)		{ return buttons.hasValue(mName); }
+		Keyboard::Key getKey(const string& mName)			{ return keys.at(mName); }
+		Mouse::Button getButton(const string& mName)		{ return buttons.at(mName); }
+		const string& getKeyName(Keyboard::Key mKey)		{ return keys.at(mKey); }
+		const string& getButtonName(Mouse::Button mButton)	{ return buttons.at(mButton); }
+		bool isKeyNameValid(const string& mName)			{ return keys.hasValue(mName); }
+		bool isButtonNameValid(const string& mName)			{ return buttons.hasValue(mName); }
 	}
 }
