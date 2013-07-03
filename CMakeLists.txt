@@ -95,7 +95,6 @@ target_link_libraries(SSVStart ${SSVUTILS_LIBRARY})
 
 if(SSVSTART_USE_JSON)
 	target_link_libraries(SSVStart ${SSVJSONCPP_LIBRARY})
-	target_link_libraries(SSVStart ${SSVUTILSJSON_LIBRARY})
 endif()
 
 if(SSVSTART_BUILD_SHARED_LIB)
