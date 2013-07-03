@@ -24,9 +24,9 @@ namespace ssvs
 			Tileset result{tileSize};
 
 			const Json::Value& labels(mRoot["labels"]);
-			for(unsigned int iY{0}; iY < labels.size(); ++iY)
-				for(unsigned int iX{0}; iX < labels[iY].size(); ++iX)
-					result.setLabel(labels[iY][iX].asString(), {iX, iY});
+			for(unsigned int iY{0}; iY < size(labels); ++iY)
+				for(unsigned int iX{0}; iX < size(labels[iY]); ++iX)
+					result.setLabel(as<string>(labels[iY][iX]), {iX, iY});
 
 			return result;
 		}
