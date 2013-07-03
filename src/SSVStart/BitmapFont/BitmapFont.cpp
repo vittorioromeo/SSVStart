@@ -2,9 +2,11 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
+#include <SSVUtils/SSVUtils.h>
 #include "SSVStart/BitmapFont/BitmapFont.h"
 
 using namespace sf;
+using namespace ssvu;
 
 namespace ssvs
 {
@@ -17,9 +19,8 @@ namespace ssvs
 	IntRect BitmapFont::getGlyphRect(char mChar) const
 	{
 		mChar = mChar - 33 + data.cellStart;
-		unsigned int y{mChar / data.cellColumns};
-		unsigned int x{mChar - y * data.cellColumns};
+		const auto& i(get2DIndexFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
 
-		return IntRect(x * data.cellWidth, y * data.cellHeight, data.cellWidth, data.cellHeight);
+		return IntRect(i[0] * data.cellWidth, i[1] * data.cellHeight, data.cellWidth, data.cellHeight);
 	}
 }
