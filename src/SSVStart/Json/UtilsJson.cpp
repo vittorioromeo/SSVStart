@@ -18,12 +18,12 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		Tileset getTilesetFromJson(const Json::Value& mRoot)
+		Tileset getTilesetFromJson(const ssvuj::Value& mRoot)
 		{
 			Vector2u tileSize{as<unsigned int>(mRoot, "tileWidth"), as<unsigned int>(mRoot, "tileHeight")};
 			Tileset result{tileSize};
 
-			const Json::Value& labels(mRoot["labels"]);
+			const ssvuj::Value& labels(mRoot["labels"]);
 			for(unsigned int iY{0}; iY < size(labels); ++iY)
 				for(unsigned int iX{0}; iX < size(labels[iY]); ++iX)
 					result.setLabel(as<string>(labels[iY][iX]), {iX, iY});
@@ -31,7 +31,7 @@ namespace ssvs
 			return result;
 		}
 
-		Animation getAnimationFromJson(const Tileset& mTileset, const Json::Value& mRoot)
+		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Value& mRoot)
 		{
 			Animation result;
 
@@ -49,7 +49,7 @@ namespace ssvs
 			return result;
 		}
 
-		Input::Combo getInputComboFromJson(const Json::Value& mArray)
+		Input::Combo getInputComboFromJson(const ssvuj::Value& mArray)
 		{
 			Input::Combo result;
 
@@ -62,16 +62,16 @@ namespace ssvs
 
 			return result;
 		}
-		Input::Trigger getInputTriggerFromJson(const Json::Value& mArray)
+		Input::Trigger getInputTriggerFromJson(const ssvuj::Value& mArray)
 		{
 			Input::Trigger result;
 
-			for(const auto& comboArray : as<vector<Json::Value>>(mArray))
+			for(const auto& comboArray : as<vector<ssvuj::Value>>(mArray))
 				result.add(getInputComboFromJson(comboArray));
 
 			return result;
 		}
-		BitmapFontData getBitmapFontDataFromJson(const Json::Value& mRoot)
+		BitmapFontData getBitmapFontDataFromJson(const ssvuj::Value& mRoot)
 		{
 			unsigned int cellColumns(as<int>(mRoot, "cellColumns"));
 			unsigned int cellWidth(as<int>(mRoot, "cellWidth"));
@@ -81,7 +81,7 @@ namespace ssvs
 			return {cellColumns, cellWidth, cellHeight, cellStart};
 		}
 
-		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const Json::Value& mRoot)
+		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Value& mRoot)
 		{
 			thread t1{[&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.loadFont(f, mRootPath + f); }};
 			thread t2{[&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))				mAssetManager.loadImage(f, mRootPath + f); }};
