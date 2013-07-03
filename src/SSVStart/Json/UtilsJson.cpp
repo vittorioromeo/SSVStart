@@ -20,22 +20,26 @@ namespace ssvs
 	{
 		Tileset getTilesetFromJson(const Json::Value& mRoot)
 		{
-			Vector2i tileSize{as<int>(mRoot, "tileWidth"), as<int>(mRoot, "tileHeight")};
+			Vector2u tileSize{as<unsigned int>(mRoot, "tileWidth"), as<unsigned int>(mRoot, "tileHeight")};
 			Tileset result{tileSize};
 
 			const Json::Value& labels(mRoot["labels"]);
 			for(unsigned int iY{0}; iY < labels.size(); ++iY)
 				for(unsigned int iX{0}; iX < labels[iY].size(); ++iX)
-					result.setLabel(labels[iY][iX].asString(), iX, iY);
+					result.setLabel(labels[iY][iX].asString(), {iX, iY});
 
 			return result;
 		}
 
-		Animation getAnimationFromJson(const Json::Value& mRoot)
+		Animation getAnimationFromJson(const Tileset& mTileset, const Json::Value& mRoot)
 		{
 			Animation result;
 
-			for(const auto& f : mRoot["frames"]) result.addStep({as<string>(f, 0), as<float>(f, 1)});
+			for(const auto& f : mRoot["frames"])
+			{
+				const auto& index(mTileset.getIndex(as<string>(f, 0)));
+				result.addStep({index, as<float>(f, 1)});
+			}
 
 			result.setLoop(as<bool>(mRoot, "loop", true));
 			result.setPingPong(as<bool>(mRoot, "pingPong", false));

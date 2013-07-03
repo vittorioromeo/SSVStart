@@ -7,10 +7,11 @@
 
 #include <vector>
 #include <string>
+#include <SFML/System.hpp>
 
 namespace ssvs
 {
-	struct AnimationStep { std::string label; float time; };
+	struct AnimationStep { sf::Vector2u index; float time; };
 
 	class Animation
 	{
@@ -25,13 +26,13 @@ namespace ssvs
 		public:
 			Animation() = default;
 			void update(float mFrameTime);
-			void addStep(AnimationStep mStep);
-			void addSteps(std::vector<AnimationStep> mSteps);
-			void addSteps(std::vector<std::string> mStepLabels, float mStepTime);
+			void addStep(const AnimationStep& mStep);
+			void addSteps(const std::vector<AnimationStep>& mSteps);
+			void addSteps(const std::vector<sf::Vector2u>& mIndexes, float mStepTime);
 
 			// Getters
 			const AnimationStep& getCurrentStep() const;
-			const std::string& getCurrentLabel() const;
+			sf::Vector2u getCurrentIndex() const;
 
 			// Setters
 			void setSpeed(float mSpeed);

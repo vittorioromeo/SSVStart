@@ -47,13 +47,13 @@ namespace ssvs
 		if(currentTime >= getCurrentStep().time) nextStep();
 	}
 
-	void Animation::addStep(AnimationStep mStep)							{ steps.push_back(mStep); }
-	void Animation::addSteps(vector<AnimationStep> mSteps)					{ for(const auto& step : mSteps) steps.push_back(step); }
-	void Animation::addSteps(vector<string> mStepLabels, float mStepTime)	{ for(const auto& label : mStepLabels) steps.push_back({label, mStepTime}); }
+	void Animation::addStep(const AnimationStep& mStep)							{ steps.push_back(mStep); }
+	void Animation::addSteps(const vector<AnimationStep>& mSteps)				{ for(const auto& s : mSteps) steps.push_back(s); }
+	void Animation::addSteps(const vector<Vector2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }
 
 	// Getters
-	const AnimationStep& Animation::getCurrentStep() const	{ return steps[currentIndex]; }
-	const string& Animation::getCurrentLabel() const		{ return getCurrentStep().label; }
+	const AnimationStep& Animation::getCurrentStep() const { return steps[currentIndex]; }
+	Vector2u Animation::getCurrentIndex() const	{ return getCurrentStep().index; }
 
 	// Setters
 	void Animation::setSpeed(float mSpeed)		{ speed = mSpeed; }

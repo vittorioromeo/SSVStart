@@ -20,7 +20,7 @@ namespace ssvs
 	namespace Utils
 	{
 		Tileset getTilesetFromJson(const Json::Value& mRoot);
-		Animation getAnimationFromJson(const Json::Value& mRoot);
+		Animation getAnimationFromJson(const Tileset& mTileset, const Json::Value& mRoot);
 		Input::Combo getInputComboFromJson(const Json::Value& mArray);
 		Input::Trigger getInputTriggerFromJson(const Json::Value& mArray);
 		BitmapFontData getBitmapFontDataFromJson(const Json::Value& mRoot);
