@@ -74,9 +74,6 @@ namespace ssvs
 			std::unordered_map<std::string, std::unique_ptr<sf::Music>>& getMusics();
 			std::unordered_map<std::string, std::unique_ptr<sf::Shader>>& getShaders();
 			std::unordered_map<std::string, std::unique_ptr<ssvs::BitmapFont>>& getBitmapFonts();
-
-			void setMusicsVolume(int mVolume);
-			void stopMusics();
 	};
 }
 
