@@ -28,7 +28,7 @@ namespace ssvs
 			std::string title{""};
 			sf::Clock clock;
 
-			bool running{true}, focus{true};
+			bool running{true}, focus{true}, mustRecreate{true};
 
 			unsigned int width, height, antialiasingLevel{3};
 			int pixelMultiplier;

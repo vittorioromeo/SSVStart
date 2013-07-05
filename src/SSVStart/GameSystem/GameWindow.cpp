@@ -12,16 +12,15 @@ using namespace sf;
 namespace ssvs
 {
 	GameWindow::GameWindow(const string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
-		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(mTimer)
-	{
-		recreateWindow();
-	}
+		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(mTimer) { recreateWindow(); }
 	GameWindow::~GameWindow() { delete &timer; }
 
 	void GameWindow::run()
 	{
 		while(running)
 		{
+			if(mustRecreate) recreateWindow();
+
 			renderWindow.setActive(true);
 			renderWindow.clear();
 
@@ -57,6 +56,8 @@ namespace ssvs
 			renderWindow.setPosition(Vector2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
 		}
 		renderWindow.setSize({multipliedWidth, multipliedHeight});
+
+		mustRecreate = false;
 	}
 
 	void GameWindow::runInput()

@@ -11,9 +11,9 @@ using namespace sf;
 namespace ssvs
 {
 	void GameWindow::setGameState(GameState& mGameState) 					{ gamePtr = &mGameState; mGameState.gameWindowPtr = this; }
-	void GameWindow::setFullscreen(bool mFullscreen) 						{ fullscreen = mFullscreen; recreateWindow(); }
-	void GameWindow::setSize(unsigned int mWidth, unsigned int mHeight) 	{ width = mWidth; height = mHeight; recreateWindow(); }
-	void GameWindow::setAntialiasingLevel(unsigned int mAntialiasingLevel) 	{ antialiasingLevel = mAntialiasingLevel; recreateWindow(); }
+	void GameWindow::setFullscreen(bool mFullscreen) 						{ fullscreen = mFullscreen; mustRecreate = true; }
+	void GameWindow::setSize(unsigned int mWidth, unsigned int mHeight) 	{ width = mWidth; height = mHeight; mustRecreate = true; }
+	void GameWindow::setAntialiasingLevel(unsigned int mAntialiasingLevel) 	{ antialiasingLevel = mAntialiasingLevel; mustRecreate = true; }
 	void GameWindow::setVsync(bool mEnabled)								{ renderWindow.setVerticalSyncEnabled(mEnabled); }
 	void GameWindow::setMouseCursorVisible(bool mEnabled) 					{ renderWindow.setMouseCursorVisible(mEnabled); }
 	void GameWindow::setTitle(const std::string& mTitle)					{ title = mTitle; renderWindow.setTitle(mTitle); }
@@ -26,6 +26,4 @@ namespace ssvs
 	unsigned int GameWindow::getAntialiasingLevel() 						{ return antialiasingLevel; }
 	sf::Vector2f GameWindow::getMousePosition()								{ return renderWindow.mapPixelToCoords(Mouse::getPosition(renderWindow)); }
 	bool GameWindow::hasFocus() 											{ return focus; }
-
-	// TODO: recreateWindow() -> mustBeRecreated bool?
 }
