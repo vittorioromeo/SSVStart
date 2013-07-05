@@ -43,8 +43,8 @@ namespace ssvs
 		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(1));
 
 		// Quick state input additions
-		void add2StateInput(GameState& mGameState, Input::Trigger mTrigger, bool& mValue);
-		void add3StateInput(GameState& mGameState, Input::Trigger mNegative, Input::Trigger mPositive, int& mValue);
+		void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue);
+		void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, Input::Trigger mPositive, int& mValue);
 	}
 }
 

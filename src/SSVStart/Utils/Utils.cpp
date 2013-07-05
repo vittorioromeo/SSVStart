@@ -31,11 +31,11 @@ namespace ssvs
 
 		void waitFor(ThreadWrapper& mThreadWrapper, Time mTime) { while(!mThreadWrapper.getFinished()) sleep(mTime); }
 
-		void add2StateInput(GameState& mGameState, Input::Trigger mTrigger, bool& mValue)
+		void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue)
 		{
 			mGameState.addInput(mTrigger, [&](float){ mValue = true; }, [&](float){ mValue = false; });
 		}
-		void add3StateInput(GameState& mGameState, Input::Trigger mNegative, Input::Trigger mPositive, int& mValue)
+		void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, Input::Trigger mPositive, int& mValue)
 		{
 			mGameState.addInput(mNegative, [&](float){ mValue = -1; }, [&](float){ if(mValue == -1) mValue = 0; });
 			mGameState.addInput(mPositive, [&](float){ mValue = 1; }, [&](float){ if(mValue == 1) mValue = 0; });
