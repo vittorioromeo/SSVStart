@@ -35,6 +35,9 @@
 #include "SSVStart/SoundPlayer/SoundInstance.h"
 #include "SSVStart/SoundPlayer/SoundPlayer.h"
 
+// MusicPlayer
+#include "SSVStart/MusicPlayer/MusicPlayer.h"
+
 // Tileset
 #include "SSVStart/Tileset/Tileset.h"
 
