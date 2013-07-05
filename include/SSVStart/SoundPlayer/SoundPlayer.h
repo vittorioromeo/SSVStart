@@ -27,6 +27,7 @@ namespace ssvs
 			void del(SoundInstance& mSoundInstance);
 			void stop();
 			void setVolume(int mVolume);
+			void play(SoundInstance& mSoundInstance);
 
 			SoundInstance& create(const sf::SoundBuffer& mSoundBuffer, bool mManualLifetime = false);
 	};

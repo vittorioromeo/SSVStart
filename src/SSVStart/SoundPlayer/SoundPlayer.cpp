@@ -19,6 +19,9 @@ namespace ssvs
 	void SoundPlayer::del(SoundInstance& mSoundInstance) { memoryManager.del(&mSoundInstance); }
 	void SoundPlayer::stop() { for(auto& s : memoryManager) s->getSound().stop(); }
 	void SoundPlayer::setVolume(int mVolume) { for(auto& s : memoryManager) s->getSound().setVolume(mVolume); }
+	void SoundPlayer::play(SoundInstance& mSoundInstance) { mSoundInstance.getSound().play(); }
 
 	SoundInstance& SoundPlayer::create(const SoundBuffer& mSoundBuffer, bool mManualLifetime) { cleanUp(); return memoryManager.create(mSoundBuffer, mManualLifetime); }
+
+
 }
