@@ -15,8 +15,7 @@ namespace ssvs
 		class ThreadWrapper
 		{
 			private:
-				bool launched{false};
-				bool finished{false};
+				bool launched{false}, finished{false};
 				std::function<void()> func;
 				sf::Thread thread;
 
