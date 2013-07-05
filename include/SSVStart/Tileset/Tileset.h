@@ -8,21 +8,22 @@
 #include <string>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
 	class Tileset
 	{
 		private:
-			sf::Vector2u tileSize;
-			std::unordered_map<std::string, sf::Vector2u> labels;
+			Vec2u tileSize;
+			std::unordered_map<std::string, Vec2u> labels;
 
 		public:
-			Tileset(sf::Vector2u mTileSize);
+			Tileset(Vec2u mTileSize);
 
-			sf::Vector2u getIndex(const std::string& mLabel) const;
-			sf::IntRect operator[](sf::Vector2u mIndex) const;
-			void setLabel(const std::string& mLabel, sf::Vector2u mIndex);
+			Vec2u getIndex(const std::string& mLabel) const;
+			sf::IntRect operator[](Vec2u mIndex) const;
+			void setLabel(const std::string& mLabel, Vec2u mIndex);
 	};
 }
 

@@ -8,10 +8,11 @@
 #include <vector>
 #include <string>
 #include <SFML/System.hpp>
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
-	struct AnimationStep { sf::Vector2u index; float time; };
+	struct AnimationStep { Vec2u index; float time; };
 
 	class Animation
 	{
@@ -28,11 +29,11 @@ namespace ssvs
 			void update(float mFrameTime);
 			void addStep(const AnimationStep& mStep);
 			void addSteps(const std::vector<AnimationStep>& mSteps);
-			void addSteps(const std::vector<sf::Vector2u>& mIndexes, float mStepTime);
+			void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime);
 
 			// Getters
 			const AnimationStep& getCurrentStep() const;
-			sf::Vector2u getCurrentIndex() const;
+			Vec2u getCurrentIndex() const;
 
 			// Setters
 			void setSpeed(float mSpeed);

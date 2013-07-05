@@ -14,30 +14,39 @@
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Utils/ThreadWrapper.h"
 #include "SSVStart/GameSystem/GameState.h"
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
 	namespace Utils
 	{
 		// Angles
-		template<typename T> T getRadiansTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return atan2(mTarget.y - mVector.y, mTarget.x - mVector.x); }
-		template<typename T> T getDegreesTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return ssvu::toDegrees(getRadiansToPoint(mVector, mTarget)); }
+		template<typename T> T getRadiansTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return atan2(mTarget.y - mVec.y, mTarget.x - mVec.x); }
+		template<typename T> T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return ssvu::toDegrees(getRadiansToPoint(mVec, mTarget)); }
 
 		// Collision
-		bool isPointInPolygon(const std::vector<sf::Vector2f>& mVertices, sf::Vector2f mPoint);
+		bool isPointInPolygon(const std::vector<Vec2f>& mVertices, Vec2f mPoint);
 
-		// Vectors
-		template<typename T> T getMagnitude(const sf::Vector2<T>& mVector) { return sqrt(mVector.x * mVector.x + mVector.y * mVector.y); }
-		template<typename T> sf::Vector2<T> getNormalized(const sf::Vector2<T>& mVector) { T m(getMagnitude(mVector)); return m == 0 ? mVector : sf::Vector2<T>{mVector.x / m, mVector.y / m}; }
-		template<typename T> T getRadians(const sf::Vector2<T>& mVector) { auto n(getNormalized(mVector)); return atan2(n.y, n.x); }
-		template<typename T> T getDegrees(const sf::Vector2<T>& mVector) { return ssvu::toDegrees(getRadians(mVector)); }
-		template<typename T> sf::Vector2<T> getVectorFromRadians(T mRadians, T mMagnitude) { return sf::Vector2<T>(mMagnitude * cos(mRadians), mMagnitude * sin(mRadians)); }
-		template<typename T> sf::Vector2<T> getVectorFromDegrees(T mDegrees, T mMagnitude) { return getVectorFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
-		template<typename T> sf::Vector2<T> getOrbitFromRadians(const sf::Vector2<T>& mVector, T mRadians, T mRadius) { return mVector + sf::Vector2<T>(cos(mRadians), sin(mRadians)) * mRadius; }
-		template<typename T> sf::Vector2<T> getOrbitFromDegrees(const sf::Vector2<T>& mVector, T mDegrees, T mRadius) { return getOrbitFromRadians(mVector, ssvu::toRadians(mDegrees), mRadius); }
-		template<typename T> sf::Vector2<T> getDirection(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget) { return getNormalized(mTarget - mVector); }
-		template<typename T> sf::Vector2<T> getMovedTowards(const sf::Vector2<T>& mVector, const sf::Vector2<T>& mTarget, T mMagnitude) { return mVector + getDirection(mVector, mTarget) * mMagnitude; }
-		template<typename T> T getDotProduct(const sf::Vector2<T>& mA, const sf::Vector2<T>& mB) { return mA.x * mB.x + mA.y * mB.y; }
+		// Vecs
+		template<typename T> void rotateAroundCenter(Vec2<T>& mPoint, const Vec2<T>& mCenter, float mRadians)
+		{
+			float s(sin(mRadians)), c(cos(mRadians));
+			mPoint -= mCenter;
+			Vec2<T> newPoint(mPoint.x * c - mPoint.y * s, mPoint.x * s + mPoint.y * c);
+			mPoint = newPoint + mCenter;
+		}
+		template<typename T> T getMagnitude(const Vec2<T>& mVec) { return sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
+		template<typename T> Vec2<T> getNormalized(const Vec2<T>& mVec) { T m(getMagnitude(mVec)); return m == 0 ? mVec : Vec2<T>{mVec.x / m, mVec.y / m}; }
+		template<typename T> T getRadians(const Vec2<T>& mVec) { auto n(getNormalized(mVec)); return atan2(n.y, n.x); }
+		template<typename T> T getDegrees(const Vec2<T>& mVec) { return ssvu::toDegrees(getRadians(mVec)); }
+		template<typename T> Vec2<T> getVecFromRadians(T mRadians, T mMagnitude) { return Vec2<T>(mMagnitude * cos(mRadians), mMagnitude * sin(mRadians)); }
+		template<typename T> Vec2<T> getVecFromDegrees(T mDegrees, T mMagnitude) { return getVecFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
+		template<typename T> Vec2<T> getOrbitFromRadians(const Vec2<T>& mVec, T mRadians, T mRadius) { return mVec + Vec2<T>(cos(mRadians), sin(mRadians)) * mRadius; }
+		template<typename T> Vec2<T> getOrbitFromDegrees(const Vec2<T>& mVec, T mDegrees, T mRadius) { return getOrbitFromRadians(mVec, ssvu::toRadians(mDegrees), mRadius); }
+		template<typename T> Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return getNormalized(mTarget - mVec); }
+		template<typename T> Vec2<T> getMovedTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget, T mMagnitude) { return mVec + getDirection(mVec, mTarget) * mMagnitude; }
+		template<typename T> T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) { return mA.x * mB.x + mA.y * mB.y; }
+		template<typename T> Vec2<T> getRotatedAroundCenter(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
 
 		// ThreadWrapper
 		void waitFor(ThreadWrapper& mThreadWrapper, sf::Time mTime = sf::milliseconds(1));

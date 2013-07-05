@@ -9,9 +9,9 @@ using namespace sf;
 
 namespace ssvs
 {
-	Tileset::Tileset(Vector2u mTileSize) : tileSize{mTileSize} { }
+	Tileset::Tileset(Vec2u mTileSize) : tileSize{mTileSize} { }
 
-	Vector2u Tileset::getIndex(const string& mLabel) const			{ return labels.at(mLabel); }
-	IntRect Tileset::operator[](Vector2u mIndex) const				{ return IntRect(mIndex.x * tileSize.x, mIndex.y * tileSize.y, tileSize.x, tileSize.y); }
-	void Tileset::setLabel(const string& mLabel, Vector2u mIndex)	{ labels[mLabel] = mIndex; }
+	Vec2u Tileset::getIndex(const string& mLabel) const			{ return labels.at(mLabel); }
+	IntRect Tileset::operator[](Vec2u mIndex) const				{ return IntRect(mIndex.x * tileSize.x, mIndex.y * tileSize.y, tileSize.x, tileSize.y); }
+	void Tileset::setLabel(const string& mLabel, Vec2u mIndex)	{ labels[mLabel] = mIndex; }
 }

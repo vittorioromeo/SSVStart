@@ -8,6 +8,7 @@
 #include <string>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
@@ -69,7 +70,7 @@ namespace ssvs
 
 			// Getters
 			sf::RenderWindow& getRenderWindow();
-			sf::Vector2f getMousePosition();
+			Vec2f getMousePosition();
 			float getFPS();
 			unsigned int getWidth();
 			unsigned int getHeight();

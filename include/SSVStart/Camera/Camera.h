@@ -7,6 +7,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
@@ -18,7 +19,7 @@ namespace ssvs
 			GameWindow& gameWindow;
 			sf::RenderWindow& renderWindow;
 			sf::View view;
-			sf::Vector2f skew{1, 1}, offset{0, 0};
+			Vec2f skew{1, 1}, offset{0, 0};
 
 		public:
 			Camera(GameWindow& mGameWindow, sf::View mView);
@@ -26,25 +27,25 @@ namespace ssvs
 			void apply();
 			void unapply();
 
-			void resize(sf::Vector2f mOffset, sf::Vector2f mSize);
-			void move(sf::Vector2f mVector);
+			void resize(Vec2f mOffset, Vec2f mSize);
+			void move(Vec2f mVec);
 			void zoom(float mFactor);
-			void centerOn(sf::Vector2f mPosition);
+			void centerOn(Vec2f mPosition);
 			void rotate(float mAngle);
 
 			void setView(const sf::View& mView);
 			void setRotation(float mAngle);
-			void setSkew(sf::Vector2f mSkew);
-			void setOffset(sf::Vector2f mOffset);
+			void setSkew(Vec2f mSkew);
+			void setOffset(Vec2f mOffset);
 
 			sf::View getView() const;
 			float getRotation() const;
-			sf::Vector2f getSkew() const;
-			sf::Vector2f getOffset() const;
-			sf::Vector2f getCenter() const;
-			sf::Vector2f getMousePosition() const;
-			sf::Vector2f getConvertedCoords(sf::Vector2i mPosition) const;
-			bool isInView(sf::Vector2f mPosition) const;
+			Vec2f getSkew() const;
+			Vec2f getOffset() const;
+			Vec2f getCenter() const;
+			Vec2f getMousePosition() const;
+			Vec2f getConvertedCoords(Vec2i mPosition) const;
+			bool isInView(Vec2f mPosition) const;
 	};
 }
 

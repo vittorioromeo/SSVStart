@@ -12,7 +12,7 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		bool isPointInPolygon(const vector<Vector2f>& mVertices, Vector2f mPoint)
+		bool isPointInPolygon(const vector<Vec2f>& mVertices, Vec2f mPoint)
 		{
 			bool result{false};
 			size_t vCount{mVertices.size()};

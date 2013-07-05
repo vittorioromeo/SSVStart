@@ -20,7 +20,7 @@ namespace ssvs
 	{
 		Tileset getTilesetFromJson(const ssvuj::Value& mRoot)
 		{
-			Vector2u tileSize{as<unsigned int>(mRoot, "tileWidth"), as<unsigned int>(mRoot, "tileHeight")};
+			Vec2u tileSize{as<unsigned int>(mRoot, "tileWidth"), as<unsigned int>(mRoot, "tileHeight")};
 			Tileset result{tileSize};
 
 			const ssvuj::Value& labels(mRoot["labels"]);

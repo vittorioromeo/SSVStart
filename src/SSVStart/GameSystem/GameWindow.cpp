@@ -53,7 +53,7 @@ namespace ssvs
 		{
 			auto desktopMode(VideoMode::getDesktopMode());
 			renderWindow.create({width, height}, title, Style::Default, contextSettings);
-			renderWindow.setPosition(Vector2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
+			renderWindow.setPosition(Vec2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
 		}
 		renderWindow.setSize({multipliedWidth, multipliedHeight});
 

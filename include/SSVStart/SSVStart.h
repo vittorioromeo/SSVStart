@@ -5,6 +5,9 @@
 #ifndef SSVSTART
 #define SSVSTART
 
+// Global
+#include "SSVStart/Global/Typedefs.h"
+
 // Animation
 #include "SSVStart/Animation/Animation.h"
 
