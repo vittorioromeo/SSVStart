@@ -2,7 +2,6 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-
 #include <SFML/Audio.hpp>
 #include "SSVStart/MusicPlayer/MusicPlayer.h"
 
@@ -20,24 +19,8 @@ namespace ssvs
 
 		currentMusic = &mMusic;
 	}
-	void MusicPlayer::stop()
-	{
-		if(currentMusic == nullptr) return;
-		currentMusic->stop();
-	}
-	void MusicPlayer::pause()
-	{
-		if(currentMusic == nullptr) return;
-		currentMusic->pause();
-	}
-	void MusicPlayer::setVolume(int mVolume)
-	{
-		if(currentMusic == nullptr) return;
-		currentMusic->setVolume(mVolume);
-	}
-	void MusicPlayer::setLoop(bool mLoop)
-	{
-		if(currentMusic == nullptr) return;
-		currentMusic->setLoop(mLoop);
-	}
+	void MusicPlayer::stop()					{ if(currentMusic != nullptr) currentMusic->stop(); }
+	void MusicPlayer::pause()					{ if(currentMusic != nullptr) currentMusic->pause(); }
+	void MusicPlayer::setVolume(int mVolume)	{ if(currentMusic != nullptr) currentMusic->setVolume(mVolume); }
+	void MusicPlayer::setLoop(bool mLoop)		{ if(currentMusic != nullptr) currentMusic->setLoop(mLoop); }
 }

@@ -2,7 +2,6 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <SFML/Audio.hpp>
 #include "SSVStart/SoundPlayer/SoundInstance.h"
 #include "SSVStart/SoundPlayer/SoundPlayer.h"
 
@@ -13,15 +12,29 @@ namespace ssvs
 {
 	void SoundPlayer::cleanUp()
 	{
-		for(const auto& s : memoryManager) if(!s->isManualLifetime() && s->getSound().getStatus() == Sound::Status::Stopped) memoryManager.del(s);
+		for(const auto& s : memoryManager) if(s->getStatus() == Sound::Status::Stopped) memoryManager.del(s);
 		memoryManager.cleanUp();
 	}
-	void SoundPlayer::del(SoundInstance& mSoundInstance) { memoryManager.del(&mSoundInstance); }
-	void SoundPlayer::stop() { for(auto& s : memoryManager) s->getSound().stop(); }
-	void SoundPlayer::setVolume(int mVolume) { for(auto& s : memoryManager) s->getSound().setVolume(mVolume); }
-	void SoundPlayer::play(SoundInstance& mSoundInstance) { mSoundInstance.getSound().play(); }
+	void SoundPlayer::refreshVolume() { for(auto& s : memoryManager) s->setVolume(volume); }
 
-	SoundInstance& SoundPlayer::create(const SoundBuffer& mSoundBuffer, bool mManualLifetime) { cleanUp(); return memoryManager.create(mSoundBuffer, mManualLifetime); }
+	void SoundPlayer::play(SoundBuffer& mSoundBuffer, Mode mMode)
+	{
+		cleanUp();
 
+		switch(mMode)
+		{
+			case Mode::Overlap: break;
+			case Mode::Override:
+				for(const auto& s : memoryManager) if(s->getBuffer() == &mSoundBuffer) s->stop();
+				break;
+			case Mode::Abort:
+				for(const auto& s : memoryManager) if(s->getBuffer() == &mSoundBuffer) return;
+				break;
+		}
 
+		auto& sound(memoryManager.create(mSoundBuffer));
+		sound.setVolume(volume);
+		sound.play();
+	}
+	void SoundPlayer::stop() { for(auto& s : memoryManager) s->stop(); }
 }

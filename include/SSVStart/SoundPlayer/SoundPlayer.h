@@ -5,31 +5,28 @@
 #ifndef SSVS_SOUNDPLAYER
 #define SSVS_SOUNDPLAYER
 
+#include <SFML/Audio.hpp>
 #include <SSVUtils/SSVUtils.h>
-
-namespace sf
-{
-	class SoundBuffer;
-	class Sound;
-}
 
 namespace ssvs
 {
-	class SoundInstance;
-
 	class SoundPlayer
 	{
 		private:
-			ssvu::MemoryManager<SoundInstance> memoryManager;
+			int volume{100};
+			ssvu::MemoryManager<sf::Sound> memoryManager;
+
+			void refreshVolume();
+			void cleanUp();
 
 		public:
-			void cleanUp();
-			void del(SoundInstance& mSoundInstance);
-			void stop();
-			void setVolume(int mVolume);
-			void play(SoundInstance& mSoundInstance);
+			enum class Mode{Overlap, Override, Abort};
 
-			SoundInstance& create(const sf::SoundBuffer& mSoundBuffer, bool mManualLifetime = false);
+			void play(sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap);
+			void stop();
+
+			inline void setVolume(int mVolume)	{ volume = mVolume; refreshVolume(); }
+			inline int getVolume()				{ return volume; }
 	};
 }
 
