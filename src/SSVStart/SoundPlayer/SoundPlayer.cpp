@@ -2,7 +2,6 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "SSVStart/SoundPlayer/SoundInstance.h"
 #include "SSVStart/SoundPlayer/SoundPlayer.h"
 
 using namespace std;

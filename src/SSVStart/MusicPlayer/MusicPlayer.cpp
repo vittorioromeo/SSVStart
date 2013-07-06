@@ -17,10 +17,10 @@ namespace ssvs
 		mMusic.setPlayingOffset(mPlayingOffset);
 		mMusic.play();
 
-		currentMusic = &mMusic;
+		current = &mMusic;
 	}
-	void MusicPlayer::stop()					{ if(currentMusic != nullptr) currentMusic->stop(); }
-	void MusicPlayer::pause()					{ if(currentMusic != nullptr) currentMusic->pause(); }
-	void MusicPlayer::setVolume(int mVolume)	{ if(currentMusic != nullptr) currentMusic->setVolume(mVolume); }
-	void MusicPlayer::setLoop(bool mLoop)		{ if(currentMusic != nullptr) currentMusic->setLoop(mLoop); }
+	void MusicPlayer::stop()					{ if(current != nullptr) current->stop(); }
+	void MusicPlayer::pause()					{ if(current != nullptr) current->pause(); }
+	void MusicPlayer::setVolume(int mVolume)	{ if(current != nullptr) current->setVolume(mVolume); }
+	void MusicPlayer::setLoop(bool mLoop)		{ if(current != nullptr) current->setLoop(mLoop); }
 }

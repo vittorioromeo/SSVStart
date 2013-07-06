@@ -8,17 +8,14 @@
 #include <SFML/System.hpp>
 #include <SSVUtils/SSVUtils.h>
 
-namespace sf
-{
-	class Music;
-}
+namespace sf { class Music; }
 
 namespace ssvs
 {
 	class MusicPlayer
 	{
 		private:
-			sf::Music* currentMusic{nullptr};
+			sf::Music* current{nullptr};
 
 		public:
 			void play(sf::Music& mMusic, sf::Time mPlayingOffset = sf::seconds(0));
