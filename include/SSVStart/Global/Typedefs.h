@@ -6,7 +6,6 @@
 #define SSVS_GLOBAL_TYPEDEFS
 
 #include <SFML/System.hpp>
-#include <bitset>
 
 namespace ssvs
 {
