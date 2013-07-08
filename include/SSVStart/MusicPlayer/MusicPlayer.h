@@ -16,6 +16,7 @@ namespace ssvs
 	{
 		private:
 			sf::Music* current{nullptr};
+			int volume{100};
 
 		public:
 			void play(sf::Music& mMusic, sf::Time mPlayingOffset = sf::seconds(0));

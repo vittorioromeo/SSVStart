@@ -15,12 +15,13 @@ namespace ssvs
 		stop();
 
 		mMusic.setPlayingOffset(mPlayingOffset);
+		mMusic.setVolume(volume);
 		mMusic.play();
 
 		current = &mMusic;
 	}
 	void MusicPlayer::stop()					{ if(current != nullptr) current->stop(); }
 	void MusicPlayer::pause()					{ if(current != nullptr) current->pause(); }
-	void MusicPlayer::setVolume(int mVolume)	{ if(current != nullptr) current->setVolume(mVolume); }
+	void MusicPlayer::setVolume(int mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
 	void MusicPlayer::setLoop(bool mLoop)		{ if(current != nullptr) current->setLoop(mLoop); }
 }
