@@ -17,9 +17,8 @@ else()
 	add_definitions(-DSSVS_N_USE_JSON)
 endif()
 
-set(SSVSTART_BUILD_SHARED_LIB TRUE CACHE BOOL "Build shared libraries.")
-
-if(SSVSTART_BUILD_SHARED_LIB)
+set(BUILD_SHARED_LIB TRUE CACHE BOOL "Build shared libraries.")
+if(BUILD_SHARED_LIB)
 	set(LIB_TYPE SHARED)
 else()
 	set(LIB_TYPE STATIC)
@@ -46,39 +45,7 @@ endif()
 
 set(SRC_DIR "src")
 set(INC_DIR "include")
-
-file(GLOB SRC_LIST
-	"${INC_DIR}/${PROJECT_NAME}/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Animation/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Animation/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Assets/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Assets/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Assets/Internal/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Assets/Internal/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/BitmapFont/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/BitmapFont/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Camera/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Camera/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/GameSystem/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/GameSystem/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/GameSystem/Timers/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/GameSystem/Timers/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Global/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Global/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Input/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Input/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/MusicPlayer/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/MusicPlayer/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/SoundPlayer/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/SoundPlayer/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Tileset/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Tileset/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Utils/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Utils/*.cpp"
-	"${INC_DIR}/${PROJECT_NAME}/Json/*.h"
-	"${SRC_DIR}/${PROJECT_NAME}/Json/*.cpp"
-)
+file(GLOB_RECURSE SRC_LIST "${INC_DIR}/*" "${SRC_DIR}/*")
 
 include_directories(${INC_DIR})
 include_directories(${SFML_INCLUDE_DIR})
@@ -90,28 +57,23 @@ if(SSVSTART_USE_JSON)
 endif()
 
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${SRC_LIST})
-target_link_libraries(SSVStart ${SFML_AUDIO_LIBRARY})
-target_link_libraries(SSVStart ${SFML_GRAPHICS_LIBRARY})
-target_link_libraries(SSVStart ${SFML_WINDOW_LIBRARY})
-target_link_libraries(SSVStart ${SFML_SYSTEM_LIBRARY})
-target_link_libraries(SSVStart ${SFML_NETWORK_LIBRARY})
-target_link_libraries(SSVStart ${SSVUTILS_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${SFML_AUDIO_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${SFML_GRAPHICS_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${SFML_WINDOW_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${SFML_SYSTEM_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${SFML_NETWORK_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${SSVUTILS_LIBRARY})
 
 if(SSVSTART_USE_JSON)
-	target_link_libraries(SSVStart ${SSVJSONCPP_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} ${SSVJSONCPP_LIBRARY})
 endif()
 
-if(SSVSTART_BUILD_SHARED_LIB)
+if(BUILD_SHARED_LIB)
 	set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX -d)
 else()
 	set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX -s-d)
 	set_target_properties(${PROJECT_NAME} PROPERTIES RELEASE_POSTFIX -s)
 endif()
 
-if(WIN32)
-	install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
-else()
-	install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION lib LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
-endif()
-
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION lib LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 install(DIRECTORY ${INC_DIR} DESTINATION .)
