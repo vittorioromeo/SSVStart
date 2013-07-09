@@ -7,12 +7,13 @@
 
 #include <functional>
 #include <SFML/System.hpp>
+#include <SSVUtils/SSVUtils.h>
 
 namespace ssvs
 {
 	namespace Utils
 	{
-		class ThreadWrapper
+		class ThreadWrapper : public ssvu::MemoryManageable
 		{
 			private:
 				bool launched{false}, finished{false};
