@@ -37,6 +37,8 @@ namespace ssvs
 				void setReleased(bool mValue);
 
 				bool isActive(GameWindow& mGameWindow);
+
+				inline const std::vector<Combo>& getCombos() const { return combos; }
 		};
 	}
 }

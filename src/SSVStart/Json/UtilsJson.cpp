@@ -6,7 +6,7 @@
 #include <SFML/System.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Json/UtilsJson.h"
-#include "SSVStart/Utils/UtilsInput.h"
+
 #include "SSVStart/Assets/AssetManager.h"
 
 using namespace std;
@@ -18,19 +18,6 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		Tileset getTilesetFromJson(const ssvuj::Value& mRoot)
-		{
-			Vec2u tileSize{as<unsigned int>(mRoot, "tileWidth"), as<unsigned int>(mRoot, "tileHeight")};
-			Tileset result{tileSize};
-
-			const ssvuj::Value& labels(mRoot["labels"]);
-			for(unsigned int iY{0}; iY < size(labels); ++iY)
-				for(unsigned int iX{0}; iX < size(labels[iY]); ++iX)
-					result.setLabel(as<string>(labels[iY][iX]), {iX, iY});
-
-			return result;
-		}
-
 		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Value& mRoot)
 		{
 			Animation result;
@@ -47,38 +34,6 @@ namespace ssvs
 			result.setSpeed(as<float>(mRoot, "speed", 1.f));
 
 			return result;
-		}
-
-		Input::Combo getInputComboFromJson(const ssvuj::Value& mArray)
-		{
-			Input::Combo result;
-
-			for(const auto& inputName : as<vector<string>>(mArray))
-			{
-				if(isKeyNameValid(inputName)) result.addKey(getKey(inputName));
-				else if(isButtonNameValid(inputName)) result.addButton(getButton(inputName));
-				else log("<" + inputName + "> is not a valid input name", "ssvs::Utils::getInputComboFromJSON");
-			}
-
-			return result;
-		}
-		Input::Trigger getInputTriggerFromJson(const ssvuj::Value& mArray)
-		{
-			Input::Trigger result;
-
-			for(const auto& comboArray : as<vector<ssvuj::Value>>(mArray))
-				result.add(getInputComboFromJson(comboArray));
-
-			return result;
-		}
-		BitmapFontData getBitmapFontDataFromJson(const ssvuj::Value& mRoot)
-		{
-			unsigned int cellColumns(as<int>(mRoot, "cellColumns"));
-			unsigned int cellWidth(as<int>(mRoot, "cellWidth"));
-			unsigned int cellHeight(as<int>(mRoot, "cellHeight"));
-			unsigned int cellStart(as<int>(mRoot, "cellStart"));
-
-			return {cellColumns, cellWidth, cellHeight, cellStart};
 		}
 
 		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Value& mRoot)

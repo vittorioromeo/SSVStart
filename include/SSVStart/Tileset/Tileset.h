@@ -24,6 +24,9 @@ namespace ssvs
 			Vec2u getIndex(const std::string& mLabel) const;
 			sf::IntRect operator[](Vec2u mIndex) const;
 			void setLabel(const std::string& mLabel, Vec2u mIndex);
+
+			inline Vec2u getTileSize() const { return tileSize; }
+			inline const std::unordered_map<std::string, Vec2u>& getLabels() const { return labels; }
 	};
 }
 

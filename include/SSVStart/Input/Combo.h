@@ -30,6 +30,9 @@ namespace ssvs
 
 				void addKey(sf::Keyboard::Key mKey);
 				void addButton(sf::Mouse::Button mButton);
+
+				inline const std::vector<sf::Keyboard::Key>& getKeys() const { return keys; }
+				inline const std::vector<sf::Mouse::Button>& getButtons() const { return buttons; }
 		};
 	}
 }
