@@ -7,8 +7,9 @@
 
 #include <cassert>
 #include <string>
-#include <memory>
 #include <unordered_map>
+#include <SSVUtils/SSVUtils.h>
+#include "SSVStart/Assets/AssetFolder.h"
 #include "SSVStart/Assets/Internal/ResourceHolder.h"
 
 namespace sf
@@ -37,44 +38,30 @@ namespace ssvs
 			Internal::ResourceHolder<sf::Shader> shaders;
 			Internal::ResourceHolder<ssvs::BitmapFont> bitmapFonts;
 
+			template<typename T> inline Internal::ResourceHolder<T>& getResourceHolder();
+
 		public:
 			AssetManager() = default;
 
-			void loadFolder(const std::string& mPath);
-			sf::Font& loadFont(const std::string& mId, const std::string& mPath);
-			sf::Image& loadImage(const std::string& mId, const std::string& mPath);
-			sf::Texture& loadTexture(const std::string& mId, const std::string& mPath);
-			sf::Texture& loadTexture(const std::string& mId, const sf::Image& mImage);
-			sf::SoundBuffer& loadSoundBuffer(const std::string& mId, const std::string& mPath);
-			sf::Music& loadMusic(const std::string& mId, const std::string& mPath);
-			sf::Shader& loadShader(const std::string& mId, const std::string& mPath, sf::Shader::Type mType, Internal::ShaderFromPath);
-			sf::Shader& loadShader(const std::string& mId, const std::string& mShader, sf::Shader::Type mType, Internal::ShaderFromMemory);
-			ssvs::BitmapFont& loadBitmapFont(const std::string& mId, const sf::Texture& mTexture, const BitmapFontData& mData);
+			inline void loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
 
-			bool hasFont(const std::string& mId);
-			bool hasImage(const std::string& mId);
-			bool hasTexture(const std::string& mId);
-			bool hasSoundBuffer(const std::string& mId);
-			bool hasMusic(const std::string& mId);
-			bool hasShader(const std::string& mId);
-			bool hasBitmapFont(const std::string& mId);
-
-			sf::Font& getFont(const std::string& mId);
-			sf::Image& getImage(const std::string& mId);
-			sf::Texture& getTexture(const std::string& mId);
-			sf::SoundBuffer& getSoundBuffer(const std::string& mId);
-			sf::Music& getMusic(const std::string& mId);
-			sf::Shader& getShader(const std::string& mId);
-			ssvs::BitmapFont& getBitmapFont(const std::string& mId);
-
-			std::unordered_map<std::string, std::unique_ptr<sf::Font>>& getFonts();
-			std::unordered_map<std::string, std::unique_ptr<sf::Image>>& getImages();
-			std::unordered_map<std::string, std::unique_ptr<sf::Texture>>& getTextures();
-			std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>>& getSoundBuffers();
-			std::unordered_map<std::string, std::unique_ptr<sf::Music>>& getMusics();
-			std::unordered_map<std::string, std::unique_ptr<sf::Shader>>& getShaders();
-			std::unordered_map<std::string, std::unique_ptr<ssvs::BitmapFont>>& getBitmapFonts();
+			template<typename T, typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
+			{
+				ssvu::log(mId + " resource loading", "ssvs::AssetManager::load<T>");
+				return getResourceHolder<T>().load(mId, std::forward<TArgs>(mArgs)...);
+			}
+			template<typename T> inline std::unordered_map<std::string, Uptr<T>>& getAll()	{ return getResourceHolder<T>().getResources(); }
+			template<typename T> inline bool has(const std::string& mId)					{ return getResourceHolder<T>().has(mId); }
+			template<typename T> inline T& get(const std::string& mId)						{ assert(has<T>(mId)); return getResourceHolder<T>()[mId]; }
 	};
+
+	template<> inline Internal::ResourceHolder<sf::Font>& AssetManager::getResourceHolder<sf::Font>()				{ return fonts; }
+	template<> inline Internal::ResourceHolder<sf::Image>& AssetManager::getResourceHolder<sf::Image>()				{ return images; }
+	template<> inline Internal::ResourceHolder<sf::Texture>& AssetManager::getResourceHolder<sf::Texture>()			{ return textures; }
+	template<> inline Internal::ResourceHolder<sf::SoundBuffer>& AssetManager::getResourceHolder<sf::SoundBuffer>()	{ return soundBuffers; }
+	template<> inline Internal::ResourceHolder<sf::Music>& AssetManager::getResourceHolder<sf::Music>()				{ return musics; }
+	template<> inline Internal::ResourceHolder<sf::Shader>& AssetManager::getResourceHolder<sf::Shader>()			{ return shaders; }
+	template<> inline Internal::ResourceHolder<BitmapFont>& AssetManager::getResourceHolder<BitmapFont>()			{ return bitmapFonts; }
 }
 
 #endif

@@ -35,7 +35,7 @@ namespace ssvs
 		for(const auto& f : getFilteredFiles({".ttf", ".otf", ".pfm"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadFont(id, f);
+			mAssetManager.load<Font>(id, f);
 			log(id + " font added", "ssvs::AssetFolder::loadFontsToManager(" + rootPath + ")");
 		}
 	}
@@ -44,7 +44,7 @@ namespace ssvs
 		for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadImage(id, f);
+			mAssetManager.load<Image>(id, f);
 			log(id + " image added", "ssvs::AssetFolder::loadImagesToManager(" + rootPath + ")");
 		}
 	}
@@ -53,7 +53,7 @@ namespace ssvs
 		for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadTexture(id, f);
+			mAssetManager.load<Texture>(id, f);
 			log(id + " texture added", "ssvs::AssetFolder::loadTexturesToManager(" + rootPath + ")");
 		}
 	}
@@ -62,7 +62,7 @@ namespace ssvs
 		for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadSoundBuffer(id, f);
+			mAssetManager.load<SoundBuffer>(id, f);
 			log(id + " soundBuffer added", "ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")");
 		}
 	}
@@ -71,7 +71,7 @@ namespace ssvs
 		for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadMusic(id, f);
+			mAssetManager.load<Music>(id, f);
 			log(id + " music added", "ssvs::AssetFolder::loadMusicsToManager(" + rootPath + ")");
 		}
 	}
@@ -80,13 +80,13 @@ namespace ssvs
 		for(const auto& f : getFilteredFiles({".vert"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadShader(id, f, Shader::Type::Vertex, Internal::ShaderFromPath{});
+			mAssetManager.load<Shader>(id, f, Shader::Type::Vertex, Internal::ShaderFromPath{});
 			log(id + " vertex shader added", "ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")");
 		}
 		for(const auto& f : getFilteredFiles({".frag"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
-			mAssetManager.loadShader(id, f, Shader::Type::Fragment, Internal::ShaderFromPath{});
+			mAssetManager.load<Shader>(id, f, Shader::Type::Fragment, Internal::ShaderFromPath{});
 			log(id + " fragment shader added", "ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")");
 		}
 	}

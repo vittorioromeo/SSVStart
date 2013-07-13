@@ -12,13 +12,19 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SSVUtils/SSVUtils.h>
-#include "SSVStart/Assets/Internal/Common.h"
 #include "SSVStart/BitmapFont/BitmapFont.h"
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
 	namespace Internal
 	{
+		enum class Mode{Load, Open, Image, Samples, Shader, BitmapFont};
+
+		template<bool> struct ShaderDisambiguationTag {};
+		using ShaderFromMemory = ShaderDisambiguationTag<true>;
+		using ShaderFromPath = ShaderDisambiguationTag<false>;
+
 		static void fail(const std::string& mMessage = "") { throw std::runtime_error("Failed to load resource - " + mMessage); }
 
 		template<Mode TT, typename T> struct Helper;

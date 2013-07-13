@@ -38,13 +38,13 @@ namespace ssvs
 
 		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Value& mRoot)
 		{
-			thread t1{[&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.loadFont(f, mRootPath + f); }};
-			thread t2{[&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))				mAssetManager.loadImage(f, mRootPath + f); }};
-			thread t3{[&]{ for(const auto& f : as<vector<string>>(mRoot, "textures"))			mAssetManager.loadTexture(f, mRootPath + f); }};
-			thread t4{[&]{ for(const auto& f : as<vector<string>>(mRoot, "soundBuffers"))		mAssetManager.loadSoundBuffer(f, mRootPath + f); }};
-			thread t5{[&]{ for(const auto& f : as<vector<string>>(mRoot, "musics"))				mAssetManager.loadMusic(f, mRootPath + f); }};
-			thread t6{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersVertex"))		mAssetManager.loadShader(f, mRootPath + f, Shader::Type::Vertex, Internal::ShaderFromPath{}); }};
-			thread t7{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersFragment"))	mAssetManager.loadShader(f, mRootPath + f, Shader::Type::Fragment, Internal::ShaderFromPath{}); }};
+			thread t1{[&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.load<Font>(f, mRootPath + f); }};
+			thread t2{[&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))				mAssetManager.load<Image>(f, mRootPath + f); }};
+			thread t3{[&]{ for(const auto& f : as<vector<string>>(mRoot, "textures"))			mAssetManager.load<Texture>(f, mRootPath + f); }};
+			thread t4{[&]{ for(const auto& f : as<vector<string>>(mRoot, "soundBuffers"))		mAssetManager.load<SoundBuffer>(f, mRootPath + f); }};
+			thread t5{[&]{ for(const auto& f : as<vector<string>>(mRoot, "musics"))				mAssetManager.load<Music>(f, mRootPath + f); }};
+			thread t6{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersVertex"))		mAssetManager.load<Shader>(f, mRootPath + f, Shader::Type::Vertex, Internal::ShaderFromPath{}); }};
+			thread t7{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersFragment"))	mAssetManager.load<Shader>(f, mRootPath + f, Shader::Type::Fragment, Internal::ShaderFromPath{}); }};
 			t1.join(); t2.join(); t3.join(); t4.join(); t5.join(); t6.join(); t7.join();
 		}
 	}
