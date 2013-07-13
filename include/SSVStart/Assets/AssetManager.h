@@ -43,8 +43,6 @@ namespace ssvs
 		public:
 			AssetManager() = default;
 
-			inline void loadFolder(const std::string& mPath) { AssetFolder folder{mPath}; folder.loadToManager(*this); }
-
 			template<typename T, typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 			{
 				ssvu::log(mId + " resource loading", "ssvs::AssetManager::load<T>");

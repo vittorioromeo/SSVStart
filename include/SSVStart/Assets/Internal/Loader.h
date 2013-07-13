@@ -47,7 +47,7 @@ namespace ssvs
 			using T = sf::Shader;
 			template<typename... TArgs> inline static Uptr<T> load(TArgs&&... mArgs) { return Helper<Mode::Shader, T>::load(mArgs...); }
 		};
-		template<> struct Loader<BitmapFont> // Shader has unique syntax
+		template<> struct Loader<BitmapFont> // BitmapFont has unique syntax
 		{
 			using T = BitmapFont;
 			template<typename... TArgs> inline static Uptr<T> load(TArgs&&... mArgs) { return Helper<Mode::BitmapFont, T>::load(mArgs...); }
