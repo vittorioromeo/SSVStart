@@ -12,15 +12,10 @@ namespace ssvs
 {
 	BitmapFont::BitmapFont(const Texture& mTexture, const BitmapFontData& mData) : texture(mTexture), data(mData) { }
 
-	const Texture& BitmapFont::getTexture() const	{ return texture; }
-	unsigned int BitmapFont::getCellWidth() const	{ return data.cellWidth; }
-	unsigned int BitmapFont::getCellHeight() const	{ return data.cellHeight; }
-
 	IntRect BitmapFont::getGlyphRect(char mChar) const
 	{
 		mChar = mChar - 33 + data.cellStart;
 		const auto& i(get2DIndexFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
-
 		return IntRect(i[0] * data.cellWidth, i[1] * data.cellHeight, data.cellWidth, data.cellHeight);
 	}
 }

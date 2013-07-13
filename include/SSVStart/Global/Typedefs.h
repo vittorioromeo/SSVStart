@@ -5,6 +5,7 @@
 #ifndef SSVS_GLOBAL_TYPEDEFS
 #define SSVS_GLOBAL_TYPEDEFS
 
+#include <memory>
 #include <SFML/System.hpp>
 
 namespace ssvs
@@ -13,6 +14,7 @@ namespace ssvs
 	using Vec2f = sf::Vector2f;
 	using Vec2u = sf::Vector2u;
 	template<typename T> using Vec2 = sf::Vector2<T>;
+	template<typename T> using Uptr = std::unique_ptr<T>;
 }
 
 #endif

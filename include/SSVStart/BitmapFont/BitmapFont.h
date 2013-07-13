@@ -19,10 +19,10 @@ namespace ssvs
 		public:
 			BitmapFont(const sf::Texture& mTexture, const BitmapFontData& mData);
 
-			const sf::Texture& getTexture() const;
+			inline const sf::Texture& getTexture() const	{ return texture; }
+			inline unsigned int getCellWidth() const		{ return data.cellWidth; }
+			inline unsigned int getCellHeight() const		{ return data.cellHeight; }
 			sf::IntRect getGlyphRect(char mChar) const;
-			unsigned int getCellWidth() const;
-			unsigned int getCellHeight() const;
 	};
 }
 

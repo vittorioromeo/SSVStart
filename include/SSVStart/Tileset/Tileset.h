@@ -19,12 +19,12 @@ namespace ssvs
 			std::unordered_map<std::string, Vec2u> labels;
 
 		public:
-			Tileset(Vec2u mTileSize);
+			Tileset(Vec2u mTileSize) : tileSize{mTileSize} { }
 
-			Vec2u getIndex(const std::string& mLabel) const;
-			sf::IntRect operator[](Vec2u mIndex) const;
-			void setLabel(const std::string& mLabel, Vec2u mIndex);
+			inline void setLabel(const std::string& mLabel, Vec2u mIndex)	{ labels[mLabel] = mIndex; }
 
+			inline Vec2u getIndex(const std::string& mLabel) const			{ return labels.at(mLabel); }
+			inline sf::IntRect operator[](Vec2u mIndex) const				{ return sf::IntRect(mIndex.x * tileSize.x, mIndex.y * tileSize.y, tileSize.x, tileSize.y); }
 			inline Vec2u getTileSize() const { return tileSize; }
 			inline const std::unordered_map<std::string, Vec2u>& getLabels() const { return labels; }
 	};

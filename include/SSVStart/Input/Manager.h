@@ -23,9 +23,10 @@ namespace ssvs
 				std::vector<Bind> binds;
 
 			public:
-				void add(const Bind& mBind);
-				void update(GameWindow& mGameWindow, float mFrameTime);
-				void refresh(GameWindow& mGameWindow);
+				inline void update(GameWindow& mGameWindow, float mFrameTime)	{ for(auto& b : binds) b.trigger.isActive(mGameWindow) ? b.callOn(mFrameTime) : b.callOff(mFrameTime); }
+				inline void refresh(GameWindow& mGameWindow)					{ for(auto& b : binds) b.trigger.refresh(mGameWindow); }
+
+				inline void add(const Bind& mBind) { binds.push_back(mBind); }
 		};
 	}
 }

@@ -5,7 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_GAMESTATE
 #define SSVS_GAMESYSTEM_GAMESTATE
 
-#include <vector>
 #include <functional>
 #include <map>
 #include <SSVUtils/SSVUtils.h>
@@ -32,7 +31,11 @@ namespace ssvs
 			Input::Manager inputManager;
 			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
-			void handleEvent(const sf::Event& mEvent);
+			inline void handleEvent(const sf::Event& mEvent)	{ eventDelegates[mEvent.type](mEvent); }
+			inline void update(float mFrameTime)				{ onUpdate(mFrameTime); }
+			inline void draw()									{ onDraw(); }
+			inline void updateInput(float mFrameTime)			{ inputManager.update(*gameWindowPtr, mFrameTime); }
+			inline void refreshInput()							{ inputManager.refresh(*gameWindowPtr); }
 
 		public:
 			ssvu::Delegate<void> onDraw;
@@ -43,14 +46,10 @@ namespace ssvs
 			GameState(const GameState&) = delete; // non construction-copyable
 			GameState& operator=(const GameState&) = delete; // non copyable
 
-			void update(float mFrameTime);
-			void updateInput(float mFrameTime);
-			void refreshInput();
-			void draw();
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Continuous)					{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Continuous)	{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn, mFuncOff}); }
 
-			void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Continuous);
-			void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mInputOff, IType mType = IType::Continuous);
-			EventDelegate& getEventDelegate(sf::Event::EventType mEventType);
+			inline EventDelegate& getEventDelegate(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
 		};
 	}
 

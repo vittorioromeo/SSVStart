@@ -24,7 +24,7 @@ namespace ssvs
 		friend struct DynamicTimer;
 
 		private:
-			GameState* gamePtr{nullptr}; // not owned, just pointed to
+			GameState* gameState{nullptr}; // not owned, just pointed to
 			sf::RenderWindow renderWindow;
 			std::string title{""};
 			sf::Clock clock;
@@ -35,7 +35,7 @@ namespace ssvs
 			int pixelMultiplier;
 			bool fullscreen;
 
-			TimerBase& timer; // owned
+			Uptr<TimerBase> timer;
 
 			void runInput();
 			void runUpdate(float mFrameTime);
@@ -45,40 +45,38 @@ namespace ssvs
 			GameWindow(const std::string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth = 320, unsigned int mScreenHeight = 240, int mPixelMultiplier = 1, bool mFullscreen = false);
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
-			~GameWindow();
 
 			void run();
-			void stop();
+			inline void stop() { running = false; }
 			void recreateWindow();
 
-			void clear(sf::Color mColor);
-			void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default);
-			void pollEvent(sf::Event& mEvent);
+			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
+			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }
 
-			bool isKeyPressed(sf::Keyboard::Key mKey);
-			bool isButtonPressed(sf::Mouse::Button mButton);
+			inline bool isKeyPressed(sf::Keyboard::Key mKey) const				{ return focus && sf::Keyboard::isKeyPressed(mKey); }
+			inline bool isButtonPressed(sf::Mouse::Button mButton) const		{ return focus && sf::Mouse::isButtonPressed(mButton); }
 
 			// Setters
+			inline void setFullscreen(bool mFullscreen) 						{ fullscreen = mFullscreen; mustRecreate = true; }
+			inline void setSize(unsigned int mWidth, unsigned int mHeight)		{ width = mWidth; height = mHeight; mustRecreate = true; }
+			inline void setAntialiasingLevel(unsigned int mAntialiasingLevel)	{ antialiasingLevel = mAntialiasingLevel; mustRecreate = true; }
+			inline void setVsync(bool mEnabled)									{ renderWindow.setVerticalSyncEnabled(mEnabled); }
+			inline void setMouseCursorVisible(bool mEnabled) 					{ renderWindow.setMouseCursorVisible(mEnabled); }
+			inline void setTitle(const std::string& mTitle)						{ title = mTitle; renderWindow.setTitle(mTitle); }
+			inline void setFPSLimit(float mFPSLimit)							{ renderWindow.setFramerateLimit(mFPSLimit); }
 			void setGameState(GameState& mGameState);
-			void setSize(unsigned int mWidth, unsigned int mHeight);
-			void setAntialiasingLevel(unsigned int mAntialiasingLevel);
-			void setFullscreen(bool mFullscreen);
-			void setVsync(bool mEnabled);
-			void setMouseCursorVisible(bool mEnabled);
-			void setTitle(const std::string& mTitle);
-			void setFPSLimit(float mFPSLimit);
 
 			// Getters
-			sf::RenderWindow& getRenderWindow();
-			Vec2f getMousePosition();
-			float getFPS();
-			unsigned int getWidth();
-			unsigned int getHeight();
-			unsigned int getAntialiasingLevel();
-			bool getFullscreen();
-			bool hasFocus();
+			inline sf::RenderWindow& getRenderWindow()			{ return renderWindow; }
+			inline bool getFullscreen() const					{ return fullscreen; }
+			inline unsigned int getWidth() const				{ return width; }
+			inline unsigned int getHeight() const				{ return height; }
+			inline unsigned int getAntialiasingLevel() const	{ return antialiasingLevel; }
+			inline Vec2f getMousePosition() const				{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
+			inline bool hasFocus() const						{ return focus; }
+			float getFPS() const;
 
-			template<typename T> T& getTimer() { return static_cast<T&>(timer); }
+			template<typename T> inline T& getTimer() { return static_cast<T&>(*timer); }
 	};
 }
 

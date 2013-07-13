@@ -22,10 +22,10 @@ namespace ssvs
 			Trigger trigger;
 			InputFunc on, off;
 
-			Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr);
+			Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{mTrigger}, on{mOn}, off{mOff} { }
 
-			void callOn(float mFrameTime) const;
-			void callOff(float mFrameTime) const;
+			inline void callOn(float mFrameTime) const		{ if(on != nullptr) on(mFrameTime); }
+			inline void callOff(float mFrameTime) const	{ if(off != nullptr) off(mFrameTime); }
 		};
 	}
 }

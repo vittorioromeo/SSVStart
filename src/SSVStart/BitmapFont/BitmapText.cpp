@@ -21,17 +21,6 @@ namespace ssvs
 		mRenderTarget.draw(vertices, mRenderStates);
 	}
 
-	void BitmapText::setString(const string& mStr)		{ str = mStr; mustRecalculate = true; }
-	void BitmapText::setColor(const Color& mColor)		{ color = mColor; for(unsigned int i{0}; i < vertices.getVertexCount(); ++i) vertices[i].color = color; }
-	void BitmapText::setTracking(int mTracking)			{ tracking = mTracking; mustRecalculate = true; }
-
-	const BitmapFont& BitmapText::getBitmapFont() const	{ return bitmapFont; }
-	FloatRect BitmapText::getLocalBounds() const		{ return bounds; }
-	FloatRect BitmapText::getGlobalBounds() const		{ return getTransform().transformRect(getLocalBounds()); }
-	const string& BitmapText::getString() const			{ return str; }
-	const Color& BitmapText::getColor() const			{ return color; }
-	int BitmapText::getTracking() const					{ return tracking; }
-
 	void BitmapText::recalculate()
 	{
 		const auto& width(bitmapFont.getCellWidth());
@@ -60,6 +49,4 @@ namespace ssvs
 
 		mustRecalculate = false;
 	}
-
-
 }

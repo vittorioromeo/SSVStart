@@ -18,7 +18,7 @@ namespace ssvs
 		float frameTimeLimit{4.f};
 
 		DynamicTimer(GameWindow& mGameWindow);
-		~DynamicTimer();
+		~DynamicTimer() { }
 
 		void runUpdate() override;
 		void runFps() override;

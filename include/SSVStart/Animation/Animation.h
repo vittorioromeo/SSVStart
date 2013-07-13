@@ -32,14 +32,14 @@ namespace ssvs
 			void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime);
 
 			// Getters
-			const AnimationStep& getCurrentStep() const;
-			Vec2u getCurrentIndex() const;
+			inline const AnimationStep& getCurrentStep() const	{ return steps[currentIndex]; }
+			inline Vec2u getCurrentIndex() const				{ return getCurrentStep().index; }
 
 			// Setters
-			void setSpeed(float mSpeed);
-			void setLoop(bool mLoop);
-			void setPingPong(bool mPingPong);
-			void setReverse(bool mReverse);
+			inline void setSpeed(float mSpeed)		{ speed = mSpeed; }
+			inline void setLoop(bool mLoop)			{ loop = mLoop; }
+			inline void setPingPong(bool mPingPong)	{ pingPong = mPingPong; }
+			inline void setReverse(bool mReverse)	{ reverse = mReverse; }
 	};
 }
 

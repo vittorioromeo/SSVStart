@@ -22,9 +22,6 @@ namespace ssvs
 			for(const auto& b : buttons) if(!mGameWindow.isButtonPressed(b)) return false;
 			return true;
 		}
-
-		void Combo::addKey(Keyboard::Key mKey)			{ keys.push_back(mKey); }
-		void Combo::addButton(Mouse::Button mButton)	{ buttons.push_back(mButton); }
 	}
 }
 

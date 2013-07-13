@@ -30,16 +30,16 @@ namespace ssvs
 
 			void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override;
 
-			sf::FloatRect getLocalBounds() const;
-			sf::FloatRect getGlobalBounds() const;
-			void setString(const std::string& mStr);
-			void setColor(const sf::Color& mColor);
-			void setTracking(int mTracking);
+			inline void setString(const std::string& mStr)	{ str = mStr; mustRecalculate = true; }
+			inline void setColor(const sf::Color& mColor)	{ color = mColor; for(unsigned int i{0}; i < vertices.getVertexCount(); ++i) vertices[i].color = color; }
+			inline void setTracking(int mTracking)			{ tracking = mTracking; mustRecalculate = true; }
 
-			const BitmapFont& getBitmapFont() const;
-			const std::string& getString() const;
-			int getTracking() const;
-			const sf::Color& getColor() const;
+			inline const BitmapFont& getBitmapFont() const	{ return bitmapFont; }
+			inline sf::FloatRect getLocalBounds() const		{ return bounds; }
+			inline sf::FloatRect getGlobalBounds() const	{ return getTransform().transformRect(getLocalBounds()); }
+			inline const std::string& getString() const		{ return str; }
+			inline const sf::Color& getColor() const		{ return color; }
+			inline int getTracking() const					{ return tracking; }
 	};
 }
 

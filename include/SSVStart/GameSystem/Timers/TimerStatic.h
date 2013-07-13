@@ -18,21 +18,21 @@ namespace ssvs
 		float step, timeSlice, maxLoops, time{0}, loops{0};
 
 		StaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mTimeSlice = 1.f, float mMaxLoops = 50);
-		~StaticTimer();
+		~StaticTimer() { }
 
 		void runUpdate() override;
 
 		// Getters
-		float getStep() const;
-		float getTimeSlice() const;
-		float getMaxLoops() const;
-		float getTime() const;
-		float getLoops() const;
+		inline float getStep() const		{ return step; }
+		inline float getTimeSlice() const	{ return timeSlice; }
+		inline float getMaxLoops() const	{ return maxLoops; }
+		inline float getTime() const		{ return time; }
+		inline float getLoops() const		{ return loops; }
 
 		// Setters
-		void setStep(float mStep);
-		void setTimeSlice(float mTimeSlice);
-		void setMaxLoops(float mMaxLoops);
+		inline void setStep(float mStep)			{ step = mStep; }
+		inline void setTimeSlice(float mTimeSlice)	{ timeSlice = mTimeSlice; }
+		inline void setMaxLoops(float mMaxLoops)	{ maxLoops = mMaxLoops; }
 	};
 
 	StaticTimer& createStaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mSpeed = 1.f, float mMaxLoops = 50);

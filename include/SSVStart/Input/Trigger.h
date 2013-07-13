@@ -31,10 +31,10 @@ namespace ssvs
 				Trigger(const std::initializer_list<Combo>& mCombos);
 
 				void refresh(GameWindow& mGameWindow);
-				void add(const Combo& mCombo);
+				inline void add(const Combo& mCombo) { combos.push_back(mCombo); }
 
-				void setType(Type mType);
-				void setReleased(bool mValue);
+				inline void setType(Type mType)			{ type = mType; }
+				inline void setReleased(bool mValue)	{ released = mValue; }
 
 				bool isActive(GameWindow& mGameWindow);
 

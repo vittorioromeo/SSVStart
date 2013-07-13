@@ -12,8 +12,7 @@ using namespace sf;
 namespace ssvs
 {
 	GameWindow::GameWindow(const string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
-		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(mTimer) { recreateWindow(); }
-	GameWindow::~GameWindow() { delete &timer; }
+		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(&mTimer) { }
 
 	void GameWindow::run()
 	{
@@ -24,39 +23,24 @@ namespace ssvs
 			renderWindow.setActive(true);
 			renderWindow.clear();
 
-			gamePtr->refreshInput();
+			gameState->refreshInput();
 			runInput();
-			timer.runUpdate();
-			gamePtr->onPostUpdate();
+			timer->runUpdate();
+			gameState->onPostUpdate();
 
-			timer.runDraw();
+			timer->runDraw();
 			renderWindow.display();
 
-			timer.runFrameTime();
-			timer.runFps();
+			timer->runFrameTime();
+			timer->runFps();
 		}
 	}
-	void GameWindow::stop() { running = false; }
-
-	void GameWindow::clear(Color mColor) { renderWindow.clear(mColor); }
-	void GameWindow::draw(const Drawable& mDrawable, const RenderStates& mStates) { renderWindow.draw(mDrawable, mStates); }
-	void GameWindow::pollEvent(Event& mEvent) { renderWindow.pollEvent(mEvent); }
 
 	void GameWindow::recreateWindow()
 	{
-		ContextSettings contextSettings{0, 0, antialiasingLevel, 0, 0};
-		unsigned int multipliedWidth{width * pixelMultiplier}, multipliedHeight{height * pixelMultiplier};
-
 		if(renderWindow.isOpen()) renderWindow.close();
-		if(fullscreen) renderWindow.create({width, height}, title, Style::Fullscreen, contextSettings);
-		else
-		{
-			auto desktopMode(VideoMode::getDesktopMode());
-			renderWindow.create({width, height}, title, Style::Default, contextSettings);
-			renderWindow.setPosition(Vec2i(desktopMode.width / 2 - multipliedWidth / 2, desktopMode.height / 2 - multipliedHeight / 2));
-		}
-		renderWindow.setSize({multipliedWidth, multipliedHeight});
-
+		renderWindow.create({width, height}, title, fullscreen ? Style::Fullscreen : Style::Default, ContextSettings{0, 0, antialiasingLevel, 0, 0});
+		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
 		mustRecreate = false;
 	}
 
@@ -73,14 +57,14 @@ namespace ssvs
 				default: break;
 			}
 
-			gamePtr->handleEvent(event);
+			gameState->handleEvent(event);
 		}
 
-		gamePtr->updateInput(timer.getFrameTime());
+		gameState->updateInput(timer->getFrameTime());
 	}
-	void GameWindow::runUpdate(float mFrameTime) { gamePtr->update(mFrameTime); }
-	void GameWindow::runDraw() { gamePtr->draw(); }
+	void GameWindow::runUpdate(float mFrameTime)	{ gameState->update(mFrameTime); }
+	void GameWindow::runDraw()						{ gameState->draw(); }
 
-	bool GameWindow::isKeyPressed(Keyboard::Key mKey)		{ return focus && Keyboard::isKeyPressed(mKey); }
-	bool GameWindow::isButtonPressed(Mouse::Button mButton)	{ return focus && Mouse::isButtonPressed(mButton); }
+	void GameWindow::setGameState(GameState& mGameState)	{ gameState = &mGameState; mGameState.gameWindowPtr = this; }
+	float GameWindow::getFPS() const						{ return timer->getFps(); }
 }

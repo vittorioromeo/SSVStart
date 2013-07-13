@@ -28,10 +28,10 @@ namespace ssvs
 
 				bool isDown(GameWindow& mGameWindow) const;
 
-				void addKey(sf::Keyboard::Key mKey);
-				void addButton(sf::Mouse::Button mButton);
+				inline void addKey(sf::Keyboard::Key mKey) { keys.push_back(mKey); }
+				inline void addButton(sf::Mouse::Button mButton) { buttons.push_back(mButton); }
 
-				inline const std::vector<sf::Keyboard::Key>& getKeys() const { return keys; }
+				inline const std::vector<sf::Keyboard::Key>& getKeys() const	{ return keys; }
 				inline const std::vector<sf::Mouse::Button>& getButtons() const { return buttons; }
 		};
 	}
