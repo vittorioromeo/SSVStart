@@ -73,6 +73,13 @@ namespace ssvuj
 				return {cellColumns, cellWidth, cellHeight, cellStart};
 			}
 		};
+		template<> struct AsHelper<sf::Color>
+		{
+			inline static sf::Color as(const Impl& mValue)
+			{
+				return sf::Color(ssvuj::as<float>(mValue, 0), ssvuj::as<float>(mValue, 1), ssvuj::as<float>(mValue, 2), ssvuj::as<float>(mValue, 3));
+			}
+		};
 	}
 
 	template<> inline void set<ssvs::Input::Combo>(Impl& mRoot, const ssvs::Input::Combo& mValueToSet)
@@ -101,6 +108,13 @@ namespace ssvuj
 		set(mRoot, "cellWidth", mValueToSet.cellWidth);
 		set(mRoot, "cellHeight", mValueToSet.cellHeight);
 		set(mRoot, "cellStart", mValueToSet.cellStart);
+	}
+	template<> inline void set<sf::Color>(Impl& mRoot, const sf::Color& mValueToSet)
+	{
+		set(mRoot, 0, mValueToSet.r);
+		set(mRoot, 1, mValueToSet.g);
+		set(mRoot, 2, mValueToSet.b);
+		set(mRoot, 3, mValueToSet.a);
 	}
 }
 
