@@ -40,10 +40,10 @@ namespace ssvs
 			const auto& rect(bitmapFont.getGlyphRect(c));
 			unsigned int spacing{tracking * iX};
 
-			vertices.append({Vec2f(iX * width + spacing,			iY * height),		color,	Vec2f(rect.left,					rect.top)});
+			vertices.append({Vec2f(iX * width + spacing,		iY * height),		color,	Vec2f(rect.left,				rect.top)});
 			vertices.append({Vec2f((iX + 1) * width + spacing,	iY * height),		color,	Vec2f(rect.left + rect.width,	rect.top)});
 			vertices.append({Vec2f((iX + 1) * width + spacing,	(iY + 1) * height),	color,	Vec2f(rect.left + rect.width,	rect.top + rect.height)});
-			vertices.append({Vec2f(iX * width + spacing,			(iY + 1) * height),	color,	Vec2f(rect.left,					rect.top + rect.height)});
+			vertices.append({Vec2f(iX * width + spacing,		(iY + 1) * height),	color,	Vec2f(rect.left,				rect.top + rect.height)});
 			++iX;
 		}
 
