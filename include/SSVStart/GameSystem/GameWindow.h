@@ -53,8 +53,15 @@ namespace ssvs
 			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
 			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }
 
+			inline bool isMouseInside() const
+			{
+				const auto& pos(sf::Mouse::getPosition(renderWindow));
+				const auto& windowSize(Vec2i(renderWindow.getSize()));
+				return pos.x > 0 && pos.y > 0 && pos.x < windowSize.x && pos.y < windowSize.y;
+			}
+
 			inline bool isKeyPressed(sf::Keyboard::Key mKey) const				{ return focus && sf::Keyboard::isKeyPressed(mKey); }
-			inline bool isButtonPressed(sf::Mouse::Button mButton) const		{ return focus && sf::Mouse::isButtonPressed(mButton); }
+			inline bool isButtonPressed(sf::Mouse::Button mButton) const		{ return focus && sf::Mouse::isButtonPressed(mButton) && isMouseInside(); }
 
 			// Setters
 			inline void setFullscreen(bool mFullscreen) 						{ fullscreen = mFullscreen; mustRecreate = true; }
