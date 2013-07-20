@@ -24,6 +24,7 @@ namespace ssvs
 			void pause();
 			void setVolume(int mVolume);
 			void setLoop(bool mLoop);
+			inline sf::Music* getCurrent() { return current; }
 	};
 }
 
