@@ -28,7 +28,7 @@ namespace ssvuj
 				{
 					if(ssvs::Utils::isKeyNameValid(inputName)) result.addKey(ssvs::Utils::getKey(inputName));
 					else if(ssvs::Utils::isButtonNameValid(inputName)) result.addButton(ssvs::Utils::getButton(inputName));
-					else ssvu::log("<" + inputName + "> is not a valid input name", "ssvs::Utils::getInputComboFromJSON");
+					else ssvu::lo << ssvu::lt("ssvs::Utils::getInputComboFromJSON") << "<" << inputName << "> is not a valid input name";
 				}
 
 				return result;

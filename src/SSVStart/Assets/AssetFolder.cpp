@@ -36,7 +36,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Font>(id, f);
-			log(id + " font added", "ssvs::AssetFolder::loadFontsToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadFontsToManager(" + rootPath + ")") << id + " font added" << endl;
 		}
 	}
 	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
@@ -45,7 +45,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Image>(id, f);
-			log(id + " image added", "ssvs::AssetFolder::loadImagesToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadImagesToManager(" + rootPath + ")") << id + " image added" << endl;
 		}
 	}
 	void AssetFolder::loadTexturesToManager(AssetManager& mAssetManager)
@@ -54,7 +54,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Texture>(id, f);
-			log(id + " texture added", "ssvs::AssetFolder::loadTexturesToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadTexturesToManager(" + rootPath + ")") << id + " texture added" << endl;
 		}
 	}
 	void AssetFolder::loadSoundBuffersToManager(AssetManager& mAssetManager)
@@ -63,7 +63,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<SoundBuffer>(id, f);
-			log(id + " soundBuffer added", "ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")") << id + " soundBuffer added" << endl;
 		}
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
@@ -72,7 +72,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Music>(id, f);
-			log(id + " music added", "ssvs::AssetFolder::loadMusicsToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadMusicsToManager(" + rootPath + ")") << id + " music added" << endl;
 		}
 	}
 	void AssetFolder::loadShadersToManager(AssetManager& mAssetManager)
@@ -81,13 +81,13 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Shader>(id, f, Shader::Type::Vertex, Internal::ShaderFromPath{});
-			log(id + " vertex shader added", "ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")") << id + " vertex shader added" << endl;
 		}
 		for(const auto& f : getFilteredFiles({".frag"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Shader>(id, f, Shader::Type::Fragment, Internal::ShaderFromPath{});
-			log(id + " fragment shader added", "ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")");
+			lo << lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")") << id + " fragment shader added" << endl;
 		}
 	}
 }
