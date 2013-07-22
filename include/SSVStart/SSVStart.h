@@ -44,7 +44,6 @@
 #include "SSVStart/Tileset/Tileset.h"
 
 // Utils
-#include "SSVStart/Utils/ThreadWrapper.h"
 #include "SSVStart/Utils/Utils.h"
 #include "SSVStart/Utils/UtilsInput.h"
 
