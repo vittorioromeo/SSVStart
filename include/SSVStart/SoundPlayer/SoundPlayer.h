@@ -10,44 +10,40 @@
 
 namespace ssvs
 {
-	struct SoundWrapper : public ssvu::MemoryManageable
-	{
-		sf::Sound sound;
-		SoundWrapper(const sf::SoundBuffer& mSoundBuffer) : sound{mSoundBuffer} { }
-	};
-
 	class SoundPlayer
 	{
 		private:
-			int volume{100};
-			ssvu::MemoryManager<SoundWrapper> memoryManager;
+			struct ManageableSound : public sf::Sound, public ssvu::MemoryManageable { using sf::Sound::Sound; };
 
-			inline void refreshVolume() { for(auto& s : memoryManager) s->sound.setVolume(volume); }
+			int volume{100};
+			ssvu::MemoryManager<ManageableSound> memoryManager;
+
+			inline void refreshVolume() { for(auto& s : memoryManager) s->setVolume(volume); }
 
 		public:
 			enum class Mode{Overlap, Override, Abort};
 
 			inline void play(sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap)
 			{
-				for(const auto& s : memoryManager) if(s->sound.getStatus() == sf::Sound::Status::Stopped) memoryManager.del(*s);
+				for(const auto& s : memoryManager) if(s->getStatus() == sf::Sound::Status::Stopped) memoryManager.del(*s);
 				memoryManager.refresh();
 
 				switch(mMode)
 				{
 					case Mode::Overlap: break;
 					case Mode::Override:
-						for(const auto& s : memoryManager) if(s->sound.getBuffer() == &mSoundBuffer) s->sound.stop();
+						for(const auto& s : memoryManager) if(s->getBuffer() == &mSoundBuffer) s->stop();
 						break;
 					case Mode::Abort:
-						for(const auto& s : memoryManager) if(s->sound.getBuffer() == &mSoundBuffer) return;
+						for(const auto& s : memoryManager) if(s->getBuffer() == &mSoundBuffer) return;
 						break;
 				}
 
 				auto& sound(memoryManager.create(mSoundBuffer));
-				sound.sound.setVolume(volume);
-				sound.sound.play();
+				sound.setVolume(volume);
+				sound.play();
 			}
-			inline void stop() { for(auto& s : memoryManager) s->sound.stop(); }
+			inline void stop() { for(auto& s : memoryManager) s->stop(); }
 
 			inline void setVolume(int mVolume)	{ volume = mVolume; refreshVolume(); }
 			inline int getVolume()				{ return volume; }
