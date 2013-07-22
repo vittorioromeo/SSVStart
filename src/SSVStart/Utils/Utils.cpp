@@ -29,8 +29,6 @@ namespace ssvs
 			return result;
 		}
 
-		void waitFor(ThreadWrapper& mThreadWrapper, Time mTime) { while(!mThreadWrapper.getFinished()) sleep(mTime); }
-
 		void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue)
 		{
 			mGameState.addInput(mTrigger, [&](float){ mValue = true; }, [&](float){ mValue = false; });
