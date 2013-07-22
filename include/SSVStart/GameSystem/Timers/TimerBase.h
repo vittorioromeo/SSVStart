@@ -26,8 +26,8 @@ namespace ssvs
 		virtual void runFrameTime();
 		virtual void runFps();
 
-		float getFrameTime() const;
-		float getFps() const;
+		inline float getFrameTime() const	{ return frameTime; }
+		inline float getFps() const			{ return fps; }
 	};
 }
 

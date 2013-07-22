@@ -21,11 +21,11 @@ namespace ssvs
 			public:
 				Bimap(const initializer_list<pair<T, U>>& mPairs) { for(const auto& pair : mPairs) insert(pair); }
 
-				void insert(pair<T, U> mPair)			{ map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
-				const T& at(const U& mValue) const		{ return map2.at(mValue); }
-				const U& at(const T& mValue) const		{ return map1.at(mValue); }
-				bool hasValue(const T& mValue) const	{ return map1.find(mValue) != end(map1); }
-				bool hasValue(const U& mValue) const	{ return map2.find(mValue) != end(map2); }
+				inline void insert(pair<T, U> mPair)		{ map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
+				inline const T& at(const U& mValue) const	{ return map2.at(mValue); }
+				inline const U& at(const T& mValue) const	{ return map1.at(mValue); }
+				inline bool hasValue(const T& mValue) const	{ return map1.find(mValue) != end(map1); }
+				inline bool hasValue(const U& mValue) const	{ return map2.find(mValue) != end(map2); }
 		};
 
 		const string keyPrefix{"k"}, buttonPrefix{"b"};

@@ -10,8 +10,6 @@ using namespace ssvu;
 
 namespace ssvs
 {
-	BitmapFont::BitmapFont(const Texture& mTexture, const BitmapFontData& mData) : texture(mTexture), data(mData) { }
-
 	IntRect BitmapFont::getGlyphRect(char mChar) const
 	{
 		mChar = mChar - 33 + data.cellStart;

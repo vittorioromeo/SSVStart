@@ -14,7 +14,4 @@ namespace ssvs
 	void TimerBase::runDraw()		{ gameWindow.runDraw(); }
 	void TimerBase::runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }
 	void TimerBase::runFps()		{ fps = 60.f / frameTime; }
-
-	float TimerBase::getFrameTime() const 	{ return frameTime; }
-	float TimerBase::getFps() const 		{ return fps; }
 }
