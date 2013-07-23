@@ -29,7 +29,7 @@ namespace ssvs
 			std::string title{""};
 			sf::Clock clock;
 
-			bool running{true}, focus{true}, mustRecreate{true};
+			bool running{true}, focus{true}, mustRecreate{true}, vsync{false};
 
 			unsigned int width, height, antialiasingLevel{3};
 			int pixelMultiplier;
@@ -67,7 +67,7 @@ namespace ssvs
 			inline void setFullscreen(bool mFullscreen) 						{ fullscreen = mFullscreen; mustRecreate = true; }
 			inline void setSize(unsigned int mWidth, unsigned int mHeight)		{ width = mWidth; height = mHeight; mustRecreate = true; }
 			inline void setAntialiasingLevel(unsigned int mAntialiasingLevel)	{ antialiasingLevel = mAntialiasingLevel; mustRecreate = true; }
-			inline void setVsync(bool mEnabled)									{ renderWindow.setVerticalSyncEnabled(mEnabled); }
+			inline void setVsync(bool mEnabled)									{ vsync = mEnabled; mustRecreate = true;  }
 			inline void setMouseCursorVisible(bool mEnabled) 					{ renderWindow.setMouseCursorVisible(mEnabled); }
 			inline void setTitle(const std::string& mTitle)						{ title = mTitle; renderWindow.setTitle(mTitle); }
 			inline void setFPSLimit(float mFPSLimit)							{ renderWindow.setFramerateLimit(mFPSLimit); }
@@ -81,6 +81,7 @@ namespace ssvs
 			inline unsigned int getAntialiasingLevel() const	{ return antialiasingLevel; }
 			inline Vec2f getMousePosition() const				{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
 			inline bool hasFocus() const						{ return focus; }
+			inline bool getVsync() const						{ return vsync; }
 			float getFPS() const;
 
 			template<typename T> inline T& getTimer() { return static_cast<T&>(*timer); }

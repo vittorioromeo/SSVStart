@@ -41,6 +41,7 @@ namespace ssvs
 		if(renderWindow.isOpen()) renderWindow.close();
 		renderWindow.create({width, height}, title, fullscreen ? Style::Fullscreen : Style::Default, ContextSettings{0, 0, antialiasingLevel, 0, 0});
 		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
+		renderWindow.setVerticalSyncEnabled(vsync);
 		mustRecreate = false;
 	}
 
