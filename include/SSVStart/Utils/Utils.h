@@ -12,7 +12,6 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 #include <SSVUtils/SSVUtils.h>
-#include "SSVStart/Utils/ThreadWrapper.h"
 #include "SSVStart/GameSystem/GameState.h"
 #include "SSVStart/Global/Typedefs.h"
 
