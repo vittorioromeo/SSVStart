@@ -2,7 +2,7 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <thread>
+#include <future>
 #include <SFML/System.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Json/UtilsJson.h"
@@ -38,14 +38,13 @@ namespace ssvs
 
 		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Value& mRoot)
 		{
-			thread t1{[&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.load<Font>(f, mRootPath + f); }};
-			thread t2{[&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))				mAssetManager.load<Image>(f, mRootPath + f); }};
-			thread t3{[&]{ for(const auto& f : as<vector<string>>(mRoot, "textures"))			mAssetManager.load<Texture>(f, mRootPath + f); }};
-			thread t4{[&]{ for(const auto& f : as<vector<string>>(mRoot, "soundBuffers"))		mAssetManager.load<SoundBuffer>(f, mRootPath + f); }};
-			thread t5{[&]{ for(const auto& f : as<vector<string>>(mRoot, "musics"))				mAssetManager.load<Music>(f, mRootPath + f); }};
-			thread t6{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersVertex"))		mAssetManager.load<Shader>(f, mRootPath + f, Shader::Type::Vertex, Internal::ShaderFromPath{}); }};
-			thread t7{[&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersFragment"))	mAssetManager.load<Shader>(f, mRootPath + f, Shader::Type::Fragment, Internal::ShaderFromPath{}); }};
-			t1.join(); t2.join(); t3.join(); t4.join(); t5.join(); t6.join(); t7.join();
+			auto a1 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.load<Font>(f, mRootPath + f); });
+			auto a2 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))			mAssetManager.load<Image>(f, mRootPath + f); });
+			auto a3 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "textures"))			mAssetManager.load<Texture>(f, mRootPath + f); });
+			auto a4 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "soundBuffers"))		mAssetManager.load<SoundBuffer>(f, mRootPath + f); });
+			auto a5 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "musics"))			mAssetManager.load<Music>(f, mRootPath + f); });
+			auto a6 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersVertex"))		mAssetManager.load<Shader>(f, mRootPath + f, Shader::Type::Vertex, Internal::ShaderFromPath{}); });
+			auto a7 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "shadersFragment"))	mAssetManager.load<Shader>(f, mRootPath + f, Shader::Type::Fragment, Internal::ShaderFromPath{}); });
 		}
 	}
 }
