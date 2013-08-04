@@ -25,7 +25,7 @@ namespace ssvs
 			using ITrigger = Input::Trigger;
 			using IType = ITrigger::Type;
 			using IFunc = Input::InputFunc;
-			using EventDelegate = ssvu::Delegate<void, const sf::Event&>;
+			using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
 			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
 			Input::Manager inputManager;
@@ -38,9 +38,9 @@ namespace ssvs
 			inline void refreshInput()							{ inputManager.refresh(*gameWindowPtr); }
 
 		public:
-			ssvu::Delegate<void> onDraw;
-			ssvu::Delegate<void, float> onUpdate;
-			ssvu::Delegate<void> onPostUpdate;
+			ssvu::Delegate<void()> onDraw;
+			ssvu::Delegate<void(float)> onUpdate;
+			ssvu::Delegate<void()> onPostUpdate;
 
 			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable
