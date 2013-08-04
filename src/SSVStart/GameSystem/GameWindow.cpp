@@ -66,6 +66,6 @@ namespace ssvs
 	void GameWindow::runUpdate(float mFrameTime)	{ gameState->update(mFrameTime); }
 	void GameWindow::runDraw()						{ gameState->draw(); }
 
-	void GameWindow::setGameState(GameState& mGameState)	{ gameState = &mGameState; mGameState.gameWindowPtr = this; }
+	void GameWindow::setGameState(GameState& mGameState)	{ gameState = &mGameState; mGameState.gameWindow = this; }
 	float GameWindow::getFPS() const						{ return timer->getFps(); }
 }

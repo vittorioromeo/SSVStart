@@ -2,13 +2,7 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <SFML/Graphics.hpp>
-#include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Animation/Animation.h"
-
-using namespace std;
-using namespace sf;
-using namespace ssvu;
 
 namespace ssvs
 {
@@ -46,8 +40,4 @@ namespace ssvs
 		currentTime += mFrameTime * speed;
 		if(currentTime >= getCurrentStep().time) nextStep();
 	}
-
-	void Animation::addStep(const AnimationStep& mStep)							{ steps.push_back(mStep); }
-	void Animation::addSteps(const vector<AnimationStep>& mSteps)				{ for(const auto& s : mSteps) steps.push_back(s); }
-	void Animation::addSteps(const vector<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }
 }

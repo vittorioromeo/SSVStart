@@ -6,9 +6,7 @@
 #define SSVS_ASSETS_INTERNAL_RESOURCEHOLDER
 
 #include <cassert>
-#include <string>
-#include <memory>
-#include <unordered_map>
+#include "SSVStart/Global/Typedefs.h"
 #include "SSVStart/Assets/Internal/Loader.h"
 
 namespace ssvs
@@ -18,7 +16,7 @@ namespace ssvs
 		template<typename T> class ResourceHolder
 		{
 			private:
-				std::unordered_map<std::string, std::unique_ptr<T>> resources;
+				std::unordered_map<std::string, Uptr<T>> resources;
 
 			public:
 				template<typename... TArgs> T& load(const std::string& mId, TArgs&&... mArgs)
@@ -40,7 +38,7 @@ namespace ssvs
 				}
 
 				bool has(const std::string& mId) { return resources.count(mId) > 0; }
-				std::unordered_map<std::string, std::unique_ptr<T>>& getResources() { return resources; }
+				std::unordered_map<std::string, Uptr<T>>& getResources() { return resources; }
 		};
 	}
 }

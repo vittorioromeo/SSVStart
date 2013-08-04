@@ -5,13 +5,12 @@
 #ifndef SSVS_ASSETS_INTERNAL_LOADER
 #define SSVS_ASSETS_INTERNAL_LOADER
 
-#include <string>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "SSVStart/Assets/Internal/Helper.h"
 #include "SSVStart/BitmapFont/BitmapFont.h"
+#include "SSVStart/Assets/Internal/Helper.h"
 
 namespace ssvs
 {

@@ -5,15 +5,7 @@
 #ifndef SSVS_ASSETS_INTERNAL_HELPER
 #define SSVS_ASSETS_INTERNAL_HELPER
 
-#include <string>
 #include <stdexcept>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SSVUtils/SSVUtils.h>
-#include "SSVStart/BitmapFont/BitmapFont.h"
-#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {

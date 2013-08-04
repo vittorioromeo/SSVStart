@@ -11,7 +11,7 @@
 #include "SSVStart/Animation/Animation.h"
 #include "SSVStart/Input/Combo.h"
 #include "SSVStart/Input/Trigger.h"
-#include "SSVStart/BitmapFont/BitmapFontData.h"
+#include "SSVStart/BitmapFont/BitmapFont.h"
 #include "SSVStart/Utils/UtilsInput.h"
 
 namespace ssvuj

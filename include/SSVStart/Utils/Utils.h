@@ -12,11 +12,13 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 #include <SSVUtils/SSVUtils.h>
-#include "SSVStart/GameSystem/GameState.h"
 #include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
+	class GameState;
+	namespace Input { class Trigger; }
+
 	namespace Utils
 	{
 		// Angles

@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <string>
-#include <SFML/System.hpp>
 #include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
@@ -27,9 +26,9 @@ namespace ssvs
 		public:
 			Animation() = default;
 			void update(float mFrameTime);
-			void addStep(const AnimationStep& mStep);
-			void addSteps(const std::vector<AnimationStep>& mSteps);
-			void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime);
+			inline void addStep(const AnimationStep& mStep)								{ steps.push_back(mStep); }
+			inline void addSteps(const std::vector<AnimationStep>& mSteps)				{ for(const auto& s : mSteps) steps.push_back(s); }
+			inline void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }
 
 			// Setters
 			inline void setSpeed(float mSpeed)		{ speed = mSpeed; }

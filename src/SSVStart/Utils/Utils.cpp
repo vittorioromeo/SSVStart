@@ -3,6 +3,7 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include "SSVStart/Utils/Utils.h"
+#include "SSVStart/GameSystem/GameState.h"
 
 using namespace ssvu;
 using namespace std;

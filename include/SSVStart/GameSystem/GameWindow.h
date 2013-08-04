@@ -13,20 +13,20 @@
 namespace ssvs
 {
 	class GameState;
-	struct TimerBase;
-	struct StaticTimer;
-	struct DynamicTimer;
+	class TimerBase;
+	class StaticTimer;
+	class DynamicTimer;
 
 	class GameWindow
 	{
-		friend struct TimerBase;
-		friend struct StaticTimer;
-		friend struct DynamicTimer;
+		friend class TimerBase;
+		friend class StaticTimer;
+		friend class DynamicTimer;
 
 		private:
 			GameState* gameState{nullptr}; // not owned, just pointed to
 			sf::RenderWindow renderWindow;
-			std::string title{""};
+			std::string title;
 			sf::Clock clock;
 
 			bool running{true}, focus{true}, mustRecreate{true}, vsync{false};

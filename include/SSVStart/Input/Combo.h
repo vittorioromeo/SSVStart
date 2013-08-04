@@ -6,7 +6,6 @@
 #define SSVS_INPUT_COMBO
 
 #include <vector>
-#include <functional>
 #include <SFML/Window.hpp>
 
 namespace ssvs

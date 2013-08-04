@@ -10,6 +10,8 @@
 
 namespace ssvs
 {
+	struct BitmapFontData { unsigned int cellColumns, cellWidth, cellHeight, cellStart; };
+
 	class BitmapFont
 	{
 		private:

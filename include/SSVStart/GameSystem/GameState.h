@@ -5,11 +5,9 @@
 #ifndef SSVS_GAMESYSTEM_GAMESTATE
 #define SSVS_GAMESYSTEM_GAMESTATE
 
-#include <functional>
 #include <map>
 #include <SSVUtils/SSVUtils.h>
 #include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 #include "SSVStart/Input/Manager.h"
 #include "SSVStart/Input/Trigger.h"
 
@@ -27,15 +25,15 @@ namespace ssvs
 			using IFunc = Input::InputFunc;
 			using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
-			GameWindow* gameWindowPtr{nullptr}; // not owned, just pointed to
+			GameWindow* gameWindow{nullptr}; // not owned, just pointed to
 			Input::Manager inputManager;
 			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
 			inline void handleEvent(const sf::Event& mEvent)	{ eventDelegates[mEvent.type](mEvent); }
 			inline void update(float mFrameTime)				{ onUpdate(mFrameTime); }
 			inline void draw()									{ onDraw(); }
-			inline void updateInput(float mFrameTime)			{ inputManager.update(*gameWindowPtr, mFrameTime); }
-			inline void refreshInput()							{ inputManager.refresh(*gameWindowPtr); }
+			inline void updateInput(float mFrameTime)			{ inputManager.update(*gameWindow, mFrameTime); }
+			inline void refreshInput()							{ inputManager.refresh(*gameWindow); }
 
 		public:
 			ssvu::Delegate<void()> onDraw;
