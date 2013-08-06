@@ -47,7 +47,7 @@ namespace ssvs
 			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Continuous)					{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
 			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Continuous)	{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn, mFuncOff}); }
 
-			inline EventDelegate& getEventDelegate(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
+			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
 		};
 	}
 
