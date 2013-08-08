@@ -18,7 +18,7 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Value& mRoot)
+		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot)
 		{
 			Animation result;
 
@@ -36,7 +36,7 @@ namespace ssvs
 			return result;
 		}
 
-		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Value& mRoot)
+		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Obj& mRoot)
 		{
 			auto a1 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.load<Font>(f, mRootPath + f); });
 			auto a2 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))			mAssetManager.load<Image>(f, mRootPath + f); });
