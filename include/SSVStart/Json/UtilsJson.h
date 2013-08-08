@@ -84,7 +84,7 @@ namespace ssvuj
 
 	template<> inline void set<ssvs::Input::Combo>(Impl& mRoot, const ssvs::Input::Combo& mValueToSet)
 	{
-		unsigned int i{0};
+		auto i(0u);
 		const auto& keys(mValueToSet.getKeys());
 		const auto& buttons(mValueToSet.getButtons());
 		for(unsigned int j{0}; j < keys.size(); ++i, ++j) set(mRoot, i, ssvs::Utils::getKeyName(keys[j]));
@@ -93,7 +93,7 @@ namespace ssvuj
 	template<> inline void set<ssvs::Input::Trigger>(Impl& mRoot, const ssvs::Input::Trigger& mValueToSet)
 	{
 		const auto& combos(mValueToSet.getCombos());
-		for(unsigned int i{0}; i < combos.size(); ++i) set(mRoot, i, combos[i]);
+		for(auto i(0u); i < combos.size(); ++i) set(mRoot, i, combos[i]);
 	}
 	template<> inline void set<ssvs::Tileset>(Impl& mRoot, const ssvs::Tileset& mValueToSet)
 	{

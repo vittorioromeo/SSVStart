@@ -31,7 +31,7 @@ namespace ssvs
 			void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override;
 
 			inline void setString(const std::string& mStr)	{ str = mStr; mustRecalculate = true; }
-			inline void setColor(const sf::Color& mColor)	{ color = mColor; for(unsigned int i{0}; i < vertices.getVertexCount(); ++i) vertices[i].color = color; }
+			inline void setColor(const sf::Color& mColor)	{ color = mColor; for(auto i(0u); i < vertices.getVertexCount(); ++i) vertices[i].color = color; }
 			inline void setTracking(int mTracking)			{ tracking = mTracking; mustRecalculate = true; }
 
 			inline const BitmapFont& getBitmapFont() const	{ return bitmapFont; }
