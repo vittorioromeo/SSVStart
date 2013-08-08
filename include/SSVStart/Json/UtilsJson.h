@@ -18,126 +18,96 @@ namespace ssvuj
 {
 	namespace Internal
 	{
-		template<> struct FromJson<ssvs::Input::Combo>
+		template<> struct Converter<ssvs::Input::Combo>
 		{
-			inline static ssvs::Input::Combo conv(const Obj& mObj)
+			using T = ssvs::Input::Combo;
+			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				ssvs::Input::Combo result;
-
 				for(const auto& inputName : as<std::vector<std::string>>(mObj))
 				{
-					if(ssvs::Utils::isKeyNameValid(inputName)) result.addKey(ssvs::Utils::getKey(inputName));
-					else if(ssvs::Utils::isButtonNameValid(inputName)) result.addButton(ssvs::Utils::getButton(inputName));
+					if(ssvs::Utils::isKeyNameValid(inputName)) mValue.addKey(ssvs::Utils::getKey(inputName));
+					else if(ssvs::Utils::isButtonNameValid(inputName)) mValue.addButton(ssvs::Utils::getButton(inputName));
 					else ssvu::lo << ssvu::lt("ssvs::Utils::getInputComboFromJSON") << "<" << inputName << "> is not a valid input name";
 				}
-
-				return result;
 			}
-		};
-		template<> struct FromJson<ssvs::Input::Trigger>
-		{
-			inline static ssvs::Input::Trigger conv(const Obj& mObj)
+			inline static void toObj(Obj& mObj, const T& mValue)
 			{
-				ssvs::Input::Trigger result;
-
-				for(const auto& comboArray : as<std::vector<ssvuj::Obj>>(mObj))
-					result.add(as<ssvs::Input::Combo>(comboArray));
-
-				return result;
-			}
-		};
-		template<> struct FromJson<ssvs::Tileset>
-		{
-			inline static ssvs::Tileset conv(const Obj& mObj)
-			{
-				ssvs::Vec2u tileSize{as<unsigned int>(mObj, "tileWidth"), as<unsigned int>(mObj, "tileHeight")};
-				ssvs::Tileset result{tileSize};
-
-				const ssvuj::Obj& labels(as<ssvuj::Obj>(mObj, "labels"));
-				for(unsigned int iY{0}; iY < size(labels); ++iY)
-					for(unsigned int iX{0}; iX < size(labels[iY]); ++iX)
-						result.setLabel(as<std::string>(labels[iY][iX]), {iX, iY});
-
-				return result;
-			}
-		};
-		template<> struct FromJson<ssvs::BitmapFontData>
-		{
-			inline static ssvs::BitmapFontData conv(const Obj& mObj)
-			{
-				unsigned int cellColumns(as<int>(mObj, "cellColumns"));
-				unsigned int cellWidth(as<int>(mObj, "cellWidth"));
-				unsigned int cellHeight(as<int>(mObj, "cellHeight"));
-				unsigned int cellStart(as<int>(mObj, "cellStart"));
-
-				return {cellColumns, cellWidth, cellHeight, cellStart};
-			}
-		};
-		template<> struct FromJson<sf::Color>
-		{
-			inline static sf::Color conv(const Obj& mObj)
-			{
-				return sf::Color(as<float>(mObj, 0), as<float>(mObj, 1), as<float>(mObj, 2), as<float>(mObj, 3));
-			}
-		};
-
-		template<> struct ToJson<ssvs::Input::Combo>
-		{
-			inline static Obj conv(const ssvs::Input::Combo& mValue)
-			{
-				Obj result;
 				auto i(0u);
 				const auto& keys(mValue.getKeys());
 				const auto& buttons(mValue.getButtons());
-				for(auto j(0u); j < keys.size(); ++i, ++j) set(result, i, ssvs::Utils::getKeyName(keys[j]));
-				for(auto j(0u); j < buttons.size(); ++i, ++j) set(result, i, ssvs::Utils::getButtonName(buttons[j]));
-				return result;
+				for(auto j(0u); j < keys.size(); ++i, ++j) set(mObj, i, ssvs::Utils::getKeyName(keys[j]));
+				for(auto j(0u); j < buttons.size(); ++i, ++j) set(mObj, i, ssvs::Utils::getButtonName(buttons[j]));
 			}
 		};
-
-		template<> struct ToJson<ssvs::Input::Trigger>
+		template<> struct Converter<ssvs::Input::Trigger>
 		{
-			inline static Obj conv(const ssvs::Input::Trigger& mValue)
+			using T = ssvs::Input::Trigger;
+			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				Obj result;
+				for(const auto& comboArray : as<std::vector<Obj>>(mObj)) mValue.add(as<ssvs::Input::Combo>(comboArray));
+			}
+			inline static void toObj(Obj& mObj, const T& mValue)
+			{
 				const auto& combos(mValue.getCombos());
-				for(auto i(0u); i < combos.size(); ++i) set(result, i, combos[i]);
-				return result;
+				for(auto i(0u); i < combos.size(); ++i) set(mObj, i, combos[i]);
 			}
 		};
-		template<> struct ToJson<ssvs::Tileset>
+		template<> struct Converter<ssvs::Tileset>
 		{
-			inline static Obj conv(const ssvs::Tileset& mValue)
+			using T = ssvs::Tileset;
+			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				Obj result;
-				set(result, "tileWidth", mValue.getTileSize().x);
-				set(result, "tileHeight", mValue.getTileSize().y);
+				ssvs::Vec2u tileSize{as<unsigned int>(mObj, "tileWidth"), as<unsigned int>(mObj, "tileHeight")};
+
+				const auto& labels(as<Obj>(mObj, "labels"));
+				for(auto iY(0u); iY < size(labels); ++iY)
+					for(auto iX(0u); iX < size(labels[iY]); ++iX)
+						mValue.setLabel(as<std::string>(labels[iY][iX]), {iX, iY});
+
+				mValue.setTileSize(tileSize);
+			}
+			inline static void toObj(Obj& mObj, const T& mValue)
+			{
+				set(mObj, "tileWidth", mValue.getTileSize().x);
+				set(mObj, "tileHeight", mValue.getTileSize().y);
 				// TODO: labels
-				return result;
 			}
 		};
-		template<> struct ToJson<ssvs::BitmapFontData>
+		template<> struct Converter<ssvs::BitmapFontData>
 		{
-			inline static Obj conv(const ssvs::BitmapFontData& mValue)
+			using T = ssvs::BitmapFontData;
+			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				Obj result;
-				set(result, "cellColumns", mValue.cellColumns);
-				set(result, "cellWidth", mValue.cellWidth);
-				set(result, "cellHeight", mValue.cellHeight);
-				set(result, "cellStart", mValue.cellStart);
-				return result;
+				mValue.cellColumns = as<int>(mObj, "cellColumns");
+				mValue.cellWidth = as<int>(mObj, "cellWidth");
+				mValue.cellHeight = as<int>(mObj, "cellHeight");
+				mValue.cellStart = as<int>(mObj, "cellStart");
+			}
+			inline static void toObj(Obj& mObj, const T& mValue)
+			{
+				set(mObj, "cellColumns", mValue.cellColumns);
+				set(mObj, "cellWidth", mValue.cellWidth);
+				set(mObj, "cellHeight", mValue.cellHeight);
+				set(mObj, "cellStart", mValue.cellStart);
 			}
 		};
-		template<> struct ToJson<sf::Color>
+		template<> struct Converter<sf::Color>
 		{
-			inline static Obj conv(const sf::Color& mValue)
+			using T = sf::Color;
+			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				Obj result;
-				set(result, 0, mValue.r);
-				set(result, 1, mValue.g);
-				set(result, 2, mValue.b);
-				set(result, 3, mValue.a);
-				return result;
+				mValue.r = as<float>(mObj, 0);
+				mValue.g = as<float>(mObj, 1);
+				mValue.b = as<float>(mObj, 2);
+				mValue.a = as<float>(mObj, 3);
+
+			}
+			inline static void toObj(Obj& mObj, const T& mValue)
+			{
+				set(mObj, 0, mValue.r);
+				set(mObj, 1, mValue.g);
+				set(mObj, 2, mValue.b);
+				set(mObj, 3, mValue.a);
 			}
 		};
 	}

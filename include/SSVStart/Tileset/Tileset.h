@@ -19,8 +19,10 @@ namespace ssvs
 			std::unordered_map<std::string, Vec2u> labels;
 
 		public:
+			Tileset() = default;
 			Tileset(Vec2u mTileSize) : tileSize{mTileSize} { }
 
+			inline void setTileSize(Vec2u mTileSize)								{ tileSize = mTileSize; }
 			inline void setLabel(const std::string& mLabel, Vec2u mIndex)			{ labels[mLabel] = mIndex; }
 
 			inline Vec2u getIndex(const std::string& mLabel) const					{ return labels.at(mLabel); }
