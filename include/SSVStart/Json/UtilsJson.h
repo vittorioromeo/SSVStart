@@ -110,24 +110,6 @@ namespace ssvuj
 				set(mObj, 3, mValue.a);
 			}
 		};
-
-
-		template<> struct Converter<sf::Packet>
-		{
-			template<unsigned int TIndex, typename TArg> inline void jBuildHelper(ssvuj::Obj& mP, TArg&& mArg) { ssvuj::set(mP, TIndex, mArg); }
-			template<unsigned int TIndex, typename TArg, typename... TArgs> inline void jBuildHelper(ssvuj::Obj& mP, TArg&& mArg, TArgs&&... mArgs) { ssvuj::set(mP, TIndex, mArg); jBuildHelper<TIndex + 1>(mP, mArgs...); }
-
-			using T = sf::Packet;
-			inline static void fromObj(T& mValue, const Obj& mObj)
-			{
-
-
-			}
-			inline static void toObj(Obj& mObj, const T& mValue)
-			{
-
-			}
-		};
 	}
 }
 
