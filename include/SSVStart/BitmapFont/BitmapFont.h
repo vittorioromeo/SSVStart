@@ -6,7 +6,6 @@
 #define SSVS_BITMAPFONT
 
 #include <SFML/Graphics.hpp>
-#include "SSVStart/BitmapFont/BitmapFontData.h"
 
 namespace ssvs
 {
