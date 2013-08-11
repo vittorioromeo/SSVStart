@@ -2,7 +2,7 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include <map>
+#include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Utils/UtilsInput.h"
 
 using namespace std;
@@ -12,26 +12,10 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		template<typename T, typename U> class Bimap
-		{
-			private:
-				map<T, U> map1;
-				map<U, T> map2;
-
-			public:
-				Bimap(const initializer_list<pair<T, U>>& mPairs) { for(const auto& pair : mPairs) insert(pair); }
-
-				inline void insert(pair<T, U> mPair)		{ map1[mPair.first] = mPair.second; map2[mPair.second] = mPair.first; }
-				inline const T& at(const U& mValue) const	{ return map2.at(mValue); }
-				inline const U& at(const T& mValue) const	{ return map1.at(mValue); }
-				inline bool hasValue(const T& mValue) const	{ return map1.find(mValue) != end(map1); }
-				inline bool hasValue(const U& mValue) const	{ return map2.find(mValue) != end(map2); }
-		};
-
 		const string keyPrefix{"k"}, buttonPrefix{"b"};
 
 		#define SSVS_INSERT_KEY(mName) {keyPrefix + #mName, Keyboard::Key::mName}
-		Bimap<string, Keyboard::Key> keys
+		ssvu::Bimap<string, Keyboard::Key> keys
 		{
 			SSVS_INSERT_KEY(A),
 			SSVS_INSERT_KEY(B),
@@ -137,7 +121,7 @@ namespace ssvs
 		#undef SSVS_INSERT_KEY
 
 		#define SSVS_INSERT_BUTTON(mName) {buttonPrefix + #mName, Mouse::Button::mName}
-		Bimap<string, Mouse::Button> buttons
+		ssvu::Bimap<string, Mouse::Button> buttons
 		{
 			SSVS_INSERT_BUTTON(Left),
 			SSVS_INSERT_BUTTON(Right),
@@ -151,7 +135,7 @@ namespace ssvs
 		Mouse::Button getButton(const string& mName)		{ return buttons.at(mName); }
 		const string& getKeyName(Keyboard::Key mKey)		{ return keys.at(mKey); }
 		const string& getButtonName(Mouse::Button mButton)	{ return buttons.at(mButton); }
-		bool isKeyNameValid(const string& mName)			{ return keys.hasValue(mName); }
-		bool isButtonNameValid(const string& mName)			{ return buttons.hasValue(mName); }
+		bool isKeyNameValid(const string& mName)			{ return keys.has(mName); }
+		bool isButtonNameValid(const string& mName)			{ return buttons.has(mName); }
 	}
 }
