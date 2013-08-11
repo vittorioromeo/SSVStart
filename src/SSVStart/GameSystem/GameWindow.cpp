@@ -11,9 +11,6 @@ using namespace sf;
 
 namespace ssvs
 {
-	GameWindow::GameWindow(const string& mTitle, TimerBase& mTimer, unsigned int mScreenWidth, unsigned int mScreenHeight, int mPixelMultiplier, bool mFullscreen) :
-		title{mTitle}, width{mScreenWidth}, height{mScreenHeight}, pixelMultiplier{mPixelMultiplier}, fullscreen{mFullscreen}, timer(&mTimer) { }
-
 	void GameWindow::run()
 	{
 		while(running)
@@ -40,9 +37,15 @@ namespace ssvs
 	{
 		if(renderWindow.isOpen()) renderWindow.close();
 		renderWindow.create({width, height}, title, fullscreen ? Style::Fullscreen : Style::Default, ContextSettings{0, 0, antialiasingLevel, 0, 0});
-		renderWindow.setSize({width * pixelMultiplier, height * pixelMultiplier});
+		renderWindow.setSize({width * pixelMult, height * pixelMult});
 		renderWindow.setVerticalSyncEnabled(vsync);
+		if(replacementTimer != nullptr)
+		{
+			timer.reset(replacementTimer);
+			replacementTimer = nullptr;
+		}
 		mustRecreate = false;
+		onRecreation();
 	}
 
 	void GameWindow::runInput()
