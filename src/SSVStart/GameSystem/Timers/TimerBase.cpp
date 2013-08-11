@@ -7,11 +7,5 @@
 
 namespace ssvs
 {
-	TimerBase::TimerBase(GameWindow& mGameWindow) : gameWindow(mGameWindow) { }
-	TimerBase::~TimerBase() { }
-
-	void TimerBase::runUpdate()		{ }
 	void TimerBase::runDraw()		{ gameWindow.runDraw(); }
-	void TimerBase::runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }
-	void TimerBase::runFps()		{ fps = 60.f / frameTime; }
 }

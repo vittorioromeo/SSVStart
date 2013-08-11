@@ -7,14 +7,5 @@
 
 namespace ssvs
 {
-	DynamicTimer::DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
-
 	void DynamicTimer::runUpdate() { gameWindow.runUpdate(frameTime); }
-	void DynamicTimer::runFps()
-	{
-		if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
-		TimerBase::runFps();
-	}
-
-	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow) { return *(new DynamicTimer{mGameWindow}); }
 }

@@ -19,13 +19,13 @@ namespace ssvs
 			float frameTime{0}, fps{0};
 
 		public:
-			TimerBase(GameWindow& mGameWindow);
-			virtual ~TimerBase();
+			TimerBase(GameWindow& mGameWindow) : gameWindow(mGameWindow) { }
+			virtual ~TimerBase() { }
 
-			virtual void runUpdate();
+			inline virtual void runUpdate()		{ }
+			inline virtual void runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }
+			inline virtual void runFps()		{ fps = 60.f / frameTime; }
 			virtual void runDraw();
-			virtual void runFrameTime();
-			virtual void runFps();
 
 			inline float getFrameTime() const	{ return frameTime; }
 			inline float getFps() const			{ return fps; }

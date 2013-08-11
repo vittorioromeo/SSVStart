@@ -17,14 +17,15 @@ namespace ssvs
 			float frameTimeLimit{4.f};
 
 		public:
-			DynamicTimer(GameWindow& mGameWindow);
-			~DynamicTimer() { }
+			DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 
 			void runUpdate() override;
-			void runFps() override;
+			inline void runFps() override
+			{
+				if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
+				TimerBase::runFps();
+			}
 	};
-
-	DynamicTimer& createDynamicTimer(GameWindow& mGameWindow);
 }
 
 #endif
