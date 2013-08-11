@@ -37,8 +37,8 @@ namespace ssvs
 					return const_cast<T&>(static_cast<const ResourceHolder*>(this)->operator[](mId));
 				}
 
-				bool has(const std::string& mId) { return resources.count(mId) > 0; }
-				std::unordered_map<std::string, Uptr<T>>& getResources() { return resources; }
+				bool has(const std::string& mId) const	{ return resources.count(mId) > 0; }
+				decltype(resources)& getResources()		{ return resources; }
 		};
 	}
 }

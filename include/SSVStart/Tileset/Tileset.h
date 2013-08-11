@@ -22,13 +22,13 @@ namespace ssvs
 			Tileset() = default;
 			Tileset(Vec2u mTileSize) : tileSize{mTileSize} { }
 
-			inline void setTileSize(Vec2u mTileSize)								{ tileSize = mTileSize; }
-			inline void setLabel(const std::string& mLabel, Vec2u mIndex)			{ labels[mLabel] = mIndex; }
+			inline void setTileSize(Vec2u mTileSize)						{ tileSize = mTileSize; }
+			inline void setLabel(const std::string& mLabel, Vec2u mIndex)	{ labels[mLabel] = mIndex; }
 
-			inline Vec2u getIndex(const std::string& mLabel) const					{ return labels.at(mLabel); }
-			inline sf::IntRect operator[](Vec2u mIndex) const						{ return sf::IntRect(mIndex.x * tileSize.x, mIndex.y * tileSize.y, tileSize.x, tileSize.y); }
-			inline const std::unordered_map<std::string, Vec2u>& getLabels() const	{ return labels; }
-			inline Vec2u getTileSize() const										{ return tileSize; }
+			inline Vec2u getIndex(const std::string& mLabel) const	{ return labels.at(mLabel); }
+			inline sf::IntRect operator[](Vec2u mIndex) const		{ return sf::IntRect(mIndex.x * tileSize.x, mIndex.y * tileSize.y, tileSize.x, tileSize.y); }
+			inline const decltype(labels)& getLabels() const		{ return labels; }
+			inline Vec2u getTileSize() const						{ return tileSize; }
 	};
 }
 

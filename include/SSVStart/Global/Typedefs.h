@@ -14,7 +14,7 @@ namespace ssvs
 	using Vec2f = sf::Vector2f;
 	using Vec2u = sf::Vector2u;
 	template<typename T> using Vec2 = sf::Vector2<T>;
-	template<typename T> using Uptr = std::unique_ptr<T>;
+	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = std::unique_ptr<T, TDeleter>;
 }
 
 #endif
