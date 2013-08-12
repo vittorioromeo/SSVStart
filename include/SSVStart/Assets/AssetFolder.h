@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
@@ -15,10 +16,10 @@ namespace ssvs
 	class AssetFolder
 	{
 		private:
-			std::string rootPath;
-			std::vector<std::string> files;
+			Path rootPath;
+			std::vector<Path> files;
 
-			std::vector<std::string> getFilteredFiles(const std::vector<std::string>& mExtensions);
+			std::vector<Path> getFilteredFiles(const std::vector<std::string>& mExtensions);
 			void loadFontsToManager(AssetManager& mAssetManager);
 			void loadImagesToManager(AssetManager& mAssetManager);
 			void loadTexturesToManager(AssetManager& mAssetManager);
@@ -27,7 +28,7 @@ namespace ssvs
 			void loadShadersToManager(AssetManager& mAssetManager);
 
 		public:
-			AssetFolder(const std::string& mRootPath);
+			AssetFolder(const ssvu::FileSystem::Path& mRootPath);
 			void loadToManager(AssetManager& mAssetManager);
 	};
 }

@@ -13,7 +13,7 @@ using namespace ssvu::FileSystem;
 
 namespace ssvs
 {
-	AssetFolder::AssetFolder(const string& mRootPath) : rootPath{mRootPath}, files{getScan<Mode::Recurse, Type::File>(rootPath)} { }
+	AssetFolder::AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{getScan<Mode::Recurse, Type::File>(rootPath)} { }
 	void AssetFolder::loadToManager(AssetManager& mAssetManager)
 	{
 		loadImagesToManager(mAssetManager);
@@ -24,9 +24,9 @@ namespace ssvs
 		loadShadersToManager(mAssetManager);
 	}
 
-	vector<string> AssetFolder::getFilteredFiles(const vector<string>& mExtensions)
+	vector<Path> AssetFolder::getFilteredFiles(const vector<string>& mExtensions)
 	{
-		vector<string> result;
+		vector<Path> result;
 		for(const auto& f : files) for(const auto& e : mExtensions) if(hasExtension(f, e)) result.push_back(f);
 		return result;
 	}
@@ -36,7 +36,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Font>(id, f);
-			lo << lt("ssvs::AssetFolder::loadFontsToManager(" + rootPath + ")") << id + " font added" << endl;
+			lo << lt("ssvs::AssetFolder::loadFontsToManager(" + rootPath.getStr() + ")") << id + " font added" << endl;
 		}
 	}
 	void AssetFolder::loadImagesToManager(AssetManager& mAssetManager)
@@ -45,7 +45,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Image>(id, f);
-			lo << lt("ssvs::AssetFolder::loadImagesToManager(" + rootPath + ")") << id + " image added" << endl;
+			lo << lt("ssvs::AssetFolder::loadImagesToManager(" + rootPath.getStr() + ")") << id + " image added" << endl;
 		}
 	}
 	void AssetFolder::loadTexturesToManager(AssetManager& mAssetManager)
@@ -54,7 +54,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Texture>(id, f);
-			lo << lt("ssvs::AssetFolder::loadTexturesToManager(" + rootPath + ")") << id + " texture added" << endl;
+			lo << lt("ssvs::AssetFolder::loadTexturesToManager(" + rootPath.getStr() + ")") << id + " texture added" << endl;
 		}
 	}
 	void AssetFolder::loadSoundBuffersToManager(AssetManager& mAssetManager)
@@ -63,7 +63,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<SoundBuffer>(id, f);
-			lo << lt("ssvs::AssetFolder::loadSoundsToManager(" + rootPath + ")") << id + " soundBuffer added" << endl;
+			lo << lt("ssvs::AssetFolder::loadSoundsToManager(" + rootPath.getStr() + ")") << id + " soundBuffer added" << endl;
 		}
 	}
 	void AssetFolder::loadMusicsToManager(AssetManager& mAssetManager)
@@ -72,7 +72,7 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Music>(id, f);
-			lo << lt("ssvs::AssetFolder::loadMusicsToManager(" + rootPath + ")") << id + " music added" << endl;
+			lo << lt("ssvs::AssetFolder::loadMusicsToManager(" + rootPath.getStr() + ")") << id + " music added" << endl;
 		}
 	}
 	void AssetFolder::loadShadersToManager(AssetManager& mAssetManager)
@@ -81,13 +81,13 @@ namespace ssvs
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Shader>(id, f, Shader::Type::Vertex, Internal::ShaderFromPath{});
-			lo << lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")") << id + " vertex shader added" << endl;
+			lo << lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " vertex shader added" << endl;
 		}
 		for(const auto& f : getFilteredFiles({".frag"}))
 		{
 			string id{getReplaced(f, rootPath, "")};
 			mAssetManager.load<Shader>(id, f, Shader::Type::Fragment, Internal::ShaderFromPath{});
-			lo << lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath + ")") << id + " fragment shader added" << endl;
+			lo << lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " fragment shader added" << endl;
 		}
 	}
 }
