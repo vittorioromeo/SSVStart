@@ -13,6 +13,7 @@
 #include "SSVStart/Input/Trigger.h"
 #include "SSVStart/BitmapFont/BitmapFont.h"
 #include "SSVStart/Utils/UtilsInput.h"
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvuj
 {
@@ -121,7 +122,7 @@ namespace ssvs
 	namespace Utils
 	{
 		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot);
-		void loadAssetsFromJson(AssetManager& mAssetManager, const std::string& mRootPath, const ssvuj::Obj& mRoot);
+		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mRoot);
 	}
 }
 

@@ -23,7 +23,7 @@ namespace ssvs
 		template<> struct Loader<sf::Texture> // Texture can also be loaded from Image
 		{
 			using T = sf::Texture;
-			inline static Uptr<T> load(const std::string& mPath)				{ return Helper<Mode::Load, T>::load(mPath); }
+			inline static Uptr<T> load(const Path& mPath)						{ return Helper<Mode::Load, T>::load(mPath); }
 			inline static Uptr<T> load(const void* mData, std::size_t mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
 			inline static Uptr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
 			inline static Uptr<T> load(const sf::Image& mImage)					{ return Helper<Mode::Image, T>::load(mImage); }
@@ -31,7 +31,7 @@ namespace ssvs
 		template<> struct Loader<sf::SoundBuffer> // SoundBuffer can also be loaded from samples
 		{
 			using T = sf::SoundBuffer;
-			inline static Uptr<T> load(const std::string& mPath)				{ return Helper<Mode::Load, T>::load(mPath); }
+			inline static Uptr<T> load(const Path& mPath)						{ return Helper<Mode::Load, T>::load(mPath); }
 			inline static Uptr<T> load(const void* mData, std::size_t mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
 			inline static Uptr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
 			inline static Uptr<T> load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }

@@ -6,7 +6,6 @@
 #include <SFML/System.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Json/UtilsJson.h"
-
 #include "SSVStart/Assets/AssetManager.h"
 
 using namespace std;
@@ -36,7 +35,7 @@ namespace ssvs
 			return result;
 		}
 
-		void loadAssetsFromJson(AssetManager& mAssetManager, const string& mRootPath, const ssvuj::Obj& mRoot)
+		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mRoot)
 		{
 			auto a1 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "fonts"))				mAssetManager.load<Font>(f, mRootPath + f); });
 			auto a2 = async(launch::async, [&]{ for(const auto& f : as<vector<string>>(mRoot, "images"))			mAssetManager.load<Image>(f, mRootPath + f); });

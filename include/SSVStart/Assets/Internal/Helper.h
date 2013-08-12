@@ -22,7 +22,7 @@ namespace ssvs
 		template<Mode TT, typename T> struct Helper;
 		template<typename T> struct Helper<Mode::Load, T>
 		{
-			inline static Uptr<T> load(const std::string& mPath)
+			inline static Uptr<T> load(const Path& mPath)
 			{
 				auto result(ssvu::make_unique<T>());
 				if(!result->loadFromFile(mPath)) fail("from path");
@@ -43,7 +43,7 @@ namespace ssvs
 		};
 		template<typename T> struct Helper<Mode::Open, T>
 		{
-			inline static Uptr<T> load(const std::string& mPath)
+			inline static Uptr<T> load(const Path& mPath)
 			{
 				auto result(ssvu::make_unique<T>());
 				if(!result->openFromFile(mPath)) fail("from open path");
@@ -85,13 +85,13 @@ namespace ssvs
 		template<> struct Helper<Mode::Shader, sf::Shader>
 		{
 			using T = sf::Shader;
-			inline static Uptr<T> load(const std::string& mPath, sf::Shader::Type mType, ShaderFromPath)
+			inline static Uptr<T> load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
 			{
 				auto result(ssvu::make_unique<T>());
 				if(!result->loadFromFile(mPath, mType)) fail("shader from path");
 				return result;
 			}
-			inline static Uptr<T> load(const std::string& mPathVertex, const std::string& mPathFragment, ShaderFromPath)
+			inline static Uptr<T> load(const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
 			{
 				auto result(ssvu::make_unique<T>());
 				if(!result->loadFromFile(mPathVertex, mPathFragment)) fail("shader from path (2)");
