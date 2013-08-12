@@ -25,7 +25,7 @@ else()
 endif()
 
 set(SFML_STATIC_LIBRARIES FALSE CACHE BOOL "Look for static SFML libraries.")
-find_package(SFML 2 COMPONENTS audio graphics window system network)
+find_package(SFML 2.1 COMPONENTS audio graphics window system network)
 if(NOT SFML_FOUND)
 	set(SFML_INCLUDE_DIR "" CACHE STRING "SFML2 include directory")
 	set(SFML_SYSTEM_LIBRARY "" CACHE STRING "SFML2 System library file")
