@@ -7,5 +7,5 @@
 
 namespace ssvs
 {
-	void TimerBase::runDraw()		{ gameWindow.runDraw(); }
+	void TimerBase::runDraw() { gameWindow.runDraw(); }
 }
