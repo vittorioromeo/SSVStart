@@ -24,19 +24,28 @@ namespace ssvs
 				std::vector<Combo> combos;
 				bool released{true};
 
-				bool isDown(GameWindow& mGameWindow) const;
+				inline bool isDown(GameWindow& mGameWindow) const
+				{
+					for(const auto& c : combos) if(c.isDown(mGameWindow)) return true;
+					return false;
+				}
 
 			public:
 				Trigger() = default;
-				Trigger(const std::initializer_list<Combo>& mCombos);
+				Trigger(const std::initializer_list<Combo>& mCombos) : combos{mCombos} { }
 
-				void refresh(GameWindow& mGameWindow);
-				inline void add(const Combo& mCombo) { combos.push_back(mCombo); }
+				inline void refresh(GameWindow& mGameWindow)	{ if(!released && !isDown(mGameWindow)) released = true; }
+				inline void add(const Combo& mCombo)			{ combos.push_back(mCombo); }
 
 				inline void setType(Type mType)			{ type = mType; }
 				inline void setReleased(bool mValue)	{ released = mValue; }
 
-				bool isActive(GameWindow& mGameWindow);
+				inline bool isActive(GameWindow& mGameWindow)
+				{
+					if(type == Type::Continuous) return isDown(mGameWindow);
+					if(released && isDown(mGameWindow)) { released = false; return true; }
+					return false;
+				}
 
 				inline const std::vector<Combo>& getCombos() const { return combos; }
 		};

@@ -6,7 +6,6 @@
 #define SSVS_UTILS_INPUT
 
 #include <SFML/Window.hpp>
-#include "SSVStart/Input/Combo.h"
 
 namespace ssvs
 {

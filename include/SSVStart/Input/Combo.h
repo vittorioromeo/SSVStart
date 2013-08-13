@@ -22,13 +22,13 @@ namespace ssvs
 
 			public:
 				Combo() = default;
-				Combo(const std::initializer_list<sf::Keyboard::Key>& mKeys, const std::initializer_list<sf::Mouse::Button>& mButtons = {});
-				Combo(const std::initializer_list<sf::Mouse::Button>& mButtons);
+				Combo(const std::initializer_list<sf::Keyboard::Key>& mKeys, const std::initializer_list<sf::Mouse::Button>& mButtons = {}) : keys{mKeys}, buttons{mButtons} { }
+				Combo(const std::initializer_list<sf::Mouse::Button>& mButtons) : Combo{{}, mButtons} { }
 
 				bool isDown(GameWindow& mGameWindow) const;
 
-				inline void addKey(sf::Keyboard::Key mKey) { keys.push_back(mKey); }
-				inline void addButton(sf::Mouse::Button mButton) { buttons.push_back(mButton); }
+				inline void addKey(sf::Keyboard::Key mKey)			{ keys.push_back(mKey); }
+				inline void addButton(sf::Mouse::Button mButton)	{ buttons.push_back(mButton); }
 
 				inline const decltype(keys)& getKeys() const		{ return keys; }
 				inline const decltype(buttons)& getButtons() const	{ return buttons; }

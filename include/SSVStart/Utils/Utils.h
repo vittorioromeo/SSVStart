@@ -32,8 +32,7 @@ namespace ssvs
 		template<typename T> inline T getMagnitude(const Vec2<T>& mVec) { return sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
 		template<typename T> void rotateAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mRadians)
 		{
-			float s(sin(mRadians)), c(cos(mRadians));
-			mVec -= mCenter;
+			float s(sin(mRadians)), c(cos(mRadians)); mVec -= mCenter;
 			Vec2<T> newPoint(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c);
 			mVec = newPoint + mCenter;
 		}

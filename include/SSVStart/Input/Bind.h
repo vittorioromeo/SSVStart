@@ -15,17 +15,23 @@ namespace ssvs
 
 	namespace Input
 	{
-		struct Bind
+		class Bind
 		{
-			typedef std::function<void(float)> InputFunc;
+			public:
+				using InputFunc = std::function<void(float)>;
 
-			Trigger trigger;
-			InputFunc on, off;
+			private:
+				Trigger trigger;
+				InputFunc on, off;
 
-			Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{mTrigger}, on{mOn}, off{mOff} { }
+			public:
+				Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{mTrigger}, on{mOn}, off{mOff} { }
 
-			inline void callOn(float mFrameTime) const	{ if(on != nullptr) on(mFrameTime); }
-			inline void callOff(float mFrameTime) const	{ if(off != nullptr) off(mFrameTime); }
+				inline void update(float mFrameTime, GameWindow& mGameWindow) { trigger.isActive(mGameWindow) ? callOn(mFrameTime) : callOff(mFrameTime); }
+				inline void refresh(GameWindow& mGameWindow)	{ trigger.refresh(mGameWindow); }
+
+				inline void callOn(float mFrameTime) const		{ if(on != nullptr) on(mFrameTime); }
+				inline void callOff(float mFrameTime) const		{ if(off != nullptr) off(mFrameTime); }
 		};
 	}
 }
