@@ -21,7 +21,7 @@ namespace ssvs
 			renderWindow.clear();
 
 			gameState->refreshInput();
-			runInput();
+
 			timer->runUpdate();
 			gameState->onPostUpdate();
 
@@ -48,7 +48,7 @@ namespace ssvs
 		onRecreation();
 	}
 
-	void GameWindow::runInput()
+	void GameWindow::runUpdate(float mFrameTime)
 	{
 		Event event;
 		while(renderWindow.pollEvent(event))
@@ -65,8 +65,8 @@ namespace ssvs
 		}
 
 		gameState->updateInput(timer->getFrameTime());
+		gameState->update(mFrameTime);
 	}
-	void GameWindow::runUpdate(float mFrameTime)	{ gameState->update(mFrameTime); }
 	void GameWindow::runDraw()						{ gameState->draw(); }
 
 	void GameWindow::setGameState(GameState& mGameState)	{ gameState = &mGameState; mGameState.gameWindow = this; }

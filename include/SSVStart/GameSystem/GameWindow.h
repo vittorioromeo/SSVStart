@@ -36,7 +36,6 @@ namespace ssvs
 			Uptr<TimerBase> timer;
 			TimerBase* replacementTimer{nullptr};
 
-			void runInput();
 			void runUpdate(float mFrameTime);
 			void runDraw();
 
