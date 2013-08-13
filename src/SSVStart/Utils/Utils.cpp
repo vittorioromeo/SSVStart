@@ -36,8 +36,8 @@ namespace ssvs
 		}
 		void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, Input::Trigger mPositive, int& mValue)
 		{
-			mGameState.addInput(mNegative, [&](float){ mValue = -1; }, [&](float){ if(mValue == -1) mValue = 0; });
-			mGameState.addInput(mPositive, [&](float){ mValue = 1; }, [&](float){ if(mValue == 1) mValue = 0; });
+			mGameState.addInput(mNegative, [&](float){ mValue = -1; },	[&](float){ if(mValue == -1) mValue = 0; });
+			mGameState.addInput(mPositive, [&](float){ mValue = 1; },	[&](float){ if(mValue == 1) mValue = 0; });
 		}
 	}
 }
