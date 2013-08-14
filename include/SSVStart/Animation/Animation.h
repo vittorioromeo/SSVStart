@@ -6,7 +6,6 @@
 #define SSVS_ANIMATION
 
 #include <vector>
-#include <string>
 #include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs

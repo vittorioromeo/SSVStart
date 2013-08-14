@@ -9,7 +9,6 @@
 #include <string>
 #include <unordered_map>
 #include <SSVUtils/SSVUtils.h>
-#include "SSVStart/Assets/AssetFolder.h"
 #include "SSVStart/Assets/Internal/ResourceHolder.h"
 
 namespace sf
