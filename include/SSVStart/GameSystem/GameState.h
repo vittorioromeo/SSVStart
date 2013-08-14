@@ -36,16 +36,15 @@ namespace ssvs
 			inline void refreshInput()							{ inputManager.refresh(*gameWindow); }
 
 		public:
-			ssvu::Delegate<void()> onDraw;
+			ssvu::Delegate<void()> onDraw, onPostUpdate;
 			ssvu::Delegate<void(float)> onUpdate;
-			ssvu::Delegate<void()> onPostUpdate;
 
 			GameState() = default;
 			GameState(const GameState&) = delete; // non construction-copyable
 			GameState& operator=(const GameState&) = delete; // non copyable
 
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Continuous)					{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Continuous)	{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn, mFuncOff}); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always)					{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always)	{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn, mFuncOff}); }
 
 			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
 		};

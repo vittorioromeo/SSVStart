@@ -25,8 +25,7 @@ namespace ssvs
 			public:
 				inline void update(GameWindow& mGameWindow, float mFrameTime)	{ for(auto& b : binds) b.update(mFrameTime, mGameWindow); }
 				inline void refresh(GameWindow& mGameWindow)					{ for(auto& b : binds) b.refresh(mGameWindow); }
-
-				inline void add(const Bind& mBind) { binds.push_back(mBind); }
+				inline void add(const Bind& mBind)								{ binds.push_back(mBind); }
 		};
 	}
 }

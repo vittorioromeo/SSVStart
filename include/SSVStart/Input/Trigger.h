@@ -17,10 +17,10 @@ namespace ssvs
 		class Trigger
 		{
 			public:
-				enum class Type{Continuous, Single};
+				enum class Type{Always, Once};
 
 			private:
-				Type type{Type::Continuous};
+				Type type{Type::Always};
 				std::vector<Combo> combos;
 				bool released{true};
 
@@ -42,7 +42,7 @@ namespace ssvs
 
 				inline bool isActive(GameWindow& mGameWindow)
 				{
-					if(type == Type::Continuous) return isDown(mGameWindow);
+					if(type == Type::Always) return isDown(mGameWindow);
 					if(released && isDown(mGameWindow)) { released = false; return true; }
 					return false;
 				}
