@@ -28,7 +28,7 @@ namespace ssvs
 			void loadShadersToManager(AssetManager& mAssetManager);
 
 		public:
-			AssetFolder(const ssvu::FileSystem::Path& mRootPath);
+			AssetFolder(const Path& mRootPath);
 			void loadToManager(AssetManager& mAssetManager);
 	};
 }
