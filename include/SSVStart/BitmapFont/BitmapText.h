@@ -26,7 +26,7 @@ namespace ssvs
 			void recalculate();
 
 		public:
-			BitmapText(const BitmapFont& mBitmapFont, const std::string& mStr = "");
+			BitmapText(const BitmapFont& mBitmapFont, const std::string& mStr = "") : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{mStr} { }
 
 			void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override;
 

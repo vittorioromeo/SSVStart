@@ -5,11 +5,14 @@
 #ifndef SSVS_GAMESYSTEM_GAMEWINDOW
 #define SSVS_GAMESYSTEM_GAMEWINDOW
 
+#include <cassert>
 #include <string>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Global/Typedefs.h"
+#include "SSVStart/GameSystem/GameState.h"
+#include "SSVStart/GameSystem/Timers/TimerBase.h"
 
 namespace ssvs
 {
@@ -37,7 +40,7 @@ namespace ssvs
 			TimerBase* replacementTimer{nullptr};
 
 			void runUpdate(float mFrameTime);
-			void runDraw();
+			inline void runDraw() { gameState->draw(); }
 
 		public:
 			ssvu::Delegate<void()> onRecreation;
@@ -71,8 +74,8 @@ namespace ssvs
 			inline void setTitle(const std::string& mTitle)						{ title = mTitle; renderWindow.setTitle(mTitle); }
 			inline void setMaxFPS(float mMaxFPS)								{ maxFPS = mMaxFPS; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setFPSLimited(bool mFPSLimited)							{ fpsLimited = mFPSLimited; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
-			inline void setPixelMult(int mPixelMult)							{ pixelMult = mPixelMult; mustRecreate = true; }
-			void setGameState(GameState& mGameState);
+			inline void setPixelMult(unsigned int mPixelMult)					{ pixelMult = mPixelMult; mustRecreate = true; }
+			inline void setGameState(GameState& mGameState)						{ gameState = &mGameState; mGameState.gameWindow = this; }
 
 			inline sf::RenderWindow& getRenderWindow()			{ return renderWindow; }
 			inline bool getFullscreen() const					{ return fullscreen; }
@@ -83,12 +86,12 @@ namespace ssvs
 			inline bool hasFocus() const						{ return focus; }
 			inline bool getVsync() const						{ return vsync; }
 			inline bool isFPSLimited() const					{ return fpsLimited; }
-			float getFPS() const;
+			inline float getFPS() const							{ return timer->getFps(); }
 
 			template<typename T> inline T& getTimer() { return static_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
 			{
-				if(replacementTimer != nullptr) throw;
+				assert(replacementTimer != nullptr);
 				replacementTimer = new T{*this, std::forward<TArgs>(mArgs)...}; mustRecreate = true;
 			}
 	};

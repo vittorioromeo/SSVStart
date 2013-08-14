@@ -3,8 +3,6 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #include "SSVStart/GameSystem/GameWindow.h"
-#include "SSVStart/GameSystem/GameState.h"
-#include "SSVStart/GameSystem/Timers/TimerBase.h"
 
 using namespace std;
 using namespace sf;
@@ -39,13 +37,8 @@ namespace ssvs
 		renderWindow.create({width, height}, title, fullscreen ? Style::Fullscreen : Style::Default, ContextSettings{0, 0, antialiasingLevel, 0, 0});
 		renderWindow.setSize({width * pixelMult, height * pixelMult});
 		renderWindow.setVerticalSyncEnabled(vsync);
-		if(replacementTimer != nullptr)
-		{
-			timer.reset(replacementTimer);
-			replacementTimer = nullptr;
-		}
-		mustRecreate = false;
-		onRecreation();
+		if(replacementTimer != nullptr) { timer.reset(replacementTimer); replacementTimer = nullptr; }
+		mustRecreate = false; onRecreation();
 	}
 
 	void GameWindow::runUpdate(float mFrameTime)
@@ -67,8 +60,4 @@ namespace ssvs
 		gameState->updateInput(timer->getFrameTime());
 		gameState->update(mFrameTime);
 	}
-	void GameWindow::runDraw()						{ gameState->draw(); }
-
-	void GameWindow::setGameState(GameState& mGameState)	{ gameState = &mGameState; mGameState.gameWindow = this; }
-	float GameWindow::getFPS() const						{ return timer->getFps(); }
 }

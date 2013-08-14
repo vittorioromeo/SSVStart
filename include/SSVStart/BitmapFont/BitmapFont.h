@@ -6,6 +6,7 @@
 #define SSVS_BITMAPFONT
 
 #include <SFML/Graphics.hpp>
+#include <SSVUtils/SSVUtils.h>
 
 namespace ssvs
 {
@@ -23,7 +24,12 @@ namespace ssvs
 			inline const sf::Texture& getTexture() const	{ return texture; }
 			inline unsigned int getCellWidth() const		{ return data.cellWidth; }
 			inline unsigned int getCellHeight() const		{ return data.cellHeight; }
-			sf::IntRect getGlyphRect(char mChar) const;
+			inline sf::IntRect getGlyphRect(char mChar) const
+			{
+				mChar = mChar - 33 + data.cellStart;
+				const auto& i(ssvu::get2DIndexFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
+				return sf::IntRect(i[0] * data.cellWidth, i[1] * data.cellHeight, data.cellWidth, data.cellHeight);
+			}
 	};
 }
 

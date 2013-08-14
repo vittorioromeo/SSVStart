@@ -10,8 +10,6 @@ using namespace sf;
 
 namespace ssvs
 {
-	BitmapText::BitmapText(const BitmapFont& mBitmapFont, const string& mStr) : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{mStr} { }
-
 	void BitmapText::draw(RenderTarget& mRenderTarget, RenderStates mRenderStates) const
 	{
 		if(mustRecalculate) const_cast<BitmapText*>(this)->recalculate();
