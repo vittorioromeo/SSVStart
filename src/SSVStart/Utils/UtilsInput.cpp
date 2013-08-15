@@ -7,6 +7,7 @@
 
 using namespace std;
 using namespace sf;
+using namespace ssvu;
 
 namespace ssvs
 {
@@ -15,7 +16,7 @@ namespace ssvs
 		const string keyPrefix{"k"}, buttonPrefix{"b"};
 
 		#define SSVS_INSERT_KEY(mName) {keyPrefix + #mName, Keyboard::Key::mName}
-		ssvu::Bimap<string, Keyboard::Key> keys
+		Bimap<string, Keyboard::Key> keys
 		{
 			SSVS_INSERT_KEY(A),
 			SSVS_INSERT_KEY(B),
@@ -121,7 +122,7 @@ namespace ssvs
 		#undef SSVS_INSERT_KEY
 
 		#define SSVS_INSERT_BUTTON(mName) {buttonPrefix + #mName, Mouse::Button::mName}
-		ssvu::Bimap<string, Mouse::Button> buttons
+		Bimap<string, Mouse::Button> buttons
 		{
 			SSVS_INSERT_BUTTON(Left),
 			SSVS_INSERT_BUTTON(Right),
