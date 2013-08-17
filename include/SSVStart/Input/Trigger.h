@@ -47,6 +47,7 @@ namespace ssvs
 					return false;
 				}
 
+				inline std::vector<Combo>& getCombos() { return combos; }
 				inline const std::vector<Combo>& getCombos() const { return combos; }
 		};
 	}
