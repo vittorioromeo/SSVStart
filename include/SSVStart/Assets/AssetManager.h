@@ -11,15 +11,7 @@
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Assets/Internal/ResourceHolder.h"
 
-namespace sf
-{
-	class Font;
-	class Image;
-	class Texture;
-	class SoundBuffer;
-	class Music;
-	class Shader;
-}
+namespace sf { class Font; class Image; class Texture; class SoundBuffer; class Music; class Shader; }
 
 namespace ssvs
 {
