@@ -17,20 +17,20 @@ namespace ssvs
 {
 	namespace Utils
 	{
-		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot)
+		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
 		{
 			Animation result;
 
-			for(const auto& f : mRoot["frames"])
+			for(const auto& f : mObj["frames"])
 			{
 				const auto& index(mTileset.getIndex(as<string>(f, 0)));
 				result.addStep({index, as<float>(f, 1)});
 			}
 
-			result.setLoop(as<bool>(mRoot, "loop", true));
-			result.setPingPong(as<bool>(mRoot, "pingPong", false));
-			result.setReverse(as<bool>(mRoot, "reverse", false));
-			result.setSpeed(as<float>(mRoot, "speed", 1.f));
+			result.setLoop(as<bool>(mObj, "loop", true));
+			result.setPingPong(as<bool>(mObj, "pingPong", false));
+			result.setReverse(as<bool>(mObj, "reverse", false));
+			result.setSpeed(as<float>(mObj, "speed", 1.f));
 
 			return result;
 		}

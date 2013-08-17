@@ -15,6 +15,17 @@
 #include "SSVStart/Utils/UtilsInput.h"
 #include "SSVStart/Global/Typedefs.h"
 
+namespace ssvs
+{
+	class AssetManager;
+
+	namespace Utils
+	{
+		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot);
+		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mRoot);
+	}
+}
+
 namespace ssvuj
 {
 	namespace Internal
@@ -22,20 +33,20 @@ namespace ssvuj
 		template<typename TType> struct Converter<ssvs::Vec2<TType>>
 		{
 			using T = ssvs::Vec2<TType>;
-			inline static void fromObj(T& mValue, const Obj& mObj)	{ extract(mObj, mValue.x, mValue.y); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ archive(mObj, mValue.x, mValue.y); }
+			inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.x, mValue.y); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.x, mValue.y); }
 		};
 		template<> struct Converter<sf::Keyboard::Key>
 		{
 			using T = sf::Keyboard::Key;
 			inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::Utils::getKey(as<std::string>(mObj)); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ set(mObj, ssvs::Utils::getKeyName(mValue)); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::Utils::getKeyName(mValue)); }
 		};
 		template<> struct Converter<sf::Mouse::Button>
 		{
 			using T = sf::Mouse::Button;
 			inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::Utils::getButton(as<std::string>(mObj)); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ set(mObj, ssvs::Utils::getButtonName(mValue)); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::Utils::getButtonName(mValue)); }
 		};
 		template<> struct Converter<ssvs::Input::Combo>
 		{
@@ -61,8 +72,8 @@ namespace ssvuj
 		template<> struct Converter<ssvs::Input::Trigger>
 		{
 			using T = ssvs::Input::Trigger;
-			inline static void fromObj(T& mValue, const Obj& mObj)	{ for(const auto& c : as<std::vector<ssvs::Input::Combo>>(mObj)) mValue.add(c); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ set(mObj, mValue.getCombos()); }
+			inline static void fromObj(T& mValue, const Obj& mObj)	{ extr(mObj, mValue.getCombos()); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, mValue.getCombos()); }
 		};
 		template<> struct Converter<ssvs::Tileset>
 		{
@@ -85,27 +96,15 @@ namespace ssvuj
 		template<> struct Converter<ssvs::BitmapFontData>
 		{
 			using T = ssvs::BitmapFontData;
-			inline static void fromObj(T& mValue, const Obj& mObj)	{ extract(mObj, mValue.cellColumns, mValue.cellWidth, mValue.cellHeight, mValue.cellStart); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ archive(mObj, mValue.cellColumns, mValue.cellWidth, mValue.cellHeight, mValue.cellStart); }
+			inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.cellColumns, mValue.cellWidth, mValue.cellHeight, mValue.cellStart); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.cellColumns, mValue.cellWidth, mValue.cellHeight, mValue.cellStart); }
 		};
 		template<> struct Converter<sf::Color>
 		{
 			using T = sf::Color;
-			inline static void fromObj(T& mValue, const Obj& mObj)	{ extract(mObj, mValue.r, mValue.g, mValue.b, mValue.a); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ archive(mObj, mValue.r, mValue.g, mValue.b, mValue.a); }
+			inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.r, mValue.g, mValue.b, mValue.a); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.r, mValue.g, mValue.b, mValue.a); }
 		};
-	}
-}
-
-
-namespace ssvs
-{
-	class AssetManager;
-
-	namespace Utils
-	{
-		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot);
-		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mRoot);
 	}
 }
 
