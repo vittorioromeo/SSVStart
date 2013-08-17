@@ -22,7 +22,7 @@ namespace ssvs
 	namespace Utils
 	{
 		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot);
-		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mRoot);
+		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj);
 	}
 }
 
