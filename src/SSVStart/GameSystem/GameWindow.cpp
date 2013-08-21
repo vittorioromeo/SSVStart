@@ -57,7 +57,7 @@ namespace ssvs
 			gameState->handleEvent(event);
 		}
 
-		gameState->updateInput(timer->getFrameTime());
+		gameState->updateInput(mFrameTime);
 		gameState->update(mFrameTime);
 	}
 }
