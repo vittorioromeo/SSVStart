@@ -2,17 +2,14 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "SSVStart/Input/Combo.h"
-#include "SSVStart/GameSystem/GameWindow.h"
-
-using namespace sf;
-using namespace std;
+#ifndef SSVS_INPUT_COMBO_INL
+#define SSVS_INPUT_COMBO_INL
 
 namespace ssvs
 {
 	namespace Input
 	{
-		bool Combo::isDown(GameWindow& mGameWindow) const
+		inline bool Combo::isDown(GameWindow& mGameWindow) const
 		{
 			if(keys.empty() && buttons.empty()) return false;
 			for(const auto& k : keys) if(!mGameWindow.isKeyPressed(k)) return false;
@@ -21,4 +18,6 @@ namespace ssvs
 		}
 	}
 }
+
+#endif
 

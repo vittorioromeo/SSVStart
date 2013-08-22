@@ -6,6 +6,7 @@
 #define SSVS_MUSICPLAYER
 
 #include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 #include <SSVUtils/SSVUtils.h>
 
 namespace sf { class Music; }
@@ -19,12 +20,21 @@ namespace ssvs
 			int volume{100};
 
 		public:
-			void play(sf::Music& mMusic, sf::Time mPlayingOffset = sf::seconds(0));
-			void stop();
-			void pause();
-			void setVolume(int mVolume);
-			void setLoop(bool mLoop);
-			inline sf::Music* getCurrent() { return current; }
+			void play(sf::Music& mMusic, sf::Time mPlayingOffset = sf::seconds(0))
+			{
+				stop();
+
+				mMusic.setPlayingOffset(mPlayingOffset);
+				mMusic.setVolume(volume);
+				mMusic.play();
+
+				current = &mMusic;
+			}
+			inline void stop()					{ if(current != nullptr) current->stop(); }
+			inline void pause()					{ if(current != nullptr) current->pause(); }
+			inline void setVolume(int mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
+			inline void setLoop(bool mLoop)		{ if(current != nullptr) current->setLoop(mLoop); }
+			inline sf::Music* getCurrent()		{ return current; }
 	};
 }
 

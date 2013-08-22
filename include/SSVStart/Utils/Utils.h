@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SSVUtils/SSVUtils.h>
 #include "SSVStart/Global/Typedefs.h"
+#include "SSVStart/GameSystem/GameState.h"
 
 namespace ssvs
 {
@@ -26,7 +27,22 @@ namespace ssvs
 		template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return ssvu::toDegrees(getRadiansToPoint(mVec, mTarget)); }
 
 		// Collision
-		bool isPointInPolygon(const std::vector<Vec2f>& mVertices, Vec2f mPoint);
+		inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, Vec2f mPoint)
+		{
+			bool result{false};
+			size_t vCount{mVertices.size()};
+
+			for(size_t i{0}, j{vCount - 1}; i < vCount; j = i++)
+			{
+				const auto& vI(mVertices[i]);
+				const auto& vJ(mVertices[j]);
+
+				if(((vI.y > mPoint.y) != (vJ.y > mPoint.y)) && (mPoint.x < (vJ.x - vI.x) * (mPoint.y - vI.y) / (vJ.y - vI.y) + vI.x))
+					result = !result;
+			}
+
+			return result;
+		}
 
 		// Vec
 		template<typename T> inline T getMagnitude(const Vec2<T>& mVec) { return sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
@@ -51,9 +67,15 @@ namespace ssvs
 		template<typename T> inline T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) { return mA.x * mB.x + mA.y * mB.y; }
 		template<typename T> inline Vec2<T> getRotatedAroundCenter(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
 
-		// Quick state input additions
-		void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue);
-		void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, Input::Trigger mPositive, int& mValue);
+		inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue)
+		{
+			mGameState.addInput(mTrigger, [&](float){ mValue = true; }, [&](float){ mValue = false; });
+		}
+		inline void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, Input::Trigger mPositive, int& mValue)
+		{
+			mGameState.addInput(mNegative, [&](float){ mValue = -1; },	[&](float){ if(mValue == -1) mValue = 0; });
+			mGameState.addInput(mPositive, [&](float){ mValue = 1; },	[&](float){ if(mValue == 1) mValue = 0; });
+		}
 	}
 }
 

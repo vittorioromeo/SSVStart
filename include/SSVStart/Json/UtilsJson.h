@@ -6,6 +6,9 @@
 #ifndef SSVS_JSON_UTILSJSON
 #define SSVS_JSON_UTILSJSON
 
+#include <future>
+#include <SFML/System.hpp>
+#include <SSVUtils/SSVUtils.h>
 #include <SSVUtilsJson/SSVUtilsJson.h>
 #include "SSVStart/Tileset/Tileset.h"
 #include "SSVStart/Animation/Animation.h"
@@ -14,6 +17,7 @@
 #include "SSVStart/BitmapFont/BitmapFont.h"
 #include "SSVStart/Utils/UtilsInput.h"
 #include "SSVStart/Global/Typedefs.h"
+#include "SSVStart/Assets/AssetManager.h"
 
 namespace ssvs
 {
@@ -21,8 +25,33 @@ namespace ssvs
 
 	namespace Utils
 	{
-		Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mRoot);
-		void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj);
+		inline Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
+		{
+			Animation result;
+
+			for(const auto& f : mObj["frames"])
+			{
+				const auto& index(mTileset.getIndex(ssvuj::as<std::string>(f, 0)));
+				result.addStep({index, ssvuj::as<float>(f, 1)});
+			}
+
+			result.setLoop(ssvuj::as<bool>(mObj, "loop", true));
+			result.setPingPong(ssvuj::as<bool>(mObj, "pingPong", false));
+			result.setReverse(ssvuj::as<bool>(mObj, "reverse", false));
+			result.setSpeed(ssvuj::as<float>(mObj, "speed", 1.f));
+
+			return result;
+		}
+		inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj)
+		{
+			auto a1 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "fonts"))			mAssetManager.load<sf::Font>(f, mRootPath + f); });
+			auto a2 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "images"))			mAssetManager.load<sf::Image>(f, mRootPath + f); });
+			auto a3 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "textures"))		mAssetManager.load<sf::Texture>(f, mRootPath + f); });
+			auto a4 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "soundBuffers"))	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f); });
+			auto a5 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "musics"))			mAssetManager.load<sf::Music>(f, mRootPath + f); });
+			auto a6 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersVertex"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{}); });
+			auto a7 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{}); });
+		}
 	}
 }
 

@@ -2,10 +2,12 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#include "SSVStart/GameSystem/Timers/TimerDynamic.h"
-#include "SSVStart/GameSystem/GameWindow.h"
+#ifndef SSVS_GAMESYSTEM_TIMERS_BASE_INL
+#define SSVS_GAMESYSTEM_TIMERS_BASE_INL
 
 namespace ssvs
 {
-	void DynamicTimer::runUpdate() { gameWindow.runUpdate(frameTime); }
+	inline void TimerBase::runDraw() { gameWindow.runDraw(); }
 }
+
+#endif

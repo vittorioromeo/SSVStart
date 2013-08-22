@@ -17,9 +17,6 @@
 namespace ssvs
 {
 	class GameState;
-	class TimerBase;
-	class StaticTimer;
-	class DynamicTimer;
 
 	class GameWindow
 	{
@@ -39,7 +36,25 @@ namespace ssvs
 			Uptr<TimerBase> timer;
 			TimerBase* replacementTimer{nullptr};
 
-			void runUpdate(float mFrameTime);
+			void runUpdate(float mFrameTime)
+			{
+				sf::Event event;
+				while(renderWindow.pollEvent(event))
+				{
+					switch(event.type)
+					{
+						case sf::Event::Closed: running = false; break;
+						case sf::Event::GainedFocus: focus = true; break;
+						case sf::Event::LostFocus: focus = false; break;
+						default: break;
+					}
+
+					gameState->handleEvent(event);
+				}
+
+				gameState->updateInput(mFrameTime);
+				gameState->update(mFrameTime);
+			}
 			inline void runDraw() { gameState->draw(); }
 
 		public:
@@ -49,9 +64,37 @@ namespace ssvs
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 
-			void run();
+			void run()
+			{
+				while(running)
+				{
+					if(mustRecreate) recreateWindow();
+
+					renderWindow.setActive(true);
+					renderWindow.clear();
+
+					gameState->refreshInput();
+
+					timer->runUpdate();
+					gameState->onPostUpdate();
+
+					timer->runDraw();
+					renderWindow.display();
+
+					timer->runFrameTime();
+					timer->runFps();
+				}
+			}
 			inline void stop() { running = false; }
-			void recreateWindow();
+			void recreateWindow()
+			{
+				if(renderWindow.isOpen()) renderWindow.close();
+				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
+				renderWindow.setSize({width * pixelMult, height * pixelMult});
+				renderWindow.setVerticalSyncEnabled(vsync);
+				if(replacementTimer != nullptr) { timer.reset(replacementTimer); replacementTimer = nullptr; }
+				mustRecreate = false; onRecreation();
+			}
 
 			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
 			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }

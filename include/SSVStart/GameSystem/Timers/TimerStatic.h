@@ -6,6 +6,7 @@
 #define SSVS_GAMESYSTEM_TIMERS_STATIC
 
 #include "SSVStart/GameSystem/Timers/TimerBase.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 namespace ssvs
 {
@@ -19,7 +20,17 @@ namespace ssvs
 		public:
 			StaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mTimeSlice = 1.f, float mMaxLoops = 50) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
 
-			void runUpdate() override;
+			inline void runUpdate() override
+			{
+				loops = 0;
+				time += frameTime;
+				while(time >= timeSlice && loops < maxLoops)
+				{
+					gameWindow.runUpdate(step);
+					time -= timeSlice;
+					++loops;
+				}
+			}
 
 			inline void setStep(float mStep)			{ step = mStep; }
 			inline void setTimeSlice(float mTimeSlice)	{ timeSlice = mTimeSlice; }

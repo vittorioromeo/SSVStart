@@ -50,4 +50,7 @@
 // Json
 #include "SSVStart/Json/UtilsJson.h"
 
+#include "SSVStart/GameSystem/Timers/TimerBase.inl"
+#include "SSVStart/Input/Combo.inl"
+
 #endif

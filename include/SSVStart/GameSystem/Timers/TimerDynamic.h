@@ -6,11 +6,10 @@
 #define SSVS_GAMESYSTEM_TIMERS_DYNAMIC
 
 #include "SSVStart/GameSystem/Timers/TimerBase.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 namespace ssvs
 {
-	class GameWindow;
-
 	class DynamicTimer : public TimerBase
 	{
 		private:
@@ -19,7 +18,7 @@ namespace ssvs
 		public:
 			DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 
-			void runUpdate() override;
+			void runUpdate() override { gameWindow.runUpdate(frameTime); }
 			inline void runFps() override
 			{
 				if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;

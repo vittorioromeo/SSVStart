@@ -20,11 +20,42 @@ namespace ssvs
 			float speed{1}, currentTime{0};
 			bool loop{true}, pingPong{false}, reverse{false};
 
-			void nextStep();
+			void nextStep()
+			{
+				int lastIndex{currentIndex};
+				reverse ? --currentIndex : ++currentIndex;
+
+				if(currentIndex >= static_cast<int>(steps.size()))
+				{
+					if(loop)
+					{
+						if(pingPong) { reverse = !reverse; currentIndex = lastIndex; }
+						else currentIndex = 0;
+					}
+					else currentIndex = lastIndex;
+				}
+				else if(currentIndex < 0)
+				{
+					if(loop)
+					{
+						if(pingPong) { reverse = !reverse; currentIndex = lastIndex; }
+						else currentIndex = steps.size() - 1;
+					}
+					else currentIndex = lastIndex;
+				}
+
+				currentTime = 0;
+			}
 
 		public:
 			Animation() = default;
-			void update(float mFrameTime);
+			inline void update(float mFrameTime)
+			{
+				if(steps.empty()) return;
+
+				currentTime += mFrameTime * speed;
+				if(currentTime >= getCurrentStep().time) nextStep();
+			}
 			inline void addStep(const AnimationStep& mStep)								{ steps.push_back(mStep); }
 			inline void addSteps(const std::vector<AnimationStep>& mSteps)				{ for(const auto& s : mSteps) steps.push_back(s); }
 			inline void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }

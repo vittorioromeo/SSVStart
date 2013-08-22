@@ -8,6 +8,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "SSVStart/Global/Typedefs.h"
+#include "SSVStart/Utils/Utils.h"
+#include "SSVStart/GameSystem/GameWindow.h"
 
 namespace ssvs
 {
@@ -22,9 +24,15 @@ namespace ssvs
 			Vec2f skew{1, 1}, offset{0, 0};
 
 		public:
-			Camera(GameWindow& mGameWindow, sf::View mView);
+			Camera(GameWindow& mGameWindow, sf::View mView) : gameWindow(mGameWindow), renderWindow(gameWindow.getRenderWindow()), view{mView} { }
 
-			void apply();
+			void apply()
+			{
+				sf::View computedView{view};
+				computedView.setSize(computedView.getSize().x * skew.x, computedView.getSize().y * skew.y);
+				if(Utils::getMagnitude(offset) != 0) computedView.setCenter(view.getCenter() - Utils::getVecFromDegrees(view.getRotation() + Utils::getDegrees(offset), Utils::getMagnitude(offset)));
+				renderWindow.setView(computedView);
+			}
 			inline void unapply() { renderWindow.setView(renderWindow.getDefaultView()); }
 
 			inline void resize(Vec2f mOffset, Vec2f mSize)

@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include "SSVStart/Global/Typedefs.h"
+#include "SSVStart/Assets/AssetManager.h"
 
 namespace ssvs
 {
@@ -19,17 +20,84 @@ namespace ssvs
 			Path rootPath;
 			std::vector<Path> files;
 
-			std::vector<Path> getFilteredFiles(const std::vector<std::string>& mExtensions);
-			void loadFontsToManager(AssetManager& mAssetManager);
-			void loadImagesToManager(AssetManager& mAssetManager);
-			void loadTexturesToManager(AssetManager& mAssetManager);
-			void loadSoundBuffersToManager(AssetManager& mAssetManager);
-			void loadMusicsToManager(AssetManager& mAssetManager);
-			void loadShadersToManager(AssetManager& mAssetManager);
+			std::vector<Path> getFilteredFiles(const std::vector<std::string>& mExtensions)
+			{
+				std::vector<Path> result;
+				for(const auto& f : files) for(const auto& e : mExtensions) if(f.hasExtension(e)) result.push_back(f);
+				return result;
+			}
+			void loadFontsToManager(AssetManager& mAssetManager)
+			{
+				for(const auto& f : getFilteredFiles({".ttf", ".otf", ".pfm"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::Font>(id, f);
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadFontsToManager(" + rootPath.getStr() + ")") << id + " font added" << std::endl;
+				}
+			}
+			void loadImagesToManager(AssetManager& mAssetManager)
+			{
+				for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::Image>(id, f);
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadImagesToManager(" + rootPath.getStr() + ")") << id + " image added" << std::endl;
+				}
+			}
+			void loadTexturesToManager(AssetManager& mAssetManager)
+			{
+				for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::Texture>(id, f);
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadTexturesToManager(" + rootPath.getStr() + ")") << id + " texture added" << std::endl;
+				}
+			}
+			void loadSoundBuffersToManager(AssetManager& mAssetManager)
+			{
+				for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::SoundBuffer>(id, f);
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadSoundsToManager(" + rootPath.getStr() + ")") << id + " soundBuffer added" << std::endl;
+				}
+			}
+			void loadMusicsToManager(AssetManager& mAssetManager)
+			{
+				for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::Music>(id, f);
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadMusicsToManager(" + rootPath.getStr() + ")") << id + " music added" << std::endl;
+				}
+			}
+			void loadShadersToManager(AssetManager& mAssetManager)
+			{
+				for(const auto& f : getFilteredFiles({".vert"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " vertex shader added" << std::endl;
+				}
+				for(const auto& f : getFilteredFiles({".frag"}))
+				{
+					std::string id{ssvu::getReplaced(f, rootPath, "")};
+					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
+					ssvu::lo << ssvu::lt("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " fragment shader added" << std::endl;
+				}
+			}
 
 		public:
-			AssetFolder(const Path& mRootPath);
-			void loadToManager(AssetManager& mAssetManager);
+			AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{ssvu::FileSystem::getScan<ssvu::FileSystem::Mode::Recurse, ssvu::FileSystem::Type::File>(rootPath)} { }
+			void loadToManager(AssetManager& mAssetManager)
+			{
+				loadImagesToManager(mAssetManager);
+				loadTexturesToManager(mAssetManager);
+				loadSoundBuffersToManager(mAssetManager);
+				loadMusicsToManager(mAssetManager);
+				loadFontsToManager(mAssetManager);
+				loadShadersToManager(mAssetManager);
+			}
 	};
 }
 
