@@ -36,6 +36,7 @@ namespace ssvs
 			Vec2<T> newPoint(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c);
 			mVec = newPoint + mCenter;
 		}
+		template<typename T> inline void nullify(Vec2<T>& mVec) { mVec.x = mVec.y = 0; }
 		template<typename T> inline void normalize(Vec2<T>& mVec) { T m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
 		template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) { normalize(mVec); return mVec; }
 		template<typename T> inline Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return getNormalized(mTarget - mVec); }
