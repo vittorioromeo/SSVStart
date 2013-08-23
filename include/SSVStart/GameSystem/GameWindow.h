@@ -134,7 +134,7 @@ namespace ssvs
 			template<typename T> inline T& getTimer() { return static_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
 			{
-				assert(replacementTimer != nullptr);
+				assert(replacementTimer == nullptr);
 				replacementTimer = new T{*this, std::forward<TArgs>(mArgs)...}; mustRecreate = true;
 			}
 	};
