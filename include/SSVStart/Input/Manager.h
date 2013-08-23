@@ -15,7 +15,7 @@ namespace ssvs
 
 	namespace Input
 	{
-		typedef std::function<void(float)> InputFunc;
+		using InputFunc = std::function<void(float)>;
 
 		class Manager
 		{
