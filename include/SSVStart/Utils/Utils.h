@@ -96,6 +96,11 @@ namespace ssvs
 		template<typename T> inline T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) { return mA.x * mB.x + mA.y * mB.y; }
 		template<typename T> inline Vec2<T> getRotatedAroundCenter(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
 
+		// TODO: document
+		template<typename T> inline T getDistanceEuclideanSquared(const Vec2<T>& mA, const Vec2<T>& mB)	{ return ssvu::getDistanceEuclideanSquared(mA.x, mA.y, mB.x, mB.y); }
+		template<typename T> inline T getDistanceEuclidean(const Vec2<T>& mA, const Vec2<T>& mB)		{ return ssvu::getDistanceEuclidean(mA.x, mA.y, mB.x, mB.y); }
+
+
 		inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
 		{
 			mGameState.addInput(mTrigger, [&](float){ mValue = true; }, [&](float){ mValue = false; }, mType);
