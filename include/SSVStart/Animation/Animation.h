@@ -5,6 +5,7 @@
 #ifndef SSVS_ANIMATION
 #define SSVS_ANIMATION
 
+#include <cassert>
 #include <vector>
 #include "SSVStart/Global/Typedefs.h"
 
@@ -14,59 +15,71 @@ namespace ssvs
 
 	class Animation
 	{
+		public:
+			enum class Type{Once, Loop, PingPong};
+
 		private:
 			std::vector<AnimationStep> steps;
-			int currentIndex{0};
-			float speed{1}, currentTime{0};
-			bool loop{true}, pingPong{false}, reverse{false};
+			unsigned int index{0};
+			float speed{1}, time{0};
+			bool reverse{false};
+			Type type;
 
 			void nextStep()
 			{
-				int lastIndex{currentIndex};
-				reverse ? --currentIndex : ++currentIndex;
+				assert(index >= 0 && index < steps.size());
 
-				if(currentIndex >= static_cast<int>(steps.size()))
-				{
-					if(loop)
-					{
-						if(pingPong) { reverse = !reverse; currentIndex = lastIndex; }
-						else currentIndex = 0;
-					}
-					else currentIndex = lastIndex;
-				}
-				else if(currentIndex < 0)
-				{
-					if(loop)
-					{
-						if(pingPong) { reverse = !reverse; currentIndex = lastIndex; }
-						else currentIndex = steps.size() - 1;
-					}
-					else currentIndex = lastIndex;
-				}
+				time = 0;
 
-				currentTime = 0;
+				if(!reverse)
+				{
+					if(index < steps.size() - 1) { ++index; return; }
+
+					switch(type)
+					{
+						case Type::Once: return;
+						case Type::Loop: index = 0; return;
+						case Type::PingPong: reverse = true; --index; return;
+					}
+				}
+				else
+				{
+					if(index > 0) { --index; return; }
+
+					switch(type)
+					{
+						case Type::Once: return;
+						case Type::Loop: index = steps.size() - 1; return;
+						case Type::PingPong: reverse = false; ++index; return;
+					}
+
+				}
 			}
 
 		public:
-			Animation() = default;
+			Animation(Type mType = Type::Loop) : type{mType} { }
 			inline void update(float mFrameTime)
 			{
 				if(steps.empty()) return;
 
-				currentTime += mFrameTime * speed;
-				if(currentTime >= getCurrentStep().time) nextStep();
+				time += mFrameTime * speed;
+				if(time >= getStep().time) nextStep();
 			}
 			inline void addStep(const AnimationStep& mStep)								{ steps.push_back(mStep); }
 			inline void addSteps(const std::vector<AnimationStep>& mSteps)				{ for(const auto& s : mSteps) steps.push_back(s); }
 			inline void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }
 
 			inline void setSpeed(float mSpeed)		{ speed = mSpeed; }
-			inline void setLoop(bool mLoop)			{ loop = mLoop; }
-			inline void setPingPong(bool mPingPong)	{ pingPong = mPingPong; }
+			inline void setType(Type mType)			{ type = mType; }
 			inline void setReverse(bool mReverse)	{ reverse = mReverse; }
 
-			inline const AnimationStep& getCurrentStep() const	{ return steps[currentIndex]; }
-			inline Vec2u getCurrentIndex() const				{ return getCurrentStep().index; }
+			inline float getSpeed() const				{ return speed; }
+			inline float getTime() const				{ return time; }
+			inline unsigned int getIndex() const		{ return index; }
+			inline bool getReverse() const				{ return reverse; }
+			inline Type getType() const					{ return type; }
+			inline const AnimationStep& getStep() const	{ return steps[index]; }
+			inline Vec2u getTileIndex() const			{ return getStep().index; }
 	};
 }
 
