@@ -27,7 +27,8 @@ namespace ssvs
 	{
 		inline Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
 		{
-			Animation result;
+			// TODO: get type from json
+			Animation result{Animation::Type::Loop};
 
 			for(const auto& f : mObj["frames"])
 			{
@@ -35,9 +36,9 @@ namespace ssvs
 				result.addStep({index, ssvuj::as<float>(f, 1)});
 			}
 
-			result.setLoop(ssvuj::as<bool>(mObj, "loop", true));
-			result.setPingPong(ssvuj::as<bool>(mObj, "pingPong", false));
-			result.setReverse(ssvuj::as<bool>(mObj, "reverse", false));
+			//result.setLoop(ssvuj::as<bool>(mObj, "loop", true));
+			//result.setPingPong(ssvuj::as<bool>(mObj, "pingPong", false));
+			//result.setReverse(ssvuj::as<bool>(mObj, "reverse", false));
 			result.setSpeed(ssvuj::as<float>(mObj, "speed", 1.f));
 
 			return result;
