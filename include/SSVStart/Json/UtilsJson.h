@@ -23,36 +23,33 @@ namespace ssvs
 {
 	class AssetManager;
 
-	namespace Utils
+	inline Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
 	{
-		inline Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
+		// TODO: get type from json
+		Animation result{Animation::Type::Loop};
+
+		for(const auto& f : mObj["frames"])
 		{
-			// TODO: get type from json
-			Animation result{Animation::Type::Loop};
-
-			for(const auto& f : mObj["frames"])
-			{
-				const auto& index(mTileset.getIndex(ssvuj::as<std::string>(f, 0)));
-				result.addStep({index, ssvuj::as<float>(f, 1)});
-			}
-
-			//result.setLoop(ssvuj::as<bool>(mObj, "loop", true));
-			//result.setPingPong(ssvuj::as<bool>(mObj, "pingPong", false));
-			//result.setReverse(ssvuj::as<bool>(mObj, "reverse", false));
-			result.setSpeed(ssvuj::as<float>(mObj, "speed", 1.f));
-
-			return result;
+			const auto& index(mTileset.getIndex(ssvuj::as<std::string>(f, 0)));
+			result.addStep({index, ssvuj::as<float>(f, 1)});
 		}
-		inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj)
-		{
-			auto a1 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "fonts"))			mAssetManager.load<sf::Font>(f, mRootPath + f); });
-			auto a2 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "images"))			mAssetManager.load<sf::Image>(f, mRootPath + f); });
-			auto a3 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "textures"))		mAssetManager.load<sf::Texture>(f, mRootPath + f); });
-			auto a4 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "soundBuffers"))	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f); });
-			auto a5 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "musics"))			mAssetManager.load<sf::Music>(f, mRootPath + f); });
-			auto a6 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersVertex"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{}); });
-			auto a7 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{}); });
-		}
+
+		//result.setLoop(ssvuj::as<bool>(mObj, "loop", true));
+		//result.setPingPong(ssvuj::as<bool>(mObj, "pingPong", false));
+		//result.setReverse(ssvuj::as<bool>(mObj, "reverse", false));
+		result.setSpeed(ssvuj::as<float>(mObj, "speed", 1.f));
+
+		return result;
+	}
+	inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj)
+	{
+		auto a1 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "fonts"))			mAssetManager.load<sf::Font>(f, mRootPath + f); });
+		auto a2 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "images"))			mAssetManager.load<sf::Image>(f, mRootPath + f); });
+		auto a3 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "textures"))		mAssetManager.load<sf::Texture>(f, mRootPath + f); });
+		auto a4 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "soundBuffers"))	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f); });
+		auto a5 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "musics"))			mAssetManager.load<sf::Music>(f, mRootPath + f); });
+		auto a6 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersVertex"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{}); });
+		auto a7 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{}); });
 	}
 }
 
@@ -69,14 +66,14 @@ namespace ssvuj
 		template<> struct Converter<sf::Keyboard::Key>
 		{
 			using T = sf::Keyboard::Key;
-			inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::Utils::getKey(as<std::string>(mObj)); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::Utils::getKeyName(mValue)); }
+			inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::getKey(as<std::string>(mObj)); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getKeyName(mValue)); }
 		};
 		template<> struct Converter<sf::Mouse::Button>
 		{
 			using T = sf::Mouse::Button;
-			inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::Utils::getButton(as<std::string>(mObj)); }
-			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::Utils::getButtonName(mValue)); }
+			inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::getButton(as<std::string>(mObj)); }
+			inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getButtonName(mValue)); }
 		};
 		template<> struct Converter<ssvs::Input::Combo>
 		{
@@ -85,9 +82,9 @@ namespace ssvuj
 			{
 				for(const auto& i : as<std::vector<Obj>>(mObj))
 				{
-					if(ssvs::Utils::isKeyNameValid(as<std::string>(i))) mValue.addKey(as<sf::Keyboard::Key>(i));
-					else if(ssvs::Utils::isButtonNameValid(as<std::string>(i))) mValue.addButton(as<sf::Mouse::Button>(i));
-					else ssvu::lo << ssvu::lt("ssvs::Utils::getInputComboFromJSON") << "<" << i << "> is not a valid input name";
+					if(ssvs::isKeyNameValid(as<std::string>(i))) mValue.addKey(as<sf::Keyboard::Key>(i));
+					else if(ssvs::isButtonNameValid(as<std::string>(i))) mValue.addButton(as<sf::Mouse::Button>(i));
+					else ssvu::lo << ssvu::lt("ssvs::getInputComboFromJSON") << "<" << i << "> is not a valid input name";
 				}
 			}
 			inline static void toObj(Obj& mObj, const T& mValue)
