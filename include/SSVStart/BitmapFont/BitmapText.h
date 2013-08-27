@@ -55,7 +55,7 @@ namespace ssvs
 					++iX;
 				}
 
-				bounds = {xMin, xMax - xMin, yMin, yMax - yMin};
+				bounds = {xMin, yMin, xMax - xMin, yMax - yMin};
 				mustRefreshGeometry = false;
 			}
 			void refreshColor() { for(auto i(0u); i < vertices.getVertexCount(); ++i) vertices[i].color = color; mustRefreshColor = false; }
