@@ -18,7 +18,7 @@ namespace ssvs
 		public:
 			DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 
-			void runUpdate() override { gameWindow.runUpdate(frameTime); }
+			inline void runUpdate() override { gameWindow.runUpdate(frameTime); }
 			inline void runFps() override
 			{
 				if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
