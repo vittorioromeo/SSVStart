@@ -26,7 +26,7 @@ namespace ssvs
 	template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return ssvu::toDegrees(getRadiansToPoint(mVec, mTarget)); }
 
 	// Collision
-	inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, Vec2f mPoint)
+	inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, const Vec2f& mPoint)
 	{
 		bool result{false};
 		size_t vCount{mVertices.size()};
@@ -77,7 +77,7 @@ namespace ssvs
 
 	// Get angle from vec direction
 	template<typename T> inline T getRadians(Vec2<T> mVec) { normalize(mVec); return atan2(mVec.y, mVec.x); }
-	template<typename T> inline T getDegrees(Vec2<T> mVec) { return ssvu::toDegrees(getRadians(mVec)); }
+	template<typename T> inline T getDegrees(const Vec2<T>& mVec) { return ssvu::toDegrees(getRadians(mVec)); }
 
 	// Get unit vec from angle
 	template<typename T> inline Vec2<T> getVecFromRadians(T mRadians, T mMagnitude) { return Vec2<T>(mMagnitude * cos(mRadians), mMagnitude * sin(mRadians)); }
