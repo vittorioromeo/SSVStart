@@ -56,8 +56,8 @@ namespace ssvs
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) { normalize(mVec); return mVec; }
 
 	// Resize a vec maintaining direction
-	template<typename T> inline void resize(Vec2<T>& mVec, const T& mLength)	{ normalize(mVec); mVec *= mLength; }
-	template<typename T> inline void getResized(Vec2<T> mVec, const T& mLength) { normalize(mVec); return mVec * mLength; }
+	template<typename T> inline void resize(Vec2<T>& mVec, const T& mLength)		{ normalize(mVec); mVec *= mLength; }
+	template<typename T> inline Vec2<T> getResized(Vec2<T> mVec, const T& mLength)	{ resize(mVec, mLength); return mVec; }
 
 	// Component-based vec clamping
 	template<typename T> inline void cClamp(Vec2<T>& mVec, const T& mMin, const T& mMax)		{ ssvu::clamp(mVec.x, mMin, mMax); ssvu::clamp(mVec.y, mMin, mMax); }
