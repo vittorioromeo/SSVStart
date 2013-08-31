@@ -50,6 +50,9 @@
 // Json
 #include "SSVStart/Json/UtilsJson.h"
 
+// Ticker
+#include "SSVStart/Ticker/Ticker.h"
+
 #include "SSVStart/GameSystem/Timers/TimerBase.inl"
 #include "SSVStart/Input/Combo.inl"
 
