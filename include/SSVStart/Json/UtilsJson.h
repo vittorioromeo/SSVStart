@@ -43,13 +43,22 @@ namespace ssvs
 	}
 	inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj)
 	{
-		auto a1 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "fonts"))			mAssetManager.load<sf::Font>(f, mRootPath + f); });
-		auto a2 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "images"))			mAssetManager.load<sf::Image>(f, mRootPath + f); });
-		auto a3 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "textures"))		mAssetManager.load<sf::Texture>(f, mRootPath + f); });
-		auto a4 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "soundBuffers"))	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f); });
-		auto a5 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "musics"))			mAssetManager.load<sf::Music>(f, mRootPath + f); });
-		auto a6 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersVertex"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{}); });
-		auto a7 = std::async(std::launch::async, [&]{ for(const auto& f : ssvuj::as<std::vector<std::string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{}); });
+		using namespace std;
+		using namespace ssvuj;
+
+		for(const auto& f : as<vector<string>>(mObj, "fonts"))				mAssetManager.load<sf::Font>(f, mRootPath + f);
+		for(const auto& f : as<vector<string>>(mObj, "images"))				mAssetManager.load<sf::Image>(f, mRootPath + f);
+		for(const auto& f : as<vector<string>>(mObj, "textures"))			mAssetManager.load<sf::Texture>(f, mRootPath + f);
+		for(const auto& f : as<vector<string>>(mObj, "soundBuffers"))		mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f);
+		for(const auto& f : as<vector<string>>(mObj, "musics"))				mAssetManager.load<sf::Music>(f, mRootPath + f);
+		for(const auto& f : as<vector<string>>(mObj, "shadersVertex"))		mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
+		for(const auto& f : as<vector<string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
+
+		const auto& bfs(as<Obj>(mObj, "bitmapFonts"));
+			for(auto itr(bfs.begin()); itr != bfs.end(); ++itr)
+			{
+				mAssetManager.load<BitmapFont>(as<string>(itr.key()), mAssetManager.get<sf::Texture>(as<string>(*itr, 0)), as<BitmapFontData>(readFromFile(mRootPath + as<string>(*itr, 1))));
+			}
 	}
 }
 
