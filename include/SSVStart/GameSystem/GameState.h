@@ -10,6 +10,7 @@
 #include <SFML/Window.hpp>
 #include "SSVStart/Input/Manager.h"
 #include "SSVStart/Input/Trigger.h"
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
@@ -22,7 +23,7 @@ namespace ssvs
 		private:
 			using ITrigger = Input::Trigger;
 			using IType = ITrigger::Type;
-			using IFunc = Input::InputFunc;
+			using IFunc = InputFunc;
 			using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
 			GameWindow* gameWindow{nullptr}; // not owned, just pointed to
