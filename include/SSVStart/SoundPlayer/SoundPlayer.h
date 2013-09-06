@@ -32,7 +32,10 @@ namespace ssvs
 				{
 					case Mode::Overlap: break;
 					case Mode::Override: stop(mSoundBuffer); break;
-					case Mode::Abort: if(isPlaying(mSoundBuffer)) return;
+					case Mode::Abort:
+						auto first(findFirst(mSoundBuffer));
+						if(first != nullptr) return *first;
+						break;
 				}
 
 				auto& sound(sounds.create(mSoundBuffer));
@@ -45,7 +48,7 @@ namespace ssvs
 			inline void stop(const sf::SoundBuffer& mSoundBuffer) { for(auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) s->stop(); }
 
 			inline void setVolume(int mVolume)	{ volume = mVolume; refreshVolume(); }
-			inline int getVolume()				{ return volume; }
+			inline int getVolume() const 		{ return volume; }
 
 			inline bool isPlaying(const sf::SoundBuffer& mSoundBuffer) const { return findFirst(mSoundBuffer) != nullptr; }
 			inline ManageableSound* findFirst(const sf::SoundBuffer& mSoundBuffer) const
