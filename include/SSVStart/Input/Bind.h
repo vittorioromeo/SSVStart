@@ -8,6 +8,7 @@
 #include <vector>
 #include <functional>
 #include "SSVStart/Input/Trigger.h"
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
@@ -17,9 +18,6 @@ namespace ssvs
 	{
 		class Bind
 		{
-			public:
-				using InputFunc = std::function<void(float)>;
-
 			private:
 				Trigger trigger;
 				InputFunc on, off;

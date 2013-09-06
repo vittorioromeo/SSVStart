@@ -8,6 +8,7 @@
 #include <vector>
 #include <functional>
 #include "SSVStart/Input/Bind.h"
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
@@ -15,8 +16,6 @@ namespace ssvs
 
 	namespace Input
 	{
-		using InputFunc = std::function<void(float)>;
-
 		class Manager
 		{
 			private:
