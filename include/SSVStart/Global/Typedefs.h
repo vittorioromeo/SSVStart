@@ -15,6 +15,7 @@ namespace ssvs
 	using Vec2f = sf::Vector2f;
 	using Vec2u = sf::Vector2u;
 	using Path = ssvu::FileSystem::Path;
+	using InputFunc = ssvu::Func<void(float)>;
 	template<typename T> using Vec2 = sf::Vector2<T>;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
 }
