@@ -66,7 +66,7 @@ namespace ssvs
 			}
 
 		public:
-			BitmapText(const BitmapFont& mBitmapFont, const std::string& mStr = "") : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{mStr} { }
+			BitmapText(const BitmapFont& mBitmapFont, std::string mStr = "") : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{std::move(mStr)} { }
 
 			inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
 			{
@@ -76,16 +76,16 @@ namespace ssvs
 				mRenderTarget.draw(vertices, mRenderStates);
 			}
 
-			inline void setString(const std::string& mStr)	{ str = mStr; mustRefreshGeometry = true; }
-			inline void setColor(const sf::Color& mColor)	{ color = mColor; mustRefreshColor = true; }
-			inline void setTracking(int mTracking)			{ tracking = mTracking; mustRefreshGeometry = true; }
+			inline void setString(std::string mStr)	{ str = std::move(mStr); mustRefreshGeometry = true; }
+			inline void setColor(sf::Color mColor)	{ color = std::move(mColor); mustRefreshColor = true; }
+			inline void setTracking(int mTracking)	{ tracking = mTracking; mustRefreshGeometry = true; }
 
-			inline const BitmapFont& getBitmapFont() const	{ return bitmapFont; }
+			inline const BitmapFont& getBitmapFont() const noexcept	{ return bitmapFont; }
+			inline const std::string& getString() const noexcept	{ return str; }
+			inline const sf::Color& getColor() const noexcept		{ return color; }
+			inline int getTracking() const noexcept					{ return tracking; }
 			inline sf::FloatRect getLocalBounds() const		{ refresh(); return bounds; }
 			inline sf::FloatRect getGlobalBounds() const	{ return getTransform().transformRect(getLocalBounds()); }
-			inline const std::string& getString() const		{ return str; }
-			inline const sf::Color& getColor() const		{ return color; }
-			inline int getTracking() const					{ return tracking; }
 	};
 }
 

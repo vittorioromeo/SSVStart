@@ -29,7 +29,7 @@ namespace ssvs
 			Internal::ResourceHolder<sf::Shader> shaders;
 			Internal::ResourceHolder<ssvs::BitmapFont> bitmapFonts;
 
-			template<typename T> inline Internal::ResourceHolder<T>& getResourceHolder();
+			template<typename T> inline Internal::ResourceHolder<T>& getResourceHolder() noexcept;
 
 		public:
 			AssetManager() = default;
@@ -45,13 +45,13 @@ namespace ssvs
 			template<typename T> inline T& get(const std::string& mId)						{ assert(has<T>(mId)); return getResourceHolder<T>()[mId]; }
 	};
 
-	template<> inline Internal::ResourceHolder<sf::Font>& AssetManager::getResourceHolder<sf::Font>()				{ return fonts; }
-	template<> inline Internal::ResourceHolder<sf::Image>& AssetManager::getResourceHolder<sf::Image>()				{ return images; }
-	template<> inline Internal::ResourceHolder<sf::Texture>& AssetManager::getResourceHolder<sf::Texture>()			{ return textures; }
-	template<> inline Internal::ResourceHolder<sf::SoundBuffer>& AssetManager::getResourceHolder<sf::SoundBuffer>()	{ return soundBuffers; }
-	template<> inline Internal::ResourceHolder<sf::Music>& AssetManager::getResourceHolder<sf::Music>()				{ return musics; }
-	template<> inline Internal::ResourceHolder<sf::Shader>& AssetManager::getResourceHolder<sf::Shader>()			{ return shaders; }
-	template<> inline Internal::ResourceHolder<BitmapFont>& AssetManager::getResourceHolder<BitmapFont>()			{ return bitmapFonts; }
+	template<> inline Internal::ResourceHolder<sf::Font>& AssetManager::getResourceHolder<sf::Font>() noexcept					{ return fonts; }
+	template<> inline Internal::ResourceHolder<sf::Image>& AssetManager::getResourceHolder<sf::Image>() noexcept				{ return images; }
+	template<> inline Internal::ResourceHolder<sf::Texture>& AssetManager::getResourceHolder<sf::Texture>() noexcept			{ return textures; }
+	template<> inline Internal::ResourceHolder<sf::SoundBuffer>& AssetManager::getResourceHolder<sf::SoundBuffer>() noexcept	{ return soundBuffers; }
+	template<> inline Internal::ResourceHolder<sf::Music>& AssetManager::getResourceHolder<sf::Music>() noexcept				{ return musics; }
+	template<> inline Internal::ResourceHolder<sf::Shader>& AssetManager::getResourceHolder<sf::Shader>() noexcept				{ return shaders; }
+	template<> inline Internal::ResourceHolder<BitmapFont>& AssetManager::getResourceHolder<BitmapFont>() noexcept				{ return bitmapFonts; }
 }
 
 #endif

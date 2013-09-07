@@ -32,15 +32,15 @@ namespace ssvs
 				}
 			}
 
-			inline void setStep(float mStep)			{ step = mStep; }
-			inline void setTimeSlice(float mTimeSlice)	{ timeSlice = mTimeSlice; }
-			inline void setMaxLoops(float mMaxLoops)	{ maxLoops = mMaxLoops; }
+			inline void setStep(float mStep) noexcept			{ step = mStep; }
+			inline void setTimeSlice(float mTimeSlice) noexcept	{ timeSlice = mTimeSlice; }
+			inline void setMaxLoops(float mMaxLoops) noexcept	{ maxLoops = mMaxLoops; }
 
-			inline float getStep() const		{ return step; }
-			inline float getTimeSlice() const	{ return timeSlice; }
-			inline float getMaxLoops() const	{ return maxLoops; }
-			inline float getTime() const		{ return time; }
-			inline float getLoops() const		{ return loops; }
+			inline float getStep() const noexcept		{ return step; }
+			inline float getTimeSlice() const noexcept	{ return timeSlice; }
+			inline float getMaxLoops() const noexcept	{ return maxLoops; }
+			inline float getTime() const noexcept		{ return time; }
+			inline float getLoops() const noexcept		{ return loops; }
 	};
 }
 

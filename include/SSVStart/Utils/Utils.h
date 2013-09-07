@@ -22,8 +22,8 @@ namespace ssvs
 	namespace Input { class Trigger; }
 
 	// Angles
-	template<typename T> inline T getRadiansTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return atan2(mTarget.y - mVec.y, mTarget.x - mVec.x); }
-	template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return ssvu::toDegrees(getRadiansToPoint(mVec, mTarget)); }
+	template<typename T> inline T getRadiansTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return atan2(mTarget.y - mVec.y, mTarget.x - mVec.x); }
+	template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::toDegrees(getRadiansToPoint(mVec, mTarget)); }
 
 	// Collision
 	inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, const Vec2f& mPoint)
@@ -51,7 +51,7 @@ namespace ssvs
 		Vec2<T> newPoint(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c);
 		mVec = newPoint + mCenter;
 	}
-	template<typename T> inline void nullify(Vec2<T>& mVec) { mVec.x = mVec.y = 0; }
+	template<typename T> inline void nullify(Vec2<T>& mVec) noexcept { mVec.x = mVec.y = 0; }
 	template<typename T> inline void normalize(Vec2<T>& mVec) { const T& m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) { normalize(mVec); return mVec; }
 

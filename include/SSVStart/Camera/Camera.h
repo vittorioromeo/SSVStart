@@ -34,6 +34,8 @@ namespace ssvs
 			Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f) : gameWindow(mGameWindow), renderWindow(gameWindow.getRenderWindow()),
 				view{{gameWindow.getWidth() / 2.f / mZoomFactor, gameWindow.getHeight() / 2.f / mZoomFactor}, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}} { }
 
+			// TODO: move ctor
+
 			template<typename T = float> inline void apply()
 			{
 				if(mustRecompute)
@@ -71,21 +73,21 @@ namespace ssvs
 			}
 
 			// These properties IMMEDIATELY change the view
-			inline void setView(const sf::View& mView)		{ view = mView;					mustRecompute = true; }
-			inline void setRotation(float mDegrees)			{ view.setRotation(mDegrees);	mustRecompute = true; }
-			inline void setSkew(const Vec2f& mSkew)			{ skew = mSkew;					mustRecompute = true; }
-			inline void setOffset(const Vec2f& mOffset)		{ offset = mOffset;				mustRecompute = true; }
-			inline void setCenter(const Vec2f& mPosition) 	{ view.setCenter(mPosition);	mustRecompute = true; }
+			inline void setView(sf::View mView) noexcept			{ view = std::move(mView);		mustRecompute = true; }
+			inline void setRotation(float mDegrees) noexcept		{ view.setRotation(mDegrees);	mustRecompute = true; }
+			inline void setSkew(const Vec2f& mSkew) noexcept		{ skew = mSkew;					mustRecompute = true; }
+			inline void setOffset(const Vec2f& mOffset) noexcept	{ offset = mOffset;				mustRecompute = true; }
+			inline void setCenter(const Vec2f& mPosition) noexcept 	{ view.setCenter(mPosition);	mustRecompute = true; }
 
 			// This property changes the view ON NEXT UPDATE
-			inline void setNextZoomFactor(float mFactor)	{ nextZoomFactor = mFactor;		invalid = true; }
+			inline void setNextZoomFactor(float mFactor) noexcept	{ nextZoomFactor = mFactor;		invalid = true; }
 
-			inline const sf::View& getView() const			{ return view; }
-			inline float getRotation() const				{ return view.getRotation(); }
-			inline const Vec2f& getSkew() const				{ return skew; }
-			inline const Vec2f& getOffset() const			{ return offset; }
-			inline const Vec2f& getCenter() const			{ return view.getCenter(); }
-			inline float getNextZoomFactor() const			{ return nextZoomFactor; }
+			inline const sf::View& getView() const noexcept	{ return view; }
+			inline float getRotation() const noexcept		{ return view.getRotation(); }
+			inline const Vec2f& getSkew() const noexcept	{ return skew; }
+			inline const Vec2f& getOffset() const noexcept	{ return offset; }
+			inline const Vec2f& getCenter() const noexcept	{ return view.getCenter(); }
+			inline float getNextZoomFactor() const noexcept	{ return nextZoomFactor; }
 
 			inline Vec2f getMousePosition() const						{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow), view); }
 			inline Vec2f getConvertedCoords(const Vec2i& mPos) const	{ return renderWindow.mapPixelToCoords(mPos, view); }

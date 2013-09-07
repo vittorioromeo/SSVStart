@@ -37,8 +37,8 @@ namespace ssvs
 				inline void refresh(GameWindow& mGameWindow)	{ if(!released && !isDown(mGameWindow)) released = true; }
 				inline void add(const Combo& mCombo)			{ combos.push_back(mCombo); }
 
-				inline void setType(Type mType)			{ type = mType; }
-				inline void setReleased(bool mValue)	{ released = mValue; }
+				inline void setType(Type mType)	noexcept		{ type = mType; }
+				inline void setReleased(bool mValue) noexcept	{ released = mValue; }
 
 				inline bool isActive(GameWindow& mGameWindow)
 				{
@@ -47,8 +47,8 @@ namespace ssvs
 					return false;
 				}
 
-				inline std::vector<Combo>& getCombos() { return combos; }
-				inline const std::vector<Combo>& getCombos() const { return combos; }
+				inline std::vector<Combo>& getCombos() noexcept				{ return combos; }
+				inline const std::vector<Combo>& getCombos() const noexcept	{ return combos; }
 		};
 	}
 }

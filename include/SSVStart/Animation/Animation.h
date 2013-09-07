@@ -57,7 +57,7 @@ namespace ssvs
 			}
 
 		public:
-			Animation(Type mType = Type::Loop) : type{mType} { }
+			Animation(Type mType = Type::Loop) noexcept : type{mType} { }
 			inline void update(float mFrameTime)
 			{
 				if(steps.empty()) return;
@@ -65,21 +65,21 @@ namespace ssvs
 				time += mFrameTime * speed;
 				if(time >= getStep().time) nextStep();
 			}
-			inline void addStep(const AnimationStep& mStep)								{ steps.push_back(mStep); }
-			inline void addSteps(const std::vector<AnimationStep>& mSteps)				{ for(const auto& s : mSteps) steps.push_back(s); }
-			inline void addSteps(const std::vector<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }
+			inline void addStep(AnimationStep mStep)											{ steps.emplace_back(std::move(mStep)); }
+			inline void addSteps(const std::initializer_list<AnimationStep>& mSteps)			{ for(const auto& s : mSteps) steps.push_back(s); }
+			inline void addSteps(const std::initializer_list<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) steps.push_back({i, mStepTime}); }
 
-			inline void setSpeed(float mSpeed)		{ speed = mSpeed; }
-			inline void setType(Type mType)			{ type = mType; }
-			inline void setReverse(bool mReverse)	{ reverse = mReverse; }
+			inline void setSpeed(float mSpeed) noexcept		{ speed = mSpeed; }
+			inline void setType(Type mType) noexcept		{ type = mType; }
+			inline void setReverse(bool mReverse) noexcept	{ reverse = mReverse; }
 
-			inline float getSpeed() const				{ return speed; }
-			inline float getTime() const				{ return time; }
-			inline unsigned int getIndex() const		{ return index; }
-			inline bool getReverse() const				{ return reverse; }
-			inline Type getType() const					{ return type; }
-			inline const AnimationStep& getStep() const	{ return steps[index]; }
-			inline Vec2u getTileIndex() const			{ return getStep().index; }
+			inline float getSpeed() const noexcept			{ return speed; }
+			inline float getTime() const noexcept			{ return time; }
+			inline unsigned int getIndex() const noexcept	{ return index; }
+			inline bool getReverse() const noexcept			{ return reverse; }
+			inline Type getType() const noexcept			{ return type; }
+			inline const AnimationStep& getStep() const		{ return steps[index]; }
+			inline Vec2u getTileIndex() const				{ return getStep().index; }
 	};
 }
 

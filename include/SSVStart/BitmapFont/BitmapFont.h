@@ -19,11 +19,11 @@ namespace ssvs
 			const BitmapFontData data;
 
 		public:
-			BitmapFont(const sf::Texture& mTexture, const BitmapFontData& mData) : texture(mTexture), data(mData) { }
+			BitmapFont(const sf::Texture& mTexture, BitmapFontData mData) : texture(mTexture), data(std::move(mData)) { }
 
-			inline const sf::Texture& getTexture() const	{ return texture; }
-			inline unsigned int getCellWidth() const		{ return data.cellWidth; }
-			inline unsigned int getCellHeight() const		{ return data.cellHeight; }
+			inline const sf::Texture& getTexture() const noexcept	{ return texture; }
+			inline unsigned int getCellWidth() const noexcept		{ return data.cellWidth; }
+			inline unsigned int getCellHeight() const noexcept		{ return data.cellHeight; }
 			inline sf::IntRect getGlyphRect(char mChar) const
 			{
 				mChar = mChar - 33 + data.cellStart;

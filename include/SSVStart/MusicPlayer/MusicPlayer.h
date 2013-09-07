@@ -35,15 +35,15 @@ namespace ssvs
 
 				current = &mMusic;
 			}
-			inline void stop()					{ if(current != nullptr) current->stop(); }
-			inline void pause()					{ if(current != nullptr) current->pause(); }
+			inline void stop()	{ if(current != nullptr) current->stop(); }
+			inline void pause()	{ if(current != nullptr) current->pause(); }
 
 			inline void setVolume(int mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
 			inline void setLoop(bool mLoop)		{ loop = mLoop;		if(current != nullptr) current->setLoop(loop); }
 
-			inline sf::Music* getCurrent()		{ return current; }
-			inline int getVolume() const		{ return volume; }
-			inline bool getLoop() const			{ return loop; }
+			inline sf::Music* getCurrent() noexcept	{ return current; }
+			inline int getVolume() const noexcept	{ return volume; }
+			inline bool getLoop() const noexcept	{ return loop; }
 	};
 }
 

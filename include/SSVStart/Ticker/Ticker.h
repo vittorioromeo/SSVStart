@@ -7,8 +7,8 @@
 
 namespace ssvs
 {
-	template<typename T> constexpr inline static T framesToSecs(T mFrames)	{ return mFrames / 60.f; }
-	template<typename T> constexpr inline static T secsToFrames(T mSecs)	{ return mSecs * 60.f; }
+	template<typename T> constexpr inline static T framesToSecs(T mFrames) noexcept	{ return mFrames / 60.f; }
+	template<typename T> constexpr inline static T secsToFrames(T mSecs) noexcept	{ return mSecs * 60.f; }
 
 	class Ticker
 	{
@@ -38,25 +38,25 @@ namespace ssvs
 			}
 			inline bool update(float mFrameTime, float mTarget) { setTarget(mTarget); return update(mFrameTime); }
 
-			inline void resume()					{ setEnabled(true); }
-			inline void restart()					{ resetCurrent(); setEnabled(true); }
-			inline void restart(float mTarget)		{ resetCurrent(); setTarget(mTarget); setEnabled(true); }
-			inline void pause()						{ setEnabled(false); }
-			inline void stop()						{ resetCurrent(); setEnabled(false); }
+			inline void resume() noexcept				{ setEnabled(true); }
+			inline void restart() noexcept				{ resetCurrent(); setEnabled(true); }
+			inline void restart(float mTarget) noexcept	{ resetCurrent(); setTarget(mTarget); setEnabled(true); }
+			inline void pause() noexcept				{ setEnabled(false); }
+			inline void stop() noexcept					{ resetCurrent(); setEnabled(false); }
 
-			inline void resetCurrent()				{ current = 0.f; }
-			inline void resetTicks()				{ ticks = 0; }
-			inline void resetTotal()				{ total = 0.f; }
-			inline void resetAll()					{ resetCurrent(); resetTicks(); resetTotal(); }
+			inline void resetCurrent() noexcept			{ current = 0.f; }
+			inline void resetTicks() noexcept			{ ticks = 0; }
+			inline void resetTotal() noexcept			{ total = 0.f; }
+			inline void resetAll() noexcept				{ resetCurrent(); resetTicks(); resetTotal(); }
 
-			inline bool isEnabled() const			{ return enabled; }
-			inline float getTarget() const			{ return target; }
-			inline float getCurrent() const			{ return current; }
-			inline float getTotal() const			{ return total; }
-			inline unsigned int getTicks() const	{ return ticks; }
+			inline bool isEnabled() const noexcept			{ return enabled; }
+			inline float getTarget() const noexcept			{ return target; }
+			inline float getCurrent() const noexcept		{ return current; }
+			inline float getTotal() const noexcept			{ return total; }
+			inline unsigned int getTicks() const noexcept	{ return ticks; }
 
-			template<typename T = float> inline T getTotalSecs() const		{ return static_cast<T>(framesToSecs(total)); }
-			template<typename T = float> inline T getCurrentSecs() const	{ return static_cast<T>(framesToSecs(current)); }
+			template<typename T = float> inline T getTotalSecs() const noexcept		{ return static_cast<T>(framesToSecs(total)); }
+			template<typename T = float> inline T getCurrentSecs() const noexcept	{ return static_cast<T>(framesToSecs(current)); }
 	};
 }
 
