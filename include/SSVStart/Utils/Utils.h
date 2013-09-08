@@ -29,9 +29,9 @@ namespace ssvs
 	inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, const Vec2f& mPoint)
 	{
 		bool result{false};
-		size_t vCount{mVertices.size()};
+		std::size_t vCount{mVertices.size()};
 
-		for(size_t i{0}, j{vCount - 1}; i < vCount; j = i++)
+		for(std::size_t i{0}, j{vCount - 1}; i < vCount; j = i++)
 		{
 			const auto& vI(mVertices[i]);
 			const auto& vJ(mVertices[j]);
