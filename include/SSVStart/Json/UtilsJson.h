@@ -28,7 +28,7 @@ namespace ssvs
 		// TODO: get type from json
 		Animation result{Animation::Type::Loop};
 
-		for(const auto& f : mObj["frames"])
+		for(const auto& f : ssvuj::get(mObj, "frames"))
 		{
 			const auto& index(mTileset.getIndex(ssvuj::as<std::string>(f, 0)));
 			result.addStep({index, ssvuj::as<float>(f, 1)});
@@ -54,10 +54,10 @@ namespace ssvs
 		for(const auto& f : as<vector<string>>(mObj, "shadersVertex"))		mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
 		for(const auto& f : as<vector<string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
 
-		const auto& bfs(as<Obj>(mObj, "bitmapFonts"));
-			for(auto itr(bfs.begin()); itr != bfs.end(); ++itr)
+		const auto& bfs(get(mObj, "bitmapFonts"));
+			for(auto itr(begin(bfs)); itr != end(bfs); ++itr)
 			{
-				mAssetManager.load<BitmapFont>(as<string>(itr.key()), mAssetManager.get<sf::Texture>(as<string>(*itr, 0)), as<BitmapFontData>(readFromFile(mRootPath + as<string>(*itr, 1))));
+				mAssetManager.load<BitmapFont>(ssvuj::getKey(itr), mAssetManager.get<sf::Texture>(as<string>(*itr, 0)), as<BitmapFontData>(readFromFile(mRootPath + as<string>(*itr, 1))));
 			}
 	}
 }
@@ -89,7 +89,7 @@ namespace ssvuj
 			using T = ssvs::Input::Combo;
 			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				for(const auto& i : as<std::vector<Obj>>(mObj))
+				for(const auto& i : mObj)
 				{
 					if(ssvs::isKeyNameValid(as<std::string>(i))) mValue.addKey(as<sf::Keyboard::Key>(i));
 					else if(ssvs::isButtonNameValid(as<std::string>(i))) mValue.addButton(as<sf::Mouse::Button>(i));
@@ -116,7 +116,7 @@ namespace ssvuj
 			using T = ssvs::Tileset;
 			inline static void fromObj(T& mValue, const Obj& mObj)
 			{
-				const auto& labels(as<Obj>(mObj, "labels"));
+				const auto& labels(get(mObj, "labels"));
 				for(auto iY(0u); iY < size(labels); ++iY)
 					for(auto iX(0u); iX < size(labels[iY]); ++iX)
 						mValue.setLabel(as<std::string>(labels[iY][iX]), {iX, iY});
