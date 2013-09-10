@@ -22,79 +22,75 @@ namespace ssvs
 	namespace Input { class Trigger; }
 
 	// Angles
-	template<typename T> inline T getRadiansTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return atan2(mTarget.y - mVec.y, mTarget.x - mVec.x); }
-	template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::toDegrees(getRadiansToPoint(mVec, mTarget)); }
+	template<typename T> inline T getRadiansTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::getRadiansTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
+	template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::getDegreesTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
 
 	// Collision
 	inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, const Vec2f& mPoint)
 	{
 		bool result{false};
-		std::size_t vCount{mVertices.size()};
-
-		for(std::size_t i{0}, j{vCount - 1}; i < vCount; j = i++)
+		for(std::size_t i{0}, j{mVertices.size() - 1}; i < mVertices.size(); j = i++)
 		{
 			const auto& vI(mVertices[i]);
 			const auto& vJ(mVertices[j]);
-
-			if(((vI.y > mPoint.y) != (vJ.y > mPoint.y)) && (mPoint.x < (vJ.x - vI.x) * (mPoint.y - vI.y) / (vJ.y - vI.y) + vI.x))
-				result = !result;
+			if(((vI.y > mPoint.y) != (vJ.y > mPoint.y)) && (mPoint.x < (vJ.x - vI.x) * (mPoint.y - vI.y) / (vJ.y - vI.y) + vI.x)) result = !result;
 		}
 
 		return result;
 	}
 
 	// Vec utils
-	template<typename T> inline T getMagnitude(const Vec2<T>& mVec) { return sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
-	template<typename T> void rotateAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mRadians)
+	template<typename T> inline T getMagnitude(const Vec2<T>& mVec) noexcept { return std::sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
+	template<typename T> inline void rotateRadiansAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mRadians)
 	{
-		float s(sin(mRadians)), c(cos(mRadians)); mVec -= mCenter;
-		Vec2<T> newPoint(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c);
-		mVec = newPoint + mCenter;
+		float s(std::sin(mRadians)), c(std::cos(mRadians)); mVec -= mCenter;
+		mVec = Vec2<T>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
 	}
+	template<typename T> inline void rotateDegreesAroundCenter(const Vec2<T>& mVec, const Vec2<T>& mCenter, float mDegrees) { return rotateRadiansAroundCenter(mVec, mCenter, ssvu::toRadians(mDegrees)); }
 	template<typename T> inline void nullify(Vec2<T>& mVec) noexcept { mVec.x = mVec.y = 0; }
-	template<typename T> inline void normalize(Vec2<T>& mVec) { const T& m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
-	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) { normalize(mVec); return mVec; }
+	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { const T& m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
+	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
 
 	// Resize a vec maintaining direction
-	template<typename T> inline void resize(Vec2<T>& mVec, const T& mLength)		{ normalize(mVec); mVec *= mLength; }
-	template<typename T> inline Vec2<T> getResized(Vec2<T> mVec, const T& mLength)	{ resize(mVec, mLength); return mVec; }
+	template<typename T> inline void resize(Vec2<T>& mVec, const T& mLength) noexcept { normalize(mVec); mVec *= mLength; }
+	template<typename T> inline Vec2<T> getResized(Vec2<T> mVec, const T& mLength) noexcept { resize(mVec, mLength); return mVec; }
 
 	// Component-based vec clamping
-	template<typename T> inline void cClamp(Vec2<T>& mVec, const T& mMin, const T& mMax)		{ ssvu::clamp(mVec.x, mMin, mMax); ssvu::clamp(mVec.y, mMin, mMax); }
-	template<typename T> inline void cClampMin(Vec2<T>& mVec, const T& mMin)					{ ssvu::clampMin(mVec.x, mMin); ssvu::clampMin(mVec.y, mMin); }
-	template<typename T> inline void cClampMax(Vec2<T>& mVec, const T& mMax)					{ ssvu::clampMax(mVec.x, mMax); ssvu::clampMax(mVec.y, mMax); }
-	template<typename T> inline Vec2<T> getCClamped(Vec2<T> mVec, const T& mMin, const T& mMax)	{ cClamp(mVec, mMin, mMax); return mVec; }
-	template<typename T> inline Vec2<T> getCClampedMin(Vec2<T> mVec, const T& mMin)				{ cClampMin(mVec, mMin); return mVec; }
-	template<typename T> inline Vec2<T> getCClampedMax(Vec2<T> mVec, const T& mMax)				{ cClampMax(mVec, mMax); return mVec; }
+	template<typename T> inline void cClamp(Vec2<T>& mVec, const T& mMin, const T& mMax) noexcept			{ ssvu::clamp(mVec.x, mMin, mMax); ssvu::clamp(mVec.y, mMin, mMax); }
+	template<typename T> inline void cClampMin(Vec2<T>& mVec, const T& mMin) noexcept						{ ssvu::clampMin(mVec.x, mMin); ssvu::clampMin(mVec.y, mMin); }
+	template<typename T> inline void cClampMax(Vec2<T>& mVec, const T& mMax) noexcept						{ ssvu::clampMax(mVec.x, mMax); ssvu::clampMax(mVec.y, mMax); }
+	template<typename T> inline Vec2<T> getCClamped(Vec2<T> mVec, const T& mMin, const T& mMax) noexcept	{ cClamp(mVec, mMin, mMax); return mVec; }
+	template<typename T> inline Vec2<T> getCClampedMin(Vec2<T> mVec, const T& mMin) noexcept				{ cClampMin(mVec, mMin); return mVec; }
+	template<typename T> inline Vec2<T> getCClampedMax(Vec2<T> mVec, const T& mMax) noexcept				{ cClampMax(mVec, mMax); return mVec; }
 
 	// Magnitude-based vec clamping
-	template<typename T> inline void mClamp(Vec2<T>& mVec, const T& mMin, const T& mMax)		{ assert(mMin < mMax); const T& m(getMagnitude(mVec)); if(m < mMin) { resize(mVec, mMin); return; } if(m > mMax) { resize(mVec, mMax); return; } }
-	template<typename T> inline void mClampMin(Vec2<T>& mVec, const T& mMin)					{ if(getMagnitude(mVec) < mMin) resize(mVec, mMin); }
-	template<typename T> inline void mClampMax(Vec2<T>& mVec, const T& mMax)					{ if(getMagnitude(mVec) > mMax) resize(mVec, mMax); }
-	template<typename T> inline Vec2<T> getMClamped(Vec2<T> mVec, const T& mMin, const T& mMax)	{ mClamp(mVec, mMin, mMax); return mVec; }
-	template<typename T> inline Vec2<T> getMClampedMin(Vec2<T> mVec, const T& mMin)				{ mClampMin(mVec, mMin); return mVec; }
-	template<typename T> inline Vec2<T> getMClampedMax(Vec2<T> mVec, const T& mMax)				{ mClampMax(mVec, mMax); return mVec; }
+	template<typename T> inline void mClamp(Vec2<T>& mVec, const T& mMin, const T& mMax) noexcept			{ assert(mMin < mMax); const T& m(getMagnitude(mVec)); if(m < mMin) { resize(mVec, mMin); return; } if(m > mMax) { resize(mVec, mMax); return; } }
+	template<typename T> inline void mClampMin(Vec2<T>& mVec, const T& mMin) noexcept						{ if(getMagnitude(mVec) < mMin) resize(mVec, mMin); }
+	template<typename T> inline void mClampMax(Vec2<T>& mVec, const T& mMax) noexcept						{ if(getMagnitude(mVec) > mMax) resize(mVec, mMax); }
+	template<typename T> inline Vec2<T> getMClamped(Vec2<T> mVec, const T& mMin, const T& mMax) noexcept	{ mClamp(mVec, mMin, mMax); return mVec; }
+	template<typename T> inline Vec2<T> getMClampedMin(Vec2<T> mVec, const T& mMin) noexcept				{ mClampMin(mVec, mMin); return mVec; }
+	template<typename T> inline Vec2<T> getMClampedMax(Vec2<T> mVec, const T& mMax) noexcept				{ mClampMax(mVec, mMax); return mVec; }
 
 	// Get angle from vec direction
-	template<typename T> inline T getRadians(Vec2<T> mVec) { normalize(mVec); return atan2(mVec.y, mVec.x); }
-	template<typename T> inline T getDegrees(const Vec2<T>& mVec) { return ssvu::toDegrees(getRadians(mVec)); }
+	template<typename T> inline T getRadians(Vec2<T> mVec) noexcept			{ normalize(mVec); return std::atan2(mVec.y, mVec.x); }
+	template<typename T> inline T getDegrees(const Vec2<T>& mVec) noexcept	{ return ssvu::toDegrees(getRadians(mVec)); }
 
 	// Get unit vec from angle
-	template<typename T> inline Vec2<T> getVecFromRadians(T mRadians, T mMagnitude) { return Vec2<T>(mMagnitude * cos(mRadians), mMagnitude * sin(mRadians)); }
+	template<typename T> inline Vec2<T> getVecFromRadians(T mRadians, T mMagnitude) { return Vec2<T>(mMagnitude * std::cos(mRadians), mMagnitude * std::sin(mRadians)); }
 	template<typename T> inline Vec2<T> getVecFromDegrees(T mDegrees, T mMagnitude) { return getVecFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
 
 	// Get direction between two vecs
-	template<typename T> inline Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) { return getNormalized(mTarget - mVec); }
+	template<typename T> inline Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return getNormalized(mTarget - mVec); }
 
 	// TODO: document
-	template<typename T> inline void moveTowards(Vec2<T>& mVec, const Vec2<T>& mTarget, T mMagnitude) { mVec += getDirection(mVec, mTarget) * mMagnitude; }
-	template<typename T> inline Vec2<T> getOrbitFromRadians(const Vec2<T>& mVec, T mRadians, T mRadius) { return mVec + Vec2<T>(cos(mRadians), sin(mRadians)) * mRadius; }
+	template<typename T> inline void moveTowards(Vec2<T>& mVec, const Vec2<T>& mTarget, T mMagnitude) noexcept { mVec += getDirection(mVec, mTarget) * mMagnitude; }
+	template<typename T> inline Vec2<T> getOrbitFromRadians(const Vec2<T>& mVec, T mRadians, T mRadius) { return mVec + Vec2<T>(std::cos(mRadians), std::sin(mRadians)) * mRadius; }
 	template<typename T> inline Vec2<T> getOrbitFromDegrees(const Vec2<T>& mVec, T mDegrees, T mRadius) { return getOrbitFromRadians(mVec, ssvu::toRadians(mDegrees), mRadius); }
-	template<typename T> inline Vec2<T> getMovedTowards(Vec2<T> mVec, const Vec2<T>& mTarget, T mMagnitude) { moveTowards(mVec, mTarget, mMagnitude); return mVec; }
-	template<typename T> inline T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) { return mA.x * mB.x + mA.y * mB.y; }
-	template<typename T> inline Vec2<T> getRotatedAroundCenter(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
-	template<typename T> inline T getDistanceEuclideanSquared(const Vec2<T>& mA, const Vec2<T>& mB)	{ return ssvu::getDistanceEuclideanSquared(mA.x, mA.y, mB.x, mB.y); }
-	template<typename T> inline T getDistanceEuclidean(const Vec2<T>& mA, const Vec2<T>& mB)		{ return ssvu::getDistanceEuclidean(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T> inline Vec2<T> getMovedTowards(Vec2<T> mVec, const Vec2<T>& mTarget, T mMagnitude) noexcept { moveTowards(mVec, mTarget, mMagnitude); return mVec; }
+	template<typename T> inline T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) noexcept { return mA.x * mB.x + mA.y * mB.y; }
+	template<typename T> inline Vec2<T> getRotatedAroundCenterRadians(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateRadiansAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
+	template<typename T> inline T getDistanceEuclideanSquared(const Vec2<T>& mA, const Vec2<T>& mB)	noexcept	{ return ssvu::getDistanceEuclideanSquared(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T> inline T getDistanceEuclidean(const Vec2<T>& mA, const Vec2<T>& mB) noexcept			{ return ssvu::getDistanceEuclidean(mA.x, mA.y, mB.x, mB.y); }
 
 	inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
 	{
