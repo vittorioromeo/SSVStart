@@ -40,7 +40,8 @@ namespace ssvs
 	}
 
 	// Vec utils
-	template<typename T> inline Vec2<T> getAbs(Vec2<T> mVec) noexcept { mVec.x = std::abs(mVec.x); mVec.y = std::abs(mVec.y); return mVec; }
+	template<typename T> inline void abs(Vec2<T>& mVec) noexcept { mVec.x = std::abs(mVec.x); mVec.y = std::abs(mVec.y); }
+	template<typename T> inline Vec2<T> getAbs(Vec2<T> mVec) noexcept { abs(mVec); return mVec; }
 	template<typename T> inline T getMagnitude(const Vec2<T>& mVec) noexcept { return std::sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
 	template<typename T> inline void rotateRadiansAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mRadians)
 	{
