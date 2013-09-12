@@ -60,3 +60,5 @@ namespace ssvs
 }
 
 #endif
+
+// TODO: volume groups (voice, effects, ...)
