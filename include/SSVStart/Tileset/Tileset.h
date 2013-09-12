@@ -23,12 +23,12 @@ namespace ssvs
 			Tileset(const Vec2u& mTileSize) : tileSize{mTileSize} { }
 
 			inline void setTileSize(const Vec2u& mTileSize) noexcept				{ tileSize = mTileSize; }
-			inline void setLabel(const std::string& mLabel, const Vec2u& mIndex)	{ labels[mLabel] = mIndex; }
+			inline void setLabel(const std::string& mLabel, const Vec2u& mIdx)	{ labels[mLabel] = mIdx; }
 
 			inline const decltype(labels)& getLabels() const noexcept		{ return labels; }
 			inline const Vec2u& getTileSize() const noexcept				{ return tileSize; }
 			inline const Vec2u& getIndex(const std::string& mLabel) const	{ return labels.at(mLabel); }
-			inline sf::IntRect operator[](const Vec2u& mIndex) const		{ return sf::IntRect(mIndex.x * tileSize.x, mIndex.y * tileSize.y, tileSize.x, tileSize.y); }
+			inline sf::IntRect operator[](const Vec2u& mIdx) const			{ return sf::IntRect(mIdx.x * tileSize.x, mIdx.y * tileSize.y, tileSize.x, tileSize.y); }
 	};
 }
 
