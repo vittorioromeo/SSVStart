@@ -11,7 +11,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/modules/;${CMA
 
 set(SSVSTART_USE_JSON TRUE CACHE BOOL "Use JSON tools/utilities (Requires SSVJsonCpp and SSVUtilsJson).")
 if(SSVSTART_USE_JSON)
-	set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVJsonCpp/cmake/modules/;${CMAKE_MODULE_PATH}")
 	set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtilsJson/cmake/modules/;${CMAKE_MODULE_PATH}")
 else()
 	add_definitions(-DSSVS_N_USE_JSON)
@@ -32,7 +31,6 @@ endif()
 find_package(SSVUtils REQUIRED)
 
 if(SSVSTART_USE_JSON)
-	find_package(SSVJsonCpp REQUIRED)
 	find_package(SSVUtilsJson REQUIRED)
 endif()
 
@@ -43,9 +41,7 @@ file(GLOB_RECURSE SRC_LIST "${INC_DIR}/*" "${SRC_DIR}/*")
 include_directories(${INC_DIR})
 include_directories(${SFML_INCLUDE_DIR})
 include_directories(${SSVUTILS_INCLUDE_DIR})
-
 if(SSVSTART_USE_JSON)
-	include_directories(${SSVJSONCPP_INCLUDE_DIR})
 	include_directories(${SSVUTILSJSON_INCLUDE_DIR})
 endif()
 
