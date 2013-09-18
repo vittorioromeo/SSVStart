@@ -91,8 +91,8 @@ namespace ssvs
 	template<typename T> inline Vec2<T> getMovedTowards(Vec2<T> mVec, const Vec2<T>& mTarget, T mMagnitude) noexcept { moveTowards(mVec, mTarget, mMagnitude); return mVec; }
 	template<typename T> inline T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) noexcept { return mA.x * mB.x + mA.y * mB.y; }
 	template<typename T> inline Vec2<T> getRotatedAroundCenterRadians(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateRadiansAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
-	template<typename T> inline T getDistanceEuclideanSquared(const Vec2<T>& mA, const Vec2<T>& mB)	noexcept	{ return ssvu::getDistanceEuclideanSquared(mA.x, mA.y, mB.x, mB.y); }
-	template<typename T> inline T getDistanceEuclidean(const Vec2<T>& mA, const Vec2<T>& mB) noexcept			{ return ssvu::getDistanceEuclidean(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T> inline T getDistSquaredEuclidean(const Vec2<T>& mA, const Vec2<T>& mB)	noexcept	{ return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T> inline T getDistEuclidean(const Vec2<T>& mA, const Vec2<T>& mB) noexcept			{ return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
 
 	inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
 	{
