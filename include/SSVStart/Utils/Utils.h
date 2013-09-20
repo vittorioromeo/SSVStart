@@ -78,8 +78,8 @@ namespace ssvs
 	template<typename T> inline T getDegrees(const Vec2<T>& mVec) noexcept	{ return ssvu::toDegrees(getRadians(mVec)); }
 
 	// Get unit vec from angle
-	template<typename T> inline Vec2<T> getVecFromRadians(T mRadians, T mMagnitude) { return Vec2<T>(mMagnitude * std::cos(mRadians), mMagnitude * std::sin(mRadians)); }
-	template<typename T> inline Vec2<T> getVecFromDegrees(T mDegrees, T mMagnitude) { return getVecFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
+	template<typename T> inline Vec2<T> getVecFromRadians(T mRadians, T mMagnitude = 1) { return Vec2<T>(mMagnitude * std::cos(mRadians), mMagnitude * std::sin(mRadians)); }
+	template<typename T> inline Vec2<T> getVecFromDegrees(T mDegrees, T mMagnitude = 1) { return getVecFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
 
 	// Get direction between two vecs
 	template<typename T> inline Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return getNormalized(mTarget - mVec); }
