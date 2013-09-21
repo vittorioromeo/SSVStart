@@ -10,6 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "SSVStart/BitmapFont/BitmapFont.h"
+#include "SSVStart/Tileset/Tileset.h"
 #include "SSVStart/Assets/Internal/Helper.h"
 
 namespace ssvs
@@ -50,6 +51,11 @@ namespace ssvs
 		{
 			using T = BitmapFont;
 			template<typename... TArgs> inline static Uptr<T> load(TArgs&&... mArgs) { return Helper<Mode::BitmapFont, T>::load(mArgs...); }
+		};
+		template<> struct Loader<Tileset> // Tileset has unique syntax
+		{
+			using T = Tileset;
+			template<typename... TArgs> inline static Uptr<T> load(TArgs&&... mArgs) { return Helper<Mode::Tileset, T>::load(mArgs...); }
 		};
 	}
 }

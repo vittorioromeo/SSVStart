@@ -56,9 +56,11 @@ namespace ssvs
 
 		const auto& bfs(get(mObj, "bitmapFonts"));
 			for(auto itr(begin(bfs)); itr != end(bfs); ++itr)
-			{
 				mAssetManager.load<BitmapFont>(ssvuj::getKey(itr), mAssetManager.get<sf::Texture>(as<string>(*itr, 0)), as<BitmapFontData>(readFromFile(mRootPath + as<string>(*itr, 1))));
-			}
+
+		const auto& tilesets(get(mObj, "tilesets"));
+			for(auto itr(begin(tilesets)); itr != end(tilesets); ++itr)
+				mAssetManager.load<Tileset>(ssvuj::getKey(itr), ssvuj::as<ssvs::Tileset>(ssvuj::readFromFile("Data/" + as<string>(*itr))));
 	}
 }
 

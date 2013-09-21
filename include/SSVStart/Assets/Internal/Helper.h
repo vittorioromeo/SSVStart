@@ -11,7 +11,7 @@ namespace ssvs
 {
 	namespace Internal
 	{
-		enum class Mode{Load, Open, Image, Samples, Shader, BitmapFont};
+		enum class Mode{Load, Open, Image, Samples, Shader, BitmapFont, Tileset};
 
 		template<bool> struct ShaderDisambiguationTag {};
 		using ShaderFromMemory = ShaderDisambiguationTag<true>;
@@ -129,6 +129,15 @@ namespace ssvs
 			{
 				return ssvu::make_unique<T>(mTexture, mData);
 			}
+		};
+		template<> struct Helper<Mode::Tileset, Tileset>
+		{
+			using T = Tileset;
+			inline static Uptr<T> load(const Tileset& mTileset) { return ssvu::make_unique<T>(mTileset); }
+
+			#ifndef SSVS_N_USE_JSON
+				inline static Uptr<T> load(const Path& mPath) { return ssvu::make_unique<T>(ssvuj::as<Tileset>(ssvuj::readFromFile(mPath))); }
+			#endif
 		};
 	}
 }

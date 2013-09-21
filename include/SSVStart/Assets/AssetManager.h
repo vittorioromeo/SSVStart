@@ -17,6 +17,7 @@ namespace ssvs
 {
 	class BitmapFont;
 	struct BitmapFontData;
+	class Tileset;
 
 	class AssetManager
 	{
@@ -27,7 +28,8 @@ namespace ssvs
 			Internal::ResourceHolder<sf::SoundBuffer> soundBuffers;
 			Internal::ResourceHolder<sf::Music> musics;
 			Internal::ResourceHolder<sf::Shader> shaders;
-			Internal::ResourceHolder<ssvs::BitmapFont> bitmapFonts;
+			Internal::ResourceHolder<BitmapFont> bitmapFonts;
+			Internal::ResourceHolder<Tileset> tilesets;
 
 			template<typename T> inline Internal::ResourceHolder<T>& getResourceHolder() noexcept;
 
@@ -52,6 +54,7 @@ namespace ssvs
 	template<> inline Internal::ResourceHolder<sf::Music>& AssetManager::getResourceHolder<sf::Music>() noexcept				{ return musics; }
 	template<> inline Internal::ResourceHolder<sf::Shader>& AssetManager::getResourceHolder<sf::Shader>() noexcept				{ return shaders; }
 	template<> inline Internal::ResourceHolder<BitmapFont>& AssetManager::getResourceHolder<BitmapFont>() noexcept				{ return bitmapFonts; }
+	template<> inline Internal::ResourceHolder<Tileset>& AssetManager::getResourceHolder<Tileset>() noexcept					{ return tilesets; }
 }
 
 #endif
