@@ -86,7 +86,7 @@ namespace ssvs
 				}
 			}
 			inline void stop() noexcept { running = false; }
-			void recreateWindow()
+			inline void recreateWindow()
 			{
 				if(renderWindow.isOpen()) renderWindow.close();
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
@@ -98,6 +98,8 @@ namespace ssvs
 
 			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
 			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }
+
+			inline void saveScreenshot(const ssvu::FileSystem::Path& mPath) const { renderWindow.capture().saveToFile(mPath); }
 
 			inline bool isMouseInside() const
 			{
@@ -120,7 +122,8 @@ namespace ssvs
 			inline void setPixelMult(unsigned int mPixelMult) noexcept				{ pixelMult = mPixelMult; mustRecreate = true; }
 			inline void setGameState(GameState& mGameState)							{ gameState = &mGameState; mGameState.gameWindow = this; }
 
-			inline sf::RenderWindow& getRenderWindow()	 noexcept		{ return renderWindow; }
+			inline operator sf::RenderWindow&() noexcept				{ return renderWindow; }
+			inline sf::RenderWindow& getRenderWindow() noexcept			{ return renderWindow; }
 			inline bool getFullscreen() const noexcept					{ return fullscreen; }
 			inline unsigned int getWidth() const noexcept				{ return width; }
 			inline unsigned int getHeight() const noexcept				{ return height; }
