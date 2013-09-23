@@ -85,6 +85,8 @@ namespace ssvs
 	template<typename T> inline Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return getNormalized(mTarget - mVec); }
 
 	// TODO: document
+	template<typename T> inline void truncate(Vec2<T>& mVec, float mMax) noexcept { float i{mMax / getMagnitude(mVec)}; i = i < 1.f ? i : 1.f; resize(mVec, i); }
+	template<typename T> inline Vec2<T> getTruncated(Vec2<T> mVec, float mMax) noexcept { truncate(mVec, mMax); return mVec; }
 	template<typename T> inline void moveTowards(Vec2<T>& mVec, const Vec2<T>& mTarget, T mMagnitude) noexcept { mVec += getDirection(mVec, mTarget) * mMagnitude; }
 	template<typename T> inline Vec2<T> getOrbitFromRadians(const Vec2<T>& mVec, T mRadians, T mRadius) { return mVec + Vec2<T>(std::cos(mRadians), std::sin(mRadians)) * mRadius; }
 	template<typename T> inline Vec2<T> getOrbitFromDegrees(const Vec2<T>& mVec, T mDegrees, T mRadius) { return getOrbitFromRadians(mVec, ssvu::toRadians(mDegrees), mRadius); }
