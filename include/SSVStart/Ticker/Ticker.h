@@ -49,7 +49,8 @@ namespace ssvs
 			inline void resetTotal() noexcept			{ total = 0.f; }
 			inline void resetAll() noexcept				{ resetCurrent(); resetTicks(); resetTotal(); }
 
-			inline bool isEnabled() const noexcept			{ return enabled; }
+			inline bool isRunning() const noexcept			{ return enabled; }
+			inline bool isStopped() const noexcept			{ return !enabled; }
 			inline float getTarget() const noexcept			{ return target; }
 			inline float getCurrent() const noexcept		{ return current; }
 			inline float getTotal() const noexcept			{ return total; }
