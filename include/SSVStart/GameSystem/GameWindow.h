@@ -36,7 +36,7 @@ namespace ssvs
 			Uptr<TimerBase> timer;
 			TimerBase* replacementTimer{nullptr};
 
-			void runUpdate(float mFrameTime)
+			void runUpdate(float mFT)
 			{
 				sf::Event event;
 				while(renderWindow.pollEvent(event))
@@ -52,8 +52,8 @@ namespace ssvs
 					gameState->handleEvent(event);
 				}
 
-				gameState->updateInput(mFrameTime);
-				gameState->update(mFrameTime);
+				gameState->updateInput(mFT);
+				gameState->update(mFT);
 			}
 			inline void runDraw() { gameState->draw(); }
 

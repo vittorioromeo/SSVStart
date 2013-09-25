@@ -55,13 +55,13 @@ namespace ssvs
 			inline void zoomOut(float mFactor)	{ nextZoomFactor *= mFactor;		invalid = true; }
 			inline void turn(float mDegrees)	{ nextRotation += mDegrees;			invalid = true; }
 
-			template<typename T = float> inline void update(float mFrameTime)
+			template<typename T = float> inline void update(float mFT)
 			{
 				if(!invalid) return;
 
 				view.setCenter(view.getCenter() + nextPan);
-				view.zoom(std::pow(nextZoomFactor, mFrameTime));
-				view.rotate(nextRotation * mFrameTime);
+				view.zoom(std::pow(nextZoomFactor, mFT));
+				view.rotate(nextRotation * mFT);
 
 				mustRecompute = true;
 				nullify(nextPan);

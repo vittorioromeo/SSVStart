@@ -24,19 +24,19 @@ namespace ssvs
 		public:
 			Ticker(float mTarget, bool mEnabled = true) : target{mTarget}, enabled{mEnabled} { }
 
-			inline bool update(float mFrameTime)
+			inline bool update(float mFT)
 			{
 				if(!enabled) return false;
 
-				current += mFrameTime;
-				total += mFrameTime;
+				current += mFT;
+				total += mFT;
 
 				if(!hasReachedTarget()) return false;
 
 				resetCurrent(); ++ticks;
 				return true;
 			}
-			inline bool update(float mFrameTime, float mTarget) { setTarget(mTarget); return update(mFrameTime); }
+			inline bool update(float mFT, float mTarget) { setTarget(mTarget); return update(mFT); }
 
 			inline void resume() noexcept				{ setEnabled(true); }
 			inline void restart() noexcept				{ resetCurrent(); setEnabled(true); }

@@ -31,9 +31,9 @@ namespace ssvs
 			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
 			inline void handleEvent(const sf::Event& mEvent)	{ eventDelegates[mEvent.type](mEvent); }
-			inline void update(float mFrameTime)				{ onUpdate(mFrameTime); }
+			inline void update(float mFT)				{ onUpdate(mFT); }
 			inline void draw()									{ onDraw(); }
-			inline void updateInput(float mFrameTime)			{ inputManager.update(*gameWindow, mFrameTime); }
+			inline void updateInput(float mFT)			{ inputManager.update(*gameWindow, mFT); }
 			inline void refreshInput()							{ inputManager.refresh(*gameWindow); }
 
 		public:

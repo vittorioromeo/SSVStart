@@ -58,11 +58,11 @@ namespace ssvs
 
 		public:
 			Animation(Type mType = Type::Loop) noexcept : type{mType} { }
-			inline void update(float mFrameTime)
+			inline void update(float mFT)
 			{
 				if(steps.empty()) return;
 
-				time += mFrameTime * speed;
+				time += mFT * speed;
 				if(time >= getStep().time) nextStep();
 			}
 			inline void addStep(AnimationStep mStep)											{ steps.emplace_back(std::move(mStep)); }
