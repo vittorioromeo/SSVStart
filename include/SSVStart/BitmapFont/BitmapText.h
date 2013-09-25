@@ -24,7 +24,7 @@ namespace ssvs
 			int tracking{0};
 			bool mustRefreshGeometry{true}, mustRefreshColor{true};
 
-			void refreshGeometry()
+			inline void refreshGeometry()
 			{
 				unsigned int iX{0}, iY{0}, width{bitmapFont.getCellWidth()}, height{bitmapFont.getCellHeight()};;
 				float xMin{0}, xMax{0}, yMin{0}, yMax{0};
@@ -58,8 +58,8 @@ namespace ssvs
 				bounds = {xMin, yMin, xMax - xMin, yMax - yMin};
 				mustRefreshGeometry = false;
 			}
-			void refreshColor() { for(auto i(0u); i < vertices.getVertexCount(); ++i) vertices[i].color = color; mustRefreshColor = false; }
-			void refresh() const
+			inline void refreshColor() { for(auto i(0u); i < vertices.getVertexCount(); ++i) vertices[i].color = color; mustRefreshColor = false; }
+			inline void refresh() const
 			{
 				if(mustRefreshGeometry) const_cast<BitmapText*>(this)->refreshGeometry();
 				if(mustRefreshColor) const_cast<BitmapText*>(this)->refreshColor();
