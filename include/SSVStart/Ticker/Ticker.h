@@ -13,44 +13,46 @@ namespace ssvs
 	class Ticker
 	{
 		private:
-			bool enabled{true};
+			bool running{true}, loop{true};
 			float current{0.f}, total{0.f}, target;
 			unsigned int ticks{0};
 
-			inline void setEnabled(bool mEnabled)	{ enabled = mEnabled; }
-			inline void setTarget(float mTarget)	{ target = mTarget; }
-			inline bool hasReachedTarget() const	{ return current >= target; }
+			inline bool hasReachedTarget() const noexcept { return current >= target; }
 
 		public:
-			Ticker(float mTarget, bool mEnabled = true) : target{mTarget}, enabled{mEnabled} { }
+			inline Ticker(float mTarget, bool mRunning = true) noexcept : target{mTarget}, running{mRunning} { }
 
-			inline bool update(float mFT)
+			inline bool update(float mFT) noexcept
 			{
-				if(!enabled) return false;
+				if(!running) return false;
 
 				current += mFT;
 				total += mFT;
 
 				if(!hasReachedTarget()) return false;
 
-				resetCurrent(); ++ticks;
+				++ticks;
+				if(loop) resetCurrent(); else stop();
 				return true;
 			}
-			inline bool update(float mFT, float mTarget) { setTarget(mTarget); return update(mFT); }
+			inline bool update(float mFT, float mTarget) noexcept { target = mTarget; return update(mFT); }
 
-			inline void resume() noexcept				{ setEnabled(true); }
-			inline void restart() noexcept				{ resetCurrent(); setEnabled(true); }
-			inline void restart(float mTarget) noexcept	{ resetCurrent(); setTarget(mTarget); setEnabled(true); }
-			inline void pause() noexcept				{ setEnabled(false); }
-			inline void stop() noexcept					{ resetCurrent(); setEnabled(false); }
+			inline void resume() noexcept				{ running = true; }
+			inline void restart() noexcept				{ resetCurrent(); running = true; }
+			inline void restart(float mTarget) noexcept	{ resetCurrent(); target = mTarget; running = true; }
+			inline void pause() noexcept				{ running = false; }
+			inline void stop() noexcept					{ resetCurrent(); running = false; }
 
 			inline void resetCurrent() noexcept			{ current = 0.f; }
 			inline void resetTicks() noexcept			{ ticks = 0; }
 			inline void resetTotal() noexcept			{ total = 0.f; }
 			inline void resetAll() noexcept				{ resetCurrent(); resetTicks(); resetTotal(); }
 
-			inline bool isRunning() const noexcept			{ return enabled; }
-			inline bool isStopped() const noexcept			{ return !enabled; }
+			inline void setLoop(bool mLoop) noexcept		{ loop = mLoop; }
+
+			inline bool getLoop() const noexcept			{ return loop; }
+			inline bool isRunning() const noexcept			{ return running; }
+			inline bool isStopped() const noexcept			{ return !running; }
 			inline float getTarget() const noexcept			{ return target; }
 			inline float getCurrent() const noexcept		{ return current; }
 			inline float getTotal() const noexcept			{ return total; }
