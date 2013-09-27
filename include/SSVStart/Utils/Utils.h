@@ -40,6 +40,9 @@ namespace ssvs
 	}
 
 	// Vec utils
+	static Vec2i zeroVec2i{0, 0}; // C++14: template value
+	static Vec2f zeroVec2f{0.f, 0.f};
+
 	template<typename T> inline void abs(Vec2<T>& mVec) noexcept { mVec.x = std::abs(mVec.x); mVec.y = std::abs(mVec.y); }
 	template<typename T> inline Vec2<T> getAbs(Vec2<T> mVec) noexcept { abs(mVec); return mVec; }
 	template<typename T> inline T getMagnitude(const Vec2<T>& mVec) noexcept { return std::sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
@@ -48,7 +51,7 @@ namespace ssvs
 		float s(std::sin(mRadians)), c(std::cos(mRadians)); mVec -= mCenter;
 		mVec = Vec2<T>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
 	}
-	template<typename T> inline void rotateDegreesAroundCenter(const Vec2<T>& mVec, const Vec2<T>& mCenter, float mDegrees) { return rotateRadiansAroundCenter(mVec, mCenter, ssvu::toRadians(mDegrees)); }
+	template<typename T> inline void rotateDegreesAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mDegrees) { return rotateRadiansAroundCenter(mVec, mCenter, ssvu::toRadians(mDegrees)); }
 	template<typename T> inline void nullify(Vec2<T>& mVec) noexcept { mVec.x = mVec.y = 0; }
 	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { const T& m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
