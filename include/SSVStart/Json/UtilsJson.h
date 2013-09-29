@@ -25,8 +25,14 @@ namespace ssvs
 
 	inline Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
 	{
-		// TODO: get type from json
-		Animation result{Animation::Type::Loop};
+		Animation::Type type{Animation::Type::Loop};
+
+		std::string jsonType{ssvuj::as<std::string>(mObj, "type", "")};
+		if(jsonType == "once") type = Animation::Type::Once;
+		else if(jsonType == "loop") type = Animation::Type::Loop;
+		else if(jsonType == "pingpong") type = Animation::Type::PingPong;
+
+		Animation result{type};
 
 		for(const auto& f : ssvuj::get(mObj, "frames"))
 		{
@@ -34,11 +40,7 @@ namespace ssvs
 			result.addStep({index, ssvuj::as<float>(f, 1)});
 		}
 
-		//result.setLoop(ssvuj::as<bool>(mObj, "loop", true));
-		//result.setPingPong(ssvuj::as<bool>(mObj, "pingPong", false));
-		//result.setReverse(ssvuj::as<bool>(mObj, "reverse", false));
 		result.setSpeed(ssvuj::as<float>(mObj, "speed", 1.f));
-
 		return result;
 	}
 	inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj)
