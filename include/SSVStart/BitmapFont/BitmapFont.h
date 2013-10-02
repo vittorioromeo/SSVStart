@@ -27,7 +27,7 @@ namespace ssvs
 			inline sf::IntRect getGlyphRect(char mChar) const
 			{
 				mChar = mChar - 33 + data.cellStart;
-				const auto& i(ssvu::get2DIndexFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
+				const auto& i(ssvu::get2DIdxFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
 				return sf::IntRect(i[0] * data.cellWidth, i[1] * data.cellHeight, data.cellWidth, data.cellHeight);
 			}
 	};
