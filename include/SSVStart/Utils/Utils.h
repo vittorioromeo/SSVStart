@@ -22,8 +22,8 @@ namespace ssvs
 	namespace Input { class Trigger; }
 
 	// Angles
-	template<typename T> inline T getRadiansTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::getRadiansTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
-	template<typename T> inline T getDegreesTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::getDegreesTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
+	template<typename T> inline T getRadTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::getRadTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
+	template<typename T> inline T getDegTowards(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return ssvu::getDegTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
 
 	// Collision
 	inline bool isPointInPolygon(const std::vector<Vec2f>& mVertices, const Vec2f& mPoint)
@@ -46,12 +46,12 @@ namespace ssvs
 	template<typename T> inline void abs(Vec2<T>& mVec) noexcept { mVec.x = std::abs(mVec.x); mVec.y = std::abs(mVec.y); }
 	template<typename T> inline Vec2<T> getAbs(Vec2<T> mVec) noexcept { abs(mVec); return mVec; }
 	template<typename T> inline T getMagnitude(const Vec2<T>& mVec) noexcept { return std::sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
-	template<typename T> inline void rotateRadiansAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mRadians)
+	template<typename T> inline void rotateRadAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mRadians)
 	{
 		float s(std::sin(mRadians)), c(std::cos(mRadians)); mVec -= mCenter;
 		mVec = Vec2<T>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
 	}
-	template<typename T> inline void rotateDegreesAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mDegrees) { return rotateRadiansAroundCenter(mVec, mCenter, ssvu::toRadians(mDegrees)); }
+	template<typename T> inline void rotateDegAroundCenter(Vec2<T>& mVec, const Vec2<T>& mCenter, float mDegrees) { return rotateRadAroundCenter(mVec, mCenter, ssvu::toRad(mDegrees)); }
 	template<typename T> inline void nullify(Vec2<T>& mVec) noexcept { mVec.x = mVec.y = 0; }
 	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { const T& m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
@@ -77,12 +77,12 @@ namespace ssvs
 	template<typename T> inline Vec2<T> getMClampedMax(Vec2<T> mVec, const T& mMax) noexcept				{ mClampMax(mVec, mMax); return mVec; }
 
 	// Get angle from vec direction
-	template<typename T> inline T getRadians(Vec2<T> mVec) noexcept			{ normalize(mVec); return std::atan2(mVec.y, mVec.x); }
-	template<typename T> inline T getDegrees(const Vec2<T>& mVec) noexcept	{ return ssvu::toDegrees(getRadians(mVec)); }
+	template<typename T> inline T getRad(Vec2<T> mVec) noexcept			{ normalize(mVec); return std::atan2(mVec.y, mVec.x); }
+	template<typename T> inline T getDeg(const Vec2<T>& mVec) noexcept	{ return ssvu::toDeg(getRad(mVec)); }
 
 	// Get unit vec from angle
-	template<typename T> inline Vec2<T> getVecFromRadians(T mRadians, T mMagnitude = 1) { return Vec2<T>(mMagnitude * std::cos(mRadians), mMagnitude * std::sin(mRadians)); }
-	template<typename T> inline Vec2<T> getVecFromDegrees(T mDegrees, T mMagnitude = 1) { return getVecFromRadians(ssvu::toRadians(mDegrees), mMagnitude); }
+	template<typename T> inline Vec2<T> getVecFromRad(T mRadians, T mMagnitude = 1) { return Vec2<T>(mMagnitude * std::cos(mRadians), mMagnitude * std::sin(mRadians)); }
+	template<typename T> inline Vec2<T> getVecFromDeg(T mDegrees, T mMagnitude = 1) { return getVecFromRad(ssvu::toRad(mDegrees), mMagnitude); }
 
 	// Get direction between two vecs
 	template<typename T> inline Vec2<T> getDirection(const Vec2<T>& mVec, const Vec2<T>& mTarget) noexcept { return getNormalized(mTarget - mVec); }
@@ -91,11 +91,11 @@ namespace ssvs
 	template<typename T> inline void truncate(Vec2<T>& mVec, float mMax) noexcept { float i{mMax / getMagnitude(mVec)}; i = i < 1.f ? i : 1.f; resize(mVec, i); }
 	template<typename T> inline Vec2<T> getTruncated(Vec2<T> mVec, float mMax) noexcept { truncate(mVec, mMax); return mVec; }
 	template<typename T> inline void moveTowards(Vec2<T>& mVec, const Vec2<T>& mTarget, T mMagnitude) noexcept { mVec += getDirection(mVec, mTarget) * mMagnitude; }
-	template<typename T> inline Vec2<T> getOrbitFromRadians(const Vec2<T>& mVec, T mRadians, T mRadius) { return mVec + Vec2<T>(std::cos(mRadians), std::sin(mRadians)) * mRadius; }
-	template<typename T> inline Vec2<T> getOrbitFromDegrees(const Vec2<T>& mVec, T mDegrees, T mRadius) { return getOrbitFromRadians(mVec, ssvu::toRadians(mDegrees), mRadius); }
+	template<typename T> inline Vec2<T> getOrbitFromRad(const Vec2<T>& mVec, T mRadians, T mRadius) { return mVec + Vec2<T>(std::cos(mRadians), std::sin(mRadians)) * mRadius; }
+	template<typename T> inline Vec2<T> getOrbitFromDeg(const Vec2<T>& mVec, T mDegrees, T mRadius) { return getOrbitFromRad(mVec, ssvu::toRad(mDegrees), mRadius); }
 	template<typename T> inline Vec2<T> getMovedTowards(Vec2<T> mVec, const Vec2<T>& mTarget, T mMagnitude) noexcept { moveTowards(mVec, mTarget, mMagnitude); return mVec; }
 	template<typename T> inline T getDotProduct(const Vec2<T>& mA, const Vec2<T>& mB) noexcept { return mA.x * mB.x + mA.y * mB.y; }
-	template<typename T> inline Vec2<T> getRotatedAroundCenterRadians(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateRadiansAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
+	template<typename T> inline Vec2<T> getRotatedAroundCenterRad(Vec2<T> mPoint, const Vec2<T>& mCenter, float mRadians) { rotateRadAroundCenter(mPoint, mCenter, mRadians); return mPoint; }
 	template<typename T> inline T getDistSquaredEuclidean(const Vec2<T>& mA, const Vec2<T>& mB)	noexcept	{ return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
 	template<typename T> inline T getDistEuclidean(const Vec2<T>& mA, const Vec2<T>& mB) noexcept			{ return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
 

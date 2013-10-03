@@ -84,8 +84,8 @@ namespace ssvs
 			inline const std::string& getString() const noexcept	{ return str; }
 			inline const sf::Color& getColor() const noexcept		{ return color; }
 			inline int getTracking() const noexcept					{ return tracking; }
-			inline sf::FloatRect getLocalBounds() const		{ refresh(); return bounds; }
-			inline sf::FloatRect getGlobalBounds() const	{ return getTransform().transformRect(getLocalBounds()); }
+			inline sf::FloatRect getLocalBounds() const				{ refresh(); return bounds; }
+			inline sf::FloatRect getGlobalBounds() const			{ return getTransform().transformRect(getLocalBounds()); }
 	};
 }
 

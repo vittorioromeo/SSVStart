@@ -27,11 +27,11 @@ namespace ssvs
 
 			inline const decltype(labels)& getLabels() const noexcept				{ return labels; }
 			inline const Vec2u& getTileSize() const noexcept						{ return tileSize; }
-			inline const Vec2u& getIndex(const std::string& mLabel) const			{ return labels.at(mLabel); }
+			inline const Vec2u& getIdx(const std::string& mLabel) const				{ return labels.at(mLabel); }
 
 			inline sf::IntRect operator()(unsigned int mX, unsigned int mY) const	{ return sf::IntRect(mX * tileSize.x, mY * tileSize.y, tileSize.x, tileSize.y); }
 			inline sf::IntRect operator()(const Vec2u& mIdx) const					{ return (*this)(mIdx.x, mIdx.y); }
-			inline sf::IntRect operator()(const std::string& mLabel) const			{ return (*this)(getIndex(mLabel)); }
+			inline sf::IntRect operator()(const std::string& mLabel) const			{ return (*this)(getIdx(mLabel)); }
 	};
 }
 

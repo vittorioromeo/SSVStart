@@ -40,7 +40,7 @@ namespace ssvs
 				{
 					computedView = view;
 					computedView.setSize(static_cast<T>(computedView.getSize().x * skew.x), static_cast<T>(computedView.getSize().y * skew.y));
-					if(getMagnitude(offset) != 0) computedView.setCenter(view.getCenter() - getVecFromDegrees(view.getRotation() + getDegrees(offset), getMagnitude(offset)));
+					if(getMagnitude(offset) != 0) computedView.setCenter(view.getCenter() - getVecFromDeg(view.getRotation() + getDeg(offset), getMagnitude(offset)));
 					computedView.setCenter(static_cast<T>(computedView.getCenter().x), static_cast<T>(computedView.getCenter().y));
 				}
 

@@ -75,7 +75,7 @@ namespace ssvs
 
 			inline float getSpeed() const noexcept			{ return speed; }
 			inline float getTime() const noexcept			{ return time; }
-			inline unsigned int getIndex() const noexcept	{ return index; }
+			inline unsigned int getIdx() const noexcept		{ return index; }
 			inline bool getReverse() const noexcept			{ return reverse; }
 			inline Type getType() const noexcept			{ return type; }
 			inline const AnimationStep& getStep() const		{ return steps[index]; }

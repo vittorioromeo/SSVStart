@@ -36,7 +36,7 @@ namespace ssvs
 
 		for(const auto& f : ssvuj::get(mObj, "frames"))
 		{
-			const auto& index(mTileset.getIndex(ssvuj::as<std::string>(f, 0)));
+			const auto& index(mTileset.getIdx(ssvuj::as<std::string>(f, 0)));
 			result.addStep({index, ssvuj::as<float>(f, 1)});
 		}
 
