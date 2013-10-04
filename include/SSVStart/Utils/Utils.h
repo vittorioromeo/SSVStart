@@ -123,6 +123,11 @@ namespace ssvs
 	template<typename T> float getLocalBottom(const T& mElement)	{ return mElement.getLocalBounds().top + mElement.getLocalBounds().height; }
 	template<typename T> float getLocalWidth(const T& mElement)		{ return mElement.getLocalBounds().width; }
 	template<typename T> float getLocalHeight(const T& mElement)	{ return mElement.getLocalBounds().height; }
+
+	// AABB utils
+	template<typename T> inline Vec2<T> getCenter(const Vec2<T>& mMin, const Vec2<T>& mMax) noexcept	{ return Vec2<T>(mMin.x + (mMax.x - mMin.x) / T(2), mMin.y + (mMax.y - mMin.y) / T(2)); }
+	template<typename T> inline Vec2<T> getHalfSize(const Vec2<T>& mMin, const Vec2<T>& mMax) noexcept	{ return Vec2<T>((mMax.x - mMin.x) / T(2), (mMax.y - mMin.y) / T(2)); }
+	template<typename T> inline Vec2<T> getSize(const Vec2<T>& mMin, const Vec2<T>& mMax) noexcept		{ return getHalfSize(mMin, mMax) * T(2); }
 }
 
 #endif
