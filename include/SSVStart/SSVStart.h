@@ -53,6 +53,10 @@
 // Ticker
 #include "SSVStart/Ticker/Ticker.h"
 
+// VertexVector
+#include "SSVStart/VertexVector/VertexVector.h"
+
+// Inl
 #include "SSVStart/GameSystem/Timers/TimerBase.inl"
 #include "SSVStart/Input/Combo.inl"
 

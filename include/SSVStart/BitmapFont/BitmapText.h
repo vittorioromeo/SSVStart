@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include "SSVStart/BitmapFont/BitmapFont.h"
 #include "SSVStart/Global/Typedefs.h"
+#include "SSVStart/VertexVector/VertexVector.h"
 
 namespace ssvs
 {
@@ -18,7 +19,7 @@ namespace ssvs
 			const BitmapFont& bitmapFont;
 			const sf::Texture& texture;
 			std::string str;
-			sf::VertexArray vertices{sf::PrimitiveType::Quads};
+			ssvs::VertexVector<sf::PrimitiveType::Quads> vertices;
 			sf::FloatRect bounds;
 			sf::Color color{sf::Color::White};
 			int tracking{0};
@@ -26,7 +27,7 @@ namespace ssvs
 
 			inline void refreshGeometry()
 			{
-				unsigned int iX{0}, iY{0}, width{bitmapFont.getCellWidth()}, height{bitmapFont.getCellHeight()};;
+				unsigned int iX{0}, iY{0}, width{bitmapFont.getCellWidth()}, height{bitmapFont.getCellHeight()};
 				float xMin{0}, xMax{0}, yMin{0}, yMax{0};
 
 				vertices.clear();
@@ -47,10 +48,10 @@ namespace ssvs
 					float gTop{iY * height};					if(yMin > gTop) yMin = gTop;
 					float gBottom{(iY + 1) * height};			if(yMax < gBottom) yMax = gBottom;
 
-					vertices.append({{gLeft,	gTop},		color,	Vec2f(rect.left,				rect.top)});
-					vertices.append({{gRight,	gTop},		color,	Vec2f(rect.left + rect.width,	rect.top)});
-					vertices.append({{gRight,	gBottom},	color,	Vec2f(rect.left + rect.width,	rect.top + rect.height)});
-					vertices.append({{gLeft,	gBottom},	color,	Vec2f(rect.left,				rect.top + rect.height)});
+					vertices.emplace_back(Vec2f{gLeft,	gTop},		color,	Vec2f(rect.left,				rect.top));
+					vertices.emplace_back(Vec2f{gRight,	gTop},		color,	Vec2f(rect.left + rect.width,	rect.top));
+					vertices.emplace_back(Vec2f{gRight,	gBottom},	color,	Vec2f(rect.left + rect.width,	rect.top + rect.height));
+					vertices.emplace_back(Vec2f{gLeft,	gBottom},	color,	Vec2f(rect.left,				rect.top + rect.height));
 
 					++iX;
 				}
@@ -58,7 +59,7 @@ namespace ssvs
 				bounds = {xMin, yMin, xMax - xMin, yMax - yMin};
 				mustRefreshGeometry = false;
 			}
-			inline void refreshColor() { for(auto i(0u); i < vertices.getVertexCount(); ++i) vertices[i].color = color; mustRefreshColor = false; }
+			inline void refreshColor() { for(auto& v : vertices) v.color = color; mustRefreshColor = false; }
 			inline void refresh() const
 			{
 				if(mustRefreshGeometry) const_cast<BitmapText*>(this)->refreshGeometry();
