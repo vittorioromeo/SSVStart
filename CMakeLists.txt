@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-fno-omit-frame-pointer -g3 -gdwarf-2 -O0" CACHE STRI
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules/;${CMAKE_MODULE_PATH}")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtils/cmake/modules/;${CMAKE_MODULE_PATH}")
 
-set(SSVSTART_USE_JSON TRUE CACHE BOOL "Use JSON tools/utilities (Requires SSVJsonCpp and SSVUtilsJson).")
+set(SSVSTART_USE_JSON TRUE CACHE BOOL "Use JSON tools/utilities (Requires SSVUtilsJson).")
 if(SSVSTART_USE_JSON)
 	set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extlibs/SSVUtilsJson/cmake/modules/;${CMAKE_MODULE_PATH}")
 else()
