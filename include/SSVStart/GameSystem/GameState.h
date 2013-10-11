@@ -31,9 +31,9 @@ namespace ssvs
 			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
 			inline void handleEvent(const sf::Event& mEvent)	{ eventDelegates[mEvent.type](mEvent); }
-			inline void update(float mFT)				{ onUpdate(mFT); }
+			inline void update(float mFT)						{ onUpdate(mFT); }
 			inline void draw()									{ onDraw(); }
-			inline void updateInput(float mFT)			{ inputManager.update(*gameWindow, mFT); }
+			inline void updateInput(float mFT)					{ inputManager.update(*gameWindow, mFT); }
 			inline void refreshInput()							{ inputManager.refresh(*gameWindow); }
 
 		public:
@@ -44,8 +44,8 @@ namespace ssvs
 			GameState(const GameState&) = delete; // non construction-copyable
 			GameState& operator=(const GameState&) = delete; // non copyable
 
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always)					{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn}); }
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always)	{ mTrigger.setType(mType); inputManager.add({mTrigger, mFuncOn, mFuncOff}); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always)					{ mTrigger.setType(mType); inputManager.emplace(mTrigger, mFuncOn); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always)	{ mTrigger.setType(mType); inputManager.emplace(mTrigger, mFuncOn, mFuncOff); }
 
 			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
 		};

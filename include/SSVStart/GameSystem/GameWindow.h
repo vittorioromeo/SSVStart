@@ -5,6 +5,7 @@
 #ifndef SSVS_GAMESYSTEM_GAMEWINDOW
 #define SSVS_GAMESYSTEM_GAMEWINDOW
 
+#include <bitset>
 #include <cassert>
 #include <string>
 #include <SFML/Window.hpp>
@@ -58,6 +59,9 @@ namespace ssvs
 			inline void runDraw() { gameState->draw(); }
 
 		public:
+			std::bitset<sf::Keyboard::Key::KeyCount> pressedKeysBitset;
+			std::bitset<sf::Mouse::Button::ButtonCount> pressedButtonsBitset;
+
 			ssvu::Delegate<void()> onRecreation;
 
 			GameWindow() = default;
@@ -72,6 +76,11 @@ namespace ssvs
 
 					renderWindow.setActive(true);
 					renderWindow.clear();
+
+					pressedKeysBitset.reset();
+					pressedButtonsBitset.reset();
+					for(int i{0}; i < sf::Keyboard::Key::KeyCount; ++i) pressedKeysBitset[i] = true;
+					for(int i{0}; i < sf::Mouse::Button::ButtonCount; ++i) pressedButtonsBitset[i] = true;
 
 					gameState->refreshInput();
 

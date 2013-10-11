@@ -23,7 +23,7 @@ namespace ssvs
 				InputFunc on, off;
 
 			public:
-				Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{mTrigger}, on{mOn}, off{mOff} { }
+				Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
 
 				inline void update(float mFT, GameWindow& mGameWindow)	{ trigger.isActive(mGameWindow) ? callOn(mFT) : callOff(mFT); }
 				inline void refresh(GameWindow& mGameWindow)					{ trigger.refresh(mGameWindow); }

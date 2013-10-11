@@ -19,12 +19,18 @@ namespace ssvs
 		class Manager
 		{
 			private:
+
 				std::vector<Bind> binds;
 
 			public:
-				inline void update(GameWindow& mGameWindow, float mFT)	{ for(auto& b : binds) b.update(mFT, mGameWindow); }
-				inline void refresh(GameWindow& mGameWindow)			{ for(auto& b : binds) b.refresh(mGameWindow); }
-				inline void add(const Bind& mBind)						{ binds.push_back(mBind); }
+				inline void update(GameWindow& mGameWindow, float mFT)
+				{
+
+					for(auto& b : binds) b.update(mFT, mGameWindow);
+				}
+				inline void refresh(GameWindow& mGameWindow)						{ for(auto& b : binds) b.refresh(mGameWindow); }
+				inline void push(const Bind& mBind)									{ binds.push_back(mBind); }
+				template<typename... TArgs> inline void emplace(TArgs&&... mArgs)	{ binds.emplace_back(std::forward<TArgs>(mArgs)...); }
 		};
 	}
 }
