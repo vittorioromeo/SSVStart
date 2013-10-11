@@ -37,6 +37,9 @@ namespace ssvs
 			Uptr<TimerBase> timer;
 			TimerBase* replacementTimer{nullptr};
 
+			KeyBitset pressedKeys;
+			ButtonBitset pressedButtons;
+
 			void runUpdate(float mFT)
 			{
 				sf::Event event;
@@ -53,15 +56,19 @@ namespace ssvs
 					gameState->handleEvent(event);
 				}
 
+				refreshPressedInput();
 				gameState->updateInput(mFT);
 				gameState->update(mFT);
 			}
 			inline void runDraw() { gameState->draw(); }
 
-		public:
-			std::bitset<sf::Keyboard::Key::KeyCount> pressedKeysBitset;
-			std::bitset<sf::Mouse::Button::ButtonCount> pressedButtonsBitset;
+			inline void refreshPressedInput()
+			{
+				for(int i{0}; i < sf::Keyboard::Key::KeyCount; ++i) pressedKeys[i] = focus && sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
+				for(int i{0}; i < sf::Mouse::Button::ButtonCount; ++i) pressedButtons[i] = focus && sf::Mouse::isButtonPressed(sf::Mouse::Button(i)) && isMouseInside();
+			}
 
+		public:
 			ssvu::Delegate<void()> onRecreation;
 
 			GameWindow() = default;
@@ -76,11 +83,6 @@ namespace ssvs
 
 					renderWindow.setActive(true);
 					renderWindow.clear();
-
-					pressedKeysBitset.reset();
-					pressedButtonsBitset.reset();
-					for(int i{0}; i < sf::Keyboard::Key::KeyCount; ++i) pressedKeysBitset[i] = true;
-					for(int i{0}; i < sf::Mouse::Button::ButtonCount; ++i) pressedButtonsBitset[i] = true;
 
 					gameState->refreshInput();
 
@@ -117,8 +119,11 @@ namespace ssvs
 				return pos.x > 0 && pos.y > 0 && pos.x < windowSize.x && pos.y < windowSize.y;
 			}
 
-			inline bool isKeyPressed(sf::Keyboard::Key mKey) const			{ return focus && sf::Keyboard::isKeyPressed(mKey); }
-			inline bool isButtonPressed(sf::Mouse::Button mButton) const	{ return focus && sf::Mouse::isButtonPressed(mButton) && isMouseInside(); }
+			inline bool isKeyPressed(sf::Keyboard::Key mKey) const noexcept			{ return pressedKeys[int(mKey)]; }
+			inline bool isButtonPressed(sf::Mouse::Button mButton) const noexcept	{ return pressedButtons[int(mButton)]; }
+
+			inline const KeyBitset& getPressedKeys() const noexcept			{ return pressedKeys; }
+			inline const ButtonBitset& getPressedButtons() const noexcept	{ return pressedButtons; }
 
 			inline void setFullscreen(bool mFullscreen) noexcept 					{ fullscreen = mFullscreen; mustRecreate = true; }
 			inline void setSize(unsigned int mWidth, unsigned int mHeight) noexcept	{ width = mWidth; height = mHeight; mustRecreate = true; }

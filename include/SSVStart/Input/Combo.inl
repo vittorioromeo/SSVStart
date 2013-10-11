@@ -12,8 +12,8 @@ namespace ssvs
 		inline bool Combo::isDown(GameWindow& mGameWindow) const
 		{
 			if(keys.none() && buttons.none()) return false;
-			if((mGameWindow.pressedKeysBitset & keys) != keys) return false;
-			if((mGameWindow.pressedButtonsBitset & buttons) != buttons) return false;
+			if((mGameWindow.getPressedKeys() & keys) != keys) return false;
+			if((mGameWindow.getPressedButtons() & buttons) != buttons) return false;
 			return true;
 		}
 	}

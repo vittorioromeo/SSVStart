@@ -35,7 +35,6 @@ namespace ssvs
 				Trigger(const std::initializer_list<Combo>& mCombos) : combos{mCombos} { }
 
 				inline void refresh(GameWindow& mGameWindow)	{ if(!released && !isDown(mGameWindow)) released = true; }
-				inline void add(const Combo& mCombo)			{ combos.push_back(mCombo); }
 
 				inline void setType(Type mType)	noexcept		{ type = mType; }
 				inline void setReleased(bool mValue) noexcept	{ released = mValue; }

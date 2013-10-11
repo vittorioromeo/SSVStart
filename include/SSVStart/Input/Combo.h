@@ -18,8 +18,8 @@ namespace ssvs
 		class Combo
 		{
 			private:
-				std::bitset<sf::Keyboard::Key::KeyCount> keys;
-				std::bitset<sf::Mouse::Button::ButtonCount> buttons;
+				KeyBitset keys;
+				ButtonBitset buttons;
 
 			public:
 				Combo() = default;
