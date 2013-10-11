@@ -12,8 +12,10 @@
 
 namespace ssvs
 {
-	using KeyBitset = std::bitset<sf::Keyboard::Key::KeyCount>;
-	using ButtonBitset = std::bitset<sf::Mouse::Button::ButtonCount>;
+	constexpr std::size_t SfKeyCount{sf::Keyboard::Key::KeyCount};
+	constexpr std::size_t SfButtonCount{sf::Mouse::Button::ButtonCount};
+	using KeyBitset = std::bitset<SfKeyCount>;
+	using ButtonBitset = std::bitset<SfButtonCount>;
 	using Vec2i = sf::Vector2i;
 	using Vec2f = sf::Vector2f;
 	using Vec2u = sf::Vector2u;

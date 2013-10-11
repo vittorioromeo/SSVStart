@@ -64,8 +64,8 @@ namespace ssvs
 
 			inline void refreshPressedInput()
 			{
-				for(int i{0}; i < sf::Keyboard::Key::KeyCount; ++i) pressedKeys[i] = focus && sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
-				for(int i{0}; i < sf::Mouse::Button::ButtonCount; ++i) pressedButtons[i] = focus && sf::Mouse::isButtonPressed(sf::Mouse::Button(i)) && isMouseInside();
+				for(int i{0}; i < SfKeyCount; ++i) pressedKeys[i] = focus && sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
+				for(int i{0}; i < SfButtonCount; ++i) pressedButtons[i] = focus && sf::Mouse::isButtonPressed(sf::Mouse::Button(i)) && isMouseInside();
 			}
 
 		public:
