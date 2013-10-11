@@ -10,9 +10,8 @@
 
 namespace ssvs
 {
-	const std::string keyPrefix{"k"}, buttonPrefix{"b"};
-
-	#define SSVS_INS_KEY(mName) {keyPrefix + #mName, sf::Keyboard::Key::mName}
+	#define SSVS_KEY_PREFIX "k"
+	#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName, sf::Keyboard::Key::mName}
 	static ssvu::Bimap<std::string, sf::Keyboard::Key> keys
 	{
 		SSVS_INS_KEY(A),
@@ -117,8 +116,10 @@ namespace ssvs
 		SSVS_INS_KEY(Pause)
 	};
 	#undef SSVS_INS_KEY
+	#undef SSVS_KEY_PREFIX
 
-	#define SSVS_INS_BTN(mName) {buttonPrefix + #mName, sf::Mouse::Button::mName}
+	#define SSVS_BTN_PREFIX "b"
+	#define SSVS_INS_BTN(mName) {SSVS_BTN_PREFIX #mName, sf::Mouse::Button::mName}
 	static ssvu::Bimap<std::string, sf::Mouse::Button> buttons
 	{
 		SSVS_INS_BTN(Left),
@@ -128,6 +129,7 @@ namespace ssvs
 		SSVS_INS_BTN(XButton2)
 	};
 	#undef SSVS_INS_BTN
+	#undef SSVS_BTN_PREFIX
 
 	inline sf::Keyboard::Key getKey(const std::string& mName)			{ return keys.at(mName); }
 	inline sf::Mouse::Button getButton(const std::string& mName)		{ return buttons.at(mName); }
