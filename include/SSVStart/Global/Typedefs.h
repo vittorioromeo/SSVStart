@@ -8,7 +8,8 @@
 #include <bitset>
 #include <memory>
 #include <SFML/System.hpp>
-#include <SSVUtils/SSVUtils.h>
+#include <SSVUtils/Global/Typedefs.h>
+#include <SSVUtils/FileSystem/FileSystem.h>
 
 namespace ssvs
 {

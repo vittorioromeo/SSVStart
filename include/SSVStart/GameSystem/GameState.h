@@ -6,8 +6,8 @@
 #define SSVS_GAMESYSTEM_GAMESTATE
 
 #include <map>
-#include <SSVUtils/SSVUtils.h>
 #include <SFML/Window.hpp>
+#include <SSVUtils/Delegate/Delegate.h>
 #include "SSVStart/Input/Manager.h"
 #include "SSVStart/Input/Trigger.h"
 #include "SSVStart/Global/Typedefs.h"

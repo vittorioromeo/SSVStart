@@ -6,7 +6,7 @@
 #define SSVS_SOUNDPLAYER
 
 #include <SFML/Audio.hpp>
-#include <SSVUtils/SSVUtils.h>
+#include <SSVUtils/MemoryManager/MemoryManager.h>
 
 namespace ssvs
 {

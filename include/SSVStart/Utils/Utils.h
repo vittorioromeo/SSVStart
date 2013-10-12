@@ -12,7 +12,7 @@
 #include <vector>
 #include <algorithm>
 #include <SFML/Graphics.hpp>
-#include <SSVUtils/SSVUtils.h>
+#include <SSVUtils/Utils/UtilsMath.h>
 #include "SSVStart/Global/Typedefs.h"
 #include "SSVStart/GameSystem/GameState.h"
 

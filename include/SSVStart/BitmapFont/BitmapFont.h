@@ -6,7 +6,7 @@
 #define SSVS_BITMAPFONT
 
 #include <SFML/Graphics.hpp>
-#include <SSVUtils/SSVUtils.h>
+#include <SSVUtils/Utils/UtilsMath.h>
 
 namespace ssvs
 {
