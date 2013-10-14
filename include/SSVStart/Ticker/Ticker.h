@@ -13,8 +13,9 @@ namespace ssvs
 	class Ticker
 	{
 		private:
+			float target;
 			bool running{true}, loop{true};
-			float current{0.f}, total{0.f}, target;
+			float current{0.f}, total{0.f};
 			unsigned int ticks{0};
 
 			inline bool hasReachedTarget() const noexcept { return current >= target; }
