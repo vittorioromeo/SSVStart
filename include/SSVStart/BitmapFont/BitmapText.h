@@ -43,10 +43,10 @@ namespace ssvs
 					const auto& rect(bitmapFont.getGlyphRect(c));
 					unsigned int spacing{tracking * iX};
 
-					float gLeft{iX * width + spacing};			if(xMin > gLeft) xMin = gLeft;
-					float gRight{(iX + 1) * width + spacing};	if(xMax < gRight) xMax = gRight;
-					float gTop{iY * height};					if(yMin > gTop) yMin = gTop;
-					float gBottom{(iY + 1) * height};			if(yMax < gBottom) yMax = gBottom;
+					float gLeft(iX * width + spacing);			if(xMin > gLeft) xMin = gLeft;
+					float gRight((iX + 1) * width + spacing);	if(xMax < gRight) xMax = gRight;
+					float gTop(iY * height);					if(yMin > gTop) yMin = gTop;
+					float gBottom((iY + 1) * height);			if(yMax < gBottom) yMax = gBottom;
 
 					vertices.emplace_back(Vec2f{gLeft,	gTop},		color,	Vec2f(rect.left,				rect.top));
 					vertices.emplace_back(Vec2f{gRight,	gTop},		color,	Vec2f(rect.left + rect.width,	rect.top));
