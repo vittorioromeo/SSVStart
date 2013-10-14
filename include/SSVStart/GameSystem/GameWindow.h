@@ -65,8 +65,8 @@ namespace ssvs
 
 			inline void refreshPressedInput()
 			{
-				for(int i{0}; i < SfKeyCount; ++i) pressedKeys[i] = focus && sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
-				for(int i{0}; i < SfButtonCount; ++i) pressedButtons[i] = focus && sf::Mouse::isButtonPressed(sf::Mouse::Button(i)) && isMouseInside();
+				for(auto i(0u); i < SfKeyCount; ++i) pressedKeys[i] = focus && sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
+				for(auto i(0u); i < SfButtonCount; ++i) pressedButtons[i] = focus && sf::Mouse::isButtonPressed(sf::Mouse::Button(i)) && isMouseInside();
 			}
 
 		public:
@@ -153,7 +153,7 @@ namespace ssvs
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
 			{
 				assert(replacementTimer == nullptr);
-				replacementTimer = new T{*this, std::forward<TArgs>(mArgs)...}; mustRecreate = true;
+				replacementTimer = new T(*this, std::forward<TArgs>(mArgs)...); mustRecreate = true;
 			}
 	};
 }
