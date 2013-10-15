@@ -25,7 +25,7 @@ namespace ssvs
 			bool reverse{false};
 			Type type;
 
-			void nextStep()
+			inline void nextStep()
 			{
 				assert(index >= 0 && index < steps.size());
 

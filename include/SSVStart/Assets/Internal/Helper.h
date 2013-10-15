@@ -25,19 +25,19 @@ namespace ssvs
 		{
 			inline static Uptr<T> load(const Path& mPath)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromFile(mPath)) fail("from path");
 				return result;
 			}
 			inline static Uptr<T> load(const void* mData, std::size_t mSize)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromMemory(mData, mSize)) fail("from memory");
 				return result;
 			}
 			inline static Uptr<T> load(sf::InputStream& mStream)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromStream(mStream)) fail("from stream");
 				return result;
 			}
@@ -46,19 +46,19 @@ namespace ssvs
 		{
 			inline static Uptr<T> load(const Path& mPath)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->openFromFile(mPath)) fail("from open path");
 				return result;
 			}
 			inline static Uptr<T> load(const void* mData, std::size_t mSize)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->openFromMemory(mData, mSize)) fail("from open memory");
 				return result;
 			}
 			inline static Uptr<T> load(sf::InputStream& mStream)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->openFromStream(mStream)) fail("from open stream");
 				return result;
 			}
@@ -68,7 +68,7 @@ namespace ssvs
 			using T = sf::Texture;
 			inline static Uptr<T> load(const sf::Image& mImage)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromImage(mImage)) fail("from image");
 				return result;
 			}
@@ -78,7 +78,7 @@ namespace ssvs
 			using T = sf::SoundBuffer;
 			inline static Uptr<T> load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate)) fail("from samples");
 				return result;
 			}
@@ -88,37 +88,37 @@ namespace ssvs
 			using T = sf::Shader;
 			inline static Uptr<T> load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromFile(mPath, mType)) fail("shader from path");
 				return result;
 			}
 			inline static Uptr<T> load(const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromFile(mPathVertex, mPathFragment)) fail("shader from path (2)");
 				return result;
 			}
 			inline static Uptr<T> load(const std::string& mShader, sf::Shader::Type mType, ShaderFromMemory)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromMemory(mShader, mType)) fail("shader from memory");
 				return result;
 			}
 			inline static Uptr<T> load(const std::string& mShaderVertex, const std::string& mShaderFragment, ShaderFromMemory)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromMemory(mShaderVertex, mShaderFragment)) fail("shader from memory (2)");
 				return result;
 			}
 			inline static Uptr<T> load(sf::InputStream& mStream, sf::Shader::Type mType)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromStream(mStream, mType)) fail("shader from stream");
 				return result;
 			}
 			inline static Uptr<T> load(sf::InputStream& mStreamVertex, sf::InputStream& mStreamFragment)
 			{
-				auto result(ssvu::make_unique<T>());
+				auto result(std::make_unique<T>());
 				if(!result->loadFromStream(mStreamVertex, mStreamFragment)) fail("shader from stream (2)");
 				return result;
 			}
@@ -128,16 +128,16 @@ namespace ssvs
 			using T = BitmapFont;
 			inline static Uptr<T> load(const sf::Texture& mTexture, const BitmapFontData& mData)
 			{
-				return ssvu::make_unique<T>(mTexture, mData);
+				return std::make_unique<T>(mTexture, mData);
 			}
 		};
 		template<> struct Helper<Mode::Tileset, Tileset>
 		{
 			using T = Tileset;
-			inline static Uptr<T> load(const Tileset& mTileset) { return ssvu::make_unique<T>(mTileset); }
+			inline static Uptr<T> load(const Tileset& mTileset) { return std::make_unique<T>(mTileset); }
 
 			#ifndef SSVS_N_USE_JSON
-				inline static Uptr<T> load(const Path& mPath) { return ssvu::make_unique<T>(ssvuj::as<Tileset>(ssvuj::readFromFile(mPath))); }
+				inline static Uptr<T> load(const Path& mPath) { return std::make_unique<T>(ssvuj::as<Tileset>(ssvuj::readFromFile(mPath))); }
 			#endif
 		};
 	}
