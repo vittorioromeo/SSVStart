@@ -44,7 +44,14 @@ namespace ssvs
 
 			std::chrono::milliseconds msUpdate, msDraw;
 
-			void runUpdate(float mFT)
+			inline void runUpdate(float mFT)
+			{
+				gameState->updateInput(mFT);
+				gameState->update(mFT);
+			}
+			inline void runDraw() { gameState->draw(); }
+
+			inline void runEvents()
 			{
 				sf::Event event;
 				while(renderWindow.pollEvent(event))
@@ -59,11 +66,7 @@ namespace ssvs
 
 					gameState->handleEvent(event);
 				}
-
-				gameState->updateInput(mFT);
-				gameState->update(mFT);
 			}
-			inline void runDraw() { gameState->draw(); }
 
 			inline void refreshPressedInput()
 			{
@@ -92,6 +95,7 @@ namespace ssvs
 
 					ssvu::startBenchmark();
 					{
+						runEvents();
 						refreshPressedInput();
 						gameState->refreshInput();
 						timer->runUpdate();
@@ -175,3 +179,7 @@ namespace ssvs
 }
 
 #endif
+
+// TODO: refactor!
+// TODO: investigate major slowdown caused by refreshPressedKeys : consider adding "keysToCheck" and "buttonsToCheck" vectors and
+//		 manually checking keys in "isKeyPressed" and "isButtonPressed"
