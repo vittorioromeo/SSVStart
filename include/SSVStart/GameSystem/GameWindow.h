@@ -8,6 +8,7 @@
 #include <bitset>
 #include <cassert>
 #include <string>
+#include <chrono>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SSVUtils/Delegate/Delegate.h>
@@ -41,6 +42,8 @@ namespace ssvs
 			KeyBitset pressedKeys;
 			ButtonBitset pressedButtons;
 
+			std::chrono::milliseconds msUpdate, msDraw;
+
 			void runUpdate(float mFT)
 			{
 				sf::Event event;
@@ -57,7 +60,6 @@ namespace ssvs
 					gameState->handleEvent(event);
 				}
 
-				refreshPressedInput();
 				gameState->updateInput(mFT);
 				gameState->update(mFT);
 			}
@@ -65,8 +67,11 @@ namespace ssvs
 
 			inline void refreshPressedInput()
 			{
-				for(auto i(0u); i < SfKeyCount; ++i) pressedKeys[i] = focus && sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
-				for(auto i(0u); i < SfButtonCount; ++i) pressedButtons[i] = focus && sf::Mouse::isButtonPressed(sf::Mouse::Button(i)) && isMouseInside();
+				if(!focus) { pressedKeys.reset(); pressedButtons.reset(); return; }
+				for(auto i(0u); i < SfKeyCount; ++i) pressedKeys[i] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
+
+				if(!isMouseInside()) { pressedButtons.reset(); return; }
+				for(auto i(0u); i < SfButtonCount; ++i) pressedButtons[i] = sf::Mouse::isButtonPressed(sf::Mouse::Button(i));
 			}
 
 		public:
@@ -85,13 +90,21 @@ namespace ssvs
 					renderWindow.setActive(true);
 					renderWindow.clear();
 
-					gameState->refreshInput();
+					ssvu::startBenchmark();
+					{
+						refreshPressedInput();
+						gameState->refreshInput();
+						timer->runUpdate();
+						gameState->onPostUpdate();
+					}
+					msUpdate = ssvu::endBenchmarkAsMs();
 
-					timer->runUpdate();
-					gameState->onPostUpdate();
-
-					timer->runDraw();
-					renderWindow.display();
+					ssvu::startBenchmark();
+					{
+						timer->runDraw();
+						renderWindow.display();
+					}
+					msDraw = ssvu::endBenchmarkAsMs();
 
 					timer->runFrameTime();
 					timer->runFps();
@@ -148,6 +161,9 @@ namespace ssvs
 			inline bool isFPSLimited() const noexcept					{ return fpsLimited; }
 			inline float getFPS() const noexcept						{ return timer->getFps(); }
 			inline Vec2f getMousePosition() const						{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
+
+			inline auto getMsUpdate() const noexcept -> decltype(msUpdate.count())	{ return msUpdate.count(); }
+			inline auto getMsDraw() const noexcept -> decltype(msDraw.count())		{ return msDraw.count(); }
 
 			template<typename T> inline T& getTimer() { return static_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
