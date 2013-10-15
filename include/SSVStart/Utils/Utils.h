@@ -21,7 +21,7 @@ namespace ssvs
 	class GameState;
 	namespace Input { class Trigger; }
 
-	template<typename... TArgs> using CT = ssvu::CommonType<TArgs...>;
+	template<typename... TArgs> using CT = ssvu::Common<TArgs...>;
 
 	// Angles
 	template<typename T1, typename T2> inline CT<T1, T2> getRadTowards(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return ssvu::getRadTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
