@@ -44,11 +44,7 @@ namespace ssvs
 
 			std::chrono::milliseconds msUpdate, msDraw;
 
-			inline void runUpdate(float mFT)
-			{
-				gameState->updateInput(mFT);
-				gameState->update(mFT);
-			}
+			inline void runUpdate(float mFT) { gameState->updateInput(mFT); gameState->update(mFT); }
 			inline void runDraw() { gameState->draw(); }
 
 			inline void runEvents()
@@ -58,23 +54,17 @@ namespace ssvs
 				{
 					switch(event.type)
 					{
-						case sf::Event::Closed: running = false; break;
-						case sf::Event::GainedFocus: focus = true; break;
-						case sf::Event::LostFocus: focus = false; break;
-						default: break;
+						case sf::Event::Closed:					running = false;										break;
+						case sf::Event::GainedFocus:			focus = true;											break;
+						case sf::Event::LostFocus:				focus = false;											break;
+						case sf::Event::KeyPressed:				pressedKeys[int(event.key.code)] = true;				break;
+						case sf::Event::KeyReleased:			pressedKeys[int(event.key.code)] = false;				break;
+						case sf::Event::MouseButtonPressed:		pressedButtons[int(event.mouseButton.button)] = true;	break;
+						case sf::Event::MouseButtonReleased:	pressedButtons[int(event.mouseButton.button)] = false;	break;
 					}
 
 					gameState->handleEvent(event);
 				}
-			}
-
-			inline void refreshPressedInput()
-			{
-				if(!focus) { pressedKeys.reset(); pressedButtons.reset(); return; }
-				for(auto i(0u); i < SfKeyCount; ++i) pressedKeys[i] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key(i));
-
-				if(!isMouseInside()) { pressedButtons.reset(); return; }
-				for(auto i(0u); i < SfButtonCount; ++i) pressedButtons[i] = sf::Mouse::isButtonPressed(sf::Mouse::Button(i));
 			}
 
 		public:
@@ -96,7 +86,6 @@ namespace ssvs
 					ssvu::startBenchmark();
 					{
 						runEvents();
-						refreshPressedInput();
 						gameState->refreshInput();
 						timer->runUpdate();
 						gameState->onPostUpdate();
@@ -130,13 +119,6 @@ namespace ssvs
 
 			inline void saveScreenshot(const ssvu::FileSystem::Path& mPath) const { renderWindow.capture().saveToFile(mPath); }
 
-			inline bool isMouseInside() const
-			{
-				const auto& pos(sf::Mouse::getPosition(renderWindow));
-				const auto& windowSize(Vec2i(renderWindow.getSize()));
-				return pos.x > 0 && pos.y > 0 && pos.x < windowSize.x && pos.y < windowSize.y;
-			}
-
 			inline bool isKeyPressed(sf::Keyboard::Key mKey) const noexcept			{ return pressedKeys[int(mKey)]; }
 			inline bool isButtonPressed(sf::Mouse::Button mButton) const noexcept	{ return pressedButtons[int(mButton)]; }
 
@@ -169,7 +151,7 @@ namespace ssvs
 			inline auto getMsUpdate() const noexcept -> decltype(msUpdate.count())	{ return msUpdate.count(); }
 			inline auto getMsDraw() const noexcept -> decltype(msDraw.count())		{ return msDraw.count(); }
 
-			template<typename T> inline T& getTimer() { return static_cast<T&>(*timer); }
+			template<typename T> inline T& getTimer() { return reinterpret_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
 			{
 				assert(replacementTimer == nullptr);
@@ -181,5 +163,3 @@ namespace ssvs
 #endif
 
 // TODO: refactor!
-// TODO: investigate major slowdown caused by refreshPressedKeys : consider adding "keysToCheck" and "buttonsToCheck" vectors and
-//		 manually checking keys in "isKeyPressed" and "isButtonPressed"
