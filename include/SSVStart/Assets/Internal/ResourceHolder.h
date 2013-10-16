@@ -19,26 +19,26 @@ namespace ssvs
 				std::unordered_map<std::string, Uptr<T>> resources;
 
 			public:
-				template<typename... TArgs> T& load(const std::string& mId, TArgs&&... mArgs)
+				template<typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 				{
 					auto inserted(resources.insert(std::make_pair(mId, std::move(Loader<T>::load(mArgs...)))));
 					assert(inserted.second); // Assertion error fires if inserting replaced an existing resource
 					return *inserted.first->second;
 				}
 
-				const T& operator[](const std::string& mId) const
+				inline const T& operator[](const std::string& mId) const
 				{
 					auto itr(resources.find(mId));
 					assert(itr != std::end(resources)); // Assertion error fires if resource id wasn't found
 					return *itr->second;
 				}
-				T& operator[](const std::string& mId)
+				inline T& operator[](const std::string& mId)
 				{
 					return const_cast<T&>(static_cast<const ResourceHolder*>(this)->operator[](mId));
 				}
 
-				bool has(const std::string& mId) const			{ return resources.count(mId) > 0; }
-				decltype(resources)& getResources()	noexcept	{ return resources; }
+				inline bool has(const std::string& mId) const noexcept	{ return resources.count(mId) > 0; }
+				inline decltype(resources)& getResources()	noexcept	{ return resources; }
 		};
 	}
 }
