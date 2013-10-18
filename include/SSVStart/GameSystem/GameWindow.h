@@ -83,21 +83,21 @@ namespace ssvs
 					renderWindow.setActive(true);
 					renderWindow.clear();
 
-					ssvu::startBenchmark();
+					auto tempMs(std::chrono::high_resolution_clock::now());
 					{
 						runEvents();
 						gameState->refreshInput();
 						timer->runUpdate();
 						gameState->onPostUpdate();
 					}
-					msUpdate = ssvu::endBenchmarkAsMs();
+					msUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tempMs);
 
-					ssvu::startBenchmark();
+					tempMs = std::chrono::high_resolution_clock::now();
 					{
 						timer->runDraw();
 						renderWindow.display();
 					}
-					msDraw = ssvu::endBenchmarkAsMs();
+					msDraw = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tempMs);
 
 					timer->runFrameTime();
 					timer->runFps();
