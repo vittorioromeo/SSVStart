@@ -7,12 +7,13 @@
 
 #include <SFML/Window.hpp>
 #include <SSVUtils/Bimap/Bimap.h>
+#include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs
 {
 	#define SSVS_KEY_PREFIX "k"
-	#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName, sf::Keyboard::Key::mName}
-	static ssvu::Bimap<std::string, sf::Keyboard::Key> keys
+	#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName,KKey::mName}
+	static ssvu::Bimap<std::string, KKey> keys
 	{
 		SSVS_INS_KEY(A),
 		SSVS_INS_KEY(B),
@@ -119,8 +120,8 @@ namespace ssvs
 	#undef SSVS_KEY_PREFIX
 
 	#define SSVS_BTN_PREFIX "b"
-	#define SSVS_INS_BTN(mName) {SSVS_BTN_PREFIX #mName, sf::Mouse::Button::mName}
-	static ssvu::Bimap<std::string, sf::Mouse::Button> buttons
+	#define SSVS_INS_BTN(mName) {SSVS_BTN_PREFIX #mName, MBtn::mName}
+	static ssvu::Bimap<std::string, MBtn> btns
 	{
 		SSVS_INS_BTN(Left),
 		SSVS_INS_BTN(Right),
@@ -131,12 +132,12 @@ namespace ssvs
 	#undef SSVS_INS_BTN
 	#undef SSVS_BTN_PREFIX
 
-	inline sf::Keyboard::Key getKey(const std::string& mName)			{ return keys.at(mName); }
-	inline sf::Mouse::Button getButton(const std::string& mName)		{ return buttons.at(mName); }
-	inline const std::string& getKeyName(sf::Keyboard::Key mKey)		{ return keys.at(mKey); }
-	inline const std::string& getButtonName(sf::Mouse::Button mButton)	{ return buttons.at(mButton); }
-	inline bool isKeyNameValid(const std::string& mName)				{ return keys.has(mName); }
-	inline bool isButtonNameValid(const std::string& mName)				{ return buttons.has(mName); }
+	inline KKey getKey(const std::string& mName)			{ return keys.at(mName); }
+	inline MBtn getButton(const std::string& mName)			{ return btns.at(mName); }
+	inline const std::string& getKeyName(KKey mKey)			{ return keys.at(mKey); }
+	inline const std::string& getButtonName(MBtn mBtn)		{ return btns.at(mBtn); }
+	inline bool isKeyNameValid(const std::string& mName)	{ return keys.has(mName); }
+	inline bool isButtonNameValid(const std::string& mName)	{ return btns.has(mName); }
 }
 
 #endif

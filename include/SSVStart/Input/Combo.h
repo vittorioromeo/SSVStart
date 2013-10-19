@@ -19,24 +19,24 @@ namespace ssvs
 		{
 			private:
 				KeyBitset keys;
-				ButtonBitset buttons;
+				BtnBitset btns;
 
 			public:
 				Combo() = default;
-				Combo(const std::initializer_list<sf::Keyboard::Key>& mKeys, const std::initializer_list<sf::Mouse::Button>& mButtons = {})
+				Combo(const std::initializer_list<KKey>& mKeys, const std::initializer_list<MBtn>& mBtns = {})
 				{
 					for(const auto& k : mKeys) addKey(k);
-					for(const auto& b : mButtons) addButton(b);
+					for(const auto& b : mBtns) addButton(b);
 				}
-				Combo(const std::initializer_list<sf::Mouse::Button>& mButtons) : Combo{{}, mButtons} { }
+				Combo(const std::initializer_list<MBtn>& mBtns) : Combo{{}, mBtns} { }
 
 				bool isDown(GameWindow& mGameWindow) const;
 
-				inline void addKey(sf::Keyboard::Key mKey)			{ keys[mKey] = true; }
-				inline void addButton(sf::Mouse::Button mButton)	{ buttons[mButton] = true; }
+				inline void addKey(KKey mKey)		{ keys[mKey + 1] = true; }
+				inline void addButton(MBtn mBtn)	{ btns[mBtn + 1] = true; }
 
-				inline const decltype(keys)& getKeys() const noexcept		{ return keys; }
-				inline const decltype(buttons)& getButtons() const noexcept	{ return buttons; }
+				inline const KeyBitset& getKeys() const noexcept	{ return keys; }
+				inline const BtnBitset& getButtons() const noexcept	{ return btns; }
 		};
 	}
 }

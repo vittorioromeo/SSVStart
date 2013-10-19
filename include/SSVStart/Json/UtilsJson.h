@@ -74,15 +74,15 @@ namespace ssvuj
 		inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.x, mValue.y); }
 		inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.x, mValue.y); }
 	};
-	template<> struct Converter<sf::Keyboard::Key>
+	template<> struct Converter<ssvs::KKey>
 	{
-		using T = sf::Keyboard::Key;
+		using T = ssvs::KKey;
 		inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::getKey(as<std::string>(mObj)); }
 		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getKeyName(mValue)); }
 	};
-	template<> struct Converter<sf::Mouse::Button>
+	template<> struct Converter<ssvs::MBtn>
 	{
-		using T = sf::Mouse::Button;
+		using T = ssvs::MBtn;
 		inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::getButton(as<std::string>(mObj)); }
 		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getButtonName(mValue)); }
 	};
@@ -93,8 +93,8 @@ namespace ssvuj
 		{
 			for(const auto& i : mObj)
 			{
-				if(ssvs::isKeyNameValid(as<std::string>(i))) mValue.addKey(as<sf::Keyboard::Key>(i));
-				else if(ssvs::isButtonNameValid(as<std::string>(i))) mValue.addButton(as<sf::Mouse::Button>(i));
+				if(ssvs::isKeyNameValid(as<std::string>(i))) mValue.addKey(as<ssvs::KKey>(i));
+				else if(ssvs::isButtonNameValid(as<std::string>(i))) mValue.addButton(as<ssvs::MBtn>(i));
 				else ssvu::lo("ssvs::getInputComboFromJSON") << "<" << i << "> is not a valid input name";
 			}
 		}
@@ -102,9 +102,9 @@ namespace ssvuj
 		{
 			auto i(0u);
 			const auto& keys(mValue.getKeys());
-			const auto& buttons(mValue.getButtons());
-			for(auto j(0u); j < ssvs::SfKeyCount;  ++j) if(keys[j]) set(mObj, i++, sf::Keyboard::Key(j));
-			for(auto j(0u); j < ssvs::SfButtonCount; ++j) if(buttons[j]) set(mObj, i++, sf::Mouse::Button(j));
+			const auto& btns(mValue.getButtons());
+			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j]) set(mObj, i++, ssvs::KKey(j));
+			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j]) set(mObj, i++, ssvs::MBtn(j));
 		}
 	};
 	template<> struct Converter<ssvs::Input::Trigger>
