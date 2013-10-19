@@ -53,14 +53,14 @@ namespace ssvs
 				{
 					switch(event.type)
 					{
-						case sf::Event::Closed:					running = false;										break;
-						case sf::Event::GainedFocus:			focus = true;											break;
-						case sf::Event::LostFocus:				focus = false;											break;
-						case sf::Event::KeyPressed:				pressedKeys[int(event.key.code)] = true;				break;
-						case sf::Event::KeyReleased:			pressedKeys[int(event.key.code)] = false;				break;
-						case sf::Event::MouseButtonPressed:		pressedButtons[int(event.mouseButton.button)] = true;	break;
-						case sf::Event::MouseButtonReleased:	pressedButtons[int(event.mouseButton.button)] = false;	break;
-						default:																						break;
+						case sf::Event::Closed:					running = false;														break;
+						case sf::Event::GainedFocus:			focus = true;															break;
+						case sf::Event::LostFocus:				focus = false;															break;
+						case sf::Event::KeyPressed:				if(int(event.key.code) > -1) pressedKeys[int(event.key.code)] = true;	break;
+						case sf::Event::KeyReleased:			if(int(event.key.code) > -1) pressedKeys[int(event.key.code)] = false;	break;
+						case sf::Event::MouseButtonPressed:		pressedButtons[int(event.mouseButton.button)] = true;					break;
+						case sf::Event::MouseButtonReleased:	pressedButtons[int(event.mouseButton.button)] = false;					break;
+						default:																										break;
 					}
 
 					gameState->handleEvent(event);
