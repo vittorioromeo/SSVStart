@@ -25,24 +25,23 @@ namespace ssvs
 
 			inline bool update(float mFT) noexcept
 			{
-				if(!running) return false;
-
-				current += mFT;
-				total += mFT;
+				current += mFT * running;
+				total += mFT * running;
 
 				if(!hasReachedTarget()) return false;
 
 				++ticks;
-				if(loop) resetCurrent(); else stop();
+				resetCurrent();
+				running = loop;
 				return true;
 			}
 			inline bool update(float mFT, float mTarget) noexcept { target = mTarget; return update(mFT); }
 
+			inline void pause() noexcept				{ running = false; }
 			inline void resume() noexcept				{ running = true; }
+			inline void stop() noexcept					{ resetCurrent(); running = false; }
 			inline void restart() noexcept				{ resetCurrent(); running = true; }
 			inline void restart(float mTarget) noexcept	{ resetCurrent(); target = mTarget; running = true; }
-			inline void pause() noexcept				{ running = false; }
-			inline void stop() noexcept					{ resetCurrent(); running = false; }
 
 			inline void resetCurrent() noexcept			{ current = 0.f; }
 			inline void resetTicks() noexcept			{ ticks = 0; }
@@ -53,7 +52,6 @@ namespace ssvs
 
 			inline bool getLoop() const noexcept			{ return loop; }
 			inline bool isRunning() const noexcept			{ return running; }
-			inline bool isStopped() const noexcept			{ return !running; }
 			inline float getTarget() const noexcept			{ return target; }
 			inline float getCurrent() const noexcept		{ return current; }
 			inline float getTotal() const noexcept			{ return total; }
