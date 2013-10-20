@@ -18,7 +18,7 @@ namespace ssvs
 		using ShaderFromMemory = ShaderDisambiguationTag<true>;
 		using ShaderFromPath = ShaderDisambiguationTag<false>;
 
-		static void fail(const std::string& mMessage = "") { throw std::runtime_error("Failed to load resource - " + mMessage); }
+		inline void fail(const std::string& mMessage = "") { throw std::runtime_error("Failed to load resource - " + mMessage); }
 
 		template<Mode TT, typename T> struct Helper;
 		template<typename T> struct Helper<Mode::Load, T>
