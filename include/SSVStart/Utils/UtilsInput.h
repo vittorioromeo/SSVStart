@@ -12,7 +12,7 @@
 namespace ssvs
 {
 	#define SSVS_KEY_PREFIX "k"
-	#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName,KKey::mName}
+	#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName, KKey::mName}
 	static ssvu::Bimap<std::string, KKey> keys
 	{
 		SSVS_INS_KEY(A),
