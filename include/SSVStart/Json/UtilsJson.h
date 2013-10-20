@@ -103,8 +103,8 @@ namespace ssvuj
 			auto i(0u);
 			const auto& keys(mValue.getKeys());
 			const auto& btns(mValue.getButtons());
-			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j]) set(mObj, i++, ssvs::KKey(j));
-			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j]) set(mObj, i++, ssvs::MBtn(j));
+			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j + 1]) set(mObj, i++, ssvs::KKey(j));
+			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j + 1]) set(mObj, i++, ssvs::MBtn(j));
 		}
 	};
 	template<> struct Converter<ssvs::Input::Trigger>

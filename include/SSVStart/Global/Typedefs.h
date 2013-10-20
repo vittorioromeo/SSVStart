@@ -18,7 +18,7 @@ namespace ssvs
 	constexpr std::size_t KKeyCount{KKey::KeyCount};
 	constexpr std::size_t MBtnCount{MBtn::ButtonCount};
 	using KeyBitset = std::bitset<KKeyCount + 1>; // +1 because it also works with KKey::Unknown, which is -1
-	using BtnBitset = std::bitset<MBtnCount>;
+	using BtnBitset = std::bitset<MBtnCount + 1>; // +1 to stay consistent
 	using Vec2i = sf::Vector2i;
 	using Vec2f = sf::Vector2f;
 	using Vec2u = sf::Vector2u;
