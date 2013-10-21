@@ -76,8 +76,8 @@ namespace ssvs
 	{
 		assert(mMin < mMax);
 		const auto& m(getMagnitude(mVec));
-		if(m < mMin) { resize(mVec, mMin, m); return; }
-		if(m > mMax) { resize(mVec, mMax, m); return; }
+		if(m < mMin) resize(mVec, mMin, m);
+		else if(m > mMax) resize(mVec, mMax, m);
 	}
 	template<typename T1, typename T2> inline void mClampMin(Vec2<T1>& mVec, const T2& mMin) noexcept { const auto& m(getMagnitude(mVec)); if(m < mMin) resize(mVec, mMin, m); }
 	template<typename T1, typename T2> inline void mClampMax(Vec2<T1>& mVec, const T2& mMax) noexcept { const auto& m(getMagnitude(mVec)); if(m > mMax) resize(mVec, mMax, m); }
@@ -112,7 +112,7 @@ namespace ssvs
 	{
 		mGameState.addInput(mTrigger, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType);
 	}
-	inline void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, Input::Trigger mPositive, int& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
+	inline void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, const Input::Trigger& mPositive, int& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
 	{
 		mGameState.addInput(mNegative, [&mValue](float){ mValue = -1; },	[&mValue](float){ if(mValue == -1) mValue = 0; }, mType);
 		mGameState.addInput(mPositive, [&mValue](float){ mValue = 1; },		[&mValue](float){ if(mValue == 1) mValue = 0; }, mType);
