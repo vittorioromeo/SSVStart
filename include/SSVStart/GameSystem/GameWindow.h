@@ -74,7 +74,7 @@ namespace ssvs
 			GameWindow(const GameWindow&) = delete; // non construction-copyable
 			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 
-			void run()
+			inline void run()
 			{
 				while(running)
 				{
