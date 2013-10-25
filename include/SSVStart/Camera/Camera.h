@@ -53,7 +53,7 @@ namespace ssvs
 			inline void pan(float mX, float mY)	{ nextPan.x += mX; nextPan.y += mY;	invalid = true; }
 			inline void zoomIn(float mFactor)	{ nextZoomFactor /= mFactor;		invalid = true; }
 			inline void zoomOut(float mFactor)	{ nextZoomFactor *= mFactor;		invalid = true; }
-			inline void turn(float mDegrees)	{ nextRotation += mDegrees;			invalid = true; }
+			inline void turn(float mDeg)		{ nextRotation += mDeg;			invalid = true; }
 
 			template<typename T = float> inline void update(float mFT)
 			{
@@ -72,7 +72,7 @@ namespace ssvs
 
 			// These properties IMMEDIATELY change the view
 			inline void setView(sf::View mView) noexcept			{ view = std::move(mView);		mustRecompute = true; }
-			inline void setRotation(float mDegrees) noexcept		{ view.setRotation(mDegrees);	mustRecompute = true; }
+			inline void setRotation(float mDeg) noexcept		{ view.setRotation(mDeg);	mustRecompute = true; }
 			inline void setSkew(const Vec2f& mSkew) noexcept		{ skew = mSkew;					mustRecompute = true; }
 			inline void setOffset(const Vec2f& mOffset) noexcept	{ offset = mOffset;				mustRecompute = true; }
 			inline void setCenter(const Vec2f& mPosition) noexcept 	{ view.setCenter(mPosition);	mustRecompute = true; }
