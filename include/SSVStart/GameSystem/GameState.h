@@ -8,6 +8,7 @@
 #include <map>
 #include <SFML/Window.hpp>
 #include <SSVUtils/Delegate/Delegate.h>
+#include "SSVStart/Input/Enums.h"
 #include "SSVStart/Input/Manager.h"
 #include "SSVStart/Input/Trigger.h"
 #include "SSVStart/Global/Typedefs.h"
@@ -22,7 +23,8 @@ namespace ssvs
 
 		private:
 			using ITrigger = Input::Trigger;
-			using IType = ITrigger::Type;
+			using IType = Input::TriggerType;
+			using IMode = Input::TriggerMode;
 			using IFunc = InputFunc;
 			using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
@@ -44,8 +46,8 @@ namespace ssvs
 			GameState(const GameState&) = delete; // non construction-copyable
 			GameState& operator=(const GameState&) = delete; // non copyable
 
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always)					{ mTrigger.setType(mType); inputManager.emplace(mTrigger, mFuncOn); }
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always)	{ mTrigger.setType(mType); inputManager.emplace(mTrigger, mFuncOn, mFuncOff); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)					{ mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn); }
+			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)	{ mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn, mFuncOff);  }
 
 			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
 		};

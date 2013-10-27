@@ -30,6 +30,7 @@
 #include "SSVStart/GameSystem/Timers/TimerStatic.h"
 
 // Input
+#include "SSVStart/Input/Enums.h"
 #include "SSVStart/Input/Combo.h"
 #include "SSVStart/Input/Trigger.h"
 #include "SSVStart/Input/Manager.h"

@@ -108,11 +108,11 @@ namespace ssvs
 	template<typename T1, typename T2> inline CT<T1, T2> getDistSquaredEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept	{ return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
 	template<typename T1, typename T2> inline CT<T1, T2> getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept			{ return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
 
-	inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
+	inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue, Input::TriggerType mType = Input::TriggerType::Always)
 	{
 		mGameState.addInput(mTrigger, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType);
 	}
-	inline void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, const Input::Trigger& mPositive, int& mValue, Input::Trigger::Type mType = Input::Trigger::Type::Always)
+	inline void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, const Input::Trigger& mPositive, int& mValue, Input::TriggerType mType = Input::TriggerType::Always)
 	{
 		mGameState.addInput(mNegative, [&mValue](float){ mValue = -1; },	[&mValue](float){ if(mValue == -1) mValue = 0; }, mType);
 		mGameState.addInput(mPositive, [&mValue](float){ mValue = 1; },		[&mValue](float){ if(mValue == 1) mValue = 0; }, mType);

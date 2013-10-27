@@ -6,6 +6,7 @@
 #define SSVS_INPUT_TRIGGER
 
 #include <vector>
+#include "SSVStart/Input/Enums.h"
 #include "SSVStart/Input/Combo.h"
 
 namespace ssvs
@@ -14,19 +15,19 @@ namespace ssvs
 
 	namespace Input
 	{
+		class Manager;
+
 		class Trigger
 		{
-			public:
-				enum class Type{Always, Once};
-
 			private:
-				Type type{Type::Always};
+				TriggerType type{TriggerType::Always};
+				TriggerMode mode{TriggerMode::Overlap};
 				std::vector<Combo> combos;
 				bool released{true};
 
-				inline bool isDown(GameWindow& mGameWindow) const
+				inline bool isDown(Manager& mManager, GameWindow& mGameWindow) const
 				{
-					for(const auto& c : combos) if(c.isDown(mGameWindow)) return true;
+					for(const auto& c : combos) if(c.isDown(mManager, mGameWindow, mode)) return true;
 					return false;
 				}
 
@@ -34,20 +35,21 @@ namespace ssvs
 				Trigger() = default;
 				Trigger(const std::initializer_list<Combo>& mCombos) : combos{mCombos} { }
 
-				inline void refresh(GameWindow& mGameWindow)	{ if(!released && !isDown(mGameWindow)) released = true; }
+				inline void refresh(Manager& mManager, GameWindow& mGameWindow)	{ if(!released && !isDown(mManager, mGameWindow)) released = true; }
 
-				inline void setType(Type mType)	noexcept		{ type = mType; }
-				inline void setReleased(bool mValue) noexcept	{ released = mValue; }
+				inline void setType(TriggerType mType)	noexcept	{ type = mType; }
+				inline void setMode(TriggerMode mMode) noexcept		{ mode = mMode; }
+				inline void setReleased(bool mValue) noexcept		{ released = mValue; }
 
-				inline bool isActive(GameWindow& mGameWindow)
+				inline bool isActive(Manager& mManager, GameWindow& mGameWindow)
 				{
-					if(type == Type::Always) return isDown(mGameWindow);
-					if(released && isDown(mGameWindow)) { released = false; return true; }
+					if(type == TriggerType::Always) return isDown(mManager, mGameWindow);
+					if(released && isDown(mManager, mGameWindow)) { released = false; return true; }
 					return false;
 				}
 
-				inline std::vector<Combo>& getCombos() noexcept				{ return combos; }
-				inline const std::vector<Combo>& getCombos() const noexcept	{ return combos; }
+				inline decltype(combos)& getCombos() noexcept				{ return combos; }
+				inline const decltype(combos)& getCombos() const noexcept	{ return combos; }
 		};
 	}
 }

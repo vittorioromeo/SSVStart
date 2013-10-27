@@ -16,6 +16,8 @@ namespace ssvs
 
 	namespace Input
 	{
+		class Manager;
+
 		class Bind
 		{
 			private:
@@ -25,11 +27,13 @@ namespace ssvs
 			public:
 				Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
 
-				inline void update(float mFT, GameWindow& mGameWindow)	{ trigger.isActive(mGameWindow) ? callOn(mFT) : callOff(mFT); }
-				inline void refresh(GameWindow& mGameWindow)			{ trigger.refresh(mGameWindow); }
+				inline void update(Manager& mManager, float mFT, GameWindow& mGameWindow)	{ trigger.isActive(mManager, mGameWindow) ? callOn(mFT) : callOff(mFT); }
+				inline void refresh(Manager& mManager, GameWindow& mGameWindow)				{ trigger.refresh(mManager, mGameWindow); }
 
 				inline void callOn(float mFT) const		{ if(on != nullptr) on(mFT); }
 				inline void callOff(float mFT) const	{ if(off != nullptr) off(mFT); }
+
+				inline std::size_t getPriority() const { std::size_t max{0}; for(auto& c : trigger.getCombos()) max = std::max(c.getKeys().count() + c.getBtns().count(), max); return max; }
 		};
 	}
 }

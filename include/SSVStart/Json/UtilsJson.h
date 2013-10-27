@@ -102,7 +102,7 @@ namespace ssvuj
 		{
 			auto i(0u);
 			const auto& keys(mValue.getKeys());
-			const auto& btns(mValue.getButtons());
+			const auto& btns(mValue.getBtns());
 			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j + 1]) set(mObj, i++, ssvs::KKey(j));
 			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j + 1]) set(mObj, i++, ssvs::MBtn(j));
 		}

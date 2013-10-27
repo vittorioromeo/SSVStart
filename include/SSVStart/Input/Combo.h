@@ -15,6 +15,8 @@ namespace ssvs
 
 	namespace Input
 	{
+		class Manager;
+
 		class Combo
 		{
 			private:
@@ -30,13 +32,13 @@ namespace ssvs
 				}
 				Combo(const std::initializer_list<MBtn>& mBtns) : Combo{{}, mBtns} { }
 
-				bool isDown(GameWindow& mGameWindow) const;
+				bool isDown(Manager& mManager, GameWindow& mGameWindow, TriggerMode mMode) const;
 
 				inline void addKey(KKey mKey)		{ keys[mKey + 1] = true; }
 				inline void addButton(MBtn mBtn)	{ btns[mBtn + 1] = true; }
 
 				inline const KeyBitset& getKeys() const noexcept	{ return keys; }
-				inline const BtnBitset& getButtons() const noexcept	{ return btns; }
+				inline const BtnBitset& getBtns() const noexcept	{ return btns; }
 		};
 	}
 }

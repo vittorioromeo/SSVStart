@@ -16,15 +16,29 @@ namespace ssvs
 
 	namespace Input
 	{
+		class Combo;
+
 		class Manager
 		{
+			friend class Combo;
+
 			private:
+				KeyBitset processedKeys;
+				BtnBitset processedBtns;
 				std::vector<Bind> binds;
 
 			public:
-				inline void update(GameWindow& mGameWindow, float mFT)				{ for(auto& b : binds) b.update(mFT, mGameWindow); }
-				inline void refresh(GameWindow& mGameWindow)						{ for(auto& b : binds) b.refresh(mGameWindow); }
-				template<typename... TArgs> inline void emplace(TArgs&&... mArgs)	{ binds.emplace_back(std::forward<TArgs>(mArgs)...); }
+				inline void update(GameWindow& mGameWindow, float mFT) { for(auto& b : binds) b.update(*this, mFT, mGameWindow); }
+				inline void refresh(GameWindow& mGameWindow)
+				{
+					processedKeys.reset(); processedBtns.reset();
+					for(auto& b : binds) b.refresh(*this, mGameWindow);
+				}
+				template<typename... TArgs> inline void emplace(TArgs&&... mArgs)
+				{
+					binds.emplace_back(std::forward<TArgs>(mArgs)...);
+					ssvu::sort(binds, [](const Bind& mA, const Bind& mB){ return mA.getPriority() > mB.getPriority(); });
+				}
 		};
 	}
 }
