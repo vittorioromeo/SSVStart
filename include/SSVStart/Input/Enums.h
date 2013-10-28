@@ -9,8 +9,8 @@ namespace ssvs
 {
 	namespace Input
 	{
-		enum class TriggerType{Always, Once};
-		enum class TriggerMode{Overlap, Exclusive};
+		enum class Type{Always, Once};
+		enum class Mode{Overlap, Exclusive};
 	}
 }
 

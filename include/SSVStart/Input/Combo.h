@@ -32,7 +32,7 @@ namespace ssvs
 				}
 				Combo(const std::initializer_list<MBtn>& mBtns) : Combo{{}, mBtns} { }
 
-				bool isDown(Manager& mManager, GameWindow& mGameWindow, TriggerMode mMode) const;
+				bool isDown(Manager& mManager, GameWindow& mGameWindow, Mode mMode) const;
 
 				inline void addKey(KKey mKey)	{ keys[mKey + 1] = true; }
 				inline void addBtn(MBtn mBtn)	{ btns[mBtn + 1] = true; }

@@ -23,8 +23,8 @@ namespace ssvs
 
 		private:
 			using ITrigger = Input::Trigger;
-			using IType = Input::TriggerType;
-			using IMode = Input::TriggerMode;
+			using IType = Input::Type;
+			using IMode = Input::Mode;
 			using IFunc = InputFunc;
 			using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 

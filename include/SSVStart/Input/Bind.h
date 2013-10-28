@@ -27,7 +27,7 @@ namespace ssvs
 				inline std::size_t getPriority() const { std::size_t max{0}; for(auto& c : trigger.getCombos()) max = std::max(c.getKeys().count() + c.getBtns().count(), max); return max; }
 
 			public:
-				Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
+				Bind(Trigger mTrigger, const InputFunc& mOn = nullptr, const InputFunc& mOff = nullptr) : trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
 
 				inline void update(Manager& mManager, float mFT, GameWindow& mGameWindow)	{ trigger.isActive(mManager, mGameWindow) ? callOn(mFT) : callOff(mFT); }
 				inline void refresh(Manager& mManager, GameWindow& mGameWindow)				{ trigger.refresh(mManager, mGameWindow); }
