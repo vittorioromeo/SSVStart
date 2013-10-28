@@ -21,13 +21,27 @@ namespace ssvs
 	class GameState;
 	namespace Input { class Trigger; }
 
+	using ITrigger = Input::Trigger;
+	using IType = Input::Type;
+	using IMode = Input::Mode;
 	template<typename... TArgs> using CT = ssvu::Common<TArgs...>;
 
-	// Angles
+	/// @brief Calculates radians needed to turn towards a point.
+	/// @param mVec Starting point.
+	/// @param mTarget Target point.
+	/// @return Returns the needed radians.
 	template<typename T1, typename T2> inline CT<T1, T2> getRadTowards(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return ssvu::getRadTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
+
+	/// @brief Calculates degrees needed to turn towards a point.
+	/// @param mVec Starting point.
+	/// @param mTarget Target point.
+	/// @return Returns the needed degrees.
 	template<typename T1, typename T2> inline CT<T1, T2> getDegTowards(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return ssvu::getDegTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
 
-	// Collision
+	/// @brief Checks if a point is inside a polygon.
+	/// @param mVertices Container of the polygon vertices.
+	/// @param mPoint Point to check.
+	/// @return Returns true if the point is inside the polygon.
 	template<typename T> inline bool isPointInPolygon(const std::vector<Vec2<T>>& mVertices, const Vec2<T>& mPoint)
 	{
 		bool result{false};
@@ -41,37 +55,131 @@ namespace ssvs
 		return result;
 	}
 
-	// Vec utils
+	/// @brief Static value representing a (0, 0) vector. (int)
 	static Vec2i zeroVec2i{0, 0}; // C++14: template value
+
+	/// @brief Static value representing a (0, 0) vector. (float)
 	static Vec2f zeroVec2f{0.f, 0.f};
 
+	/// @brief Sets a vector's components to their absolute values.
+	/// @details Calls std::abs on both components.
+	/// @param mVec Vector to modify.
 	template<typename T> inline void abs(Vec2<T>& mVec) noexcept { mVec.x = std::abs(mVec.x); mVec.y = std::abs(mVec.y); }
+
+	/// @brief Returns a vector whose components are the absolute values of the original's.
+	/// @details Uses std::abs on both components.
+	/// @param mVec Original vector. (will not be modified)
+	///	@return Returns a new vector with absolute value components.
 	template<typename T> inline Vec2<T> getAbs(Vec2<T> mVec) noexcept { abs(mVec); return mVec; }
+
+	/// @brief Get the magnitude of a vector.
+	/// @param mVec Vector to use.
+	///	@return Returns the magnitude of mVec.
 	template<typename T> inline T getMagnitude(const Vec2<T>& mVec) noexcept { return std::sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
+
+	/// @brief Rotates a vector by n radians around a point.
+	/// @param mVec Vector to rotate. (will be modified)
+	/// @param mCenter Point to use as center for the rotation.
+	/// @param mRad Number of radians.
 	template<typename T1, typename T2, typename T3> inline void rotateRadAroundCenter(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mRad)
 	{
-		CT<T1, T2, T3> s(std::sin(mRad)), c(std::cos(mRad)); mVec -= mCenter;
-		mVec = Vec2<CT<T1, T2, T3>>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
+		auto s(std::sin(mRad)), c(std::cos(mRad)); mVec -= mCenter;
+		mVec = Vec2<T1>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
 	}
-	template<typename T1, typename T2, typename T3> inline void rotateDegAroundCenter(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mDeg) { return rotateRadAroundCenter(mVec, mCenter, ssvu::toRad(mDeg)); }
+
+	/// @brief Rotates a vector by n degrees around a point.
+	/// @param mVec Vector to rotate. (will be modified)
+	/// @param mCenter Point to use as center for the rotation.
+	/// @param mRad Number of degrees.
+	template<typename T1, typename T2, typename T3> inline void rotateDegAroundCenter(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mDeg)
+	{
+		return rotateRadAroundCenter(mVec, mCenter, ssvu::toRad(mDeg));
+	}
+
+	/// @brief Sets a vector's components to 0.
+	/// @param mVec Vector to nullify. (will be modified)
 	template<typename T> inline void nullify(Vec2<T>& mVec) noexcept { mVec.x = mVec.y = 0; }
+
+	/// @brief Normalizes a vector.
+	/// @details Internally checks if the magnitude is not 0.
+	/// @param mVec Vector to normalize. (will be modified)
 	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { auto m(getMagnitude(mVec)); if(m != 0) mVec /= m; }
+
+	/// @brief Gets a normalized copy of the original vector.
+	/// @details Internally checks if the magnitude is not 0.
+	/// @param mVec Original vector. (will not be modified)
+	/// @return Returns a copy of the original vector, normalized.
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
 
-	// Resize a vec maintaining direction
+	/// @brief Resizes a vector.
+	/// @details Internally normalizes the vector and multiplies by the desired magnitude.
+	/// @param mVec Vector to resize. (will be modified)
+	/// @param mMag Desired magnitude.
 	template<typename T1, typename T2> inline void resize(Vec2<T1>& mVec, const T2& mMag) noexcept { normalize(mVec); mVec *= CT<T1, T2>(mMag); }
-	template<typename T1, typename T2, typename T3> inline void resize(Vec2<T1>& mVec, const T2& mDesiredMag, const T3& mCurrentMag) noexcept { if(mCurrentMag != 0) mVec /= mCurrentMag; mVec *= mDesiredMag; }
+
+	/// @brief Resizes a vector. (with known magnitude)
+	/// @details Internally multiplies by the desired magnitude.
+	/// @param mVec Vector to resize. (will be modified)
+	/// @param mDesiredMag Desired magnitude.
+	/// @param mCurrentMag Current magnitude.
+	template<typename T1, typename T2, typename T3> inline void resize(Vec2<T1>& mVec, const T2& mDesiredMag, const T3& mCurrentMag) noexcept
+	{
+		assert(mCurrentMag != 0); mVec = mVec / mCurrentMag * mDesiredMag;
+	}
+
+	/// @brief Gets a resized copy of the original vector.
+	/// @details Internally normalizes the vector and multiplies by the desired magnitude.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMag Desired magnitude.
+	/// @return Returns a copy of the original vector, resized.
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getResized(Vec2<T1> mVec, const T2& mMag) noexcept { resize(mVec, mMag); return mVec; }
 
-	// Component-based vec clamping
-	template<typename T1, typename T2, typename T3> inline void cClamp(Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept						{ ssvu::clamp(mVec.x, mMin, mMax); ssvu::clamp(mVec.y, mMin, mMax); }
-	template<typename T1, typename T2> inline void cClampMin(Vec2<T1>& mVec, const T2& mMin) noexcept												{ ssvu::clampMin(mVec.x, mMin); ssvu::clampMin(mVec.y, mMin); }
-	template<typename T1, typename T2> inline void cClampMax(Vec2<T1>& mVec, const T2& mMax) noexcept												{ ssvu::clampMax(mVec.x, mMax); ssvu::clampMax(mVec.y, mMax); }
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getCClamped(Vec2<T1> mVec, const T2& mMin, const T3& mMax) noexcept	{ cClamp(mVec, mMin, mMax); return mVec; }
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCClampedMin(Vec2<T1> mVec, const T2& mMin) noexcept								{ cClampMin(mVec, mMin); return mVec; }
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCClampedMax(Vec2<T1> mVec, const T2& mMax) noexcept								{ cClampMax(mVec, mMax); return mVec; }
+	/// @brief Clamps a vector's components.
+	/// @details Internally calls ssvu::clamp on both components.
+	/// @param mVec Vector to clamp. (will be modified)
+	/// @param mMin Min component value.
+	/// @param mMax Max component value.
+	template<typename T1, typename T2, typename T3> inline void cClamp(Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept { ssvu::clamp(mVec.x, mMin, mMax); ssvu::clamp(mVec.y, mMin, mMax); }
 
-	// Magnitude-based vec clamping
+	/// @brief Clamps a vector's components. (min only)
+	/// @details Internally calls ssvu::clampMin on both components.
+	/// @param mVec Vector to clamp. (will be modified)
+	/// @param mMin Min component value.
+	template<typename T1, typename T2> inline void cClampMin(Vec2<T1>& mVec, const T2& mMin) noexcept { ssvu::clampMin(mVec.x, mMin); ssvu::clampMin(mVec.y, mMin); }
+
+	/// @brief Clamps a vector's components. (max only)
+	/// @details Internally calls ssvu::clampMax on both components.
+	/// @param mVec Vector to clamp. (will be modified)
+	/// @param mMax Max component value.
+	template<typename T1, typename T2> inline void cClampMax(Vec2<T1>& mVec, const T2& mMax) noexcept { ssvu::clampMax(mVec.x, mMax); ssvu::clampMax(mVec.y, mMax); }
+
+	/// @brief Gets a vector with clamped components.
+	/// @details Internally calls ssvu::clamp on the copy's both components.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMin Min component value.
+	/// @param mMax Max component value.
+	/// @return Returns a copy of the original vector, clamped.
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getCClamped(Vec2<T1> mVec, const T2& mMin, const T3& mMax) noexcept { cClamp(mVec, mMin, mMax); return mVec; }
+
+	/// @brief Gets a vector with clamped components. (min only)
+	/// @details Internally calls ssvu::clampMin on the copy's both components.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMin Min component value.
+	/// @return Returns a copy of the original vector, clamped.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCClampedMin(Vec2<T1> mVec, const T2& mMin) noexcept { cClampMin(mVec, mMin); return mVec; }
+
+	/// @brief Gets a vector with clamped components. (max only)
+	/// @details Internally calls ssvu::clampMax on the copy's both components.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMax Max component value.
+	/// @return Returns a copy of the original vector, clamped.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCClampedMax(Vec2<T1> mVec, const T2& mMax) noexcept { cClampMax(mVec, mMax); return mVec; }
+
+	/// @brief Clamps a vector's magnitude.
+	/// @details Internally resizes the vector, if needed.
+	/// @param mVec Vector to clamp. (will be modified)
+	/// @param mMin Min magnitude.
+	/// @param mMax Max magnitude.
 	template<typename T1, typename T2, typename T3> inline void mClamp(Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
 	{
 		assert(mMin < mMax);
@@ -79,19 +187,62 @@ namespace ssvs
 		if(m < mMin) resize(mVec, mMin, m);
 		else if(m > mMax) resize(mVec, mMax, m);
 	}
+
+	/// @brief Clamps a vector's magnitude. (min only)
+	/// @details Internally resizes the vector, if needed.
+	/// @param mVec Vector to clamp. (will be modified)
+	/// @param mMin Min magnitude.
 	template<typename T1, typename T2> inline void mClampMin(Vec2<T1>& mVec, const T2& mMin) noexcept { const auto& m(getMagnitude(mVec)); if(m < mMin) resize(mVec, mMin, m); }
+
+	/// @brief Clamps a vector's magnitude. (max only)
+	/// @details Internally resizes the vector, if needed.
+	/// @param mVec Vector to clamp. (will be modified)
+	/// @param mMax Max magnitude.
 	template<typename T1, typename T2> inline void mClampMax(Vec2<T1>& mVec, const T2& mMax) noexcept { const auto& m(getMagnitude(mVec)); if(m > mMax) resize(mVec, mMax, m); }
+
+	/// @brief Gets a vector with clamped magnitude.
+	/// @details Internally resizes a copy of the vector, if needed.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMin Min magnitude.
+	/// @param mMax Max magnitude.
+	/// @return Returns a copy of the original vector, clamped.
 	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getMClamped(Vec2<T1> mVec, const T2& mMin, const T3& mMax) noexcept	{ mClamp(mVec, mMin, mMax); return mVec; }
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getMClampedMin(Vec2<T1> mVec, const T2& mMin) noexcept								{ mClampMin(mVec, mMin); return mVec; }
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getMClampedMax(Vec2<T1> mVec, const T2& mMax) noexcept								{ mClampMax(mVec, mMax); return mVec; }
 
-	// Get angle from vec direction
-	template<typename T> inline T getRad(Vec2<T> mVec) noexcept			{ normalize(mVec); return std::atan2(mVec.y, mVec.x); }
-	template<typename T> inline T getDeg(const Vec2<T>& mVec) noexcept	{ return ssvu::toDeg(getRad(mVec)); }
+	/// @brief Gets a vector with clamped magnitude. (min only)
+	/// @details Internally resizes a copy of the vector, if needed.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMin Min magnitude.
+	/// @return Returns a copy of the original vector, clamped.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getMClampedMin(Vec2<T1> mVec, const T2& mMin) noexcept { mClampMin(mVec, mMin); return mVec; }
 
-	// Get unit vec from angle
-	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromRad(T1 mRad, const T2& mMagnitude = 1.f) { return Vec2<CT<T1, T2>>(mMagnitude * std::cos(mRad), mMagnitude * std::sin(mRad)); }
-	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromDeg(T1 mDeg, const T2& mMagnitude = 1.f) { return getVecFromRad(ssvu::toRad(mDeg), mMagnitude); }
+	/// @brief Gets a vector with clamped magnitude. (max only)
+	/// @details Internally resizes a copy of the vector, if needed.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMin Max magnitude.
+	/// @return Returns a copy of the original vector, clamped.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getMClampedMax(Vec2<T1> mVec, const T2& mMax) noexcept { mClampMax(mVec, mMax); return mVec; }
+
+	/// @brief Gets the angle of a vector in radians.
+	/// @param mVec Vector to use. (will not be modified)
+	/// @return Returns the angle of mVec.
+	template<typename T> inline T getRad(const Vec2<T>& mVec) noexcept { return std::atan2(mVec.y, mVec.x); }
+
+	/// @brief Gets the angle of a vector in degrees.
+	/// @param mVec Vector to use. (will not be modified)
+	/// @return Returns the angle of mVec.
+	template<typename T> inline T getDeg(const Vec2<T>& mVec) noexcept { return ssvu::toDeg(getRad(mVec)); }
+
+	/// @brief Gets a vector from an angle. (from radians)
+	/// @param mRad Radians of the desired vector.
+	/// @param mMag Magnitude of the desired vector. (defaults to 1)
+	/// @return Returns a new vector with specified angle and magnitude.
+	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromRad(const T1& mRad, const T2& mMag = 1.f) { return Vec2<CT<T1, T2>>(mMag * std::cos(mRad), mMag * std::sin(mRad)); }
+
+	/// @brief Gets a vector from an angle. (from degrees)
+	/// @param mRad Degrees of the desired vector.
+	/// @param mMag Magnitude of the desired vector. (defaults to 1)
+	/// @return Returns a new vector with specified angle and magnitude.
+	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromDeg(const T1& mDeg, const T2& mMag = 1.f) { return getVecFromRad(ssvu::toRad(mDeg), mMag); }
 
 	// Get direction between two vecs
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getDirection(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return getNormalized(mTarget - mVec); }
@@ -104,18 +255,28 @@ namespace ssvs
 	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitFromDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius)	{ return getOrbitFromRad(mVec, ssvu::toRad(mDeg), mRadius); }
 	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getMovedTowards(Vec2<T1> mVec, const Vec2<T2>& mTarget, const T3& mMagnitude) noexcept { moveTowards(mVec, mTarget, mMagnitude); return mVec; }
 	template<typename T1, typename T2> inline CT<T1, T2> getDotProduct(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return mA.x * mB.x + mA.y * mB.y; }
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getRotatedAroundCenterRad(Vec2<T1> mPoint, const Vec2<T2>& mCenter, const T3& mRad) { rotateRadAroundCenter(mPoint, mCenter, mRad); return mPoint; }
-	template<typename T1, typename T2> inline CT<T1, T2> getDistSquaredEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept	{ return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
-	template<typename T1, typename T2> inline CT<T1, T2> getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept			{ return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getRadRotatedAroundCenter(Vec2<T1> mPoint, const Vec2<T2>& mCenter, const T3& mRad) { rotateRadAroundCenter(mPoint, mCenter, mRad); return mPoint; }
 
-	inline void add2StateInput(GameState& mGameState, const Input::Trigger& mTrigger, bool& mValue, Input::Type mType = Input::Type::Always)
+	/// @brief Calculates Euclidean distance (squared) between two points.
+	/// @param mA First point.
+	/// @param mB Second point.
+	/// @return Returns the calculated distance (squared).
+	template<typename T1, typename T2> inline CT<T1, T2> getDistSquaredEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
+
+	/// @brief Calculates Euclidean distance between two points.
+	/// @param mA First point.
+	/// @param mB Second point.
+	/// @return Returns the calculated distance.
+	template<typename T1, typename T2> inline CT<T1, T2> getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
+
+	inline void add2StateInput(GameState& mGameState, const ITrigger& mTrigger, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mTrigger, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType);
+		mGameState.addInput(mTrigger, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType, mMode);
 	}
-	inline void add3StateInput(GameState& mGameState, const Input::Trigger& mNegative, const Input::Trigger& mPositive, int& mValue, Input::Type mType = Input::Type::Always)
+	inline void add3StateInput(GameState& mGameState, const ITrigger& mNegative, const ITrigger& mPositive, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mNegative, [&mValue](float){ mValue = -1; },	[&mValue](float){ if(mValue == -1) mValue = 0; }, mType);
-		mGameState.addInput(mPositive, [&mValue](float){ mValue = 1; },		[&mValue](float){ if(mValue == 1) mValue = 0; }, mType);
+		mGameState.addInput(mNegative, [&mValue](float){ mValue = -1; },	[&mValue](float){ if(mValue == -1) mValue = 0; }, mType, mMode);
+		mGameState.addInput(mPositive, [&mValue](float){ mValue = 1; },		[&mValue](float){ if(mValue == 1) mValue = 0; }, mType, mMode);
 	}
 
 	// SFML element utils
