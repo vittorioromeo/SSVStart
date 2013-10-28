@@ -37,9 +37,9 @@ namespace ssvs
 
 				inline void refresh(Manager& mManager, GameWindow& mGameWindow)	{ if(!released && !isDown(mManager, mGameWindow)) released = true; }
 
-				inline void setType(TriggerType mType)	noexcept	{ type = mType; }
-				inline void setMode(TriggerMode mMode) noexcept		{ mode = mMode; }
-				inline void setReleased(bool mValue) noexcept		{ released = mValue; }
+				inline void setType(TriggerType mType) noexcept	{ type = mType; }
+				inline void setMode(TriggerMode mMode) noexcept	{ mode = mMode; }
+				inline void setReleased(bool mValue) noexcept	{ released = mValue; }
 
 				inline bool isActive(Manager& mManager, GameWindow& mGameWindow)
 				{

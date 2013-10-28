@@ -37,7 +37,7 @@ namespace ssvs
 				template<typename... TArgs> inline void emplace(TArgs&&... mArgs)
 				{
 					binds.emplace_back(std::forward<TArgs>(mArgs)...);
-					ssvu::sort(binds, [](const Bind& mA, const Bind& mB){ return mA.getPriority() > mB.getPriority(); });
+					ssvu::sort(binds);
 				}
 		};
 	}

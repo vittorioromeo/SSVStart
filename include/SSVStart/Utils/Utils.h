@@ -59,7 +59,7 @@ namespace ssvs
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
 
 	// Resize a vec maintaining direction
-	template<typename T1, typename T2> inline void resize(Vec2<T1>& mVec, const T2& mMag) noexcept { normalize(mVec); mVec *= mMag; }
+	template<typename T1, typename T2> inline void resize(Vec2<T1>& mVec, const T2& mMag) noexcept { normalize(mVec); mVec *= CT<T1, T2>(mMag); }
 	template<typename T1, typename T2, typename T3> inline void resize(Vec2<T1>& mVec, const T2& mDesiredMag, const T3& mCurrentMag) noexcept { if(mCurrentMag != 0) mVec /= mCurrentMag; mVec *= mDesiredMag; }
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getResized(Vec2<T1> mVec, const T2& mMag) noexcept { resize(mVec, mMag); return mVec; }
 

@@ -28,14 +28,14 @@ namespace ssvs
 				Combo(const std::initializer_list<KKey>& mKeys, const std::initializer_list<MBtn>& mBtns = {})
 				{
 					for(const auto& k : mKeys) addKey(k);
-					for(const auto& b : mBtns) addButton(b);
+					for(const auto& b : mBtns) addBtn(b);
 				}
 				Combo(const std::initializer_list<MBtn>& mBtns) : Combo{{}, mBtns} { }
 
 				bool isDown(Manager& mManager, GameWindow& mGameWindow, TriggerMode mMode) const;
 
-				inline void addKey(KKey mKey)		{ keys[mKey + 1] = true; }
-				inline void addButton(MBtn mBtn)	{ btns[mBtn + 1] = true; }
+				inline void addKey(KKey mKey)	{ keys[mKey + 1] = true; }
+				inline void addBtn(MBtn mBtn)	{ btns[mBtn + 1] = true; }
 
 				inline const KeyBitset& getKeys() const noexcept	{ return keys; }
 				inline const BtnBitset& getBtns() const noexcept	{ return btns; }

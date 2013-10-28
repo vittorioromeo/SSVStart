@@ -24,6 +24,8 @@ namespace ssvs
 				Trigger trigger;
 				InputFunc on, off;
 
+				inline std::size_t getPriority() const { std::size_t max{0}; for(auto& c : trigger.getCombos()) max = std::max(c.getKeys().count() + c.getBtns().count(), max); return max; }
+
 			public:
 				Bind(Trigger mTrigger, InputFunc mOn = nullptr, InputFunc mOff = nullptr) : trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
 
@@ -33,7 +35,7 @@ namespace ssvs
 				inline void callOn(float mFT) const		{ if(on != nullptr) on(mFT); }
 				inline void callOff(float mFT) const	{ if(off != nullptr) off(mFT); }
 
-				inline std::size_t getPriority() const { std::size_t max{0}; for(auto& c : trigger.getCombos()) max = std::max(c.getKeys().count() + c.getBtns().count(), max); return max; }
+				inline bool operator<(const Bind& mRhs) const noexcept { return getPriority() > mRhs.getPriority(); }\
 		};
 	}
 }
