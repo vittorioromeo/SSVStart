@@ -24,8 +24,8 @@ namespace ssvs
 	class GameWindow
 	{
 		friend class TimerBase;
-		friend class StaticTimer;
-		friend class DynamicTimer;
+		friend class TimerStatic;
+		friend class TimerDynamic;
 
 		private:
 			GameState* gameState{nullptr};

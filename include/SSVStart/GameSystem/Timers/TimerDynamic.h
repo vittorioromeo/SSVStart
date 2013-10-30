@@ -10,13 +10,13 @@
 
 namespace ssvs
 {
-	class DynamicTimer : public TimerBase
+	class TimerDynamic final : public TimerBase
 	{
 		private:
 			float frameTimeLimit{4.f};
 
 		public:
-			DynamicTimer(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
+			TimerDynamic(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
 
 			inline void runUpdate() override { gameWindow.runUpdate(frameTime); }
 			inline void runFps() override

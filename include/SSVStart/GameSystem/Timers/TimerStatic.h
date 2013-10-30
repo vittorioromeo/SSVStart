@@ -12,13 +12,13 @@ namespace ssvs
 {
 	class GameWindow;
 
-	class StaticTimer : public TimerBase
+	class TimerStatic final : public TimerBase
 	{
 		private:
 			float step, timeSlice, maxLoops, time{0}, loops{0};
 
 		public:
-			StaticTimer(GameWindow& mGameWindow, float mStep = 1.f, float mTimeSlice = 1.f, float mMaxLoops = 50) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
+			TimerStatic(GameWindow& mGameWindow, float mStep = 1.f, float mTimeSlice = 1.f, float mMaxLoops = 50) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
 
 			inline void runUpdate() override
 			{
