@@ -256,15 +256,44 @@ namespace ssvs
 	/// @return Returns a new vector with specified angle and magnitude.
 	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromDeg(const T1& mDeg, const T2& mMag = 1.f) { return getVecFromRad(ssvu::toRad(mDeg), mMag); }
 
-	// Get direction between two vecs
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getDirection(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return getNormalized(mTarget - mVec); }
+	/// @brief Gets the direction vector between two vectors.
+	/// @param mA First vector.
+	/// @param mB Second vector.
+	/// @return Returns mB - mA, normalized
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getDirVec(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return getNormalized(mB - mA); }
 
-	// TODO: document
-	template<typename T1, typename T2, typename T3> inline void moveTowards(Vec2<T1>& mVec, const Vec2<T2>& mTarget, const T3& mMag) noexcept						{ mVec += getDirection(mVec, mTarget) * mMag; }
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getMovedTowards(Vec2<T1> mVec, const Vec2<T2>& mTarget, const T3& mMag) noexcept	{ moveTowards(mVec, mTarget, mMag); return mVec; }
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius)				{ return mVec + getVecFromRad(mRad, mRadius); }
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius)				{ return getOrbitRad(mVec, ssvu::toRad(mDeg), mRadius); }
-	template<typename T1, typename T2> inline CT<T1, T2> getDotProduct(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept												{ return mA.x * mB.x + mA.y * mB.y; }
+	/// @brief Moves a point towards another point.
+	/// @param mA First vector. (will be modified)
+	/// @param mB Second vector. (target point)
+	/// @param mMag Magnitude of the translation.
+	template<typename T1, typename T2, typename T3> inline void moveTowards(Vec2<T1>& mA, const Vec2<T2>& mB, const T3& mMag) noexcept { mA += getDirVec(mA, mB) * mMag; }
+
+	/// @brief Gets a point moved towards another point.
+	/// @param mA First vector. (will not be modified)
+	/// @param mB Second vector. (target point)
+	/// @param mMag Magnitude of the translation.
+	/// @return Returns a copy of mA moved towards mB.
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getMovedTowards(Vec2<T1> mA, const Vec2<T2>& mB, const T3& mMag) noexcept { moveTowards(mA, mB, mMag); return mA; }
+
+	/// @brief Gets a point orbited around another point.
+	/// @param mVec Center of the orbit.
+	/// @param mRad Radians of the orbit.
+	/// @param mRadius Radius of the orbit.
+	/// @return Returns a copy of mVec, orbited by mRad radians and mRadius radius.
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius) { return mVec + getVecFromRad(mRad, mRadius); }
+
+	/// @brief Gets a point orbited around another point.
+	/// @param mVec Center of the orbit.
+	/// @param mDeg Degrees of the orbit.
+	/// @param mRadius Radius of the orbit.
+	/// @return Returns a copy of mVec, orbited by mDeg degrees and mRadius radius.
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius) { return getOrbitRad(mVec, ssvu::toRad(mDeg), mRadius); }
+
+	/// @brief Gets the dot product between two vectors.
+	/// @param mA First vector.
+	/// @param mB Second vector.
+	/// @return Returns the dot product between mA and mB.
+	template<typename T1, typename T2> inline CT<T1, T2> getDotProduct(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return mA.x * mB.x + mA.y * mB.y; }
 
 	/// @brief Calculates Euclidean distance (squared) between two points.
 	/// @param mA First point.

@@ -37,7 +37,7 @@ namespace ssvs
 			float maxFPS{60.f};
 
 			Uptr<TimerBase> timer;
-			TimerBase* replacementTimer{nullptr};
+			TimerBase* nextTimer{nullptr};
 
 			KeyBitset pressedKeys;
 			BtnBitset pressedBtns;
@@ -110,7 +110,7 @@ namespace ssvs
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 				renderWindow.setSize({width * pixelMult, height * pixelMult});
 				renderWindow.setVerticalSyncEnabled(vsync);
-				if(replacementTimer != nullptr) { timer.reset(replacementTimer); replacementTimer = nullptr; }
+				if(nextTimer != nullptr) { timer.reset(nextTimer); nextTimer = nullptr; }
 				mustRecreate = false; onRecreation();
 			}
 
@@ -152,8 +152,8 @@ namespace ssvs
 			template<typename T> inline T& getTimer() { return reinterpret_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
 			{
-				assert(replacementTimer == nullptr);
-				replacementTimer = new T(*this, std::forward<TArgs>(mArgs)...); mustRecreate = true;
+				assert(nextTimer == nullptr);
+				nextTimer = new T(*this, std::forward<TArgs>(mArgs)...); mustRecreate = true;
 			}
 	};
 }

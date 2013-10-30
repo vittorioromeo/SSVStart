@@ -53,7 +53,7 @@ namespace ssvs
 			inline void pan(float mX, float mY)	{ nextPan.x += mX; nextPan.y += mY;	invalid = true; }
 			inline void zoomIn(float mFactor)	{ nextZoomFactor /= mFactor;		invalid = true; }
 			inline void zoomOut(float mFactor)	{ nextZoomFactor *= mFactor;		invalid = true; }
-			inline void turn(float mDeg)		{ nextRotation += mDeg;			invalid = true; }
+			inline void turn(float mDeg)		{ nextRotation += mDeg;				invalid = true; }
 
 			template<typename T = float> inline void update(float mFT)
 			{
