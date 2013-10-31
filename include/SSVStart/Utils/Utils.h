@@ -280,7 +280,7 @@ namespace ssvs
 	/// @param mRad Radians of the orbit.
 	/// @param mRadius Radius of the orbit.
 	/// @return Returns a copy of mVec, orbited by mRad radians and mRadius radius.
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius) { return mVec + getVecFromRad(mRad, mRadius); }
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius) { return Vec2<CT<T1, T2, T3>>(mVec) + getVecFromRad(mRad, mRadius); }
 
 	/// @brief Gets a point orbited around another point.
 	/// @param mVec Center of the orbit.
