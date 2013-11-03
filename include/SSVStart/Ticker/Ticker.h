@@ -7,8 +7,8 @@
 
 namespace ssvs
 {
-	template<typename T> constexpr inline static T framesToSecs(T mFrames) noexcept	{ return mFrames / 60.f; }
-	template<typename T> constexpr inline static T secsToFrames(T mSecs) noexcept	{ return mSecs * 60.f; }
+	template<typename T> constexpr inline T framesToSecs(T mFrames) noexcept	{ return mFrames / 60.f; }
+	template<typename T> constexpr inline T secsToFrames(T mSecs) noexcept		{ return mSecs * 60.f; }
 
 	class Ticker
 	{
