@@ -325,6 +325,7 @@ namespace ssvs
 	template<typename T> float getGlobalBottom(const T& mElement) noexcept	{ return mElement.getGlobalBounds().top + mElement.getGlobalBounds().height; }
 	template<typename T> float getGlobalWidth(const T& mElement) noexcept	{ return mElement.getGlobalBounds().width; }
 	template<typename T> float getGlobalHeight(const T& mElement) noexcept	{ return mElement.getGlobalBounds().height; }
+	template<typename T> Vec2f getGlobalSize(const T& mElement) noexcept	{ return {getGlobalWidth(mElement), getGlobalHeight(mElement)}; }
 
 	template<typename T> float getLocalLeft(const T& mElement) noexcept		{ return mElement.getLocalBounds().left; }
 	template<typename T> float getLocalRight(const T& mElement) noexcept	{ return mElement.getLocalBounds().left + mElement.getLocalBounds().width; }
@@ -332,6 +333,7 @@ namespace ssvs
 	template<typename T> float getLocalBottom(const T& mElement) noexcept	{ return mElement.getLocalBounds().top + mElement.getLocalBounds().height; }
 	template<typename T> float getLocalWidth(const T& mElement) noexcept	{ return mElement.getLocalBounds().width; }
 	template<typename T> float getLocalHeight(const T& mElement) noexcept	{ return mElement.getLocalBounds().height; }
+	template<typename T> Vec2f getLocalSize(const T& mElement) noexcept		{ return {getLocalWidth(mElement), getLocalHeight(mElement)}; }
 
 	// AABB utils
 	// TODO: put AABB class here from SSVSC?
