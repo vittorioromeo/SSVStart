@@ -21,7 +21,7 @@ namespace ssvs
 {
 	class GameState;
 
-	class GameWindow
+	class GameWindow : ssvu::NoCopy
 	{
 		friend class TimerBase;
 		friend class TimerStatic;
@@ -71,8 +71,6 @@ namespace ssvs
 			ssvu::Delegate<void()> onRecreation;
 
 			GameWindow() = default;
-			GameWindow(const GameWindow&) = delete; // non construction-copyable
-			GameWindow& operator=(const GameWindow&) = delete; // non copyable
 
 			inline void run()
 			{

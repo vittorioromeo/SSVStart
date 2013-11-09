@@ -17,7 +17,7 @@ namespace ssvs
 {
 	class GameWindow;
 
-	class GameState
+	class GameState : ssvu::NoCopy
 	{
 		friend class GameWindow;
 
@@ -43,8 +43,6 @@ namespace ssvs
 			ssvu::Delegate<void(float)> onUpdate;
 
 			GameState() = default;
-			GameState(const GameState&) = delete; // non construction-copyable
-			GameState& operator=(const GameState&) = delete; // non copyable
 
 			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)					{ mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn); }
 			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)	{ mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn, mFuncOff);  }

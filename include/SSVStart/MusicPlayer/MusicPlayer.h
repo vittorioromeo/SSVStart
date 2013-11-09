@@ -22,7 +22,7 @@ namespace ssvs
 			bool loop{true};
 
 		public:
-			void play(sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
+			inline void play(sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
 			{
 				assert(mPlayingOffset <= mMusic.getDuration());
 
