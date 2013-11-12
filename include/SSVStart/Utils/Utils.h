@@ -30,13 +30,13 @@ namespace ssvs
 	/// @param mVec Starting point.
 	/// @param mTarget Target point.
 	/// @return Returns the needed radians.
-	template<typename T1, typename T2> inline CT<T1, T2> getRadTowards(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return ssvu::getRadTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
+	template<typename T1, typename T2> inline CT<T1, T2> getRadTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getRadTowards(mA.x, mA.y, mB.x, mB.y); }
 
 	/// @brief Calculates degrees needed to turn towards a point.
 	/// @param mVec Starting point.
 	/// @param mTarget Target point.
 	/// @return Returns the needed degrees.
-	template<typename T1, typename T2> inline CT<T1, T2> getDegTowards(const Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { return ssvu::getDegTowards(mVec.x, mVec.y, mTarget.x, mTarget.y); }
+	template<typename T1, typename T2> inline CT<T1, T2> getDegTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDegTowards(mA.x, mA.y, mB.x, mB.y); }
 
 	/// @brief Checks if a point is inside a polygon.
 	/// @param mVertices Container of the polygon vertices.
@@ -61,6 +61,9 @@ namespace ssvs
 	/// @brief Static value representing a (0, 0) vector. (float)
 	static Vec2f zeroVec2f{0.f, 0.f};
 
+	/// @brief Static value representing a (0, 0) vector. (unsigned int)
+	static Vec2u zeroVec2u{0u, 0u};
+
 	/// @brief Sets a vector's components to their absolute values.
 	/// @details Calls std::abs on both components.
 	/// @param mVec Vector to modify.
@@ -72,10 +75,15 @@ namespace ssvs
 	///	@return Returns a new vector with absolute value components.
 	template<typename T> inline Vec2<T> getAbs(Vec2<T> mVec) noexcept { abs(mVec); return mVec; }
 
+	/// @brief Get the magnitude of a vector, squared.
+	/// @param mVec Vector to use.
+	///	@return Returns the squared magnitude of mVec.
+	template<typename T> inline T getMagSquared(const Vec2<T>& mVec) noexcept { return mVec.x * mVec.x + mVec.y * mVec.y; }
+
 	/// @brief Get the magnitude of a vector.
 	/// @param mVec Vector to use.
 	///	@return Returns the magnitude of mVec.
-	template<typename T> inline T getMag(const Vec2<T>& mVec) noexcept { return std::sqrt(mVec.x * mVec.x + mVec.y * mVec.y); }
+	template<typename T> inline T getMag(const Vec2<T>& mVec) noexcept { return std::sqrt(getMagSquared(mVec)); }
 
 	/// @brief Rotates a vector by n radians around a point.
 	/// @param mVec Vector to rotate. (will be modified)
@@ -100,10 +108,23 @@ namespace ssvs
 	/// @param mVec Vector to nullify. (will be modified)
 	template<typename T> inline void nullify(Vec2<T>& mVec) noexcept { mVec.x = mVec.y = 0; }
 
+	/// @brief Normalizes a vector. (known magnitude)
+	/// @details Internally checks if the magnitude is not 0.
+	/// @param mVec Vector to normalize. (will be modified)
+	///	@param mMag Vector's current magnitude.
+	template<typename T1, typename T2> inline void normalize(Vec2<T1>& mVec, const T2& mMag) noexcept { if(mMag != 0) mVec /= mMag; }
+
 	/// @brief Normalizes a vector.
 	/// @details Internally checks if the magnitude is not 0.
 	/// @param mVec Vector to normalize. (will be modified)
-	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { auto m(getMag(mVec)); if(m != 0) mVec /= m; }
+	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { normalize(mVec, getMag(mVec)); }
+
+	/// @brief Gets a normalized copy of the original vector. (known magnitude)
+	/// @details Internally checks if the magnitude is not 0.
+	/// @param mVec Original vector. (will not be modified)
+	///	@param mMag Vector's current magnitude.
+	/// @return Returns a copy of the original vector, normalized.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getNormalized(Vec2<T1> mVec, const T2& mMag) noexcept { normalize(mVec, mMag); return mVec; }
 
 	/// @brief Gets a normalized copy of the original vector.
 	/// @details Internally checks if the magnitude is not 0.
@@ -111,21 +132,18 @@ namespace ssvs
 	/// @return Returns a copy of the original vector, normalized.
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
 
+	/// @brief Resizes a vector. (known magnitude)
+	/// @details Internally multiplies by the desired magnitude.
+	/// @param mVec Vector to resize. (will be modified)
+	/// @param mMag Desired magnitude.
+	/// @param mCrntMag Current magnitude.
+	template<typename T1, typename T2, typename T3> inline void resize(Vec2<T1>& mVec, const T2& mMag, const T3& mCrntMag) noexcept { normalize(mVec, mCrntMag); mVec *= CT<T1, T2>(mMag); }
+
 	/// @brief Resizes a vector.
 	/// @details Internally normalizes the vector and multiplies by the desired magnitude.
 	/// @param mVec Vector to resize. (will be modified)
 	/// @param mMag Desired magnitude.
-	template<typename T1, typename T2> inline void resize(Vec2<T1>& mVec, const T2& mMag) noexcept { normalize(mVec); mVec *= CT<T1, T2>(mMag); }
-
-	/// @brief Resizes a vector. (with known magnitude)
-	/// @details Internally multiplies by the desired magnitude.
-	/// @param mVec Vector to resize. (will be modified)
-	/// @param mDesiredMag Desired magnitude.
-	/// @param mCurrentMag Current magnitude.
-	template<typename T1, typename T2, typename T3> inline void resize(Vec2<T1>& mVec, const T2& mDesiredMag, const T3& mCurrentMag) noexcept
-	{
-		assert(mCurrentMag != 0); mVec = mVec / mCurrentMag * mDesiredMag;
-	}
+	template<typename T1, typename T2> inline void resize(Vec2<T1>& mVec, const T2& mMag) noexcept { resize(mVec, mMag, getMag(mVec)); }
 
 	/// @brief Gets a resized copy of the original vector.
 	/// @details Internally normalizes the vector and multiplies by the desired magnitude.
@@ -133,6 +151,14 @@ namespace ssvs
 	/// @param mMag Desired magnitude.
 	/// @return Returns a copy of the original vector, resized.
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getResized(Vec2<T1> mVec, const T2& mMag) noexcept { resize(mVec, mMag); return mVec; }
+
+	/// @brief Gets a resized copy of the original vector. (known magnitude)
+	/// @details Internally normalizes the vector and multiplies by the desired magnitude.
+	/// @param mVec Original vector. (will not be modified)
+	/// @param mMag Desired magnitude.
+	/// @param mCrntMag Current magnitude.
+	/// @return Returns a copy of the original vector, resized.
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getResized(Vec2<T1> mVec, const T2& mMag, const T3& mCrntMag) noexcept { resize(mVec, mMag, mCrntMag); return mVec; }
 
 	/// @brief Clamps a vector's components.
 	/// @details Internally calls ssvu::clamp on both components.
