@@ -32,7 +32,7 @@ namespace ssvs
 			Input::Manager inputManager;
 			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
-			inline void handleEvent(const sf::Event& mEvent)	{ eventDelegates[mEvent.type](mEvent); }
+			inline void handleEvent(const sf::Event& mEvent)	{ onAnyEvent(mEvent); eventDelegates[mEvent.type](mEvent); }
 			inline void update(float mFT)						{ onUpdate(mFT); }
 			inline void draw()									{ onDraw(); }
 			inline void updateInput(float mFT)					{ inputManager.update(*gameWindow, mFT); }
@@ -41,6 +41,7 @@ namespace ssvs
 		public:
 			ssvu::Delegate<void()> onDraw, onPostUpdate;
 			ssvu::Delegate<void(float)> onUpdate;
+			EventDelegate onAnyEvent;
 
 			GameState() = default;
 
