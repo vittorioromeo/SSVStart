@@ -8,7 +8,7 @@
 #include <cassert>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include <SSVUtils/SSVUtils.h>
+#include <SSVUtils/SSVUtils.hpp>
 
 namespace sf { class Music; }
 

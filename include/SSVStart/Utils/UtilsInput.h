@@ -6,7 +6,7 @@
 #define SSVS_UTILS_INPUT
 
 #include <SFML/Window.hpp>
-#include <SSVUtils/Bimap/Bimap.h>
+#include <SSVUtils/Bimap/Bimap.hpp>
 #include "SSVStart/Global/Typedefs.h"
 
 namespace ssvs

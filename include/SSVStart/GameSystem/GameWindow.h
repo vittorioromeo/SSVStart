@@ -11,8 +11,8 @@
 #include <chrono>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SSVUtils/Delegate/Delegate.h>
-#include <SSVUtils/FileSystem/FileSystem.h>
+#include <SSVUtils/Delegate/Delegate.hpp>
+#include <SSVUtils/FileSystem/FileSystem.hpp>
 #include "SSVStart/Global/Typedefs.h"
 #include "SSVStart/GameSystem/GameState.h"
 #include "SSVStart/GameSystem/Timers/TimerBase.h"

@@ -8,8 +8,8 @@
 
 #include <future>
 #include <SFML/System.hpp>
-#include <SSVUtils/Log/Log.h>
-#include <SSVUtilsJson/SSVUtilsJson.h>
+#include <SSVUtils/Log/Log.hpp>
+#include <SSVUtilsJson/SSVUtilsJson.hpp>
 #include "SSVStart/Tileset/Tileset.h"
 #include "SSVStart/Animation/Animation.h"
 #include "SSVStart/Input/Combo.h"

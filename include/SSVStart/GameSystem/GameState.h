@@ -7,7 +7,7 @@
 
 #include <map>
 #include <SFML/Window.hpp>
-#include <SSVUtils/Delegate/Delegate.h>
+#include <SSVUtils/Delegate/Delegate.hpp>
 #include "SSVStart/Input/Enums.h"
 #include "SSVStart/Input/Manager.h"
 #include "SSVStart/Input/Trigger.h"
