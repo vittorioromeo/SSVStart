@@ -306,14 +306,20 @@ namespace ssvs
 	/// @param mRad Radians of the orbit.
 	/// @param mRadius Radius of the orbit.
 	/// @return Returns a copy of mVec, orbited by mRad radians and mRadius radius.
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius) { return Vec2<CT<T1, T2, T3>>(mVec) + getVecFromRad(mRad, mRadius); }
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius)
+	{
+		return Vec2<CT<T1, T2, T3>>(mVec) + getVecFromRad(mRad, mRadius);
+	}
 
 	/// @brief Gets a point orbited around another point.
 	/// @param mVec Center of the orbit.
 	/// @param mDeg Degrees of the orbit.
 	/// @param mRadius Radius of the orbit.
 	/// @return Returns a copy of mVec, orbited by mDeg degrees and mRadius radius.
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius) { return getOrbitRad(mVec, ssvu::toRad(mDeg), mRadius); }
+	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius)
+	{
+		return getOrbitRad(mVec, ssvu::toRad(mDeg), mRadius);
+	}
 
 	/// @brief Gets the dot product between two vectors.
 	/// @param mA First vector.
@@ -365,9 +371,15 @@ namespace ssvs
 
 	// AABB utils
 	// TODO: put AABB class here from SSVSC?
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCenter(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept	{ return Vec2<CT<T1, T2>>(mMin.x + (mMax.x - mMin.x) / CT<T1, T2>(2), mMin.y + (mMax.y - mMin.y) / CT<T1, T2>(2)); }
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getHalfSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept	{ return Vec2<CT<T1, T2>>((mMax.x - mMin.x) / CT<T1, T2>(2), (mMax.y - mMin.y) / CT<T1, T2>(2)); }
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept		{ return getHalfSize(mMin, mMax) * CT<T1, T2>(2); }
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCenter(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
+	{
+		return Vec2<CT<T1, T2>>(mMin.x + (mMax.x - mMin.x) / CT<T1, T2>(2), mMin.y + (mMax.y - mMin.y) / CT<T1, T2>(2));
+	}
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getHalfSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
+	{
+		return Vec2<CT<T1, T2>>((mMax.x - mMin.x) / CT<T1, T2>(2), (mMax.y - mMin.y) / CT<T1, T2>(2));
+	}
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept { return getHalfSize(mMin, mMax) * CT<T1, T2>(2); }
 }
 
 #endif
