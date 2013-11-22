@@ -28,7 +28,7 @@ namespace ssvs
 			{
 				mChar = mChar - 33 + data.cellStart;
 				const auto& i(ssvu::get2DIdxFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
-				return sf::IntRect(i[0] * data.cellWidth, i[1] * data.cellHeight, data.cellWidth, data.cellHeight);
+				return sf::IntRect(std::get<0>(i) * data.cellWidth, std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
 			}
 	};
 }
