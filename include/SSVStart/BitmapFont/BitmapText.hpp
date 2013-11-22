@@ -33,7 +33,7 @@ namespace ssvs
 				float xMin{0}, xMax{0}, yMin{0}, yMax{0};
 
 				vertices.clear();
-				for(char c : str)
+				for(const auto& c : str)
 				{
 					switch(c)
 					{

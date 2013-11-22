@@ -38,14 +38,9 @@ namespace ssvs
 
 				time = 0;
 
-				if(dir > 0 ? index < currentTarget : index > 0u) { index += dir; return; }
-
-				switch(type)
-				{
-					case Type::Once: return;
-					case Type::Loop: index = nextTarget; return;
-					case Type::PingPong: dir *= -1; refreshTargets(); index += dir; return;
-				}
+				if(dir > 0 ? index < currentTarget : index > 0u)	{ index += dir; }
+				else if(type == Type::Loop)							{ index = nextTarget; }
+				else if(type == Type::PingPong)						{ dir *= -1; refreshTargets(); index += dir; }
 			}
 
 		public:

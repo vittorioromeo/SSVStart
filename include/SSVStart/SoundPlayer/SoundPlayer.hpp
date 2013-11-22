@@ -28,15 +28,8 @@ namespace ssvs
 				for(const auto& s : sounds) if(s->getStatus() == sf::Sound::Status::Stopped) sounds.del(*s);
 				sounds.refresh();
 
-				switch(mMode)
-				{
-					case Mode::Overlap: break;
-					case Mode::Override: stop(mSoundBuffer); break;
-					case Mode::Abort:
-						auto first(findFirst(mSoundBuffer));
-						if(first != nullptr) return *first;
-						break;
-				}
+				if(mMode == Mode::Override)		{ stop(mSoundBuffer); }
+				else if(mMode == Mode::Abort)	{ auto first(findFirst(mSoundBuffer)); if(first != nullptr) return *first; }
 
 				auto& sound(sounds.create(mSoundBuffer));
 				sound.setVolume(volume); sound.setPitch(mPitch);
