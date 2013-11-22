@@ -18,17 +18,16 @@ namespace ssvs
 			float current{0.f}, total{0.f};
 			unsigned int ticks{0};
 
-			inline bool hasReachedTarget() const noexcept { return current >= target; }
-
 		public:
 			inline Ticker(float mTarget, bool mRunning = true) noexcept : target{mTarget}, running{mRunning} { }
 
 			inline bool update(float mFT) noexcept
 			{
-				current += mFT * running;
-				total += mFT * running;
+				const auto& increment(mFT * static_cast<int>(running));
+				current += increment;
+				total += increment;
 
-				if(!hasReachedTarget()) return false;
+				if(current < target) return false;
 
 				++ticks;
 				resetCurrent();
