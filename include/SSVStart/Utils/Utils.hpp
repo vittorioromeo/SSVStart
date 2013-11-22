@@ -340,14 +340,14 @@ namespace ssvs
 	template<typename T1, typename T2> inline CT<T1, T2> getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
 
 	// TODO: document
-	inline void add2StateInput(GameState& mGameState, const ITrigger& mTrigger, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	inline void add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mTrigger, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType, mMode);
+		mGameState.addInput(mOn, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType, mMode);
 	}
-	inline void add3StateInput(GameState& mGameState, const ITrigger& mNegative, const ITrigger& mPositive, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	inline void add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mNegative, [&mValue](float){ mValue = -1; },	[&mValue](float){ if(mValue == -1) mValue = 0; }, mType, mMode);
-		mGameState.addInput(mPositive, [&mValue](float){ mValue = 1; },		[&mValue](float){ if(mValue == 1) mValue = 0; }, mType, mMode);
+		mGameState.addInput(mOff, [&mValue](float){ mValue = -1; }, [&mValue](float){ if(mValue == -1) mValue = 0; }, mType, mMode);
+		mGameState.addInput(mOn, [&mValue](float){ mValue = 1; }, [&mValue](float){ if(mValue == 1) mValue = 0; }, mType, mMode);
 	}
 
 	// SFML element utils
