@@ -8,6 +8,7 @@
 #include <bitset>
 #include <memory>
 #include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 #include <SSVUtils/Global/Typedefs.hpp>
 #include <SSVUtils/FileSystem/FileSystem.hpp>
 
