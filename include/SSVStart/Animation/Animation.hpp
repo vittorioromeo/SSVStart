@@ -34,7 +34,7 @@ namespace ssvs
 
 			inline void nextStep()
 			{
-				assert(index >= 0 && index < steps.size());
+				assert(index < steps.size());
 
 				time = 0;
 
