@@ -72,7 +72,7 @@ namespace ssvs
 
 			// These properties IMMEDIATELY change the view
 			inline void setView(sf::View mView) noexcept			{ view = std::move(mView);		mustRecompute = true; }
-			inline void setRotation(float mDeg) noexcept		{ view.setRotation(mDeg);	mustRecompute = true; }
+			inline void setRotation(float mDeg) noexcept			{ view.setRotation(mDeg);		mustRecompute = true; }
 			inline void setSkew(const Vec2f& mSkew) noexcept		{ skew = mSkew;					mustRecompute = true; }
 			inline void setOffset(const Vec2f& mOffset) noexcept	{ offset = mOffset;				mustRecompute = true; }
 			inline void setCenter(const Vec2f& mPosition) noexcept 	{ view.setCenter(mPosition);	mustRecompute = true; }

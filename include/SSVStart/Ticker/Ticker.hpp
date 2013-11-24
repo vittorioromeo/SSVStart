@@ -23,7 +23,7 @@ namespace ssvs
 
 			inline bool update(float mFT) noexcept
 			{
-				const auto& increment(mFT * static_cast<int>(running));
+				const auto& increment(mFT * running);
 				current += increment;
 				total += increment;
 

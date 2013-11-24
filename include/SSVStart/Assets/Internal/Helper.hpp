@@ -14,7 +14,7 @@ namespace ssvs
 	{
 		enum class Mode{Load, Open, Image, Samples, Shader, BitmapFont, Tileset};
 
-		template<bool> struct ShaderDisambiguationTag {};
+		template<bool> struct ShaderDisambiguationTag { };
 		using ShaderFromMemory = ShaderDisambiguationTag<true>;
 		using ShaderFromPath = ShaderDisambiguationTag<false>;
 

@@ -26,8 +26,8 @@ namespace ssvs
 			inline unsigned int getCellHeight() const noexcept		{ return data.cellHeight; }
 			inline sf::IntRect getGlyphRect(char mChar) const
 			{
-				mChar = mChar - 33 + data.cellStart;
-				const auto& i(ssvu::get2DIdxFrom1D(static_cast<unsigned int>(mChar), data.cellColumns));
+				mChar += data.cellStart - 33;
+				const auto& i(ssvu::get2DIdxFrom1D(mChar, data.cellColumns));
 				return sf::IntRect(std::get<0>(i) * data.cellWidth, std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
 			}
 	};

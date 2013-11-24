@@ -33,7 +33,7 @@ namespace ssvs
 
 			public:
 				Trigger() = default;
-				Trigger(const std::initializer_list<Combo>& mCombos) : combos{mCombos} { }
+				Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { }
 
 				inline void refresh(Manager& mManager, GameWindow& mGameWindow)	{ if(!released && !isDown(mManager, mGameWindow)) released = true; }
 

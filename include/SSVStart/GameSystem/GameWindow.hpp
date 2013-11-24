@@ -67,6 +67,16 @@ namespace ssvs
 				}
 			}
 
+			inline void recreateWindow()
+			{
+				if(renderWindow.isOpen()) renderWindow.close();
+				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
+				renderWindow.setSize({width * pixelMult, height * pixelMult});
+				renderWindow.setVerticalSyncEnabled(vsync);
+				if(nextTimer != nullptr) { timer.reset(nextTimer); nextTimer = nullptr; }
+				mustRecreate = false; onRecreation();
+			}
+
 		public:
 			ssvu::Delegate<void()> onRecreation;
 
@@ -102,15 +112,6 @@ namespace ssvs
 				}
 			}
 			inline void stop() noexcept { running = false; }
-			inline void recreateWindow()
-			{
-				if(renderWindow.isOpen()) renderWindow.close();
-				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
-				renderWindow.setSize({width * pixelMult, height * pixelMult});
-				renderWindow.setVerticalSyncEnabled(vsync);
-				if(nextTimer != nullptr) { timer.reset(nextTimer); nextTimer = nullptr; }
-				mustRecreate = false; onRecreation();
-			}
 
 			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
 			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }
@@ -126,7 +127,7 @@ namespace ssvs
 			inline void setMaxFPS(float mMaxFPS)									{ maxFPS = mMaxFPS; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setFPSLimited(bool mFPSLimited)								{ fpsLimited = mFPSLimited; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setPixelMult(unsigned int mPixelMult) noexcept				{ pixelMult = mPixelMult; mustRecreate = true; }
-			inline void setGameState(GameState& mGameState)							{ gameState = &mGameState; mGameState.gameWindow = this; }
+			inline void setGameState(GameState& mGameState) noexcept				{ gameState = &mGameState; mGameState.gameWindow = this; }
 
 			inline operator sf::RenderWindow&() noexcept				{ return renderWindow; }
 			inline sf::RenderWindow& getRenderWindow() noexcept			{ return renderWindow; }
