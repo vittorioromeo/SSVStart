@@ -8,9 +8,14 @@
 #include <SFML/Window.hpp>
 #include <SSVUtils/Bimap/Bimap.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
+#include "SSVStart/GameSystem/GameState.hpp"
 
 namespace ssvs
 {
+	using ITrigger = Input::Trigger;
+	using IType = Input::Type;
+	using IMode = Input::Mode;
+
 	#define SSVS_KEY_PREFIX "k"
 	#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName, KKey::mName}
 	static ssvu::Bimap<std::string, KKey> keys
@@ -138,6 +143,17 @@ namespace ssvs
 	inline const std::string& getButtonName(MBtn mBtn)		{ return btns.at(mBtn); }
 	inline bool isKeyNameValid(const std::string& mName)	{ return keys.has(mName); }
 	inline bool isButtonNameValid(const std::string& mName)	{ return btns.has(mName); }
+
+	// TODO: docs
+	inline void add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	{
+		mGameState.addInput(mOn, [&mValue](FT){ mValue = true; }, [&mValue](FT){ mValue = false; }, mType, mMode);
+	}
+	inline void add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	{
+		mGameState.addInput(mOff, [&mValue](FT){ mValue = -1; }, [&mValue](FT){ if(mValue == -1) mValue = 0; }, mType, mMode);
+		mGameState.addInput(mOn, [&mValue](FT){ mValue = 1; }, [&mValue](FT){ if(mValue == 1) mValue = 0; }, mType, mMode);
+	}
 }
 
 #endif

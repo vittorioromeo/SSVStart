@@ -21,7 +21,7 @@ namespace ssvs
 			inline void runUpdate() override { gameWindow.runUpdate(frameTime); }
 			inline void runFps() override
 			{
-				if(frameTime > frameTimeLimit) frameTime = frameTimeLimit;
+				ssvu::clampMax(frameTime, frameTimeLimit);
 				TimerBase::runFps();
 			}
 	};

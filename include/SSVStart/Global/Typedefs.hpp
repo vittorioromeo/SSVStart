@@ -24,13 +24,13 @@ namespace ssvs
 	constexpr std::size_t MBtnCount{MBtn::ButtonCount};
 	using KeyBitset = std::bitset<KKeyCount + 1>; // +1 because it also works with KKey::Unknown, which is -1
 	using BtnBitset = std::bitset<MBtnCount + 1>; // +1 to stay consistent
-	using Vec2i = sf::Vector2i;
-	using Vec2f = sf::Vector2f;
-	using Vec2u = sf::Vector2u;
 	using Path = ssvu::FileSystem::Path;
 	using InputFunc = ssvu::Func<void(FT)>;
-	template<typename T> using Vec2 = sf::Vector2<T>;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
+	template<typename T> using Vec2 = sf::Vector2<T>;
+	using Vec2i = Vec2<int>;
+	using Vec2f = Vec2<float>;
+	using Vec2u = Vec2<unsigned int>;
 }
 
 #endif
