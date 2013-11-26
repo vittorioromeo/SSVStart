@@ -28,7 +28,7 @@ namespace ssvs
 				std::vector<Bind> binds;
 
 			public:
-				inline void update(GameWindow& mGameWindow, float mFT) { for(auto& b : binds) b.update(*this, mFT, mGameWindow); }
+				inline void update(GameWindow& mGameWindow, FT mFT) { for(auto& b : binds) b.update(*this, mFT, mGameWindow); }
 				inline void refresh(GameWindow& mGameWindow)
 				{
 					processedKeys.reset(); processedBtns.reset();

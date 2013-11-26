@@ -42,10 +42,10 @@ namespace ssvs
 			KeyBitset pressedKeys;
 			BtnBitset pressedBtns;
 
-			std::chrono::milliseconds msUpdate, msDraw;
+			FT msUpdate, msDraw;
 
-			inline void runUpdate(float mFT)	{ gameState->updateInput(mFT); gameState->update(mFT); }
-			inline void runDraw()				{ gameState->draw(); }
+			inline void runUpdate(FT mFT)	{ gameState->updateInput(mFT); gameState->update(mFT); }
+			inline void runDraw()			{ gameState->draw(); }
 			inline void runEvents()
 			{
 				sf::Event event;
@@ -91,21 +91,21 @@ namespace ssvs
 					renderWindow.setActive(true);
 					renderWindow.clear();
 
-					auto tempMs(std::chrono::high_resolution_clock::now());
+					auto tempMs(HRClock::now());
 					{
 						runEvents();
 						gameState->refreshInput();
 						timer->runUpdate();
 						gameState->onPostUpdate();
 					}
-					msUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tempMs);
+					msUpdate = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
 
-					tempMs = std::chrono::high_resolution_clock::now();
+					tempMs = HRClock::now();
 					{
 						timer->runDraw();
 						renderWindow.display();
 					}
-					msDraw = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tempMs);
+					msDraw = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
 
 					timer->runFrameTime();
 					timer->runFps();
@@ -145,8 +145,8 @@ namespace ssvs
 			inline const KeyBitset& getPressedKeys() const noexcept		{ return pressedKeys; }
 			inline const BtnBitset& getPressedBtns() const noexcept		{ return pressedBtns; }
 
-			inline auto getMsUpdate() const noexcept -> decltype(msUpdate.count())	{ return msUpdate.count(); }
-			inline auto getMsDraw() const noexcept -> decltype(msDraw.count())		{ return msDraw.count(); }
+			inline FT getMsUpdate() const noexcept	{ return msUpdate; }
+			inline FT getMsDraw() const noexcept	{ return msDraw; }
 
 			template<typename T> inline T& getTimer() { return reinterpret_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)

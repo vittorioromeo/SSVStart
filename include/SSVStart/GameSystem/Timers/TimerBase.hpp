@@ -6,6 +6,7 @@
 #define SSVS_GAMESYSTEM_TIMERS_BASE
 
 #include <SFML/System.hpp>
+#include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs
 {
@@ -16,7 +17,8 @@ namespace ssvs
 		protected:
 			GameWindow& gameWindow;
 			sf::Clock clock;
-			float frameTime{0}, fps{0};
+			FT frameTime{0};
+			float fps{0};
 
 		public:
 			TimerBase(GameWindow& mGameWindow) : gameWindow(mGameWindow) { }
@@ -27,8 +29,8 @@ namespace ssvs
 			inline virtual void runFps()		{ fps = 60.f / frameTime; }
 			virtual void runDraw();
 
-			inline float getFrameTime() const noexcept	{ return frameTime; }
-			inline float getFps() const noexcept		{ return fps; }
+			inline FT getFrameTime() const noexcept	{ return frameTime; }
+			inline float getFps() const noexcept	{ return fps; }
 	};
 }
 

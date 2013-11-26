@@ -5,6 +5,8 @@
 #ifndef SSVS_TICKER
 #define SSVS_TICKER
 
+#include "SSVStart/Global/Typedefs.hpp"
+
 namespace ssvs
 {
 	template<typename T> constexpr inline T framesToSecs(T mFrames) noexcept	{ return mFrames / 60.f; }
@@ -13,15 +15,15 @@ namespace ssvs
 	class Ticker
 	{
 		private:
-			float target;
+			FT target;
 			bool running{true}, loop{true};
-			float current{0.f}, total{0.f};
-			unsigned int ticks{0};
+			FT current{0.f}, total{0.f};
+			std::size_t ticks{0};
 
 		public:
-			inline Ticker(float mTarget, bool mRunning = true) noexcept : target{mTarget}, running{mRunning} { }
+			inline Ticker(FT mTarget, bool mRunning = true) noexcept : target{mTarget}, running{mRunning} { }
 
-			inline bool update(float mFT) noexcept
+			inline bool update(FT mFT) noexcept
 			{
 				const auto& increment(mFT * running);
 				current += increment;
@@ -34,13 +36,13 @@ namespace ssvs
 				running = loop;
 				return true;
 			}
-			inline bool update(float mFT, float mTarget) noexcept { target = mTarget; return update(mFT); }
+			inline bool update(FT mFT, FT mTarget) noexcept { target = mTarget; return update(mFT); }
 
 			inline void pause() noexcept				{ running = false; }
 			inline void resume() noexcept				{ running = true; }
 			inline void stop() noexcept					{ resetCurrent(); running = false; }
 			inline void restart() noexcept				{ resetCurrent(); running = true; }
-			inline void restart(float mTarget) noexcept	{ resetCurrent(); target = mTarget; running = true; }
+			inline void restart(FT mTarget) noexcept	{ resetCurrent(); target = mTarget; running = true; }
 
 			inline void resetCurrent() noexcept			{ current = 0.f; }
 			inline void resetTicks() noexcept			{ ticks = 0; }
@@ -51,14 +53,16 @@ namespace ssvs
 
 			inline bool getLoop() const noexcept			{ return loop; }
 			inline bool isRunning() const noexcept			{ return running; }
-			inline float getTarget() const noexcept			{ return target; }
-			inline float getCurrent() const noexcept		{ return current; }
-			inline float getTotal() const noexcept			{ return total; }
-			inline unsigned int getTicks() const noexcept	{ return ticks; }
+			inline FT getTarget() const noexcept			{ return target; }
+			inline FT getCurrent() const noexcept			{ return current; }
+			inline FT getTotal() const noexcept				{ return total; }
+			inline std::size_t getTicks() const noexcept	{ return ticks; }
 
-			template<typename T = float> inline T getTotalSecs() const noexcept		{ return static_cast<T>(framesToSecs(total)); }
-			template<typename T = float> inline T getCurrentSecs() const noexcept	{ return static_cast<T>(framesToSecs(current)); }
+			template<typename T = FT> inline T getTotalSecs() const noexcept	{ return static_cast<T>(framesToSecs(total)); }
+			template<typename T = FT> inline T getCurrentSecs() const noexcept	{ return static_cast<T>(framesToSecs(current)); }
 	};
 }
 
 #endif
+
+// TODO: move to ssvu?

@@ -7,6 +7,7 @@
 
 #include <bitset>
 #include <memory>
+#include <chrono>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SSVUtils/Global/Typedefs.hpp>
@@ -14,6 +15,9 @@
 
 namespace ssvs
 {
+	using HRClock = ssvu::HRClock;
+	using FT = ssvu::FT;
+	using FTDuration = ssvu::FTDuration;
 	using KKey = sf::Keyboard::Key;
 	using MBtn = sf::Mouse::Button;
 	constexpr std::size_t KKeyCount{KKey::KeyCount};
@@ -24,7 +28,7 @@ namespace ssvs
 	using Vec2f = sf::Vector2f;
 	using Vec2u = sf::Vector2u;
 	using Path = ssvu::FileSystem::Path;
-	using InputFunc = ssvu::Func<void(float)>;
+	using InputFunc = ssvu::Func<void(FT)>;
 	template<typename T> using Vec2 = sf::Vector2<T>;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
 }

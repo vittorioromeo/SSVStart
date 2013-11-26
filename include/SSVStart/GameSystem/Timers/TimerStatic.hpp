@@ -15,10 +15,11 @@ namespace ssvs
 	class TimerStatic final : public TimerBase
 	{
 		private:
-			float step, timeSlice, maxLoops, time{0}, loops{0};
+			FT step, timeSlice, time{0};
+			float maxLoops, loops{0};
 
 		public:
-			TimerStatic(GameWindow& mGameWindow, float mStep = 1.f, float mTimeSlice = 1.f, float mMaxLoops = 50) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
+			TimerStatic(GameWindow& mGameWindow, FT mStep = 1.f, FT mTimeSlice = 1.f, float mMaxLoops = 50) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
 
 			inline void runUpdate() override
 			{
@@ -32,14 +33,14 @@ namespace ssvs
 				}
 			}
 
-			inline void setStep(float mStep) noexcept			{ step = mStep; }
-			inline void setTimeSlice(float mTimeSlice) noexcept	{ timeSlice = mTimeSlice; }
+			inline void setStep(FT mStep) noexcept				{ step = mStep; }
+			inline void setTimeSlice(FT mTimeSlice) noexcept	{ timeSlice = mTimeSlice; }
 			inline void setMaxLoops(float mMaxLoops) noexcept	{ maxLoops = mMaxLoops; }
 
-			inline float getStep() const noexcept		{ return step; }
-			inline float getTimeSlice() const noexcept	{ return timeSlice; }
+			inline FT getStep() const noexcept			{ return step; }
+			inline FT getTimeSlice() const noexcept		{ return timeSlice; }
+			inline FT getTime() const noexcept			{ return time; }
 			inline float getMaxLoops() const noexcept	{ return maxLoops; }
-			inline float getTime() const noexcept		{ return time; }
 			inline float getLoops() const noexcept		{ return loops; }
 	};
 }

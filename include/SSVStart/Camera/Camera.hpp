@@ -55,7 +55,7 @@ namespace ssvs
 			inline void zoomOut(float mFactor)	{ nextZoomFactor *= mFactor;		invalid = true; }
 			inline void turn(float mDeg)		{ nextRotation += mDeg;				invalid = true; }
 
-			template<typename T = float> inline void update(float mFT)
+			template<typename T = float> inline void update(FT mFT)
 			{
 				if(!invalid) return;
 

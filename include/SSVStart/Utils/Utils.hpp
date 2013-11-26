@@ -342,12 +342,12 @@ namespace ssvs
 	// TODO: document
 	inline void add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mOn, [&mValue](float){ mValue = true; }, [&mValue](float){ mValue = false; }, mType, mMode);
+		mGameState.addInput(mOn, [&mValue](FT){ mValue = true; }, [&mValue](FT){ mValue = false; }, mType, mMode);
 	}
 	inline void add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mOff, [&mValue](float){ mValue = -1; }, [&mValue](float){ if(mValue == -1) mValue = 0; }, mType, mMode);
-		mGameState.addInput(mOn, [&mValue](float){ mValue = 1; }, [&mValue](float){ if(mValue == 1) mValue = 0; }, mType, mMode);
+		mGameState.addInput(mOff, [&mValue](FT){ mValue = -1; }, [&mValue](FT){ if(mValue == -1) mValue = 0; }, mType, mMode);
+		mGameState.addInput(mOn, [&mValue](FT){ mValue = 1; }, [&mValue](FT){ if(mValue == 1) mValue = 0; }, mType, mMode);
 	}
 
 	// SFML element utils

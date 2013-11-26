@@ -13,7 +13,7 @@ namespace ssvs
 	class TimerDynamic final : public TimerBase
 	{
 		private:
-			float frameTimeLimit{4.f};
+			FT frameTimeLimit{4.f};
 
 		public:
 			TimerDynamic(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
