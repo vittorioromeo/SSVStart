@@ -5,61 +5,20 @@
 #ifndef SSVSTART
 #define SSVSTART
 
-// Global
 #include "SSVStart/Global/Typedefs.hpp"
-
-// Animation
 #include "SSVStart/Animation/Animation.hpp"
-
-// Assets
-#include "SSVStart/Assets/AssetFolder.hpp"
-#include "SSVStart/Assets/AssetManager.hpp"
-
-// BitmapFont
-#include "SSVStart/BitmapFont/BitmapFont.hpp"
-#include "SSVStart/BitmapFont/BitmapText.hpp"
-
-// Camera
+#include "SSVStart/Assets/Assets.hpp"
+#include "SSVStart/BitmapText/BitmapText.hpp"
 #include "SSVStart/Camera/Camera.hpp"
-
-// GameSystem
-#include "SSVStart/GameSystem/GameWindow.hpp"
-#include "SSVStart/GameSystem/GameState.hpp"
-#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
-#include "SSVStart/GameSystem/Timers/TimerDynamic.hpp"
-#include "SSVStart/GameSystem/Timers/TimerStatic.hpp"
-
-// Input
-#include "SSVStart/Input/Enums.hpp"
-#include "SSVStart/Input/Combo.hpp"
-#include "SSVStart/Input/Trigger.hpp"
-#include "SSVStart/Input/Manager.hpp"
-
-// SoundPlayer
+#include "SSVStart/GameSystem/GameSystem.hpp"
+#include "SSVStart/Input/Input.hpp"
 #include "SSVStart/SoundPlayer/SoundPlayer.hpp"
-
-// MusicPlayer
 #include "SSVStart/MusicPlayer/MusicPlayer.hpp"
-
-// Tileset
 #include "SSVStart/Tileset/Tileset.hpp"
-
-// Utils
 #include "SSVStart/Utils/Utils.hpp"
-
-// Json
-#include "SSVStart/Json/UtilsJson.hpp"
-
-// Ticker
+#include "SSVStart/Json/Json.hpp"
 #include "SSVStart/Ticker/Ticker.hpp"
-
-// VertexVector
 #include "SSVStart/VertexVector/VertexVector.hpp"
-
-// Inl
-#include "SSVStart/GameSystem/Timers/TimerBase.inl"
-#include "SSVStart/Input/Combo.inl"
 
 #endif
 
-// TODO: modularize

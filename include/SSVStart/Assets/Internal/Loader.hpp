@@ -9,7 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "SSVStart/BitmapFont/BitmapFont.hpp"
+#include "SSVStart/BitmapText/BitmapText.hpp"
 #include "SSVStart/Tileset/Tileset.hpp"
 #include "SSVStart/Assets/Internal/Helper.hpp"
 
