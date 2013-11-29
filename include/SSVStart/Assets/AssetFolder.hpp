@@ -90,7 +90,7 @@ namespace ssvs
 			}
 
 		public:
-			AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{ssvu::FileSystem::getScan<ssvu::FileSystem::Mode::Recurse, ssvu::FileSystem::Type::File>(rootPath)} { }
+			AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{ssvufs::getScan<ssvufs::Mode::Recurse, ssvufs::Type::File>(rootPath)} { }
 			void loadToManager(AssetManager& mAssetManager)
 			{
 				loadImagesToManager(mAssetManager);
