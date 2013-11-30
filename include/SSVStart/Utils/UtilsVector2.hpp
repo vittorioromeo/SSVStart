@@ -40,7 +40,6 @@ namespace ssvs
 		{
 			const auto& vI(mVertices[i]);
 			const auto& vJ(mVertices[j]);
-			assert((vJ.y - vI.y) != 0);
 			if(((vI.y > mPoint.y) != (vJ.y > mPoint.y)) && (mPoint.x < (vJ.x - vI.x) * (mPoint.y - vI.y) / (vJ.y - vI.y) + vI.x)) result = !result;
 		}
 
