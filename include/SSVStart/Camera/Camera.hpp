@@ -29,10 +29,16 @@ namespace ssvs
 			Camera(GameWindow& mGameWindow, sf::View mView) : gameWindow(mGameWindow), renderWindow(gameWindow), view{std::move(mView)} { }
 
 			Camera(GameWindow& mGameWindow, const Vec2f& mCenter, float mZoomFactor = 1.f)
-				: gameWindow(mGameWindow), renderWindow(gameWindow), view{mCenter, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}} { }
+				: gameWindow(mGameWindow), renderWindow(gameWindow), view{mCenter, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
+			{
+				assert(mZoomFactor != 0);
+			}
 
 			Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f) : gameWindow(mGameWindow), renderWindow(gameWindow),
-				view{{gameWindow.getWidth() / 2.f / mZoomFactor, gameWindow.getHeight() / 2.f / mZoomFactor}, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}} { }
+				view{{gameWindow.getWidth() / 2.f / mZoomFactor, gameWindow.getHeight() / 2.f / mZoomFactor}, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
+			{
+				assert(mZoomFactor != 0);
+			}
 
 			template<typename T = float> inline void apply()
 			{
@@ -42,6 +48,7 @@ namespace ssvs
 					computedView.setSize(static_cast<T>(computedView.getSize().x * skew.x), static_cast<T>(computedView.getSize().y * skew.y));
 					if(getMag(offset) != 0) computedView.setCenter(view.getCenter() - getVecFromDeg(view.getRotation() + getDeg(offset), getMag(offset)));
 					computedView.setCenter(static_cast<T>(computedView.getCenter().x), static_cast<T>(computedView.getCenter().y));
+					mustRecompute = false;
 				}
 
 				renderWindow.setView(computedView);
