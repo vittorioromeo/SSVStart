@@ -116,20 +116,8 @@ namespace ssvuj
 	template<> struct Converter<ssvs::Tileset>
 	{
 		using T = ssvs::Tileset;
-		inline static void fromObj(T& mValue, const Obj& mObj)
-		{
-			const auto& labels(get(mObj, "labels"));
-			for(auto iY(0u); iY < size(labels); ++iY)
-				for(auto iX(0u); iX < size(labels[iY]); ++iX)
-					mValue.setLabel(as<std::string>(labels[iY][iX]), {iX, iY});
-
-			mValue.setTileSize(as<ssvs::Vec2u>(mObj, "tileSize"));
-		}
-		inline static void toObj(Obj& mObj, const T& mValue)
-		{
-			set(mObj, "tileSize", mValue.getTileSize());
-			// TODO: labels
-		}
+		inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.tileSize, mValue.labels); }
+		inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.tileSize, mValue.labels); }
 	};
 	template<> struct Converter<ssvs::BitmapFontData>
 	{
