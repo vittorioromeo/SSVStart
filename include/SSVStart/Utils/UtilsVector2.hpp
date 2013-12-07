@@ -341,6 +341,10 @@ namespace ssvs
 		return Vec2<CT<T1, T2>>((mMax.x - mMin.x) / CT<T1, T2>(2), (mMax.y - mMin.y) / CT<T1, T2>(2));
 	}
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept { return getHalfSize(mMin, mMax) * CT<T1, T2>(2); }
+	template<typename T1, typename T2, typename T3, typename T4> inline bool isInAABB(const Vec2<T1>& mMin, const Vec2<T2>& mMax, const Vec2<T3>& mPoint, const T4& mPadding) noexcept
+	{
+		return mPoint.x >= mMin.x - mPadding && mPoint.x < mMax.x + mPadding && mPoint.y >= mMin.y - mPadding && mPoint.y < mMax.y + mPadding;
+	}
 }
 
 #endif
