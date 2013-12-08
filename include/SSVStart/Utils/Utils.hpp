@@ -8,5 +8,6 @@
 #include "SSVStart/Utils/UtilsInput.hpp"
 #include "SSVStart/Utils/UtilsSFML.hpp"
 #include "SSVStart/Utils/UtilsVector2.hpp"
+#include "SSVStart/Utils/UtilsStringifier.hpp"
 
 #endif
