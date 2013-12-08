@@ -41,6 +41,7 @@ namespace ssvs
 		SSVS_INS_KEY(S),
 		SSVS_INS_KEY(T),
 		SSVS_INS_KEY(U),
+		SSVS_INS_KEY(V),
 		SSVS_INS_KEY(W),
 		SSVS_INS_KEY(X),
 		SSVS_INS_KEY(Y),
@@ -138,11 +139,11 @@ namespace ssvs
 	#undef SSVS_BTN_PREFIX
 
 	inline KKey getKey(const std::string& mName)			{ return keys.at(mName); }
-	inline MBtn getButton(const std::string& mName)			{ return btns.at(mName); }
+	inline MBtn getBtn(const std::string& mName)			{ return btns.at(mName); }
 	inline const std::string& getKeyName(KKey mKey)			{ return keys.at(mKey); }
-	inline const std::string& getButtonName(MBtn mBtn)		{ return btns.at(mBtn); }
+	inline const std::string& getBtnName(MBtn mBtn)			{ return btns.at(mBtn); }
 	inline bool isKeyNameValid(const std::string& mName)	{ return keys.has(mName); }
-	inline bool isButtonNameValid(const std::string& mName)	{ return btns.has(mName); }
+	inline bool isBtnNameValid(const std::string& mName)	{ return btns.has(mName); }
 
 	// TODO: docs
 	inline void add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
