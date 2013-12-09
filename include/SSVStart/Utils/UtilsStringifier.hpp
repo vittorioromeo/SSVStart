@@ -13,83 +13,53 @@
 
 namespace ssvu
 {
-	template<typename TType> struct Stringifier<ssvs::Vec2<TType>>
+	template<typename T> struct Stringifier<ssvs::Vec2<T>>
 	{
-		using T = ssvs::Vec2<TType>;
-		template<bool TLogify> inline static void impl(const T& mValue, std::ostream& mStream)
+		template<bool TFmt> inline static void impl(const ssvs::Vec2<T>& mValue, std::ostream& mStream)
 		{
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << "(";
-
-			Internal::callStringifyImpl<TLogify, true>(mValue.x, mStream);
-
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << "; ";
-
-			Internal::callStringifyImpl<TLogify, true>(mValue.y, mStream);
-
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << ")";
+			Internal::printBold<TFmt>(mStream, "(");
+			Internal::callStringifyImpl<TFmt, true>(mValue.x, mStream);
+			Internal::printBold<TFmt>(mStream, "; ");
+			Internal::callStringifyImpl<TFmt, true>(mValue.y, mStream);
+			Internal::printBold<TFmt>(mStream, ")");
 		}
 	};
 	template<> struct Stringifier<sf::Color>
 	{
-		using T = sf::Color;
-		template<bool TLogify> inline static void impl(const T& mValue, std::ostream& mStream)
+		template<bool TFmt> inline static void impl(const sf::Color& mValue, std::ostream& mStream)
 		{
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << "(";
-
-			if(TLogify) mStream << Console::resetFmt() << Console::setColorFG(Console::Color::Red);
-			mStream << int(mValue.r);
-
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << ", ";
-
-			if(TLogify) mStream << Console::resetFmt() << Console::setColorFG(Console::Color::Green);
-			mStream << int(mValue.g);
-
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << ", ";
-
-			if(TLogify) mStream << Console::resetFmt() << Console::setColorFG(Console::Color::Blue);
-			mStream << int(mValue.b);
-
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << ", ";
-
-			if(TLogify) mStream << Console::resetFmt() << Console::setColorFG(Console::Color::LightGray);
-			mStream << int(mValue.a);
-
-			if(TLogify) mStream << Console::setColorFG(Console::Color::LightGray) << Console::setStyle(Console::Style::Bold);
-			mStream << ")";
+			Internal::printBold<TFmt>(mStream, "(");
+			Internal::printNonBold<TFmt>(mStream, int(mValue.r), Console::Color::Red);
+			Internal::printBold<TFmt>(mStream, ", ");
+			Internal::printNonBold<TFmt>(mStream, int(mValue.g), Console::Color::Green);
+			Internal::printBold<TFmt>(mStream, ", ");
+			Internal::printNonBold<TFmt>(mStream, int(mValue.b), Console::Color::Blue);
+			Internal::printBold<TFmt>(mStream, ", ");
+			Internal::printNonBold<TFmt>(mStream, int(mValue.a));
+			Internal::printBold<TFmt>(mStream, ")");
 		}
 	};
 
 	template<> struct Stringifier<ssvs::KKey>
 	{
-		using T = ssvs::KKey;
-		template<bool TLogify> inline static void impl(const T& mValue, std::ostream& mStream)
+		template<bool TFmt> inline static void impl(const ssvs::KKey& mValue, std::ostream& mStream)
 		{
-			if(TLogify) mStream << Console::setColorFG(Console::Color::Yellow);
-			mStream << "(" + ssvs::getKeyName(mValue) + ")";
+			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getKeyName(mValue) + ")", Console::Color::Yellow);
 		}
 	};
 
 	template<> struct Stringifier<ssvs::MBtn>
 	{
-		using T = ssvs::MBtn;
-		template<bool TLogify> inline static void impl(const T& mValue, std::ostream& mStream)
+		template<bool TFmt> inline static void impl(const ssvs::MBtn& mValue, std::ostream& mStream)
 		{
-			if(TLogify) mStream << Console::setColorFG(Console::Color::Green);
-			mStream << "(" + ssvs::getBtnName(mValue) + ")";
+			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getBtnName(mValue) + ")", Console::Color::Green);
 		}
 	};
 
 	template<> struct Stringifier<ssvs::Input::Combo>
 	{
 		using T = ssvs::Input::Combo;
-		template<bool TLogify> inline static void impl(const T& mValue, std::ostream& mStream)
+		template<bool TFmt> inline static void impl(const T& mValue, std::ostream& mStream)
 		{
 			mStream << "[";
 
@@ -100,7 +70,7 @@ namespace ssvu
 				if(mValue.getKeys()[i])
 				{
 					++added;
-					Internal::callStringifyImpl<TLogify, true>(ssvs::KKey(i - 1), mStream);
+					Internal::callStringifyImpl<TFmt, true>(ssvs::KKey(i - 1), mStream);
 					mStream << ((added >= total) ? "" : ", ");
 				}
 			}
@@ -110,7 +80,7 @@ namespace ssvu
 				if(mValue.getBtns()[i])
 				{
 					++added;
-					Internal::callStringifyImpl<TLogify, true>(ssvs::MBtn(i - 1), mStream);
+					Internal::callStringifyImpl<TFmt, true>(ssvs::MBtn(i - 1), mStream);
 					mStream << ((added >= total) ? "" : ", ");
 				}
 			}
@@ -122,12 +92,12 @@ namespace ssvu
 	template<> struct Stringifier<ssvs::Input::Trigger>
 	{
 		using T = ssvs::Input::Trigger;
-		template<bool TLogify> inline static void impl(const T& mValue, std::ostream& mStream)
+		template<bool TFmt> inline static void impl(const T& mValue, std::ostream& mStream)
 		{
 			mStream << "{";
 			for(auto i(0u); i < mValue.getCombos().size(); ++i)
 			{
-				Internal::callStringifyImpl<TLogify, true>(mValue.getCombos()[i], mStream);
+				Internal::callStringifyImpl<TFmt, true>(mValue.getCombos()[i], mStream);
 				mStream << ((i == mValue.getCombos().size() - 1) ? "" : ", ");
 			}
 			mStream << "}";
