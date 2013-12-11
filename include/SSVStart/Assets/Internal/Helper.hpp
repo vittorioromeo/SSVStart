@@ -137,7 +137,7 @@ namespace ssvs
 			inline static Uptr<T> load(const Tileset& mTileset) { return std::make_unique<T>(mTileset); }
 
 			#ifndef SSVS_N_USE_JSON
-				inline static Uptr<T> load(const Path& mPath) { return std::make_unique<T>(ssvuj::as<Tileset>(ssvuj::readFromFile(mPath))); }
+				inline static Uptr<T> load(const Path& mPath) { return std::make_unique<T>(ssvuj::getAs<Tileset>(ssvuj::readFromFile(mPath))); }
 			#endif
 		};
 	}
