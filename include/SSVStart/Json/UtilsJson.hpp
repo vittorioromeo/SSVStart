@@ -27,20 +27,20 @@ namespace ssvs
 	{
 		Animation::Type type{Animation::Type::Loop};
 
-		std::string jsonType{ssvuj::getAs<std::string>(mObj, "type", "")};
+		std::string jsonType{ssvuj::getExtr<std::string>(mObj, "type", "")};
 		if(jsonType == "once") type = Animation::Type::Once;
 		else if(jsonType == "loop") type = Animation::Type::Loop;
 		else if(jsonType == "pingpong") type = Animation::Type::PingPong;
 
 		Animation result{type};
 
-		for(const auto& f : ssvuj::get(mObj, "frames"))
+		for(const auto& f : ssvuj::getObj(mObj, "frames"))
 		{
-			const auto& index(mTileset.getIdx(ssvuj::getAs<std::string>(f, 0)));
-			result.addStep({index, ssvuj::getAs<float>(f, 1)});
+			const auto& index(mTileset.getIdx(ssvuj::getExtr<std::string>(f, 0)));
+			result.addStep({index, ssvuj::getExtr<float>(f, 1)});
 		}
 
-		result.setSpeed(ssvuj::getAs<float>(mObj, "speed", 1.f));
+		result.setSpeed(ssvuj::getExtr<float>(mObj, "speed", 1.f));
 		return result;
 	}
 	inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvuj::Obj& mObj)
@@ -48,53 +48,53 @@ namespace ssvs
 		using namespace std;
 		using namespace ssvuj;
 
-		for(const auto& f : getAs<vector<string>>(mObj, "fonts"))				mAssetManager.load<sf::Font>(f, mRootPath + f);
-		for(const auto& f : getAs<vector<string>>(mObj, "images"))				mAssetManager.load<sf::Image>(f, mRootPath + f);
-		for(const auto& f : getAs<vector<string>>(mObj, "textures"))			mAssetManager.load<sf::Texture>(f, mRootPath + f);
-		for(const auto& f : getAs<vector<string>>(mObj, "soundBuffers"))		mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f);
-		for(const auto& f : getAs<vector<string>>(mObj, "musics"))				mAssetManager.load<sf::Music>(f, mRootPath + f);
-		for(const auto& f : getAs<vector<string>>(mObj, "shadersVertex"))		mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
-		for(const auto& f : getAs<vector<string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
+		for(const auto& f : getExtr<vector<string>>(mObj, "fonts"))			mAssetManager.load<sf::Font>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "images"))			mAssetManager.load<sf::Image>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "textures"))		mAssetManager.load<sf::Texture>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "soundBuffers"))	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "musics"))			mAssetManager.load<sf::Music>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "shadersVertex"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
+		for(const auto& f : getExtr<vector<string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
 
-		const auto& bfs(get(mObj, "bitmapFonts"));
+		const auto& bfs(getObj(mObj, "bitmapFonts"));
 			for(auto itr(begin(bfs)); itr != end(bfs); ++itr)
-				mAssetManager.load<BitmapFont>(ssvuj::getKey(itr), mAssetManager.get<sf::Texture>(getAs<string>(*itr, 0)), getAs<BitmapFontData>(getFromFile(mRootPath + getAs<string>(*itr, 1))));
+				mAssetManager.load<BitmapFont>(ssvuj::getKey(itr), mAssetManager.get<sf::Texture>(getExtr<string>(*itr, 0)), getExtr<BitmapFontData>(getFromFile(mRootPath + getExtr<string>(*itr, 1))));
 
-		const auto& tilesets(get(mObj, "tilesets"));
+		const auto& tilesets(getObj(mObj, "tilesets"));
 			for(auto itr(begin(tilesets)); itr != end(tilesets); ++itr)
-				mAssetManager.load<Tileset>(ssvuj::getKey(itr), ssvuj::getAs<ssvs::Tileset>(ssvuj::getFromFile("Data/" + getAs<string>(*itr))));
+				mAssetManager.load<Tileset>(ssvuj::getKey(itr), ssvuj::getExtr<ssvs::Tileset>(ssvuj::getFromFile("Data/" + getExtr<string>(*itr))));
 	}
 }
 
 namespace ssvuj
 {
-	template<typename TType> struct Converter<ssvs::Vec2<TType>>
-	{
-		using T = ssvs::Vec2<TType>;
-		inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.x, mValue.y); }
-		inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.x, mValue.y); }
-	};
+	// TODO: tests
+	template<typename TType> SSVUJ_CNV_SIMPLE(ssvs::Vec2<TType>, mObj, mV)	{ ssvuj::convertArray(mObj, mV.x, mV.y); }													SSVUJ_CNV_SIMPLE_END();
+	template<> SSVUJ_CNV_SIMPLE(ssvs::BitmapFontData, mObj, mV)				{ ssvuj::convertArray(mObj, mV.cellColumns, mV.cellWidth, mV.cellHeight, mV.cellStart); }	SSVUJ_CNV_SIMPLE_END();
+	template<> SSVUJ_CNV_SIMPLE(sf::Color, mObj, mV)						{ ssvuj::convertArray(mObj, mV.r, mV.g, mV.b, mV.a); }										SSVUJ_CNV_SIMPLE_END();
+	template<> SSVUJ_CNV_SIMPLE(ssvs::Input::Trigger, mObj, mV)				{ ssvuj::convert(mObj, mV.getCombos()); }													SSVUJ_CNV_SIMPLE_END();
+
 	template<> struct Converter<ssvs::KKey>
 	{
 		using T = ssvs::KKey;
-		inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::getKey(getAs<std::string>(mObj)); }
+		inline static void fromObj(const Obj& mObj, T& mValue)	{ mValue = ssvs::getKey(getExtr<std::string>(mObj)); }
 		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getKeyName(mValue)); }
 	};
 	template<> struct Converter<ssvs::MBtn>
 	{
 		using T = ssvs::MBtn;
-		inline static void fromObj(T& mValue, const Obj& mObj)	{ mValue = ssvs::getBtn(getAs<std::string>(mObj)); }
+		inline static void fromObj(const Obj& mObj, T& mValue)	{ mValue = ssvs::getBtn(getExtr<std::string>(mObj)); }
 		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getBtnName(mValue)); }
 	};
 	template<> struct Converter<ssvs::Input::Combo>
 	{
 		using T = ssvs::Input::Combo;
-		inline static void fromObj(T& mValue, const Obj& mObj)
+		inline static void fromObj(const Obj& mObj, T& mValue)
 		{
 			for(const auto& i : mObj)
 			{
-				if(ssvs::isKeyNameValid(getAs<std::string>(i))) mValue.addKey(getAs<ssvs::KKey>(i));
-				else if(ssvs::isBtnNameValid(getAs<std::string>(i))) mValue.addBtn(getAs<ssvs::MBtn>(i));
+				if(ssvs::isKeyNameValid(getExtr<std::string>(i))) mValue.addKey(getExtr<ssvs::KKey>(i));
+				else if(ssvs::isBtnNameValid(getExtr<std::string>(i))) mValue.addBtn(getExtr<ssvs::MBtn>(i));
 				else ssvu::lo("ssvs::getInputComboFromJSON") << "<" << i << "> is not a valid input name";
 			}
 		}
@@ -103,49 +103,31 @@ namespace ssvuj
 			auto i(0u);
 			const auto& keys(mValue.getKeys());
 			const auto& btns(mValue.getBtns());
-			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j + 1]) set(mObj, i++, ssvs::KKey(j));
-			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j + 1]) set(mObj, i++, ssvs::MBtn(j));
+			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j + 1]) arch(mObj, i++, ssvs::KKey(j));
+			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j + 1]) arch(mObj, i++, ssvs::MBtn(j));
 		}
-	};
-	template<> struct Converter<ssvs::Input::Trigger>
-	{
-		using T = ssvs::Input::Trigger;
-		inline static void fromObj(T& mValue, const Obj& mObj)	{ extr(mObj, mValue.getCombos()); }
-		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, mValue.getCombos()); }
 	};
 
 	template<> struct Converter<ssvs::Tileset>
 	{
 		using T = ssvs::Tileset;
-		inline static void fromObj(T& mValue, const Obj& mObj)
+		inline static void fromObj(const Obj& mObj, T& mValue)
 		{
-			const auto& labels(get(mObj, "labels"));
-			for(auto iY(0u); iY < size(labels); ++iY)
-				for(auto iX(0u); iX < size(labels[iY]); ++iX)
-					mValue.setLabel(getAs<std::string>(labels[iY][iX]), {iX, iY});
+			const auto& labels(getObj(mObj, "labels"));
+			for(auto iY(0u); iY < getObjSize(labels); ++iY)
+				for(auto iX(0u); iX < getObjSize(labels[iY]); ++iX)
+					mValue.setLabel(getExtr<std::string>(labels[iY][iX]), {iX, iY});
 
-			mValue.setTileSize(getAs<ssvs::Vec2u>(mObj, "tileSize"));
+			mValue.setTileSize(getExtr<ssvs::Vec2u>(mObj, "tileSize"));
 		}
 		inline static void toObj(Obj& mObj, const T& mValue)
 		{
-			set(mObj, "tileSize", mValue.getTileSize());
+			arch(mObj, "tileSize", mValue.getTileSize());
 
-			auto& labels(get(mObj, "labels"));
+			auto& labels(getObj(mObj, "labels"));
 			for(const auto& l : mValue.labels)
-				set(labels[l.second.y][l.second.x], l.first);
+				arch(getObj(getObj(labels, l.second.y), l.second.x), l.first);
 		}
-	};
-	template<> struct Converter<ssvs::BitmapFontData>
-	{
-		using T = ssvs::BitmapFontData;
-		inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.cellColumns, mValue.cellWidth, mValue.cellHeight, mValue.cellStart); }
-		inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.cellColumns, mValue.cellWidth, mValue.cellHeight, mValue.cellStart); }
-	};
-	template<> struct Converter<sf::Color>
-	{
-		using T = sf::Color;
-		inline static void fromObj(T& mValue, const Obj& mObj)	{ extrArray(mObj, mValue.r, mValue.g, mValue.b, mValue.a); }
-		inline static void toObj(Obj& mObj, const T& mValue)	{ archArray(mObj, mValue.r, mValue.g, mValue.b, mValue.a); }
 	};
 }
 
