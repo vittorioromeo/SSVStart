@@ -48,12 +48,12 @@ namespace ssvs
 		using namespace std;
 		using namespace ssvuj;
 
-		for(const auto& f : getExtr<vector<string>>(mObj, "fonts"))			mAssetManager.load<sf::Font>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "fonts"))				mAssetManager.load<sf::Font>(f, mRootPath + f);
 		for(const auto& f : getExtr<vector<string>>(mObj, "images"))			mAssetManager.load<sf::Image>(f, mRootPath + f);
-		for(const auto& f : getExtr<vector<string>>(mObj, "textures"))		mAssetManager.load<sf::Texture>(f, mRootPath + f);
-		for(const auto& f : getExtr<vector<string>>(mObj, "soundBuffers"))	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "textures"))			mAssetManager.load<sf::Texture>(f, mRootPath + f);
+		for(const auto& f : getExtr<vector<string>>(mObj, "soundBuffers"))		mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f);
 		for(const auto& f : getExtr<vector<string>>(mObj, "musics"))			mAssetManager.load<sf::Music>(f, mRootPath + f);
-		for(const auto& f : getExtr<vector<string>>(mObj, "shadersVertex"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
+		for(const auto& f : getExtr<vector<string>>(mObj, "shadersVertex"))		mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
 		for(const auto& f : getExtr<vector<string>>(mObj, "shadersFragment"))	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
 
 		const auto& bfs(getObj(mObj, "bitmapFonts"));
@@ -125,8 +125,7 @@ namespace ssvuj
 			arch(mObj, "tileSize", mValue.getTileSize());
 
 			auto& labels(getObj(mObj, "labels"));
-			for(const auto& l : mValue.labels)
-				arch(getObj(getObj(labels, l.second.y), l.second.x), l.first);
+			for(const auto& l : mValue.labels) arch(getObj(labels, l.second.y), l.second.x, l.first);
 		}
 	};
 }

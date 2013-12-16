@@ -35,15 +35,21 @@ namespace ssvs
 			inline void handleEvent(const sf::Event& mEvent)	{ onAnyEvent(mEvent); eventDelegates[mEvent.type](mEvent); }
 			inline void update(FT mFT)							{ onUpdate(mFT); }
 			inline void draw()									{ onDraw(); }
-			inline void updateInput(FT mFT)						{ inputManager.update(*gameWindow, mFT); }
-			inline void refreshInput()							{ inputManager.refresh(*gameWindow); }
+			inline void updateInput(FT mFT)
+			{
+				assert(gameWindow != nullptr);
+				inputManager.update(*gameWindow, mFT);
+			}
+			inline void refreshInput()
+			{
+				assert(gameWindow != nullptr);
+				inputManager.refresh(*gameWindow);
+			}
 
 		public:
 			ssvu::Delegate<void()> onDraw, onPostUpdate;
 			ssvu::Delegate<void(FT)> onUpdate;
 			EventDelegate onAnyEvent;
-
-			GameState() = default;
 
 			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)					{ mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn); }
 			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)	{ mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn, mFuncOff);  }

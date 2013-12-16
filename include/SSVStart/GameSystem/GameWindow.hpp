@@ -44,10 +44,21 @@ namespace ssvs
 
 			FT msUpdate, msDraw;
 
-			inline void runUpdate(FT mFT)	{ gameState->updateInput(mFT); gameState->update(mFT); }
-			inline void runDraw()			{ gameState->draw(); }
+			inline void runUpdate(FT mFT)
+			{
+				assert(gameState != nullptr);
+				gameState->updateInput(mFT);
+				gameState->update(mFT);
+			}
+			inline void runDraw()
+			{
+				assert(gameState != nullptr);
+				gameState->draw();
+			}
 			inline void runEvents()
 			{
+				assert(gameState != nullptr);
+
 				sf::Event event;
 				while(renderWindow.pollEvent(event))
 				{
@@ -80,12 +91,12 @@ namespace ssvs
 		public:
 			ssvu::Delegate<void()> onRecreation;
 
-			GameWindow() = default;
-
 			inline void run()
 			{
 				while(running)
 				{
+					assert(gameState != nullptr);
+
 					if(mustRecreate) recreateWindow();
 
 					renderWindow.setActive(true);
@@ -158,5 +169,3 @@ namespace ssvs
 }
 
 #endif
-
-// TODO: refactor!

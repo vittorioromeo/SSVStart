@@ -15,9 +15,8 @@ namespace ssvs
 	class Ticker
 	{
 		private:
-			FT target;
+			FT target, current{0.f}, total{0.f};
 			bool running{true}, loop{true};
-			FT current{0.f}, total{0.f};
 			std::size_t ticks{0};
 
 		public:
