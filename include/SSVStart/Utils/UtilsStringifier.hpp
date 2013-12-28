@@ -44,7 +44,7 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::KKey& mValue)
 		{
-			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getKeyName(mValue) + ")", Console::Color::Yellow);
+			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getKKeyName(mValue) + ")", Console::Color::Yellow);
 		}
 	};
 
@@ -52,7 +52,7 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::MBtn& mValue)
 		{
-			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getBtnName(mValue) + ")", Console::Color::Green);
+			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getMBtnName(mValue) + ")", Console::Color::Green);
 		}
 	};
 

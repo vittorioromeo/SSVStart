@@ -138,12 +138,12 @@ namespace ssvs
 	#undef SSVS_INS_BTN
 	#undef SSVS_BTN_PREFIX
 
-	inline KKey getKey(const std::string& mName)			{ return keys.at(mName); }
-	inline MBtn getBtn(const std::string& mName)			{ return btns.at(mName); }
-	inline const std::string& getKeyName(KKey mKey)			{ return keys.at(mKey); }
-	inline const std::string& getBtnName(MBtn mBtn)			{ return btns.at(mBtn); }
-	inline bool isKeyNameValid(const std::string& mName)	{ return keys.has(mName); }
-	inline bool isBtnNameValid(const std::string& mName)	{ return btns.has(mName); }
+	inline KKey getKKey(const std::string& mId)			{ return keys.at(mId); }
+	inline MBtn getMBtn(const std::string& mId)			{ return btns.at(mId); }
+	inline const std::string& getKKeyName(KKey mKKey)	{ return keys.at(mKKey); }
+	inline const std::string& getMBtnName(MBtn mMBtn)	{ return btns.at(mMBtn); }
+	inline bool isKKeyNameValid(const std::string& mId)	{ return keys.has(mId); }
+	inline bool isMBtnNameValid(const std::string& mId)	{ return btns.has(mId); }
 
 	// TODO: docs
 	inline void add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)

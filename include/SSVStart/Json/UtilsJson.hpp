@@ -77,14 +77,14 @@ namespace ssvuj
 	template<> struct Converter<ssvs::KKey>
 	{
 		using T = ssvs::KKey;
-		inline static void fromObj(const Obj& mObj, T& mValue)	{ mValue = ssvs::getKey(getExtr<std::string>(mObj)); }
-		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getKeyName(mValue)); }
+		inline static void fromObj(const Obj& mObj, T& mValue)	{ mValue = ssvs::getKKey(getExtr<std::string>(mObj)); }
+		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getKKeyName(mValue)); }
 	};
 	template<> struct Converter<ssvs::MBtn>
 	{
 		using T = ssvs::MBtn;
-		inline static void fromObj(const Obj& mObj, T& mValue)	{ mValue = ssvs::getBtn(getExtr<std::string>(mObj)); }
-		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getBtnName(mValue)); }
+		inline static void fromObj(const Obj& mObj, T& mValue)	{ mValue = ssvs::getMBtn(getExtr<std::string>(mObj)); }
+		inline static void toObj(Obj& mObj, const T& mValue)	{ arch(mObj, ssvs::getMBtnName(mValue)); }
 	};
 	template<> struct Converter<ssvs::Input::Combo>
 	{
@@ -93,8 +93,8 @@ namespace ssvuj
 		{
 			for(const auto& i : mObj)
 			{
-				if(ssvs::isKeyNameValid(getExtr<std::string>(i))) mValue.addKey(getExtr<ssvs::KKey>(i));
-				else if(ssvs::isBtnNameValid(getExtr<std::string>(i))) mValue.addBtn(getExtr<ssvs::MBtn>(i));
+				if(ssvs::isKKeyNameValid(getExtr<std::string>(i))) mValue.addKey(getExtr<ssvs::KKey>(i));
+				else if(ssvs::isMBtnNameValid(getExtr<std::string>(i))) mValue.addBtn(getExtr<ssvs::MBtn>(i));
 				else ssvu::lo("ssvs::getInputComboFromJSON") << "<" << i << "> is not a valid input name";
 			}
 		}
