@@ -9,7 +9,7 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Input/Combo.hpp"
 #include "SSVStart/Input/Trigger.hpp"
-#include "SSVStart/Utils/UtilsInput.hpp"
+#include "SSVStart/Utils/Input.hpp"
 
 namespace ssvu
 {

@@ -15,7 +15,7 @@
 #include "SSVStart/Input/Combo.hpp"
 #include "SSVStart/Input/Trigger.hpp"
 #include "SSVStart/BitmapText/BitmapFont.hpp"
-#include "SSVStart/Utils/UtilsInput.hpp"
+#include "SSVStart/Utils/Input.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/AssetManager.hpp"
 

@@ -5,9 +5,9 @@
 #ifndef SSVS_UTILS
 #define SSVS_UTILS
 
-#include "SSVStart/Utils/UtilsInput.hpp"
-#include "SSVStart/Utils/UtilsSFML.hpp"
-#include "SSVStart/Utils/UtilsVector2.hpp"
-#include "SSVStart/Utils/UtilsStringifier.hpp"
+#include "SSVStart/Utils/Input.hpp"
+#include "SSVStart/Utils/SFML.hpp"
+#include "SSVStart/Utils/Vector2.hpp"
+#include "SSVStart/Utils/Stringifier.hpp"
 
 #endif
