@@ -30,7 +30,7 @@ namespace ssvs
 				inline T& operator[](const std::string& mId)				{ assert(has(mId)); return *resources[mId]; }
 
 				inline bool has(const std::string& mId) const noexcept	{ return resources.count(mId) > 0; }
-				inline decltype(resources)& getResources()	noexcept	{ return resources; }
+				inline decltype(resources)& getResources() noexcept		{ return resources; }
 		};
 	}
 }

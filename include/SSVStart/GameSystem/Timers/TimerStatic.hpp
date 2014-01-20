@@ -19,7 +19,8 @@ namespace ssvs
 			float maxLoops, loops{0};
 
 		public:
-			TimerStatic(GameWindow& mGameWindow, FT mStep = 1.f, FT mTimeSlice = 1.f, float mMaxLoops = 50) : TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
+			TimerStatic(GameWindow& mGameWindow, FT mStep = 1.f, FT mTimeSlice = 1.f, float mMaxLoops = 50.f)
+				: TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
 
 			inline void runUpdate() override
 			{

@@ -33,8 +33,8 @@ namespace ssvs
 			std::string title;
 
 			bool running{true}, focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false}, fpsLimited{false};
-			unsigned int width{640}, height{480}, antialiasingLevel{3}, pixelMult{1};
-			float maxFPS{60.f};
+			unsigned int width{640}, height{480}, antialiasingLevel{3};
+			float pixelMult{1.f}, maxFPS{60.f};
 
 			Uptr<TimerBase> timer;
 			TimerBase* nextTimer{nullptr};
@@ -137,7 +137,7 @@ namespace ssvs
 			inline void setTitle(std::string mTitle)								{ title = std::move(mTitle); renderWindow.setTitle(mTitle); }
 			inline void setMaxFPS(float mMaxFPS)									{ maxFPS = mMaxFPS; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setFPSLimited(bool mFPSLimited)								{ fpsLimited = mFPSLimited; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
-			inline void setPixelMult(unsigned int mPixelMult) noexcept				{ pixelMult = mPixelMult; mustRecreate = true; }
+			inline void setPixelMult(float mPixelMult) noexcept						{ pixelMult = mPixelMult; mustRecreate = true; }
 			inline void setGameState(GameState& mGameState) noexcept				{ gameState = &mGameState; mGameState.gameWindow = this; }
 
 			inline operator sf::RenderWindow&() noexcept				{ return renderWindow; }
