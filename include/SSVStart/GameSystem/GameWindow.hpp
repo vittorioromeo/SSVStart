@@ -82,7 +82,7 @@ namespace ssvs
 			{
 				if(renderWindow.isOpen()) renderWindow.close();
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
-				renderWindow.setSize({width * pixelMult, height * pixelMult});
+				renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
 				renderWindow.setVerticalSyncEnabled(vsync);
 				if(nextTimer != nullptr) { timer.reset(nextTimer); nextTimer = nullptr; }
 				mustRecreate = false; onRecreation();
