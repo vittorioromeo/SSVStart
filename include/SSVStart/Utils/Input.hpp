@@ -158,3 +158,5 @@ namespace ssvs
 }
 
 #endif
+
+// TODO: think about using an array for key -> string conversion and an std::map for string -> key conversion instead of a bimap
