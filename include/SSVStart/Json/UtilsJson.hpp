@@ -95,7 +95,7 @@ namespace ssvuj
 			{
 				if(ssvs::isKKeyNameValid(getExtr<std::string>(i))) mValue.addKey(getExtr<ssvs::KKey>(i));
 				else if(ssvs::isMBtnNameValid(getExtr<std::string>(i))) mValue.addBtn(getExtr<ssvs::MBtn>(i));
-				else ssvu::lo("ssvs::getInputComboFromJSON") << "<" << i << "> is not a valid input name";
+				else ssvu::lo("ssvs::getInputComboFromJSON") << "<" << i << "> is not a valid input name" << std::endl;
 			}
 		}
 		inline static void toObj(Obj& mObj, const T& mValue)
