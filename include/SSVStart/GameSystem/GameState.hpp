@@ -37,12 +37,12 @@ namespace ssvs
 			inline void draw()									{ onDraw(); }
 			inline void updateInput(FT mFT)
 			{
-				assert(gameWindow != nullptr);
+				SSVU_ASSERT(gameWindow != nullptr);
 				inputManager.update(*gameWindow, mFT);
 			}
 			inline void refreshInput()
 			{
-				assert(gameWindow != nullptr);
+				SSVU_ASSERT(gameWindow != nullptr);
 				inputManager.refresh(*gameWindow);
 			}
 

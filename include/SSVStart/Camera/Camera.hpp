@@ -31,13 +31,13 @@ namespace ssvs
 			Camera(GameWindow& mGameWindow, const Vec2f& mCenter, float mZoomFactor = 1.f)
 				: gameWindow(mGameWindow), renderWindow(gameWindow), view{mCenter, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
 			{
-				assert(mZoomFactor != 0);
+				SSVU_ASSERT(mZoomFactor != 0);
 			}
 
 			Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f) : gameWindow(mGameWindow), renderWindow(gameWindow),
 				view{{gameWindow.getWidth() / 2.f / mZoomFactor, gameWindow.getHeight() / 2.f / mZoomFactor}, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
 			{
-				assert(mZoomFactor != 0);
+				SSVU_ASSERT(mZoomFactor != 0);
 			}
 
 			template<typename T = float> inline void apply()

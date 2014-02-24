@@ -34,7 +34,7 @@ namespace ssvs
 
 			inline void nextStep()
 			{
-				assert(index < steps.size());
+				SSVU_ASSERT(index < steps.size());
 
 				time = 0;
 

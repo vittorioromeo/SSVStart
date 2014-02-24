@@ -24,7 +24,7 @@ namespace ssvs
 		public:
 			inline void play(sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
 			{
-				assert(mPlayingOffset <= mMusic.getDuration());
+				SSVU_ASSERT(mPlayingOffset <= mMusic.getDuration());
 
 				stop();
 

@@ -21,13 +21,13 @@ namespace ssvs
 			public:
 				template<typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 				{
-					assert(!has(mId));
+					SSVU_ASSERT(!has(mId));
 					const auto& inserted(resources.insert(std::make_pair(mId, std::move(Loader<T>::load(mArgs...)))));
 					return *inserted.first->second;
 				}
 
-				inline const T& operator[](const std::string& mId) const	{ assert(has(mId)); return *resources.at(mId); }
-				inline T& operator[](const std::string& mId)				{ assert(has(mId)); return *resources[mId]; }
+				inline const T& operator[](const std::string& mId) const	{ SSVU_ASSERT(has(mId)); return *resources.at(mId); }
+				inline T& operator[](const std::string& mId)				{ SSVU_ASSERT(has(mId)); return *resources[mId]; }
 
 				inline bool has(const std::string& mId) const noexcept	{ return resources.count(mId) > 0; }
 				inline decltype(resources)& getResources() noexcept		{ return resources; }

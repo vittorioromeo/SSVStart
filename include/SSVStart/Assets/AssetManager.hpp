@@ -43,7 +43,7 @@ namespace ssvs
 			}
 			template<typename T> inline std::unordered_map<std::string, Uptr<T>>& getAll()	{ return getResourceHolder<T>().getResources(); }
 			template<typename T> inline bool has(const std::string& mId)					{ return getResourceHolder<T>().has(mId); }
-			template<typename T> inline T& get(const std::string& mId)						{ assert(has<T>(mId)); return getResourceHolder<T>()[mId]; }
+			template<typename T> inline T& get(const std::string& mId)						{ SSVU_ASSERT(has<T>(mId)); return getResourceHolder<T>()[mId]; }
 	};
 
 	template<> inline Internal::ResourceHolder<sf::Font>& AssetManager::getResourceHolder<sf::Font>() noexcept					{ return fonts; }

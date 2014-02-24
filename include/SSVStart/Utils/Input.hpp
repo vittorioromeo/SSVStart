@@ -297,21 +297,21 @@ namespace ssvs
 	/// @brief Returns a KKey from a valid mId string identifier.
 	inline KKey getKKey(const std::string& mId)	noexcept
 	{
-		assert(isKKeyNameValid(mId));
+		SSVU_ASSERT(isKKeyNameValid(mId));
 		return Internal::getStrKKeyMap().at(mId);
 	}
 
 	/// @brief Returns a MBtn from a valid mId string identifier.
 	inline MBtn getMBtn(const std::string& mId)	noexcept
 	{
-		assert(isMBtnNameValid(mId));
+		SSVU_ASSERT(isMBtnNameValid(mId));
 		return Internal::getStrMBtnMap().at(mId);
 	}
 
 	/// @brief Returns the std::string identifier associated with the mKKey KKey.
 	inline const std::string& getKKeyName(KKey mKKey) noexcept
 	{
-		assert(mKKey != KKey::Unknown);
+		SSVU_ASSERT(mKKey != KKey::Unknown);
 		return Internal::getKKeyStrArray()[static_cast<int>(mKKey)];
 	}
 

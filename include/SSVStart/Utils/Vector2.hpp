@@ -199,7 +199,7 @@ namespace ssvs
 	/// @param mMax Max magnitude.
 	template<typename T1, typename T2, typename T3> inline void mClamp(Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
 	{
-		assert(mMin <= mMax);
+		SSVU_ASSERT(mMin <= mMax);
 		const auto& m(getMag(mVec));
 		if(m < mMin) resize(mVec, mMin, m);
 		else if(m > mMax) resize(mVec, mMax, m);

@@ -63,7 +63,7 @@ namespace ssvu
 		{
 			mStream << "[";
 
-			int added{0}, total{mValue.getKeys().count() + mValue.getBtns().count()};
+			int added{0}, total(mValue.getKeys().count() + mValue.getBtns().count());
 
 			for(auto i(0u); i < mValue.getKeys().size(); ++i)
 			{

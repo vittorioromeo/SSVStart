@@ -46,18 +46,18 @@ namespace ssvs
 
 			inline void runUpdate(FT mFT)
 			{
-				assert(gameState != nullptr);
+				SSVU_ASSERT(gameState != nullptr);
 				gameState->updateInput(mFT);
 				gameState->update(mFT);
 			}
 			inline void runDraw()
 			{
-				assert(gameState != nullptr);
+				SSVU_ASSERT(gameState != nullptr);
 				gameState->draw();
 			}
 			inline void runEvents()
 			{
-				assert(gameState != nullptr);
+				SSVU_ASSERT(gameState != nullptr);
 
 				sf::Event event;
 				while(renderWindow.pollEvent(event))
@@ -95,7 +95,7 @@ namespace ssvs
 			{
 				while(running)
 				{
-					assert(gameState != nullptr);
+					SSVU_ASSERT(gameState != nullptr);
 
 					if(mustRecreate) recreateWindow();
 
@@ -162,7 +162,7 @@ namespace ssvs
 			template<typename T> inline T& getTimer() { return reinterpret_cast<T&>(*timer); }
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
 			{
-				assert(nextTimer == nullptr);
+				SSVU_ASSERT(nextTimer == nullptr);
 				nextTimer = new T(*this, std::forward<TArgs>(mArgs)...); mustRecreate = true;
 			}
 	};
