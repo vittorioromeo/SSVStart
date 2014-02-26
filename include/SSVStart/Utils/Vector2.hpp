@@ -10,7 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <SFML/Graphics.hpp>
-#include <SSVUtils/Utils/Math.hpp>
+#include <SSVUtils/Core/Core.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs

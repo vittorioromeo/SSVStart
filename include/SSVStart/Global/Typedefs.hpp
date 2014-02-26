@@ -10,8 +10,7 @@
 #include <chrono>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <SSVUtils/Global/Common.hpp>
-#include <SSVUtils/FileSystem/FileSystem.hpp>
+#include <SSVUtils/Core/Core.hpp>
 
 namespace ssvs
 {

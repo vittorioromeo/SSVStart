@@ -8,7 +8,7 @@
 
 #include <future>
 #include <SFML/System.hpp>
-#include <SSVUtils/Log/Log.hpp>
+#include <SSVUtils/Core/Core.hpp>
 #include <SSVUtilsJson/SSVUtilsJson.hpp>
 #include "SSVStart/Tileset/Tileset.hpp"
 #include "SSVStart/Animation/Animation.hpp"

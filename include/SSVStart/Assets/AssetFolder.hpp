@@ -7,8 +7,7 @@
 
 #include <vector>
 #include <string>
-#include <SSVUtils/String/String.hpp>
-#include <SSVUtils/Log/Log.hpp>
+#include <SSVUtils/Core/Core.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/AssetManager.hpp"
 

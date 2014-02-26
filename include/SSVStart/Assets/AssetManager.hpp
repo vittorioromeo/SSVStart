@@ -8,7 +8,7 @@
 #include <cassert>
 #include <string>
 #include <unordered_map>
-#include <SSVUtils/Log/Log.hpp>
+#include <SSVUtils/Core/Core.hpp>
 #include "SSVStart/Assets/Internal/ResourceHolder.hpp"
 
 namespace sf { class Font; class Image; class Texture; class SoundBuffer; class Music; class Shader; }

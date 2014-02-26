@@ -6,7 +6,7 @@
 #define SSVS_ASSETS_INTERNAL_HELPER
 
 #include <stdexcept>
-#include <SSVUtils/Utils/MakeUnique.hpp>
+#include <SSVUtils/Core/Core.hpp>
 
 namespace ssvs
 {

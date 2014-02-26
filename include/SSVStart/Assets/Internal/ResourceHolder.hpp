@@ -5,7 +5,7 @@
 #ifndef SSVS_ASSETS_INTERNAL_RESOURCEHOLDER
 #define SSVS_ASSETS_INTERNAL_RESOURCEHOLDER
 
-#include <cassert>
+#include <SSVUtils/Core/Core.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/Internal/Loader.hpp"
 
