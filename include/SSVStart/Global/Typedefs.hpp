@@ -19,10 +19,11 @@ namespace ssvs
 	using FTDuration = ssvu::FTDuration;
 	using KKey = sf::Keyboard::Key;
 	using MBtn = sf::Mouse::Button;
-	constexpr std::size_t KKeyCount{KKey::KeyCount};
-	constexpr std::size_t MBtnCount{MBtn::ButtonCount};
-	using KeyBitset = std::bitset<KKeyCount + 1>; // +1 because it also works with KKey::Unknown, which is -1
-	using BtnBitset = std::bitset<MBtnCount + 1>; // +1 to stay consistent
+	constexpr std::size_t inputBitOffset{1};
+	constexpr std::size_t kKeyCount{KKey::KeyCount};
+	constexpr std::size_t mBtnCount{MBtn::ButtonCount};
+	using KeyBitset = std::bitset<kKeyCount + inputBitOffset>; // +offset because it also works with KKey::Unknown, which is -1
+	using BtnBitset = std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
 	using Path = ssvufs::Path;
 	using InputFunc = ssvu::Func<void(FT)>;
 	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
@@ -30,6 +31,11 @@ namespace ssvs
 	using Vec2i = Vec2<int>;
 	using Vec2f = Vec2<float>;
 	using Vec2u = Vec2<unsigned int>;
+
+	inline KeyBitset::reference getKeyBit(KeyBitset& mBitset, KKey mKey) noexcept { return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
+	inline BtnBitset::reference getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept { return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
+	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept { return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
+	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept { return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
 }
 
 #endif

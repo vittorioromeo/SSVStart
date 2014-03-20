@@ -103,8 +103,8 @@ namespace ssvuj
 			auto i(0u);
 			const auto& keys(mValue.getKeys());
 			const auto& btns(mValue.getBtns());
-			for(auto j(0u); j < ssvs::KKeyCount; ++j) if(keys[j + 1]) arch(mObj, i++, ssvs::KKey(j));
-			for(auto j(0u); j < ssvs::MBtnCount; ++j) if(btns[j + 1]) arch(mObj, i++, ssvs::MBtn(j));
+			for(auto j(0u); j < ssvs::kKeyCount; ++j) if(ssvs::getKeyBit(keys, ssvs::KKey(j))) arch(mObj, i++, ssvs::KKey(j));
+			for(auto j(0u); j < ssvs::mBtnCount; ++j) if(ssvs::getBtnBit(btns, ssvs::MBtn(j))) arch(mObj, i++, ssvs::MBtn(j));
 		}
 	};
 

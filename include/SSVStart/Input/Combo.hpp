@@ -34,8 +34,8 @@ namespace ssvs
 
 				bool isDown(Manager& mManager, GameWindow& mGameWindow, Mode mMode) const;
 
-				inline void addKey(KKey mKey) { keys[mKey + 1] = true; }
-				inline void addBtn(MBtn mBtn) { btns[mBtn + 1] = true; }
+				inline void addKey(KKey mKey) { getKeyBit(keys, mKey) = true; }
+				inline void addBtn(MBtn mBtn) { getBtnBit(btns, mBtn) = true; }
 
 				inline const KeyBitset& getKeys() const noexcept { return keys; }
 				inline const BtnBitset& getBtns() const noexcept { return btns; }
