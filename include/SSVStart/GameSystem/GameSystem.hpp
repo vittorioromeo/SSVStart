@@ -6,6 +6,8 @@
 #define SSVS_GAMESYSTEM
 
 #include "SSVStart/GameSystem/GameState.hpp"
+#include "SSVStart/GameSystem/GameTimer.hpp"
+#include "SSVStart/GameSystem/GameEngine.hpp"
 #include "SSVStart/GameSystem/GameWindow.hpp"
 #include "SSVStart/GameSystem/Timers/TimerStatic.hpp"
 #include "SSVStart/GameSystem/Timers/TimerDynamic.hpp"

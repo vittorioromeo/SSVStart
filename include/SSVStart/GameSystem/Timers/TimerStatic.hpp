@@ -10,8 +10,6 @@
 
 namespace ssvs
 {
-	class GameWindow;
-
 	class TimerStatic final : public TimerBase
 	{
 		private:
@@ -19,16 +17,17 @@ namespace ssvs
 			float maxLoops, loops{0};
 
 		public:
-			TimerStatic(GameWindow& mGameWindow, FT mStep = 1.f, FT mTimeSlice = 1.f, float mMaxLoops = 50.f)
-				: TimerBase(mGameWindow), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
+			TimerStatic(GameEngine& mGameEngine, FT mStep = 1.f, FT mTimeSlice = 1.f, float mMaxLoops = 50.f) noexcept
+				: TimerBase(mGameEngine), step{mStep}, timeSlice{mTimeSlice}, maxLoops{mMaxLoops} { }
 
 			inline void runUpdate() override
 			{
 				loops = 0;
 				time += frameTime;
+
 				while(time >= timeSlice && loops < maxLoops)
 				{
-					gameWindow.runUpdate(step);
+					gameEngine.updateFromTimer(step);
 					time -= timeSlice;
 					++loops;
 				}

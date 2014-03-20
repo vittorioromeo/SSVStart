@@ -15,66 +15,47 @@
 #include <SSVUtils/Delegate/Delegate.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
-#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
+#include "SSVStart/GameSystem/GameEngine.hpp"
 
 namespace ssvs
 {
-	class GameState;
-
 	class GameWindow : ssvu::NoCopy
 	{
-		friend class TimerBase;
-		friend class TimerStatic;
-		friend class TimerDynamic;
-
 		private:
-			GameState* gameState{nullptr};
+			GameEngine* gameEngine{nullptr};
 			sf::RenderWindow renderWindow;
 			std::string title;
 
-			bool running{true}, focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false}, fpsLimited{false};
-			unsigned int width{640}, height{480}, antialiasingLevel{3};
-			float pixelMult{1.f}, maxFPS{60.f};
+			bool fpsLimited{false};
+			float maxFPS{60.f};
 
-			Uptr<TimerBase> timer;
-			TimerBase* nextTimer{nullptr};
+			bool focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false};
+			unsigned int width{640}, height{480}, antialiasingLevel{3};
+			float pixelMult{1.f};
 
 			KeyBitset pressedKeys;
 			BtnBitset pressedBtns;
 
-			FT msUpdate, msDraw;
-
-			inline void runUpdate(FT mFT)
-			{
-				SSVU_ASSERT(gameState != nullptr);
-				gameState->updateInput(mFT);
-				gameState->update(mFT);
-			}
-			inline void runDraw()
-			{
-				SSVU_ASSERT(gameState != nullptr);
-				gameState->draw();
-			}
 			inline void runEvents()
 			{
-				SSVU_ASSERT(gameState != nullptr);
+				SSVU_ASSERT(gameEngine != nullptr);
 
 				sf::Event event;
 				while(renderWindow.pollEvent(event))
 				{
 					switch(event.type)
 					{
-						case sf::Event::Closed:					running = false;										break;
-						case sf::Event::GainedFocus:			focus = true;											break;
-						case sf::Event::LostFocus:				focus = false;											break;
-						case sf::Event::KeyPressed:				pressedKeys[int(event.key.code) + 1] = true;			break;
-						case sf::Event::KeyReleased:			pressedKeys[int(event.key.code) + 1] = false;			break;
-						case sf::Event::MouseButtonPressed:		pressedBtns[int(event.mouseButton.button) + 1] = true;	break;
-						case sf::Event::MouseButtonReleased:	pressedBtns[int(event.mouseButton.button) + 1] = false;	break;
-						default:																						break;
+						case sf::Event::Closed:					gameEngine->stop();											break;
+						case sf::Event::GainedFocus:			focus = true;												break;
+						case sf::Event::LostFocus:				focus = false;												break;
+						case sf::Event::KeyPressed:				getKeyBit(pressedKeys, event.key.code) = true;				break;
+						case sf::Event::KeyReleased:			getKeyBit(pressedKeys, event.key.code) = false;				break;
+						case sf::Event::MouseButtonPressed:		getBtnBit(pressedBtns, event.mouseButton.button) = true;	break;
+						case sf::Event::MouseButtonReleased:	getBtnBit(pressedBtns, event.mouseButton.button) = false;	break;
+						default:																							break;
 					}
 
-					gameState->handleEvent(event);
+					gameEngine->handleEvent(event);
 				}
 			}
 
@@ -84,61 +65,61 @@ namespace ssvs
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 				renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
 				renderWindow.setVerticalSyncEnabled(vsync);
-				if(nextTimer != nullptr) { timer.reset(nextTimer); nextTimer = nullptr; }
 				mustRecreate = false; onRecreation();
 			}
 
 		public:
 			ssvu::Delegate<void()> onRecreation;
 
+			inline GameWindow()
+			{
+				gameEngine = new GameEngine();
+				gameEngine->setInputProvider(*this);
+			}
+
 			inline void run()
 			{
-				while(running)
-				{
-					SSVU_ASSERT(gameState != nullptr);
+				SSVU_ASSERT(gameEngine != nullptr);
 
+				while(gameEngine->isRunning())
+				{
 					if(mustRecreate) recreateWindow();
 
 					renderWindow.setActive(true);
 					renderWindow.clear();
 
-					auto tempMs(HRClock::now());
-					{
-						runEvents();
-						gameState->refreshInput();
-						timer->runUpdate();
-						gameState->onPostUpdate();
-					}
-					msUpdate = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
+					gameEngine->refreshTimer();
 
-					tempMs = HRClock::now();
-					{
-						timer->runDraw();
-						renderWindow.display();
-					}
-					msDraw = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
+					runEvents();
+					gameEngine->runUpdate();
+					gameEngine->runDraw();
+					renderWindow.display();
 
-					timer->runFrameTime();
-					timer->runFps();
+					gameEngine->runFPS();
 				}
 			}
-			inline void stop() noexcept { running = false; }
+			inline void stop() noexcept
+			{
+				SSVU_ASSERT(gameEngine != nullptr);
+				gameEngine->stop();
+			}
 
 			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
 			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }
 
 			inline void saveScreenshot(const ssvufs::Path& mPath) const { renderWindow.capture().saveToFile(mPath); }
 
-			inline void setFullscreen(bool mFullscreen) noexcept 					{ fullscreen = mFullscreen; mustRecreate = true; }
-			inline void setSize(unsigned int mWidth, unsigned int mHeight) noexcept	{ width = mWidth; height = mHeight; mustRecreate = true; }
-			inline void setAntialiasingLevel(unsigned int mLevel) noexcept			{ antialiasingLevel = mLevel; mustRecreate = true; }
-			inline void setVsync(bool mEnabled) noexcept							{ vsync = mEnabled; mustRecreate = true;  }
+			inline void setFullscreen(bool mFullscreen) noexcept 					{ fullscreen = mFullscreen;			mustRecreate = true; }
+			inline void setSize(unsigned int mWidth, unsigned int mHeight) noexcept	{ width = mWidth; height = mHeight;	mustRecreate = true; }
+			inline void setAntialiasingLevel(unsigned int mLevel) noexcept			{ antialiasingLevel = mLevel;		mustRecreate = true; }
+			inline void setVsync(bool mEnabled) noexcept							{ vsync = mEnabled;					mustRecreate = true; }
+			inline void setPixelMult(float mPixelMult) noexcept						{ pixelMult = mPixelMult;			mustRecreate = true; }
+
 			inline void setMouseCursorVisible(bool mEnabled)						{ renderWindow.setMouseCursorVisible(mEnabled); }
 			inline void setTitle(std::string mTitle)								{ title = std::move(mTitle); renderWindow.setTitle(mTitle); }
 			inline void setMaxFPS(float mMaxFPS)									{ maxFPS = mMaxFPS; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setFPSLimited(bool mFPSLimited)								{ fpsLimited = mFPSLimited; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
-			inline void setPixelMult(float mPixelMult) noexcept						{ pixelMult = mPixelMult; mustRecreate = true; }
-			inline void setGameState(GameState& mGameState) noexcept				{ gameState = &mGameState; mGameState.gameWindow = this; }
+			inline void setGameState(GameState& mGameState) noexcept				{ gameEngine->setGameState(mGameState); }
 
 			inline operator sf::RenderWindow&() noexcept				{ return renderWindow; }
 			inline sf::RenderWindow& getRenderWindow() noexcept			{ return renderWindow; }
@@ -148,23 +129,16 @@ namespace ssvs
 			inline unsigned int getAntialiasingLevel() const noexcept	{ return antialiasingLevel; }
 			inline bool hasFocus() const noexcept						{ return focus; }
 			inline bool getVsync() const noexcept						{ return vsync; }
-			inline bool isFPSLimited() const noexcept					{ return fpsLimited; }
-			inline float getFPS() const noexcept						{ return timer->getFps(); }
+
 			inline Vec2f getMousePosition() const						{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
-			inline bool isKeyPressed(KKey mKey) const noexcept			{ return pressedKeys[int(mKey) + 1]; }
-			inline bool isBtnPressed(MBtn mBtn) const noexcept			{ return pressedBtns[int(mBtn) + 1]; }
+			inline bool isKeyPressed(KKey mKey) const noexcept			{ return getKeyBit(pressedKeys, mKey); }
+			inline bool isBtnPressed(MBtn mBtn) const noexcept			{ return getBtnBit(pressedBtns, mBtn); }
 			inline const KeyBitset& getPressedKeys() const noexcept		{ return pressedKeys; }
 			inline const BtnBitset& getPressedBtns() const noexcept		{ return pressedBtns; }
 
-			inline FT getMsUpdate() const noexcept	{ return msUpdate; }
-			inline FT getMsDraw() const noexcept	{ return msDraw; }
+			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(std::forward<TArgs>(mArgs)...); }
+			inline auto getFPS() const noexcept -> decltype(gameEngine->getFPS()) { return gameEngine->getFPS(); }
 
-			template<typename T> inline T& getTimer() { return reinterpret_cast<T&>(*timer); }
-			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs)
-			{
-				SSVU_ASSERT(nextTimer == nullptr);
-				nextTimer = new T(*this, std::forward<TArgs>(mArgs)...); mustRecreate = true;
-			}
 	};
 }
 

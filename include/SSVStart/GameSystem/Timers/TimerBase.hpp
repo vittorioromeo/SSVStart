@@ -10,19 +10,19 @@
 
 namespace ssvs
 {
-	class GameWindow;
+	class GameEngine;
 
 	class TimerBase
 	{
 		protected:
-			GameWindow& gameWindow;
+			GameEngine& gameEngine;
 			sf::Clock clock;
 			FT frameTime{0};
 			float fps{0};
 
 		public:
-			TimerBase(GameWindow& mGameWindow) : gameWindow(mGameWindow) { }
-			virtual ~TimerBase() { }
+			inline TimerBase(GameEngine& mGameEngine) noexcept : gameEngine(mGameEngine) { }
+			inline virtual ~TimerBase() { }
 
 			inline virtual void runUpdate()		{ }
 			inline virtual void runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }

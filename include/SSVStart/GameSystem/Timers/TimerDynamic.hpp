@@ -16,9 +16,12 @@ namespace ssvs
 			FT frameTimeLimit{4.f};
 
 		public:
-			TimerDynamic(GameWindow& mGameWindow) : TimerBase(mGameWindow) { }
+			inline TimerDynamic(GameEngine& mGameEngine) noexcept : TimerBase(mGameEngine) { }
 
-			inline void runUpdate() override { gameWindow.runUpdate(frameTime); }
+			inline void runUpdate() override
+			{
+				gameEngine.updateFromTimer(frameTime);
+			}
 			inline void runFps() override
 			{
 				ssvu::clampMax(frameTime, frameTimeLimit);
