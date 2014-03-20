@@ -18,7 +18,7 @@ namespace ssvs
 	{
 		private:
 			sf::Music* current{nullptr};
-			int volume{100};
+			float volume{100};
 			bool loop{true};
 
 		public:
@@ -38,11 +38,11 @@ namespace ssvs
 			inline void stop()	{ if(current != nullptr) current->stop(); }
 			inline void pause()	{ if(current != nullptr) current->pause(); }
 
-			inline void setVolume(int mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
-			inline void setLoop(bool mLoop)		{ loop = mLoop;		if(current != nullptr) current->setLoop(loop); }
+			inline void setVolume(float mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
+			inline void setLoop(bool mLoop)			{ loop = mLoop;		if(current != nullptr) current->setLoop(loop); }
 
 			inline sf::Music* getCurrent() noexcept	{ return current; }
-			inline int getVolume() const noexcept	{ return volume; }
+			inline float getVolume() const noexcept	{ return volume; }
 			inline bool getLoop() const noexcept	{ return loop; }
 	};
 }

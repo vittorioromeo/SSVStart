@@ -15,7 +15,7 @@ namespace ssvs
 		private:
 			struct ManageableSound : public sf::Sound, public ssvu::MemoryManageable { using sf::Sound::Sound; };
 
-			int volume{100};
+			float volume{100};
 			ssvu::MemoryManager<ManageableSound> sounds;
 
 			inline void refreshVolume() { for(auto& s : sounds) s->setVolume(volume); }
@@ -40,8 +40,8 @@ namespace ssvs
 			inline void stop() { for(auto& s : sounds) s->stop(); }
 			inline void stop(const sf::SoundBuffer& mSoundBuffer) { for(auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) s->stop(); }
 
-			inline void setVolume(int mVolume)		{ volume = mVolume; refreshVolume(); }
-			inline int getVolume() const noexcept	{ return volume; }
+			inline void setVolume(float mVolume)	{ volume = mVolume; refreshVolume(); }
+			inline float getVolume() const noexcept	{ return volume; }
 
 			inline bool isPlaying(const sf::SoundBuffer& mSoundBuffer) const { return findFirst(mSoundBuffer) != nullptr; }
 			inline ManageableSound* findFirst(const sf::SoundBuffer& mSoundBuffer) const
