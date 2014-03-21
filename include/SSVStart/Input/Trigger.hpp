@@ -11,7 +11,7 @@
 
 namespace ssvs
 {
-	class GameWindow;
+	class InputState;
 
 	namespace Input
 	{
@@ -25,9 +25,9 @@ namespace ssvs
 				std::vector<Combo> combos;
 				bool released{true};
 
-				inline bool isDown(Manager& mManager, GameWindow& mGameWindow) const
+				inline bool isDown(Manager& mManager, InputState& mInputState) const
 				{
-					for(const auto& c : combos) if(c.isDown(mManager, mGameWindow, mode)) return true;
+					for(const auto& c : combos) if(c.isDown(mManager, mInputState, mode)) return true;
 					return false;
 				}
 
@@ -35,16 +35,16 @@ namespace ssvs
 				Trigger() = default;
 				Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { }
 
-				inline void refresh(Manager& mManager, GameWindow& mGameWindow)	{ if(!released && !isDown(mManager, mGameWindow)) released = true; }
+				inline void refresh(Manager& mManager, InputState& mInputState)	{ if(!released && !isDown(mManager, mInputState)) released = true; }
 
 				inline void setType(Type mType) noexcept		{ type = mType; }
 				inline void setMode(Mode mMode) noexcept		{ mode = mMode; }
 				inline void setReleased(bool mValue) noexcept	{ released = mValue; }
 
-				inline bool isActive(Manager& mManager, GameWindow& mGameWindow)
+				inline bool isActive(Manager& mManager, InputState& mInputState)
 				{
-					if(type == Type::Always) return isDown(mManager, mGameWindow);
-					if(released && isDown(mManager, mGameWindow)) { released = false; return true; }
+					if(type == Type::Always) return isDown(mManager, mInputState);
+					if(released && isDown(mManager, mInputState)) { released = false; return true; }
 					return false;
 				}
 

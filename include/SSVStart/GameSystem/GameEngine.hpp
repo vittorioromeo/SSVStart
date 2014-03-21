@@ -10,15 +10,14 @@
 #include <string>
 #include <chrono>
 #include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 #include <SSVUtils/Core/Core.hpp>
-#include <SSVUtils/Delegate/Delegate.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
 #include "SSVStart/GameSystem/GameTimer.hpp"
 
 namespace ssvs
 {
+	class InputState;
 	class GameWindow;
 
 	class GameEngine : ssvu::NoCopy
@@ -30,7 +29,7 @@ namespace ssvs
 
 		private:
 			GameState* gameState{nullptr};
-			GameWindow* inputProvider{nullptr};
+			InputState* inputState{nullptr};
 			bool running{true};
 
 			GameTimer timer;
@@ -42,14 +41,14 @@ namespace ssvs
 			// These methods are called from the timer
 			inline void updateFromTimer(FT mFT)
 			{
-				if(inputProvider != nullptr) updateGameStateInput(mFT);
+				if(inputState != nullptr) updateGameStateInput(mFT);
 				updateGameState(mFT);
 			}
 			inline void drawFromTimer() { drawGameState(); }
 
 			inline void updateGameState(FT mFT)								{ SSVU_ASSERT(isValid()); gameState->update(mFT); }
-			inline void refreshGameStateInput()								{ SSVU_ASSERT(isValid()); gameState->refreshInput(*inputProvider); }
-			inline void updateGameStateInput(FT mFT)						{ SSVU_ASSERT(isValid()); gameState->updateInput(*inputProvider, mFT); }
+			inline void refreshGameStateInput()								{ SSVU_ASSERT(isValid()); gameState->refreshInput(*inputState); }
+			inline void updateGameStateInput(FT mFT)						{ SSVU_ASSERT(isValid()); gameState->updateInput(*inputState, mFT); }
 			inline void drawGameState()										{ SSVU_ASSERT(isValid()); gameState->draw(); }
 			inline void handleEvent(const sf::Event& mEvent) const noexcept	{ SSVU_ASSERT(isValid()); gameState->handleEvent(mEvent); }
 
@@ -64,7 +63,7 @@ namespace ssvs
 
 				auto tempMs(HRClock::now());
 				{
-					if(inputProvider != nullptr) refreshGameStateInput();
+					if(inputState != nullptr) refreshGameStateInput();
 					timer->runUpdate();
 					gameState->onPostUpdate();
 				}
@@ -90,12 +89,12 @@ namespace ssvs
 				timer->runFps();
 			}
 
-			inline FT getMsUpdate() const noexcept		{ return msUpdate; }
-			inline FT getMsDraw() const noexcept		{ return msDraw; }
-			inline float getFPS() const noexcept		{ return timer->getFps(); }
+			inline FT getMsUpdate() const noexcept	{ return msUpdate; }
+			inline FT getMsDraw() const noexcept	{ return msDraw; }
+			inline float getFPS() const noexcept	{ return timer->getFps(); }
 
-			inline void setGameState(GameState& mGameState) noexcept				{ gameState = &mGameState; mGameState.gameEngine = this; }
-			inline void setInputProvider(GameWindow& mInputProvider) noexcept		{ inputProvider = &mInputProvider; }
+			inline void setGameState(GameState& mGameState) noexcept			{ gameState = &mGameState; }
+			inline void setInputState(InputState& mInputState) noexcept	{ inputState = &mInputState; }
 
 			inline bool isRunning() const noexcept { return running; }
 

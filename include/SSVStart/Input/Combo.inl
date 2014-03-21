@@ -9,14 +9,14 @@ namespace ssvs
 {
 	namespace Input
 	{
-		inline bool Combo::isDown(Manager& mManager, GameWindow& mGameWindow, Mode mMode) const
+		inline bool Combo::isDown(Manager& mManager, InputState& mInputState, Mode mMode) const
 		{
 			// If this combo has no keys or no btns, it is not valid
 			if(keys.none() && btns.none()) return false;
 
 			// Check if the combo's keys/btns are currently pressed
-			if((mGameWindow.getPressedKeys() & keys) != keys) return false;
-			if((mGameWindow.getPressedBtns() & btns) != btns) return false;
+			if((mInputState.getPressedKeys() & keys) != keys) return false;
+			if((mInputState.getPressedBtns() & btns) != btns) return false;
 
 			// If the combo is exclusive, check if its keys/btns were pressed previously in this frame
 			if(mMode == Mode::Exclusive)

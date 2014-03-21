@@ -11,7 +11,7 @@
 
 namespace ssvs
 {
-	class GameWindow;
+	class InputState;
 
 	namespace Input
 	{
@@ -32,7 +32,7 @@ namespace ssvs
 				}
 				Combo(const std::initializer_list<MBtn>& mBtns) : Combo{{}, mBtns} { }
 
-				bool isDown(Manager& mManager, GameWindow& mGameWindow, Mode mMode) const;
+				bool isDown(Manager& mManager, InputState& mInputState, Mode mMode) const;
 
 				inline void addKey(KKey mKey) { getKeyBit(keys, mKey) = true; }
 				inline void addBtn(MBtn mBtn) { getBtnBit(btns, mBtn) = true; }

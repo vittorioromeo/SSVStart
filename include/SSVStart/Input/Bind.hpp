@@ -12,7 +12,7 @@
 
 namespace ssvs
 {
-	class GameWindow;
+	class InputState;
 
 	namespace Input
 	{
@@ -29,8 +29,8 @@ namespace ssvs
 			public:
 				Bind(Trigger mTrigger, const InputFunc& mOn = nullptr, const InputFunc& mOff = nullptr) : trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
 
-				inline void update(Manager& mManager, FT mFT, GameWindow& mGameWindow)	{ trigger.isActive(mManager, mGameWindow) ? callOn(mFT) : callOff(mFT); }
-				inline void refresh(Manager& mManager, GameWindow& mGameWindow)			{ trigger.refresh(mManager, mGameWindow); }
+				inline void update(Manager& mManager, FT mFT, InputState& mInputState)	{ trigger.isActive(mManager, mInputState) ? callOn(mFT) : callOff(mFT); }
+				inline void refresh(Manager& mManager, InputState& mInputState)			{ trigger.refresh(mManager, mInputState); }
 
 				inline void callOn(FT mFT) const	{ if(on != nullptr) on(mFT); }
 				inline void callOff(FT mFT) const	{ if(off != nullptr) off(mFT); }

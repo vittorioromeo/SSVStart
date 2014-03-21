@@ -12,7 +12,7 @@
 
 namespace ssvs
 {
-	class GameWindow;
+	class InputState;
 
 	namespace Input
 	{
@@ -28,11 +28,11 @@ namespace ssvs
 				std::vector<Bind> binds;
 
 			public:
-				inline void update(GameWindow& mGameWindow, FT mFT) { for(auto& b : binds) b.update(*this, mFT, mGameWindow); }
-				inline void refresh(GameWindow& mGameWindow)
+				inline void update(InputState& mInputState, FT mFT) { for(auto& b : binds) b.update(*this, mFT, mInputState); }
+				inline void refresh(InputState& mInputState)
 				{
 					processedKeys.reset(); processedBtns.reset();
-					for(auto& b : binds) b.refresh(*this, mGameWindow);
+					for(auto& b : binds) b.refresh(*this, mInputState);
 				}
 				template<typename... TArgs> inline void emplace(TArgs&&... mArgs)
 				{

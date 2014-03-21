@@ -19,9 +19,31 @@
 
 namespace ssvs
 {
+	class GameWindow;
+
+	class InputState : ssvu::NoCopy
+	{
+		friend class GameWindow;
+
+		private:
+			KeyBitset pressedKeys;
+			BtnBitset pressedBtns;
+
+			inline void setKeyPressed(KKey mKey, bool mValue) noexcept { getKeyBit(pressedKeys, mKey) = mValue; }
+			inline void setBtnPressed(MBtn mBtn, bool mValue) noexcept { getBtnBit(pressedBtns, mBtn) = mValue; }
+
+		public:
+			inline bool isKeyPressed(KKey mKey) const noexcept		{ return getKeyBit(pressedKeys, mKey); }
+			inline bool isBtnPressed(MBtn mBtn) const noexcept		{ return getBtnBit(pressedBtns, mBtn); }
+			inline const KeyBitset& getPressedKeys() const noexcept	{ return pressedKeys; }
+			inline const BtnBitset& getPressedBtns() const noexcept	{ return pressedBtns; }
+	};
+
 	class GameWindow : ssvu::NoCopy
 	{
 		private:
+			InputState inputState;
+
 			GameEngine* gameEngine{nullptr};
 			sf::RenderWindow renderWindow;
 			std::string title;
@@ -32,9 +54,6 @@ namespace ssvs
 			bool focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false};
 			unsigned int width{640}, height{480}, antialiasingLevel{3};
 			float pixelMult{1.f};
-
-			KeyBitset pressedKeys;
-			BtnBitset pressedBtns;
 
 			inline void runEvents()
 			{
@@ -48,10 +67,10 @@ namespace ssvs
 						case sf::Event::Closed:					gameEngine->stop();											break;
 						case sf::Event::GainedFocus:			focus = true;												break;
 						case sf::Event::LostFocus:				focus = false;												break;
-						case sf::Event::KeyPressed:				getKeyBit(pressedKeys, event.key.code) = true;				break;
-						case sf::Event::KeyReleased:			getKeyBit(pressedKeys, event.key.code) = false;				break;
-						case sf::Event::MouseButtonPressed:		getBtnBit(pressedBtns, event.mouseButton.button) = true;	break;
-						case sf::Event::MouseButtonReleased:	getBtnBit(pressedBtns, event.mouseButton.button) = false;	break;
+						case sf::Event::KeyPressed:				inputState.setKeyPressed(event.key.code, true);				break;
+						case sf::Event::KeyReleased:			inputState.setKeyPressed(event.key.code, false);			break;
+						case sf::Event::MouseButtonPressed:		inputState.setBtnPressed(event.mouseButton.button, true);	break;
+						case sf::Event::MouseButtonReleased:	inputState.setBtnPressed(event.mouseButton.button, false);	break;
 						default:																							break;
 					}
 
@@ -74,7 +93,7 @@ namespace ssvs
 			inline GameWindow()
 			{
 				gameEngine = new GameEngine();
-				gameEngine->setInputProvider(*this);
+				gameEngine->setInputState(inputState);
 			}
 
 			inline void run()
@@ -131,14 +150,10 @@ namespace ssvs
 			inline bool getVsync() const noexcept						{ return vsync; }
 
 			inline Vec2f getMousePosition() const						{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
-			inline bool isKeyPressed(KKey mKey) const noexcept			{ return getKeyBit(pressedKeys, mKey); }
-			inline bool isBtnPressed(MBtn mBtn) const noexcept			{ return getBtnBit(pressedBtns, mBtn); }
-			inline const KeyBitset& getPressedKeys() const noexcept		{ return pressedKeys; }
-			inline const BtnBitset& getPressedBtns() const noexcept		{ return pressedBtns; }
+			inline const InputState& getInputState() const noexcept { return inputState; }
 
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(std::forward<TArgs>(mArgs)...); }
 			inline auto getFPS() const noexcept -> decltype(gameEngine->getFPS()) { return gameEngine->getFPS(); }
-
 	};
 }
 

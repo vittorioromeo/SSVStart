@@ -15,7 +15,7 @@
 
 namespace ssvs
 {
-	class GameWindow;
+	class InputState;
 	class GameEngine;
 
 	class GameState : ssvu::NoCopy
@@ -29,23 +29,15 @@ namespace ssvs
 			using IFunc = InputFunc;
 			using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
-			GameEngine* gameEngine{nullptr};
 			Input::Manager inputManager;
 			std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
 			inline void handleEvent(const sf::Event& mEvent)	{ onAnyEvent(mEvent); eventDelegates[mEvent.type](mEvent); }
 			inline void update(FT mFT)							{ onUpdate(mFT); }
 			inline void draw()									{ onDraw(); }
-			inline void updateInput(GameWindow& mGameWindow, FT mFT)
-			{
-				//SSVU_ASSERT(gameEngine != nullptr);
-				inputManager.update(mGameWindow, mFT);
-			}
-			inline void refreshInput(GameWindow& mGameWindow)
-			{
-				//SSVU_ASSERT(gameWindow != nullptr);
-				inputManager.refresh(mGameWindow);
-			}
+
+			inline void updateInput(InputState& mInputState, FT mFT)	{ inputManager.update(mInputState, mFT); }
+			inline void refreshInput(InputState& mInputState)			{ inputManager.refresh(mInputState); }
 
 		public:
 			ssvu::Delegate<void()> onDraw, onPostUpdate;
