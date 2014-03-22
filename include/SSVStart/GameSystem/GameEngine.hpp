@@ -5,9 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_GAMEENGINE
 #define SSVS_GAMESYSTEM_GAMEENGINE
 
-#include <bitset>
-#include <cassert>
-#include <string>
 #include <chrono>
 #include <SFML/Window.hpp>
 #include <SSVUtils/Core/Core.hpp>
@@ -93,7 +90,7 @@ namespace ssvs
 			inline FT getMsDraw() const noexcept	{ return msDraw; }
 			inline float getFPS() const noexcept	{ return timer->getFps(); }
 
-			inline void setGameState(GameState& mGameState) noexcept			{ gameState = &mGameState; }
+			inline void setGameState(GameState& mGameState) noexcept	{ gameState = &mGameState; }
 			inline void setInputState(InputState& mInputState) noexcept	{ inputState = &mInputState; }
 
 			inline bool isRunning() const noexcept { return running; }
