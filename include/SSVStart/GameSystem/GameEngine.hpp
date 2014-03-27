@@ -11,10 +11,10 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
 #include "SSVStart/GameSystem/GameTimer.hpp"
+#include "SSVStart/Input/InputState.hpp"
 
 namespace ssvs
 {
-	class InputState;
 	class GameWindow;
 
 	class GameEngine : ssvu::NoCopy
@@ -26,7 +26,7 @@ namespace ssvs
 
 		private:
 			GameState* gameState{nullptr};
-			InputState* inputState{nullptr};
+			Input::InputState* inputState{nullptr};
 			bool running{true};
 
 			GameTimer timer;
@@ -38,16 +38,21 @@ namespace ssvs
 			// These methods are called from the timer
 			inline void updateFromTimer(FT mFT)
 			{
-				if(inputState != nullptr) updateGameStateInput(mFT);
-				updateGameState(mFT);
+				SSVU_ASSERT(isValid());
+				if(inputState != nullptr) gameState->updateInput(*inputState, mFT);
+				gameState->update(mFT);
 			}
-			inline void drawFromTimer() { drawGameState(); }
+			inline void drawFromTimer()
+			{
+				SSVU_ASSERT(isValid());
+				gameState->draw();
+			}
 
-			inline void updateGameState(FT mFT)								{ SSVU_ASSERT(isValid()); gameState->update(mFT); }
-			inline void refreshGameStateInput()								{ SSVU_ASSERT(isValid()); gameState->refreshInput(*inputState); }
-			inline void updateGameStateInput(FT mFT)						{ SSVU_ASSERT(isValid()); gameState->updateInput(*inputState, mFT); }
-			inline void drawGameState()										{ SSVU_ASSERT(isValid()); gameState->draw(); }
-			inline void handleEvent(const sf::Event& mEvent) const noexcept	{ SSVU_ASSERT(isValid()); gameState->handleEvent(mEvent); }
+			inline void handleEvent(const sf::Event& mEvent) const noexcept
+			{
+				SSVU_ASSERT(isValid());
+				gameState->handleEvent(mEvent);
+			}
 
 			inline bool isValid() const noexcept { return gameState != nullptr; }
 
@@ -60,7 +65,7 @@ namespace ssvs
 
 				auto tempMs(HRClock::now());
 				{
-					if(inputState != nullptr) refreshGameStateInput();
+					if(inputState != nullptr) gameState->refreshInput(*inputState);
 					timer->runUpdate();
 					gameState->onPostUpdate();
 				}
@@ -90,8 +95,8 @@ namespace ssvs
 			inline FT getMsDraw() const noexcept	{ return msDraw; }
 			inline float getFPS() const noexcept	{ return timer->getFps(); }
 
-			inline void setGameState(GameState& mGameState) noexcept	{ gameState = &mGameState; }
-			inline void setInputState(InputState& mInputState) noexcept	{ inputState = &mInputState; }
+			inline void setGameState(GameState& mGameState) noexcept			{ gameState = &mGameState; }
+			inline void setInputState(Input::InputState& mInputState) noexcept	{ inputState = &mInputState; }
 
 			inline bool isRunning() const noexcept { return running; }
 

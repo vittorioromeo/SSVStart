@@ -11,11 +11,11 @@
 #include "SSVStart/Input/Enums.hpp"
 #include "SSVStart/Input/Manager.hpp"
 #include "SSVStart/Input/Trigger.hpp"
+#include "SSVStart/Input/InputState.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs
 {
-	class InputState;
 	class GameEngine;
 
 	class GameState : ssvu::NoCopy
@@ -36,21 +36,21 @@ namespace ssvs
 			inline void update(FT mFT)							{ onUpdate(mFT); }
 			inline void draw()									{ onDraw(); }
 
-			inline void updateInput(InputState& mInputState, FT mFT)	{ inputManager.update(mInputState, mFT); }
-			inline void refreshInput(InputState& mInputState)			{ inputManager.refresh(mInputState); }
+			inline void updateInput(Input::InputState& mInputState, FT mFT)	{ inputManager.update(mInputState, mFT); }
+			inline void refreshInput(Input::InputState& mInputState)		{ inputManager.refresh(mInputState); }
 
 		public:
 			ssvu::Delegate<void()> onDraw, onPostUpdate;
 			ssvu::Delegate<void(FT)> onUpdate;
 			EventDelegate onAnyEvent;
 
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{
-				addInput(mTrigger, mFuncOn, nullptr, mType, mMode);
+				return addInput(mTrigger, mFuncOn, nullptr, mType, mMode);
 			}
-			inline void addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{
-				mTrigger.setType(mType); mTrigger.setMode(mMode); inputManager.emplace(mTrigger, mFuncOn, mFuncOff);
+				mTrigger.setType(mType); mTrigger.setMode(mMode); return inputManager.emplace(mTrigger, mFuncOn, mFuncOff);
 			}
 
 			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }

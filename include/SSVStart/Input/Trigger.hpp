@@ -11,10 +11,9 @@
 
 namespace ssvs
 {
-	class InputState;
-
 	namespace Input
 	{
+		class InputState;
 		class Manager;
 
 		class Trigger

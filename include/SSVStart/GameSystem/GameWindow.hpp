@@ -16,44 +16,22 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
 #include "SSVStart/GameSystem/GameEngine.hpp"
+#include "SSVStart/Input/InputState.hpp"
 
 namespace ssvs
 {
-	class GameWindow;
-
-	class InputState : ssvu::NoCopy
-	{
-		friend class GameWindow;
-
-		private:
-			KeyBitset pressedKeys;
-			BtnBitset pressedBtns;
-
-			inline void setKeyPressed(KKey mKey, bool mValue) noexcept { getKeyBit(pressedKeys, mKey) = mValue; }
-			inline void setBtnPressed(MBtn mBtn, bool mValue) noexcept { getBtnBit(pressedBtns, mBtn) = mValue; }
-
-		public:
-			inline bool isKeyPressed(KKey mKey) const noexcept		{ return getKeyBit(pressedKeys, mKey); }
-			inline bool isBtnPressed(MBtn mBtn) const noexcept		{ return getBtnBit(pressedBtns, mBtn); }
-			inline const KeyBitset& getPressedKeys() const noexcept	{ return pressedKeys; }
-			inline const BtnBitset& getPressedBtns() const noexcept	{ return pressedBtns; }
-	};
-
 	class GameWindow : ssvu::NoCopy
 	{
 		private:
-			InputState inputState;
+			Input::InputState inputState;
 
 			GameEngine* gameEngine{nullptr};
 			sf::RenderWindow renderWindow;
 			std::string title;
 
-			bool fpsLimited{false};
-			float maxFPS{60.f};
-
-			bool focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false};
+			bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false};
 			unsigned int width{640}, height{480}, antialiasingLevel{3};
-			float pixelMult{1.f};
+			float maxFPS{60.f}, pixelMult{1.f};
 
 			inline void runEvents()
 			{
@@ -81,6 +59,7 @@ namespace ssvs
 			inline void recreateWindow()
 			{
 				if(renderWindow.isOpen()) renderWindow.close();
+
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 				renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
 				renderWindow.setVerticalSyncEnabled(vsync);
@@ -92,9 +71,11 @@ namespace ssvs
 
 			inline GameWindow()
 			{
+				// TODO:
 				gameEngine = new GameEngine();
 				gameEngine->setInputState(inputState);
 			}
+			inline ~GameWindow() { delete gameEngine; }
 
 			inline void run()
 			{
@@ -149,8 +130,8 @@ namespace ssvs
 			inline bool hasFocus() const noexcept						{ return focus; }
 			inline bool getVsync() const noexcept						{ return vsync; }
 
-			inline Vec2f getMousePosition() const						{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
-			inline const InputState& getInputState() const noexcept { return inputState; }
+			inline Vec2f getMousePosition() const							{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
+			inline const Input::InputState& getInputState() const noexcept	{ return inputState; }
 
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(std::forward<TArgs>(mArgs)...); }
 			inline auto getFPS() const noexcept -> decltype(gameEngine->getFPS()) { return gameEngine->getFPS(); }

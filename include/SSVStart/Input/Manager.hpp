@@ -12,10 +12,9 @@
 
 namespace ssvs
 {
-	class InputState;
-
 	namespace Input
 	{
+		class InputState;
 		class Combo;
 
 		class Manager
@@ -25,19 +24,23 @@ namespace ssvs
 			private:
 				KeyBitset processedKeys;
 				BtnBitset processedBtns;
-				std::vector<Bind> binds;
+				std::vector<ssvu::Uptr<Bind>> binds;
 
 			public:
-				inline void update(InputState& mInputState, FT mFT) { for(auto& b : binds) b.update(*this, mFT, mInputState); }
+				inline void update(InputState& mInputState, FT mFT) { for(auto& b : binds) b->update(*this, mFT, mInputState); }
 				inline void refresh(InputState& mInputState)
 				{
 					processedKeys.reset(); processedBtns.reset();
-					for(auto& b : binds) b.refresh(*this, mInputState);
+					for(auto& b : binds) b->refresh(*this, mInputState);
 				}
-				template<typename... TArgs> inline void emplace(TArgs&&... mArgs)
+				template<typename... TArgs> inline Bind& emplace(TArgs&&... mArgs)
 				{
-					binds.emplace_back(std::forward<TArgs>(mArgs)...);
-					ssvu::sort(binds);
+					auto& result(ssvu::getEmplaceUptr<Bind>(binds, std::forward<TArgs>(mArgs)...));
+
+					// C++14: auto lambda
+					ssvu::sort(binds, [](const ssvu::Uptr<Bind>& mA, const ssvu::Uptr<Bind>& mB){ return *mA < *mB; });
+
+					return result;
 				}
 		};
 	}

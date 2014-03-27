@@ -33,7 +33,6 @@ namespace ssvs
 			template<typename T> inline T& getImpl() { return reinterpret_cast<T&>(*impl); }
 			template<typename T, typename... TArgs> inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
 			{
-				SSVU_ASSERT(nextImpl == nullptr);
 				nextImpl = std::make_unique<T>(mGameEngine, std::forward<TArgs>(mArgs)...);
 			}
 	};
