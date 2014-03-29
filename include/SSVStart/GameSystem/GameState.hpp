@@ -46,7 +46,7 @@ namespace ssvs
 
 			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{
-				return addInput(mTrigger, mFuncOn, nullptr, mType, mMode);
+				return addInput(mTrigger, mFuncOn, Internal::getNullInputFunc(), mType, mMode);
 			}
 			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{

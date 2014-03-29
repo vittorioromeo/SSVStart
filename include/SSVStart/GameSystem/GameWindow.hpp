@@ -25,7 +25,7 @@ namespace ssvs
 		private:
 			Input::InputState inputState;
 
-			GameEngine* gameEngine{nullptr};
+			ssvu::Uptr<GameEngine> gameEngine{new GameEngine()};
 			sf::RenderWindow renderWindow;
 			std::string title;
 
@@ -71,11 +71,9 @@ namespace ssvs
 
 			inline GameWindow()
 			{
-				// TODO:
-				gameEngine = new GameEngine();
+				// TODO: should the user create a GameEngine?
 				gameEngine->setInputState(inputState);
 			}
-			inline ~GameWindow() { delete gameEngine; }
 
 			inline void run()
 			{
