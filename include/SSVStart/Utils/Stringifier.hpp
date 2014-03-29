@@ -29,13 +29,13 @@ namespace ssvu
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const sf::Color& mValue)
 		{
 			Internal::printBold<TFmt>(mStream, "(");
-			Internal::printNonBold<TFmt>(mStream, int(mValue.r), Console::Color::Red);
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.r), Console::Color::Red);
 			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, int(mValue.g), Console::Color::Green);
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.g), Console::Color::Green);
 			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, int(mValue.b), Console::Color::Blue);
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.b), Console::Color::Blue);
 			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, int(mValue.a));
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.a));
 			Internal::printBold<TFmt>(mStream, ")");
 		}
 	};
