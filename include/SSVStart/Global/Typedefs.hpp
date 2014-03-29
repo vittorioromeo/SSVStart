@@ -36,6 +36,15 @@ namespace ssvs
 	inline BtnBitset::reference getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept { return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
 	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept { return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
 	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept { return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
+
+	namespace Internal
+	{
+		inline const InputFunc& getNullInputFunc() noexcept
+		{
+			static InputFunc result([](FT){ });
+			return result;
+		}
+	}
 }
 
 #endif

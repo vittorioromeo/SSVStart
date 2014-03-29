@@ -23,6 +23,7 @@ namespace ssvs
 				Mode mode{Mode::Overlap};
 				std::vector<Combo> combos;
 				bool released{true};
+				std::size_t priority{0u};
 
 				inline bool isDown(Manager& mManager, InputState& mInputState) const
 				{
@@ -30,9 +31,16 @@ namespace ssvs
 					return false;
 				}
 
+				inline void recalculatePriority()
+				{
+					std::size_t max{0u};
+					for(auto& c : combos) max = std::max(c.getKeys().count() + c.getBtns().count(), max);
+					priority = max;
+				}
+
 			public:
 				Trigger() = default;
-				Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { }
+				Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { recalculatePriority(); }
 
 				inline void refresh(Manager& mManager, InputState& mInputState)	{ if(!released && !isDown(mManager, mInputState)) released = true; }
 
@@ -49,6 +57,7 @@ namespace ssvs
 
 				inline decltype(combos)& getCombos() noexcept				{ return combos; }
 				inline const decltype(combos)& getCombos() const noexcept	{ return combos; }
+				inline std::size_t getPriority() const noexcept				{ return priority; }
 		};
 	}
 }

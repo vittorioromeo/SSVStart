@@ -36,11 +36,7 @@ namespace ssvs
 				template<typename... TArgs> inline Bind& emplace(TArgs&&... mArgs)
 				{
 					auto& result(ssvu::getEmplaceUptr<Bind>(binds, std::forward<TArgs>(mArgs)...));
-
-					// C++14: auto lambda
-					ssvu::sort(binds, [](const ssvu::Uptr<Bind>& mA, const ssvu::Uptr<Bind>& mB){ return *mA < *mB; });
-
-					return result;
+					ssvu::sort(binds); return result;
 				}
 		};
 	}
