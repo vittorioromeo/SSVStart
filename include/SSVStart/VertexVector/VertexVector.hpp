@@ -15,7 +15,7 @@ namespace ssvs
 		using std::vector<sf::Vertex>::vector;
 		inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
 		{
-			mRenderTarget.draw(&this->operator[](0), this->size(), TPrimitive, mRenderStates);
+			mRenderTarget.draw(this->data(), this->size(), TPrimitive, mRenderStates);
 		}
 	};
 }
