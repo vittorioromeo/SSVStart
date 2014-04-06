@@ -21,13 +21,13 @@ namespace ssvs
 			Path rootPath;
 			std::vector<Path> files;
 
-			std::vector<Path> getFilteredFiles(const std::vector<std::string>& mExtensions)
+			inline std::vector<Path> getFilteredFiles(const std::vector<std::string>& mExtensions)
 			{
 				std::vector<Path> result;
 				for(const auto& f : files) for(const auto& e : mExtensions) if(f.hasExtension(e)) result.emplace_back(f);
 				return result;
 			}
-			void loadFontsToManager(AssetManager& mAssetManager)
+			inline void loadFontsToManager(AssetManager& mAssetManager)
 			{
 				for(const auto& f : getFilteredFiles({".ttf", ".otf", ".pfm"}))
 				{
@@ -36,7 +36,7 @@ namespace ssvs
 					ssvu::lo("ssvs::AssetFolder::loadFontsToManager(" + rootPath.getStr() + ")") << id + " font added" << std::endl;
 				}
 			}
-			void loadImagesToManager(AssetManager& mAssetManager)
+			inline void loadImagesToManager(AssetManager& mAssetManager)
 			{
 				for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 				{
@@ -45,7 +45,7 @@ namespace ssvs
 					ssvu::lo("ssvs::AssetFolder::loadImagesToManager(" + rootPath.getStr() + ")") << id + " image added" << std::endl;
 				}
 			}
-			void loadTexturesToManager(AssetManager& mAssetManager)
+			inline void loadTexturesToManager(AssetManager& mAssetManager)
 			{
 				for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
 				{
@@ -54,7 +54,7 @@ namespace ssvs
 					ssvu::lo("ssvs::AssetFolder::loadTexturesToManager(" + rootPath.getStr() + ")") << id + " texture added" << std::endl;
 				}
 			}
-			void loadSoundBuffersToManager(AssetManager& mAssetManager)
+			inline void loadSoundBuffersToManager(AssetManager& mAssetManager)
 			{
 				for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
 				{
@@ -63,7 +63,7 @@ namespace ssvs
 					ssvu::lo("ssvs::AssetFolder::loadSoundsToManager(" + rootPath.getStr() + ")") << id + " soundBuffer added" << std::endl;
 				}
 			}
-			void loadMusicsToManager(AssetManager& mAssetManager)
+			inline void loadMusicsToManager(AssetManager& mAssetManager)
 			{
 				for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
 				{
@@ -72,7 +72,7 @@ namespace ssvs
 					ssvu::lo("ssvs::AssetFolder::loadMusicsToManager(" + rootPath.getStr() + ")") << id + " music added" << std::endl;
 				}
 			}
-			void loadShadersToManager(AssetManager& mAssetManager)
+			inline void loadShadersToManager(AssetManager& mAssetManager)
 			{
 				for(const auto& f : getFilteredFiles({".vert"}))
 				{
@@ -89,8 +89,8 @@ namespace ssvs
 			}
 
 		public:
-			AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{ssvufs::getScan<ssvufs::Mode::Recurse, ssvufs::Type::File>(rootPath)} { }
-			void loadToManager(AssetManager& mAssetManager)
+			inline AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{ssvufs::getScan<ssvufs::Mode::Recurse, ssvufs::Type::File>(rootPath)} { }
+			inline void loadToManager(AssetManager& mAssetManager)
 			{
 				loadImagesToManager(mAssetManager);
 				loadTexturesToManager(mAssetManager);
