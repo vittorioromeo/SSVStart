@@ -26,13 +26,13 @@ namespace ssvs
 			Type type;
 			unsigned int currentTarget, nextTarget;
 
-			inline void refreshTargets()
+			inline void refreshTargets() noexcept
 			{
 				if(dir > 0)	{ currentTarget = steps.size() - 1;	nextTarget = 0u; }
 				else		{ currentTarget = 0u;				nextTarget = steps.size() - 1; }
 			}
 
-			inline void nextStep()
+			inline void nextStep() noexcept
 			{
 				SSVU_ASSERT(index < steps.size());
 
