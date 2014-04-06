@@ -39,8 +39,8 @@ namespace ssvs
 				}
 
 			public:
-				Trigger() = default;
-				Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { recalculatePriority(); }
+				inline Trigger() = default;
+				inline Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { recalculatePriority(); }
 
 				inline void refresh(Manager& mManager, InputState& mInputState)	{ if(!released && !isDown(mManager, mInputState)) released = true; }
 
@@ -57,7 +57,8 @@ namespace ssvs
 
 				inline decltype(combos)& getCombos() noexcept				{ return combos; }
 				inline const decltype(combos)& getCombos() const noexcept	{ return combos; }
-				inline std::size_t getPriority() const noexcept				{ return priority; }
+
+				inline bool operator<(const Trigger& mRhs) const noexcept	{ return priority > mRhs.priority; }\
 		};
 	}
 }

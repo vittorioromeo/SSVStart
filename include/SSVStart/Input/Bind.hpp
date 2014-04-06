@@ -21,8 +21,6 @@ namespace ssvs
 				Trigger trigger;
 				InputFunc on, off;
 
-				inline std::size_t getPriority() const noexcept { return trigger.getPriority(); }
-
 			public:
 				inline Bind(Trigger mTrigger, const InputFunc& mOn = Internal::getNullInputFunc(), const InputFunc& mOff = Internal::getNullInputFunc())
 					: trigger{std::move(mTrigger)}, on{mOn}, off{mOff} { }
@@ -33,7 +31,7 @@ namespace ssvs
 				inline void callOn(FT mFT) const	{ on(mFT); }
 				inline void callOff(FT mFT) const	{ off(mFT); }
 
-				inline bool operator<(const Bind& mRhs) const noexcept { return getPriority() > mRhs.getPriority(); }\
+				inline bool operator<(const Bind& mRhs) const noexcept { return mRhs.trigger < trigger; }
 		};
 	}
 }
