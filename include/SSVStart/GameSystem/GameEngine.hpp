@@ -31,6 +31,7 @@ namespace ssvs
 
 			GameTimer timer;
 
+			// TODO: move to gamewindow and fix?
 			FT msUpdate, msDraw;
 
 			inline void refreshTimer() { timer.refresh(); }
