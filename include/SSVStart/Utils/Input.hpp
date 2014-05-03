@@ -15,11 +15,11 @@ namespace ssvs
 	using IType = Input::Type;
 	using IMode = Input::Mode;
 
+	#define SSVS_KEY_PREFIX "k"
+	#define SSVS_BTN_PREFIX "b"
+
 	namespace Internal
 	{
-		#define SSVS_KEY_PREFIX "k"
-		#define SSVS_BTN_PREFIX "b"
-
 		inline const std::string* getKKeyStrArray() noexcept
 		{
 			#define SSVS_INS_KEY(mName) SSVS_KEY_PREFIX #mName
@@ -150,7 +150,6 @@ namespace ssvs
 
 		inline const std::map<std::string, KKey>& getStrKKeyMap() noexcept
 		{
-			#define SSVS_KEY_PREFIX "k"
 			#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName, KKey::mName}
 			static std::map<std::string, KKey> keys
 			{
@@ -263,7 +262,6 @@ namespace ssvs
 
 		inline const std::map<std::string, MBtn>& getStrMBtnMap() noexcept
 		{
-			#define SSVS_BTN_PREFIX "b"
 			#define SSVS_INS_BTN(mName) {SSVS_BTN_PREFIX #mName, MBtn::mName}
 			static std::map<std::string, MBtn> btns
 			{
@@ -277,21 +275,21 @@ namespace ssvs
 
 			return btns;
 		}
-
-		#undef SSVS_KEY_PREFIX
-		#undef SSVS_BTN_PREFIX
 	}
+
+	#undef SSVS_KEY_PREFIX
+	#undef SSVS_BTN_PREFIX
 
 	/// @brief Returns whether mId is a valid KKey name or not.
 	inline bool isKKeyNameValid(const std::string& mId) noexcept
 	{
-		return Internal::getStrKKeyMap().count(mId);
+		return Internal::getStrKKeyMap().count(mId) > 0;
 	}
 
 	/// @brief Returns whether mId is a valid MBtn name or not.
 	inline bool isMBtnNameValid(const std::string& mId)	noexcept
 	{
-		return Internal::getStrMBtnMap().count(mId);
+		return Internal::getStrMBtnMap().count(mId) > 0;
 	}
 
 	/// @brief Returns a KKey from a valid mId string identifier.
