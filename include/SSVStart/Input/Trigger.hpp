@@ -19,11 +19,11 @@ namespace ssvs
 		class Trigger
 		{
 			private:
+				std::vector<Combo> combos;
+				std::size_t priority{0u};
 				Type type{Type::Always};
 				Mode mode{Mode::Overlap};
-				std::vector<Combo> combos;
 				bool released{true};
-				std::size_t priority{0u};
 
 				inline bool isDown(Manager& mManager, InputState& mInputState) const
 				{

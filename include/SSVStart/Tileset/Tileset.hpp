@@ -14,7 +14,7 @@ namespace ssvs
 {
 	class Tileset
 	{
-		SSVUJ_CONVERTER_FRIEND();
+		SSVS_JSON_CONVERTER_FRIEND();
 
 		private:
 			Vec2u tileSize;

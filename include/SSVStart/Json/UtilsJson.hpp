@@ -3,6 +3,7 @@
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
 #ifndef SSVS_N_USE_JSON
+
 #ifndef SSVS_JSON_UTILSJSON
 #define SSVS_JSON_UTILSJSON
 
