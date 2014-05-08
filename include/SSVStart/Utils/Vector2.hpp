@@ -80,7 +80,7 @@ namespace ssvs
 	/// @param mVec Vector to rotate. (will be modified)
 	/// @param mCenter Point to use as center for the rotation.
 	/// @param mRad Number of radians.
-	template<typename T1, typename T2, typename T3> inline void rotateRadAroundCenter(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mRad)
+	template<typename T1, typename T2, typename T3> inline void rotateRadAround(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mRad)
 	{
 		auto s(std::sin(mRad)), c(std::cos(mRad)); mVec -= mCenter;
 		mVec = Vec2<T1>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
@@ -90,9 +90,9 @@ namespace ssvs
 	/// @param mVec Vector to rotate. (will be modified)
 	/// @param mCenter Point to use as center for the rotation.
 	/// @param mRad Number of degrees.
-	template<typename T1, typename T2, typename T3> inline void rotateDegAroundCenter(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mDeg)
+	template<typename T1, typename T2, typename T3> inline void rotateDegAround(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mDeg)
 	{
-		return rotateRadAroundCenter(mVec, mCenter, ssvu::toRad(mDeg));
+		return rotateRadAround(mVec, mCenter, ssvu::toRad(mDeg));
 	}
 
 	/// @brief Sets a vector's components to 0.
@@ -105,10 +105,21 @@ namespace ssvs
 	///	@param mMag Vector's current magnitude.
 	template<typename T1, typename T2> inline void normalize(Vec2<T1>& mVec, const T2& mMag) noexcept { if(mMag != 0) mVec /= mMag; }
 
+	/// @brief Normalizes a vector. (unsafe, known magnitude)
+	/// @details Does not check if the magnitude is 0.
+	/// @param mVec Vector to normalize. (will be modified)
+	///	@param mMag Vector's current magnitude.
+	template<typename T1, typename T2> inline void normalizeUnsafe(Vec2<T1>& mVec, const T2& mMag) noexcept { SSVU_ASSERT(mMag != 0); mVec /= mMag; }
+
 	/// @brief Normalizes a vector.
 	/// @details Internally checks if the magnitude is not 0.
 	/// @param mVec Vector to normalize. (will be modified)
 	template<typename T> inline void normalize(Vec2<T>& mVec) noexcept { normalize(mVec, getMag(mVec)); }
+
+	/// @brief Normalizes a vector. (unsafe)
+	/// @details Does not check if the magnitude is 0.
+	/// @param mVec Vector to normalize. (will be modified)
+	template<typename T> inline void normalizeUnsafe(Vec2<T>& mVec) noexcept { normalizeUnsafe(mVec, getMag(mVec)); }
 
 	/// @brief Gets a normalized copy of the original vector. (known magnitude)
 	/// @details Internally checks if the magnitude is not 0.
@@ -117,11 +128,24 @@ namespace ssvs
 	/// @return Returns a copy of the original vector, normalized.
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getNormalized(Vec2<T1> mVec, const T2& mMag) noexcept { normalize(mVec, mMag); return mVec; }
 
+	/// @brief Gets a normalized copy of the original vector. (unsafe, known magnitude)
+	/// @details Does not check if the magnitude is 0.
+	/// @param mVec Original vector. (will not be modified)
+	///	@param mMag Vector's current magnitude.
+	/// @return Returns a copy of the original vector, normalized.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getNormalizedUnsafe(Vec2<T1> mVec, const T2& mMag) noexcept { normalizeUnsafe(mVec, mMag); return mVec; }
+
 	/// @brief Gets a normalized copy of the original vector.
 	/// @details Internally checks if the magnitude is not 0.
 	/// @param mVec Original vector. (will not be modified)
 	/// @return Returns a copy of the original vector, normalized.
 	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
+
+	/// @brief Gets a normalized copy of the original vector. (unsafe)
+	/// @details Does not check if the magnitude is 0.
+	/// @param mVec Original vector. (will not be modified)
+	/// @return Returns a copy of the original vector, normalized.
+	template<typename T> inline Vec2<T> getNormalizedUnsafe(Vec2<T> mVec) noexcept { normalizeUnsafe(mVec); return mVec; }
 
 	/// @brief Resizes a vector. (known magnitude)
 	/// @details Internally multiplies by the desired magnitude.
@@ -329,6 +353,35 @@ namespace ssvs
 	/// @param mB Second point.
 	/// @return Returns the calculated distance.
 	template<typename T1, typename T2> inline CT<T1, T2> getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
+
+	/// @brief Projects mVec on mTarget.
+	/// @details Does not check if the target's magnitude is 0.
+	/// @param mVec Vector to project. (will be modified)
+	/// @param mTarget Projection target.
+	template<typename T1, typename T2> inline void project(Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept
+	{
+		const auto& p1(getDotProduct(mVec, mTarget));
+		const auto& p2(getDotProduct(mTarget, mTarget));
+
+		SSVU_ASSERT(p2 != 0);
+		mVec = mTarget * (p1 / p2);
+	}
+
+	/// @brief Returns the projection of mVec on mTarget.
+	/// @details Does not check if the target's magnitude is 0.
+	/// @param mVec Vector to project. (will not be modified)
+	/// @param mTarget Projection target.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getProjected(Vec2<T1> mVec, const Vec2<T2>& mTarget) noexcept { project(mVec, mTarget); return mVec; }
+
+	/// @brief Reflects mVec on mTarget.
+	/// @param mVec Vector to reflect. (will be modified)
+	/// @param mTarget Reflection target.
+	template<typename T1, typename T2> inline void reflect(Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept { mVec -= CT<T1, T2>(2) * mTarget * getDotProduct(mVec, mTarget); }
+
+	/// @brief Returns the reflection of mVec on mTarget.
+	/// @param mVec Vector to reflect. (will not be modified)
+	/// @param mTarget Reflection target.
+	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getReflected(Vec2<T1> mVec, const Vec2<T2>& mTarget) noexcept { reflect(mVec, mTarget); return mVec; }
 
 	// AABB utils
 	// TODO: put AABB class here from SSVSC?
