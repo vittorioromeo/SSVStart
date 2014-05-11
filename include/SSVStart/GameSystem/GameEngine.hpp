@@ -25,14 +25,10 @@ namespace ssvs
 		friend class TimerDynamic;
 
 		private:
+			GameTimer timer;
 			GameState* gameState{nullptr};
 			Input::InputState* inputState{nullptr};
 			bool running{true};
-
-			GameTimer timer;
-
-			// TODO: move to gamewindow and fix?
-			FT msUpdate, msDraw;
 
 			inline void refreshTimer() { timer.refresh(); }
 
@@ -64,24 +60,16 @@ namespace ssvs
 			{
 				SSVU_ASSERT(isValid());
 
-				auto tempMs(HRClock::now());
-				{
-					if(inputState != nullptr) gameState->refreshInput(*inputState);
-					timer->runUpdate();
-					gameState->onPostUpdate();
-				}
-				msUpdate = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
+				if(inputState != nullptr) gameState->refreshInput(*inputState);
+				timer->runUpdate();
+				gameState->onPostUpdate();
 			}
 
 			inline void runDraw()
 			{
 				SSVU_ASSERT(isValid());
 
-				auto tempMs(HRClock::now());
-				{
-					timer->runDraw();
-				}
-				msDraw = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
+				timer->runDraw();
 			}
 
 			inline void runFPS()
@@ -92,8 +80,6 @@ namespace ssvs
 				timer->runFps();
 			}
 
-			inline FT getMsUpdate() const noexcept	{ return msUpdate; }
-			inline FT getMsDraw() const noexcept	{ return msDraw; }
 			inline float getFPS() const noexcept	{ return timer->getFps(); }
 
 			inline void setGameState(GameState& mGameState) noexcept			{ gameState = &mGameState; }

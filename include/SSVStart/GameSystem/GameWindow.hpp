@@ -24,14 +24,13 @@ namespace ssvs
 	{
 		private:
 			Input::InputState inputState;
-
-			ssvu::Uptr<GameEngine> gameEngine{new GameEngine()};
+			ssvu::Uptr<GameEngine> gameEngine{new GameEngine()}; // TODO: should the user create a GameEngine?
 			sf::RenderWindow renderWindow;
 			std::string title;
-
-			bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false};
-			unsigned int width{640}, height{480}, antialiasingLevel{3};
+			FT msUpdate, msDraw;
 			float maxFPS{60.f}, pixelMult{1.f};
+			unsigned int width{640}, height{480}, antialiasingLevel{3};
+			bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false}, fullscreen{false};
 
 			inline void runEvents()
 			{
@@ -69,11 +68,7 @@ namespace ssvs
 		public:
 			ssvu::Delegate<void()> onRecreation;
 
-			inline GameWindow()
-			{
-				// TODO: should the user create a GameEngine?
-				gameEngine->setInputState(inputState);
-			}
+			inline GameWindow() { gameEngine->setInputState(inputState); }
 
 			inline void run()
 			{
@@ -88,10 +83,19 @@ namespace ssvs
 
 					gameEngine->refreshTimer();
 
-					runEvents();
-					gameEngine->runUpdate();
-					gameEngine->runDraw();
-					renderWindow.display();
+					auto tempMs(HRClock::now());
+					{
+						runEvents();
+						gameEngine->runUpdate();
+					}
+					msUpdate = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
+
+					tempMs = HRClock::now();
+					{
+						gameEngine->runDraw();
+						renderWindow.display();
+					}
+					msDraw = std::chrono::duration_cast<FTDuration>(HRClock::now() - tempMs).count();
 
 					gameEngine->runFPS();
 				}
@@ -127,6 +131,9 @@ namespace ssvs
 			inline unsigned int getAntialiasingLevel() const noexcept	{ return antialiasingLevel; }
 			inline bool hasFocus() const noexcept						{ return focus; }
 			inline bool getVsync() const noexcept						{ return vsync; }
+
+			inline FT getMsUpdate() const noexcept						{ return msUpdate; }
+			inline FT getMsDraw() const noexcept						{ return msDraw; }
 
 			inline Vec2f getMousePosition() const							{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
 			inline const Input::InputState& getInputState() const noexcept	{ return inputState; }
