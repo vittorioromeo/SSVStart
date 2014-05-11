@@ -319,15 +319,22 @@ namespace ssvs
 		return Internal::getMBtnStrArray()[static_cast<int>(mMBtn)];
 	}
 
-	// TODO: docs
-	inline void add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	/// @brief Shortcut to create a simple 2-state input that operates on a boolean value.
+	/// @return Returns a reference to the newly created bind.
+	inline Input::Bind& add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mOn, [&mValue](FT){ mValue = true; }, [&mValue](FT){ mValue = false; }, mType, mMode);
+		return mGameState.addInput(mOn, [&mValue](FT){ mValue = true; }, [&mValue](FT){ mValue = false; }, mType, mMode);
 	}
-	inline void add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+
+	/// @brief Shortcut to create a simple 3-state input that operates on an int value.
+	/// @details The value is set to 0 when no triggers are in use, to -1 when mOff is in use, to 1 when mOn is in use.
+	/// @return Returns a pair containing references to the newly created binds.
+	inline std::pair<Input::Bind&, Input::Bind&> add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
-		mGameState.addInput(mOff, [&mValue](FT){ mValue = -1; }, [&mValue](FT){ if(mValue == -1) mValue = 0; }, mType, mMode);
-		mGameState.addInput(mOn, [&mValue](FT){ mValue = 1; }, [&mValue](FT){ if(mValue == 1) mValue = 0; }, mType, mMode);
+		auto& b1(mGameState.addInput(mOff, [&mValue](FT){ mValue = -1; }, [&mValue](FT){ if(mValue == -1) mValue = 0; }, mType, mMode));
+		auto& b2(mGameState.addInput(mOn, [&mValue](FT){ mValue = 1; }, [&mValue](FT){ if(mValue == 1) mValue = 0; }, mType, mMode));
+
+		return {b1, b2};
 	}
 }
 

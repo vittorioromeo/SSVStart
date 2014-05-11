@@ -31,7 +31,7 @@ namespace ssvs
 				inline void callOn(FT mFT) const	{ on(mFT); }
 				inline void callOff(FT mFT) const	{ off(mFT); }
 
-				inline bool operator<(const Bind& mRhs) const noexcept { return mRhs.trigger < trigger; }
+				inline bool operator<(const Bind& mRhs) const noexcept { return trigger < mRhs.trigger; }
 		};
 	}
 }
