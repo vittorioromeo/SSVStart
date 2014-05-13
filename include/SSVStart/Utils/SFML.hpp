@@ -11,7 +11,7 @@
 namespace ssvs
 {
 	/// @brief Returns global left position of a drawable element.
-	template<typename T> inline float getGlobalLeft(const T& mElement)	noexcept	{ return mElement.getGlobalBounds().left; }
+	template<typename T> inline float getGlobalLeft(const T& mElement) noexcept		{ return mElement.getGlobalBounds().left; }
 
 	/// @brief Returns global right position of a drawable element.
 	template<typename T> inline float getGlobalRight(const T& mElement) noexcept	{ return mElement.getGlobalBounds().left + mElement.getGlobalBounds().width; }
@@ -33,6 +33,9 @@ namespace ssvs
 
 	/// @brief Returns global halfsize of a drawable element.
 	template<typename T> inline Vec2f getGlobalHalfSize(const T& mElement) noexcept	{ return getGlobalSize(mElement) / 2.f; }
+
+	/// @brief Returns global center of a drawable element.
+	template<typename T> inline Vec2f getGlobalCenter(const T& mElement) noexcept	{ return Vec2f{getGlobalLeft(mElement), getGlobalTop(mElement)} + getGlobalHalfSize(mElement); }
 
 	/// @brief Returns local left position of a drawable element.
 	template<typename T> inline float getLocalLeft(const T& mElement) noexcept		{ return mElement.getLocalBounds().left; }
@@ -57,6 +60,9 @@ namespace ssvs
 
 	/// @brief Returns local halfsize of a drawable element.
 	template<typename T> inline Vec2f getLocalHalfSize(const T& mElement) noexcept	{ return getLocalSize(mElement) / 2.f; }
+
+	/// @brief Returns local center of a drawable element.
+	template<typename T> inline Vec2f getLocalCenter(const T& mElement) noexcept	{ return Vec2f{getLocalLeft(mElement), getLocalTop(mElement)} + getLocalHalfSize(mElement); }
 }
 
 #endif
