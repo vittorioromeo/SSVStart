@@ -63,6 +63,37 @@ namespace ssvs
 
 	/// @brief Returns local center of a drawable element.
 	template<typename T> inline Vec2f getLocalCenter(const T& mElement) noexcept	{ return Vec2f{getLocalLeft(mElement), getLocalTop(mElement)} + getLocalHalfSize(mElement); }
+
+	// TODO: docs
+	inline sf::Color getColorFromHSV(float mH, float mS, float mV) noexcept
+	{
+		if(mV == 0.f) return sf::Color::Black;
+
+		float r, g, b;
+		auto i((int)std::floor(mH * 6.f));
+		auto f((mH * 6) - i);
+		auto p(mV * (1.f - mS));
+		auto q(mV * (1.f - (mS * f)));
+		auto t(mV * (1.f - (mS * (1.f - f))));
+
+		switch(i)
+		{
+			case 0:				r = mV; g = t; b = p; break;
+			case 1:				r = q; g = mV; b = p; break;
+			case 2:				r = p; g = mV; b = t; break;
+			case 3:				r = p; g = q; b = mV; break;
+			case 4:				r = t; g = p; b = mV; break;
+			case 5: default:	r = mV; g = p; b = q; break;
+		}
+
+		return sf::Color(r * 255.f, g * 255.f, b * 255.f);
+	}
+
+	inline sf::Color getColorFromHex(unsigned int mHex) noexcept
+	{
+		float r(((mHex >> 16) & 255)), g(((mHex >> 8) & 255)), b(((mHex >> 0) & 255));
+		return sf::Color(r, g, b);
+	}
 }
 
 #endif
