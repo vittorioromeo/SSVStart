@@ -16,7 +16,7 @@
 	#define SSVS_JSON_CONVERTER_FRIEND(...)
 #else
 	#include <SSVUtilsJson/SSVUtilsJson.hpp>
-	#define SSVS_JSON_CONVERTER_FRIEND() SSVUJ_CONVERTER_FRIEND()
+	#define SSVS_JSON_CONVERTER_FRIEND() SSVUJ_CNV_FRIEND()
 #endif
 
 namespace ssvs
