@@ -69,7 +69,6 @@ namespace ssvs
 
 namespace ssvuj
 {
-	// TODO: tests
 	template<typename T> SSVUJ_CNV_SIMPLE(ssvs::Vec2<T>, mObj, mV)	{ ssvuj::convertArray(mObj, mV.x, mV.y); }													SSVUJ_CNV_SIMPLE_END();
 	template<> SSVUJ_CNV_SIMPLE(ssvs::BitmapFontData, mObj, mV)		{ ssvuj::convertArray(mObj, mV.cellColumns, mV.cellWidth, mV.cellHeight, mV.cellStart); }	SSVUJ_CNV_SIMPLE_END();
 	template<> SSVUJ_CNV_SIMPLE(sf::Color, mObj, mV)				{ ssvuj::convertArray(mObj, mV.r, mV.g, mV.b, mV.a); }										SSVUJ_CNV_SIMPLE_END();

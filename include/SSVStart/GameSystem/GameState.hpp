@@ -50,7 +50,7 @@ namespace ssvs
 			}
 			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{
-				mTrigger.setType(mType); mTrigger.setMode(mMode); return inputManager.emplace(mTrigger, mFuncOn, mFuncOff);
+				return inputManager.emplace(mTrigger, mType, mMode, mFuncOn, mFuncOff);
 			}
 
 			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }

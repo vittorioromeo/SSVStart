@@ -64,7 +64,10 @@ namespace ssvs
 	/// @brief Returns local center of a drawable element.
 	template<typename T> inline Vec2f getLocalCenter(const T& mElement) noexcept	{ return Vec2f{getLocalLeft(mElement), getLocalTop(mElement)} + getLocalHalfSize(mElement); }
 
-	// TODO: docs
+	/// @brief Creates and returns an sf::Color from HSV values.
+	/// @param mH Hue. [0..1]
+	/// @param mS Saturation. [0..1]
+	/// @param mV Value. [0..1]
 	inline sf::Color getColorFromHSV(float mH, float mS, float mV) noexcept
 	{
 		if(mV == 0.f) return sf::Color::Black;
@@ -89,6 +92,7 @@ namespace ssvs
 		return sf::Color(r * 255.f, g * 255.f, b * 255.f);
 	}
 
+	/// @brief Creates and returns an sf::Color from an hexadecimal value.
 	inline sf::Color getColorFromHex(unsigned int mHex) noexcept
 	{
 		float r(((mHex >> 16) & 255)), g(((mHex >> 8) & 255)), b(((mHex >> 0) & 255));

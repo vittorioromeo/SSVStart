@@ -44,7 +44,7 @@ namespace ssvs
 			}
 
 		public:
-			Animation(Type mType = Type::Loop) noexcept : type{mType} { }
+			inline Animation(Type mType = Type::Loop) noexcept : type{mType} { }
 			inline void update(FT mFT)
 			{
 				if(steps.empty()) return;

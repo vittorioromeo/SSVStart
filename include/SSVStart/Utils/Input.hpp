@@ -339,5 +339,3 @@ namespace ssvs
 }
 
 #endif
-
-// TODO: tests

@@ -20,5 +20,8 @@
 #include "SSVStart/Ticker/Ticker.hpp"
 #include "SSVStart/VertexVector/VertexVector.hpp"
 
+#ifndef SSVUT_DISABLE
+	#include "SSVStart/Tests/Tests.hpp"
 #endif
 
+#endif

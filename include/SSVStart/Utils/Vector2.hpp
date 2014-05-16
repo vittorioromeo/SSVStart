@@ -387,11 +387,13 @@ namespace ssvs
 	// TODO: put AABB class here from SSVSC?
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCenter(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
 	{
-		return Vec2<CT<T1, T2>>(mMin.x + (mMax.x - mMin.x) / CT<T1, T2>(2), mMin.y + (mMax.y - mMin.y) / CT<T1, T2>(2));
+		using T = CT<T1, T2>;
+		return Vec2<T>(mMin.x + (mMax.x - mMin.x) / T(2), mMin.y + (mMax.y - mMin.y) / T(2));
 	}
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getHalfSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
 	{
-		return Vec2<CT<T1, T2>>((mMax.x - mMin.x) / CT<T1, T2>(2), (mMax.y - mMin.y) / CT<T1, T2>(2));
+		using T = CT<T1, T2>;
+		return Vec2<T>((mMax.x - mMin.x) / T(2), (mMax.y - mMin.y) / T(2));
 	}
 	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept { return getHalfSize(mMin, mMax) * CT<T1, T2>(2); }
 	template<typename T1, typename T2, typename T3, typename T4> inline bool isInAABB(const Vec2<T1>& mMin, const Vec2<T2>& mMax, const Vec2<T3>& mPoint, const T4& mPadding) noexcept

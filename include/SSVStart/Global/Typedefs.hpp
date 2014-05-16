@@ -13,10 +13,10 @@
 #include <SSVUtils/Core/Core.hpp>
 
 #if SSVS_N_USE_JSON
-	#define SSVS_JSON_CONVERTER_FRIEND(...)
+	#define SSVS_JSON_CNV_FRIEND(...)
 #else
 	#include <SSVUtilsJson/SSVUtilsJson.hpp>
-	#define SSVS_JSON_CONVERTER_FRIEND() SSVUJ_CNV_FRIEND()
+	#define SSVS_JSON_CNV_FRIEND() SSVUJ_CNV_FRIEND()
 #endif
 
 namespace ssvs
