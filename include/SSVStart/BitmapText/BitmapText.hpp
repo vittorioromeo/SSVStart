@@ -5,10 +5,8 @@
 #ifndef SSVS_BITMAPTEXT
 #define SSVS_BITMAPTEXT
 
-#include <string>
-#include <SFML/Graphics.hpp>
-#include "SSVStart/BitmapText/BitmapFont.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
+#include "SSVStart/BitmapText/BitmapFont.hpp"
 #include "SSVStart/VertexVector/VertexVector.hpp"
 
 namespace ssvs

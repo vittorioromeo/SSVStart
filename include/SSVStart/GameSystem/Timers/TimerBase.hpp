@@ -5,9 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_TIMERS_BASE
 #define SSVS_GAMESYSTEM_TIMERS_BASE
 
-#include <SFML/System.hpp>
-#include "SSVStart/Global/Typedefs.hpp"
-
 namespace ssvs
 {
 	class GameEngine;

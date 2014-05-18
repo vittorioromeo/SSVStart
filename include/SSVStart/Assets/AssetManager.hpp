@@ -5,10 +5,6 @@
 #ifndef SSVS_ASSETS_ASSETMANAGER
 #define SSVS_ASSETS_ASSETMANAGER
 
-#include <cassert>
-#include <string>
-#include <unordered_map>
-#include <SSVUtils/Core/Core.hpp>
 #include "SSVStart/Assets/Internal/ResourceHolder.hpp"
 
 namespace sf { class Font; class Image; class Texture; class SoundBuffer; class Music; class Shader; }

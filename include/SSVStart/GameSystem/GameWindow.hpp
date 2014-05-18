@@ -5,17 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_GAMEWINDOW
 #define SSVS_GAMESYSTEM_GAMEWINDOW
 
-#include <bitset>
-#include <cassert>
-#include <string>
-#include <chrono>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SSVUtils/Core/Core.hpp>
-#include <SSVUtils/Delegate/Delegate.hpp>
-#include "SSVStart/Global/Typedefs.hpp"
-#include "SSVStart/GameSystem/GameState.hpp"
-#include "SSVStart/GameSystem/GameEngine.hpp"
 #include "SSVStart/Input/InputState.hpp"
 
 namespace ssvs

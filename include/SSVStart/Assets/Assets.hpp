@@ -5,7 +5,8 @@
 #ifndef SSVS_ASSETS
 #define SSVS_ASSETS
 
-#include "SSVStart/Assets/AssetFolder.hpp"
+#include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/AssetManager.hpp"
+#include "SSVStart/Assets/AssetFolder.hpp"
 
 #endif

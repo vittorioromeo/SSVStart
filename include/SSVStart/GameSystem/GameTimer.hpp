@@ -5,8 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_GAMETIMER
 #define SSVS_GAMESYSTEM_GAMETIMER
 
-#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
-
 namespace ssvs
 {
 	class GameEngine;
@@ -30,10 +28,14 @@ namespace ssvs
 			inline TimerBase* operator->()				{ return impl.get(); }
 			inline const TimerBase* operator->() const	{ return impl.get(); }
 
-			template<typename T> inline T& getImpl() { return reinterpret_cast<T&>(*impl); }
+			template<typename T> inline T& getImpl() noexcept
+			{
+				SSVU_ASSERT(impl != nullptr);
+				return reinterpret_cast<T&>(*impl);
+			}
 			template<typename T, typename... TArgs> inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
 			{
-				nextImpl = std::make_unique<T>(mGameEngine, std::forward<TArgs>(mArgs)...);
+				nextImpl = ssvu::makeUptr<T>(mGameEngine, std::forward<TArgs>(mArgs)...);
 			}
 	};
 }

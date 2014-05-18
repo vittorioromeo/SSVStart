@@ -5,12 +5,6 @@
 #ifndef SSVS_ASSETS_ASSETFOLDER
 #define SSVS_ASSETS_ASSETFOLDER
 
-#include <vector>
-#include <string>
-#include <SSVUtils/Core/Core.hpp>
-#include "SSVStart/Global/Typedefs.hpp"
-#include "SSVStart/Assets/AssetManager.hpp"
-
 namespace ssvs
 {
 	class AssetManager;

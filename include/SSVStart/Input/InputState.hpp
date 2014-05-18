@@ -15,7 +15,7 @@ namespace ssvs
 	{
 		class InputState
 		{
-			friend class ssvs::GameWindow;
+			friend ssvs::GameWindow;
 
 			private:
 				KeyBitset pressedKeys;

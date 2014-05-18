@@ -6,10 +6,8 @@
 #define SSVS_GLOBAL_TYPEDEFS
 
 #include <bitset>
-#include <memory>
-#include <chrono>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <SSVUtils/Core/Core.hpp>
 
 #if SSVS_N_USE_JSON

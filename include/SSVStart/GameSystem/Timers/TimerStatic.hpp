@@ -5,9 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_TIMERS_STATIC
 #define SSVS_GAMESYSTEM_TIMERS_STATIC
 
-#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
-#include "SSVStart/GameSystem/GameWindow.hpp"
-
 namespace ssvs
 {
 	class TimerStatic final : public TimerBase

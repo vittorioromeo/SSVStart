@@ -5,10 +5,6 @@
 #ifndef SSVS_ASSETS_INTERNAL_LOADER
 #define SSVS_ASSETS_INTERNAL_LOADER
 
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
 #include "SSVStart/BitmapText/BitmapText.hpp"
 #include "SSVStart/Tileset/Tileset.hpp"
 #include "SSVStart/Assets/Internal/Helper.hpp"

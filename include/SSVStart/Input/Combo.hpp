@@ -42,5 +42,3 @@ namespace ssvs
 }
 
 #endif
-
-// TODO: look for forward declaration opportunities

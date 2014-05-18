@@ -5,8 +5,6 @@
 #ifndef SSVS_ANIMATION
 #define SSVS_ANIMATION
 
-#include <cassert>
-#include <vector>
 #include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs

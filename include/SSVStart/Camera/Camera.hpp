@@ -5,11 +5,9 @@
 #ifndef SSVS_CAMERA
 #define SSVS_CAMERA
 
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Utils/Utils.hpp"
-#include "SSVStart/GameSystem/GameWindow.hpp"
+#include "SSVStart/GameSystem/GameSystem.hpp"
 
 namespace ssvs
 {

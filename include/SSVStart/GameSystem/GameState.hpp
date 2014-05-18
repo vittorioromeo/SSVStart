@@ -5,14 +5,10 @@
 #ifndef SSVS_GAMESYSTEM_GAMESTATE
 #define SSVS_GAMESYSTEM_GAMESTATE
 
-#include <map>
-#include <SFML/Window.hpp>
-#include <SSVUtils/Delegate/Delegate.hpp>
 #include "SSVStart/Input/Enums.hpp"
 #include "SSVStart/Input/Manager.hpp"
 #include "SSVStart/Input/Trigger.hpp"
 #include "SSVStart/Input/InputState.hpp"
-#include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs
 {
@@ -20,7 +16,7 @@ namespace ssvs
 
 	class GameState : ssvu::NoCopy
 	{
-		friend class GameEngine;
+		friend GameEngine;
 
 		private:
 			using ITrigger = Input::Trigger;

@@ -5,9 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_TIMERS_DYNAMIC
 #define SSVS_GAMESYSTEM_TIMERS_DYNAMIC
 
-#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
-#include "SSVStart/GameSystem/GameWindow.hpp"
-
 namespace ssvs
 {
 	class TimerDynamic final : public TimerBase

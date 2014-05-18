@@ -5,21 +5,13 @@
 #ifndef SSVS_GAMESYSTEM_GAMEENGINE
 #define SSVS_GAMESYSTEM_GAMEENGINE
 
-#include <chrono>
-#include <SFML/Window.hpp>
-#include <SSVUtils/Core/Core.hpp>
-#include "SSVStart/Global/Typedefs.hpp"
-#include "SSVStart/GameSystem/GameState.hpp"
-#include "SSVStart/GameSystem/GameTimer.hpp"
-#include "SSVStart/Input/InputState.hpp"
-
 namespace ssvs
 {
 	class GameWindow;
 
 	class GameEngine : ssvu::NoCopy
 	{
-		friend class GameWindow;
+		friend GameWindow;
 		friend class TimerBase;
 		friend class TimerStatic;
 		friend class TimerDynamic;

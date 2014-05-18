@@ -19,7 +19,7 @@ namespace ssvs
 
 		class Manager
 		{
-			friend class Combo;
+			friend Combo;
 
 			private:
 				KeyBitset processedKeys;
