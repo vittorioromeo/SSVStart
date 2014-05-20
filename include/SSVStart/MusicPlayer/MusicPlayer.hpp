@@ -5,7 +5,6 @@
 #ifndef SSVS_MUSICPLAYER
 #define SSVS_MUSICPLAYER
 
-#include <cassert>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SSVUtils/Core/Core.hpp>

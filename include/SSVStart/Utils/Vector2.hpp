@@ -5,10 +5,6 @@
 #ifndef SSVS_UTILS_VECTOR2
 #define SSVS_UTILS_VECTOR2
 
-#include <cassert>
-#include <cmath>
-#include <vector>
-#include <algorithm>
 #include <SFML/Graphics.hpp>
 #include <SSVUtils/Core/Core.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
