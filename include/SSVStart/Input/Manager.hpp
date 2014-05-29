@@ -24,7 +24,7 @@ namespace ssvs
 			private:
 				KeyBitset processedKeys;
 				BtnBitset processedBtns;
-				std::vector<ssvu::Uptr<Bind>> binds;
+				ssvu::VectorUptr<Bind> binds;
 
 			public:
 				inline void update(InputState& mInputState, FT mFT) { for(auto& b : binds) b->update(*this, mFT, mInputState); }
