@@ -13,10 +13,10 @@ namespace ssvs
 	class SoundPlayer
 	{
 		private:
-			struct ManageableSound : public sf::Sound, public ssvu::MemoryManageable { using sf::Sound::Sound; };
+			struct ManageableSound : public sf::Sound { using sf::Sound::Sound; };
 
 			float volume{100};
-			ssvu::MemoryManager<ManageableSound> sounds;
+			ssvu::MonoManager<ManageableSound> sounds;
 
 			inline void refreshVolume() { for(auto& s : sounds) s->setVolume(volume); }
 
