@@ -100,7 +100,7 @@ namespace ssvs
 
 			inline void saveScreenshot(const ssvufs::Path& mPath) const { renderWindow.capture().saveToFile(mPath); }
 
-			inline void setFullscreen(bool mFullscreen) noexcept 					{ fullscreen = mFullscreen;			mustRecreate = true; }
+			inline void setFullscreen(bool mFullscreen) noexcept					{ fullscreen = mFullscreen;			mustRecreate = true; }
 			inline void setSize(unsigned int mWidth, unsigned int mHeight) noexcept	{ width = mWidth; height = mHeight;	mustRecreate = true; }
 			inline void setAntialiasingLevel(unsigned int mLevel) noexcept			{ antialiasingLevel = mLevel;		mustRecreate = true; }
 			inline void setVsync(bool mEnabled) noexcept							{ vsync = mEnabled;					mustRecreate = true; }

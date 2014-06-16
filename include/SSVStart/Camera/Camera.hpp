@@ -80,7 +80,7 @@ namespace ssvs
 			inline void setRotation(float mDeg) noexcept			{ view.setRotation(mDeg);		mustRecompute = true; }
 			inline void setSkew(const Vec2f& mSkew) noexcept		{ skew = mSkew;					mustRecompute = true; }
 			inline void setOffset(const Vec2f& mOffset) noexcept	{ offset = mOffset;				mustRecompute = true; }
-			inline void setCenter(const Vec2f& mPosition) noexcept 	{ view.setCenter(mPosition);	mustRecompute = true; }
+			inline void setCenter(const Vec2f& mPosition) noexcept	{ view.setCenter(mPosition);	mustRecompute = true; }
 
 			// This property changes the view ON NEXT UPDATE
 			inline void setNextZoomFactor(float mFactor) noexcept	{ nextZoomFactor = mFactor;		invalid = true; }
