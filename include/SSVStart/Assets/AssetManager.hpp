@@ -30,11 +30,9 @@ namespace ssvs
 			template<typename T> inline Internal::ResourceHolder<T>& getResourceHolder() noexcept;
 
 		public:
-			AssetManager() = default;
-
 			template<typename T, typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 			{
-				ssvu::lo("ssvs::AssetManager::load<T>") << mId << " resource loading" << std::endl;
+				ssvu::lo("ssvs::AssetManager::load<T>") << mId << " resource loading\n";
 				return getResourceHolder<T>().load(mId, std::forward<TArgs>(mArgs)...);
 			}
 			template<typename T> inline std::unordered_map<std::string, Uptr<T>>& getAll()	{ return getResourceHolder<T>().getResources(); }
