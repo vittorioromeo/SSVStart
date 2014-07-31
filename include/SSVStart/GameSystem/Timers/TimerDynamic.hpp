@@ -19,10 +19,10 @@ namespace ssvs
 			{
 				gameEngine.updateFromTimer(frameTime);
 			}
-			inline void runFps() override
+			inline void runFPS() override
 			{
 				ssvu::clampMax(frameTime, frameTimeLimit);
-				TimerBase::runFps();
+				TimerBase::runFPS();
 			}
 	};
 }

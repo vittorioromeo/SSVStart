@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SSVUtils/Core/Core.hpp>
+#include <SSVUtils/Delegate/Delegate.hpp>
 
 #if SSVS_N_USE_JSON
 	#define SSVS_JSON_CNV_FRIEND(...)

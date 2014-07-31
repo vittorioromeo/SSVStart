@@ -68,7 +68,7 @@ namespace ssvs
 					if(mustRecreate) recreateWindow();
 
 					renderWindow.setActive(true);
-					renderWindow.clear();
+					this->clear();
 
 					gameEngine->refreshTimer();
 
@@ -95,7 +95,7 @@ namespace ssvs
 				gameEngine->stop();
 			}
 
-			inline void clear(const sf::Color& mColor) { renderWindow.clear(mColor); }
+			inline void clear(const sf::Color& mColor = sf::Color::Transparent) { renderWindow.clear(mColor); }
 			inline void draw(const sf::Drawable& mDrawable, const sf::RenderStates& mStates = sf::RenderStates::Default) { renderWindow.draw(mDrawable, mStates); }
 
 			inline void saveScreenshot(const ssvufs::Path& mPath) const { renderWindow.capture().saveToFile(mPath); }

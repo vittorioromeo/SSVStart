@@ -69,10 +69,10 @@ namespace ssvs
 				SSVU_ASSERT(isValid());
 
 				timer->runFrameTime();
-				timer->runFps();
+				timer->runFPS();
 			}
 
-			inline float getFPS() const noexcept	{ return timer->getFps(); }
+			inline float getFPS() const noexcept	{ return timer->getFPS(); }
 
 			inline void setGameState(GameState& mGameState) noexcept			{ gameState = &mGameState; }
 			inline void setInputState(Input::InputState& mInputState) noexcept	{ inputState = &mInputState; }

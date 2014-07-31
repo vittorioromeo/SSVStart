@@ -23,11 +23,11 @@ namespace ssvs
 
 			inline virtual void runUpdate()		{ }
 			inline virtual void runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }
-			inline virtual void runFps()		{ fps = 60.f / frameTime; }
+			inline virtual void runFPS()		{ fps = 60.f / frameTime; }
 			virtual void runDraw();
 
 			inline FT getFrameTime() const noexcept	{ return frameTime; }
-			inline float getFps() const noexcept	{ return fps; }
+			inline float getFPS() const noexcept	{ return fps; }
 	};
 }
 
