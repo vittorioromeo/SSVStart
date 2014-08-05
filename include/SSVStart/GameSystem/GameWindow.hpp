@@ -32,7 +32,7 @@ namespace ssvs
 					{
 						case sf::Event::Closed:					gameEngine->stop();											break;
 						case sf::Event::GainedFocus:			focus = true;												break;
-						case sf::Event::LostFocus:				focus = false;												break;
+						case sf::Event::LostFocus:	inputState.reset();	focus = false;												break;
 						case sf::Event::KeyPressed:				inputState.setKeyPressed(event.key.code, true);				break;
 						case sf::Event::KeyReleased:			inputState.setKeyPressed(event.key.code, false);			break;
 						case sf::Event::MouseButtonPressed:		inputState.setBtnPressed(event.mouseButton.button, true);	break;
@@ -47,6 +47,7 @@ namespace ssvs
 			inline void recreateWindow()
 			{
 				if(renderWindow.isOpen()) renderWindow.close();
+				inputState.reset();
 
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 				renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
