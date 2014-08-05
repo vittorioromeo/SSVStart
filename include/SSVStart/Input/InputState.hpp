@@ -24,6 +24,8 @@ namespace ssvs
 				inline void setKeyPressed(KKey mKey, bool mValue) noexcept { getKeyBit(pressedKeys, mKey) = mValue; }
 				inline void setBtnPressed(MBtn mBtn, bool mValue) noexcept { getBtnBit(pressedBtns, mBtn) = mValue; }
 
+				inline void reset() noexcept { pressedKeys.reset(); pressedBtns.reset(); }
+
 			public:
 				inline bool isKeyPressed(KKey mKey) const noexcept		{ return getKeyBit(pressedKeys, mKey); }
 				inline bool isBtnPressed(MBtn mBtn) const noexcept		{ return getBtnBit(pressedBtns, mBtn); }
