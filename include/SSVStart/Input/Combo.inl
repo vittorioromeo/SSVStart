@@ -15,19 +15,19 @@ namespace ssvs
 			if(keys.none() && btns.none()) return false;
 
 			// Check if the combo's keys/btns are currently pressed
-			if((mInputState.getPressedKeys() & keys) != keys) return false;
-			if((mInputState.getPressedBtns() & btns) != btns) return false;
+			if((mInputState.getKeys() & keys) != keys) return false;
+			if((mInputState.getBtns() & btns) != btns) return false;
 
 			// If the combo is exclusive, check if its keys/btns were pressed previously in this frame
 			if(mMode == Mode::Exclusive)
 			{
-				if((mManager.processedKeys & keys).any()) return false;
-				if((mManager.processedBtns & btns).any()) return false;
+				if((mManager.processedInput.getKeys() & keys).any()) return false;
+				if((mManager.processedInput.getBtns() & btns).any()) return false;
 			}
 
 			// Combo will return true: add its keys/btns to this frame's processed inputs
-			mManager.processedKeys |= keys;
-			mManager.processedBtns |= btns;
+			mManager.processedInput.getKeys() |= keys;
+			mManager.processedInput.getBtns() |= btns;
 
 			return true;
 		}

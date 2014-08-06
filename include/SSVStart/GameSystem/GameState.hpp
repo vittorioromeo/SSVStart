@@ -5,11 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_GAMESTATE
 #define SSVS_GAMESYSTEM_GAMESTATE
 
-#include "SSVStart/Input/Enums.hpp"
-#include "SSVStart/Input/Manager.hpp"
-#include "SSVStart/Input/Trigger.hpp"
-#include "SSVStart/Input/InputState.hpp"
-
 namespace ssvs
 {
 	class GameEngine;
@@ -50,6 +45,7 @@ namespace ssvs
 			}
 
 			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
+			inline void ignoreNextInputs() noexcept { inputManager.ignoreNextInputs(); }
 		};
 	}
 

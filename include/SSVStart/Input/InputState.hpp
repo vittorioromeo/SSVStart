@@ -5,8 +5,6 @@
 #ifndef SSVS_INPUT_INPUTSTATE
 #define SSVS_INPUT_INPUTSTATE
 
-#include "SSVStart/Global/Typedefs.hpp"
-
 namespace ssvs
 {
 	class GameWindow;
@@ -18,17 +16,21 @@ namespace ssvs
 			friend ssvs::GameWindow;
 
 			private:
-				KeyBitset pressedKeys;
-				BtnBitset pressedBtns;
-
-				inline void setKeyPressed(KKey mKey, bool mValue) noexcept { getKeyBit(pressedKeys, mKey) = mValue; }
-				inline void setBtnPressed(MBtn mBtn, bool mValue) noexcept { getBtnBit(pressedBtns, mBtn) = mValue; }
+				KeyBitset keys;
+				BtnBitset btns;
 
 			public:
-				inline bool isKeyPressed(KKey mKey) const noexcept		{ return getKeyBit(pressedKeys, mKey); }
-				inline bool isBtnPressed(MBtn mBtn) const noexcept		{ return getBtnBit(pressedBtns, mBtn); }
-				inline const KeyBitset& getPressedKeys() const noexcept	{ return pressedKeys; }
-				inline const BtnBitset& getPressedBtns() const noexcept	{ return pressedBtns; }
+				inline KeyBitset::reference operator[](KKey mKey) noexcept { return getKeyBit(keys, mKey); }
+				inline BtnBitset::reference operator[](MBtn mBtn) noexcept { return getBtnBit(btns, mBtn); }
+				inline bool operator[](KKey mKey) const noexcept { return getKeyBit(keys, mKey); }
+				inline bool operator[](MBtn mBtn) const noexcept { return getBtnBit(btns, mBtn); }
+
+				inline void reset() noexcept { keys.reset(); btns.reset(); }
+
+				inline KeyBitset& getKeys() noexcept				{ return keys; }
+				inline BtnBitset& getBtns() noexcept				{ return btns; }
+				inline const KeyBitset& getKeys() const noexcept	{ return keys; }
+				inline const BtnBitset& getBtns() const noexcept	{ return btns; }
 		};
 	}
 }

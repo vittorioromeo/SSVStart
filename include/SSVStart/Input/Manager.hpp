@@ -5,40 +5,54 @@
 #ifndef SSVS_INPUT_MANAGER
 #define SSVS_INPUT_MANAGER
 
-#include <vector>
-#include <functional>
-#include "SSVStart/Input/Bind.hpp"
-#include "SSVStart/Global/Typedefs.hpp"
-
 namespace ssvs
 {
 	namespace Input
 	{
-		class InputState;
 		class Combo;
+		class Bind;
 
 		class Manager
 		{
 			friend Combo;
+			friend Bind;
 
 			private:
-				KeyBitset processedKeys;
-				BtnBitset processedBtns;
+				InputState processedInput;
 				ssvu::VecUptr<Bind> binds;
+				bool isIgnoring{false}, mustSort{false};
 
 			public:
-				inline void update(InputState& mInputState, FT mFT) { for(auto& b : binds) b->update(*this, mFT, mInputState); }
+				inline void update(InputState& mInputState, FT mFT)
+				{
+					for(auto& b : binds)
+					{
+						b->update(mFT, mInputState);
+
+						// Some special input combos, such as ALT+ENTER (fullscreen), may work best if all the other inputs are then ignored.
+						if(isIgnoring) break;
+					}
+				}
 				inline void refresh(InputState& mInputState)
 				{
-					processedKeys.reset(); processedBtns.reset();
-					for(auto& b : binds) b->refresh(*this, mInputState);
+					if(mustSort)
+					{
+						ssvu::sort(binds, [](const ssvu::Uptr<Bind>& mA, const ssvu::Uptr<Bind>& mB){ return *mA < *mB; });
+						mustSort = false;
+					}
+
+					isIgnoring = false;
+					processedInput.reset();
+					for(auto& b : binds) b->refresh(mInputState);
 				}
 				template<typename... TArgs> inline Bind& emplace(TArgs&&... mArgs)
 				{
-					auto& result(ssvu::getEmplaceUptr<Bind>(binds, std::forward<TArgs>(mArgs)...));
-					ssvu::sort(binds, [](const ssvu::Uptr<Bind>& mA, const ssvu::Uptr<Bind>& mB){ return *mA < *mB; });
+					auto& result(ssvu::getEmplaceUptr<Bind>(binds, *this, std::forward<TArgs>(mArgs)...));
+					mustSort = true;
 					return result;
 				}
+
+				inline void ignoreNextInputs() noexcept { isIgnoring = true; }
 		};
 	}
 }

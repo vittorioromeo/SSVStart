@@ -5,9 +5,6 @@
 #ifndef SSVS_INPUT_BIND
 #define SSVS_INPUT_BIND
 
-#include "SSVStart/Input/Trigger.hpp"
-#include "SSVStart/Global/Typedefs.hpp"
-
 namespace ssvs
 {
 	namespace Input
@@ -18,48 +15,58 @@ namespace ssvs
 		class Bind
 		{
 			private:
+				Manager& manager;
 				Trigger trigger;
 				InputFunc on, off;
-				std::size_t priority{0u};
+				std::size_t priorityCombo{0u}; // Priority calculated automatically
+				std::size_t priorityUser{0u}; // Priority set by user
 				Type type{Type::Always};
 				Mode mode{Mode::Overlap};
 				bool released{true};
 
-				inline bool isDown(Manager& mManager, InputState& mInputState) const
+				inline bool isDown(InputState& mInputState) const
 				{
-					for(const auto& c : trigger.getCombos()) if(c.isDown(mManager, mInputState, mode)) return true;
+					for(const auto& c : trigger.getCombos()) if(c.isDown(manager, mInputState, mode)) return true;
 					return false;
 				}
 
-				inline void recalculatePriority()
+				inline void recalculatePriorityCombo()
 				{
 					std::size_t max{0u};
 					for(auto& c : trigger.getCombos()) max = std::max(c.getKeys().count() + c.getBtns().count(), max);
-					priority = max;
+					priorityCombo = max;
 				}
 
 			public:
-				inline Bind(Trigger mTrigger, Type mType, Mode mMode, const InputFunc& mOn = Internal::getNullInputFunc(), const InputFunc& mOff = Internal::getNullInputFunc())
-					: trigger{std::move(mTrigger)}, type{mType}, mode{mMode}, on{mOn}, off{mOff}
+				inline Bind(Manager& mManager, Trigger mTrigger, Type mType, Mode mMode, const InputFunc& mOn = Internal::getNullInputFunc(), const InputFunc& mOff = Internal::getNullInputFunc())
+					: manager(mManager), trigger{std::move(mTrigger)}, type{mType}, mode{mMode}, on{mOn}, off{mOff}
 				{
-					recalculatePriority();
+					recalculatePriorityCombo();
 				}
 
-				inline void update(Manager& mManager, FT mFT, InputState& mInputState)	{ isActive(mManager, mInputState) ? on(mFT) : off(mFT); }
-				inline void refresh(Manager& mManager, InputState& mInputState)			{ if(!released && !isDown(mManager, mInputState)) released = true; }
+				inline void update(FT mFT, InputState& mInputState)	{ isActive(mInputState) ? on(mFT) : off(mFT); }
+				inline void refresh(InputState& mInputState)		{ if(!released && !isDown(mInputState)) released = true; }
 
 				inline void setType(Type mType) noexcept		{ type = mType; }
 				inline void setMode(Mode mMode) noexcept		{ mode = mMode; }
 				inline void setReleased(bool mValue) noexcept	{ released = mValue; }
 
-				inline bool isActive(Manager& mManager, InputState& mInputState)
+				inline bool isActive(InputState& mInputState)
 				{
-					if(type == Type::Always) return isDown(mManager, mInputState);
-					if(released && isDown(mManager, mInputState)) { released = false; return true; }
+					if(type == Type::Always) return isDown(mInputState);
+					if(released && isDown(mInputState)) { released = false; return true; }
 					return false;
 				}
 
-				inline bool operator<(const Bind& mRhs) const noexcept	{ return priority > mRhs.priority; }\
+				inline bool operator<(const Bind& mRhs) const noexcept
+				{
+					// User-defined priority takes precendence
+					if(priorityUser != mRhs.priorityUser) return priorityCombo > mRhs.priorityCombo;
+
+					return priorityUser < mRhs.priorityUser;
+				}
+
+				void setPriorityUser(std::size_t mValue) noexcept;
 		};
 	}
 }

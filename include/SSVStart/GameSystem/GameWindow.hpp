@@ -5,8 +5,6 @@
 #ifndef SSVS_GAMESYSTEM_GAMEWINDOW
 #define SSVS_GAMESYSTEM_GAMEWINDOW
 
-#include "SSVStart/Input/InputState.hpp"
-
 namespace ssvs
 {
 	class GameWindow : ssvu::NoCopy
@@ -30,14 +28,14 @@ namespace ssvs
 				{
 					switch(event.type)
 					{
-						case sf::Event::Closed:					gameEngine->stop();											break;
-						case sf::Event::GainedFocus:			focus = true;												break;
-						case sf::Event::LostFocus:				focus = false;												break;
-						case sf::Event::KeyPressed:				inputState.setKeyPressed(event.key.code, true);				break;
-						case sf::Event::KeyReleased:			inputState.setKeyPressed(event.key.code, false);			break;
-						case sf::Event::MouseButtonPressed:		inputState.setBtnPressed(event.mouseButton.button, true);	break;
-						case sf::Event::MouseButtonReleased:	inputState.setBtnPressed(event.mouseButton.button, false);	break;
-						default:																							break;
+						case sf::Event::Closed:					gameEngine->stop();								break;
+						case sf::Event::GainedFocus:			focus = true;									break;
+						case sf::Event::LostFocus:				inputState.reset(); focus = false;				break;
+						case sf::Event::KeyPressed:				inputState[event.key.code] = true;				break;
+						case sf::Event::KeyReleased:			inputState[event.key.code] = false;				break;
+						case sf::Event::MouseButtonPressed:		inputState[event.mouseButton.button] = true;	break;
+						case sf::Event::MouseButtonReleased:	inputState[event.mouseButton.button] = false;	break;
+						default:																				break;
 					}
 
 					gameEngine->handleEvent(event);
@@ -51,7 +49,11 @@ namespace ssvs
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 				renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
 				renderWindow.setVerticalSyncEnabled(vsync);
-				mustRecreate = false; onRecreation();
+
+				inputState.reset();
+
+				mustRecreate = false;
+				onRecreation();
 			}
 
 		public:
