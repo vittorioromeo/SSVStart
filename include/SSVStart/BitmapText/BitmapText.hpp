@@ -62,7 +62,7 @@ namespace ssvs
 			inline void refreshColor() const { if(!mustRefreshColor) return; for(auto& v : vertices) v.color = color; mustRefreshColor = false; }
 
 		public:
-			BitmapText(const BitmapFont& mBitmapFont, std::string mStr = "") : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{std::move(mStr)} { }
+			inline BitmapText(const BitmapFont& mBitmapFont, std::string mStr = "") : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{std::move(mStr)} { }
 
 			inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
 			{

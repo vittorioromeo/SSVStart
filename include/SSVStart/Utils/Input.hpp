@@ -5,8 +5,8 @@
 #ifndef SSVS_UTILS_INPUT
 #define SSVS_UTILS_INPUT
 
-#include <SFML/Window.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
+#include "SSVStart/Input/Input.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
 
 namespace ssvs

@@ -5,7 +5,6 @@
 #ifndef SSVS_GLOBAL_TYPEDEFS
 #define SSVS_GLOBAL_TYPEDEFS
 
-#include <bitset>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SSVUtils/Core/Core.hpp>

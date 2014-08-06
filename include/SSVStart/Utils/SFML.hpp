@@ -5,7 +5,6 @@
 #ifndef SSVS_UTILS_SFML
 #define SSVS_UTILS_SFML
 
-#include <SFML/Graphics.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs

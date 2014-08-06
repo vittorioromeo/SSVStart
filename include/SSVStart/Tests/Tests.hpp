@@ -76,6 +76,8 @@ SSVUT_TEST(SSVS_UtilsJsonTests)
 
 	MAKETEST(ssvs::Input::Combo, {ssvs::KKey::Up}, {ssvs::MBtn::Left});
 	MAKETEST(ssvs::Input::Trigger, {{{ssvs::KKey::Up}, {ssvs::MBtn::Left}}, {ssvs::KKey::F1}});
+
+	#undef MAKETEST
 }
 #endif
 

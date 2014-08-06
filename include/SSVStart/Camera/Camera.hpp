@@ -19,20 +19,20 @@ namespace ssvs
 			GameWindow& gameWindow;
 			sf::RenderWindow& renderWindow;
 			sf::View view, computedView;
-			bool invalid{true}, mustRecompute{true};
 			Vec2f nextPan, offset, skew{1.f, 1.f};
 			float nextZoomFactor{1.f}, nextRotation{0.f};
+			bool invalid{true}, mustRecompute{true};
 
 		public:
-			Camera(GameWindow& mGameWindow, sf::View mView) : gameWindow(mGameWindow), renderWindow(gameWindow), view{std::move(mView)} { }
+			inline Camera(GameWindow& mGameWindow, sf::View mView) : gameWindow(mGameWindow), renderWindow(gameWindow), view{std::move(mView)} { }
 
-			Camera(GameWindow& mGameWindow, const Vec2f& mCenter, float mZoomFactor = 1.f)
+			inline Camera(GameWindow& mGameWindow, const Vec2f& mCenter, float mZoomFactor = 1.f)
 				: gameWindow(mGameWindow), renderWindow(gameWindow), view{mCenter, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
 			{
 				SSVU_ASSERT(mZoomFactor != 0);
 			}
 
-			Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f) : gameWindow(mGameWindow), renderWindow(gameWindow),
+			inline Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f) : gameWindow(mGameWindow), renderWindow(gameWindow),
 				view{{gameWindow.getWidth() / 2.f / mZoomFactor, gameWindow.getHeight() / 2.f / mZoomFactor}, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
 			{
 				SSVU_ASSERT(mZoomFactor != 0);

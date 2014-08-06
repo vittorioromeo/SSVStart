@@ -5,9 +5,6 @@
 #ifndef SSVS_BITMAPFONT
 #define SSVS_BITMAPFONT
 
-#include <SFML/Graphics.hpp>
-#include <SSVUtils/Core/Core.hpp>
-
 namespace ssvs
 {
 	struct BitmapFontData { unsigned int cellColumns, cellWidth, cellHeight, cellStart; };

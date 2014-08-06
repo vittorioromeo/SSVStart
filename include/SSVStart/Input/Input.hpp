@@ -5,10 +5,16 @@
 #ifndef SSVS_INPUT
 #define SSVS_INPUT
 
+#include "SSVStart/Global/Typedefs.hpp"
+#include "SSVStart/Input/InputState.hpp"
 #include "SSVStart/Input/Enums.hpp"
 #include "SSVStart/Input/Combo.hpp"
 #include "SSVStart/Input/Trigger.hpp"
+#include "SSVStart/Input/Bind.hpp"
 #include "SSVStart/Input/Manager.hpp"
 #include "SSVStart/Input/Combo.inl"
+#include "SSVStart/Input/Bind.inl"
 
 #endif
+
+// TODO: investigate more robust combo system, fix event dependency (event provider?)
