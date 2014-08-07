@@ -12,7 +12,7 @@ namespace ssvs
 	class GameTimer
 	{
 		private:
-			Uptr<TimerBase> impl, nextImpl;
+			UPtr<TimerBase> impl, nextImpl;
 
 		public:
 			inline void refresh() noexcept
@@ -35,7 +35,7 @@ namespace ssvs
 			}
 			template<typename T, typename... TArgs> inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
 			{
-				nextImpl = ssvu::makeUptr<T>(mGameEngine, std::forward<TArgs>(mArgs)...);
+				nextImpl = ssvu::makeUPtr<T>(mGameEngine, std::forward<TArgs>(mArgs)...);
 			}
 	};
 }

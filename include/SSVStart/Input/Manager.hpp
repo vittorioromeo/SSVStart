@@ -19,7 +19,7 @@ namespace ssvs
 
 			private:
 				InputState processedInput;
-				ssvu::VecUptr<Bind> binds;
+				ssvu::VecUPtr<Bind> binds;
 				bool isIgnoring{false}, mustSort{false};
 
 			public:
@@ -37,7 +37,7 @@ namespace ssvs
 				{
 					if(mustSort)
 					{
-						ssvu::sort(binds, [](const ssvu::Uptr<Bind>& mA, const ssvu::Uptr<Bind>& mB){ return *mA < *mB; });
+						ssvu::sort(binds, [](const ssvu::UPtr<Bind>& mA, const ssvu::UPtr<Bind>& mB){ return *mA < *mB; });
 						mustSort = false;
 					}
 
@@ -47,7 +47,7 @@ namespace ssvs
 				}
 				template<typename... TArgs> inline Bind& emplace(TArgs&&... mArgs)
 				{
-					auto& result(ssvu::getEmplaceUptr<Bind>(binds, *this, std::forward<TArgs>(mArgs)...));
+					auto& result(ssvu::getEmplaceUPtr<Bind>(binds, *this, std::forward<TArgs>(mArgs)...));
 					mustSort = true;
 					return result;
 				}

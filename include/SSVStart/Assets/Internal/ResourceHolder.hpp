@@ -14,7 +14,7 @@ namespace ssvs
 		template<typename T> class ResourceHolder
 		{
 			private:
-				std::unordered_map<std::string, Uptr<T>> resources;
+				std::unordered_map<std::string, UPtr<T>> resources;
 
 			public:
 				template<typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)

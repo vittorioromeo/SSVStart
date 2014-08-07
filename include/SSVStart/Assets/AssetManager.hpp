@@ -35,7 +35,7 @@ namespace ssvs
 				ssvu::lo("ssvs::AssetManager::load<T>") << mId << " resource loading\n";
 				return getResourceHolder<T>().load(mId, std::forward<TArgs>(mArgs)...);
 			}
-			template<typename T> inline std::unordered_map<std::string, Uptr<T>>& getAll()	{ return getResourceHolder<T>().getResources(); }
+			template<typename T> inline std::unordered_map<std::string, UPtr<T>>& getAll()	{ return getResourceHolder<T>().getResources(); }
 			template<typename T> inline bool has(const std::string& mId)					{ return getResourceHolder<T>().has(mId); }
 			template<typename T> inline T& get(const std::string& mId)						{ SSVU_ASSERT(has<T>(mId)); return getResourceHolder<T>()[mId]; }
 	};

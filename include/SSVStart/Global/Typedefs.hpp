@@ -31,7 +31,7 @@ namespace ssvs
 	using BtnBitset = std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
 	using Path = ssvufs::Path;
 	using InputFunc = ssvu::Func<void(FT)>;
-	template<typename T, typename TDeleter = std::default_delete<T>> using Uptr = ssvu::Uptr<T, TDeleter>;
+	template<typename T, typename TDeleter = std::default_delete<T>> using UPtr = ssvu::UPtr<T, TDeleter>;
 	template<typename T> using Vec2 = sf::Vector2<T>;
 	using Vec2i = Vec2<int>;
 	using Vec2f = Vec2<float>;

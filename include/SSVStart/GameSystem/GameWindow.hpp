@@ -11,7 +11,7 @@ namespace ssvs
 	{
 		private:
 			Input::InputState inputState;
-			ssvu::Uptr<GameEngine> gameEngine{new GameEngine()}; // TODO: should the user create a GameEngine?
+			ssvu::UPtr<GameEngine> gameEngine{new GameEngine()}; // TODO: should the user create a GameEngine?
 			sf::RenderWindow renderWindow;
 			std::string title;
 			FT msUpdate, msDraw;
