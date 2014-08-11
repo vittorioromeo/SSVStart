@@ -9,9 +9,6 @@
 
 namespace ssvs
 {
-	template<typename T> inline constexpr T framesToSecs(T mFrames) noexcept	{ return mFrames / 60.f; }
-	template<typename T> inline constexpr T secsToFrames(T mSecs) noexcept		{ return mSecs * 60.f; }
-
 	class Ticker
 	{
 		private:
@@ -57,8 +54,8 @@ namespace ssvs
 			inline FT getTotal() const noexcept				{ return total; }
 			inline std::size_t getTicks() const noexcept	{ return ticks; }
 
-			template<typename T = FT> inline T getTotalSecs() const noexcept	{ return static_cast<T>(framesToSecs(total)); }
-			template<typename T = FT> inline T getCurrentSecs() const noexcept	{ return static_cast<T>(framesToSecs(current)); }
+			template<typename T = FT> inline T getTotalSecs() const noexcept	{ return static_cast<T>(ssvu::getFTToSeconds(total)); }
+			template<typename T = FT> inline T getCurrentSecs() const noexcept	{ return static_cast<T>(ssvu::getFTToSeconds(current)); }
 	};
 }
 

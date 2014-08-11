@@ -22,8 +22,8 @@ namespace ssvs
 			inline virtual ~TimerBase() { }
 
 			inline virtual void runUpdate()		{ }
-			inline virtual void runFrameTime()	{ frameTime = clock.restart().asSeconds() * 60.f; }
-			inline virtual void runFPS()		{ fps = 60.f / frameTime; }
+			inline virtual void runFrameTime()	{ frameTime = ssvu::getSecondsToFT(clock.restart().asSeconds()); }
+			inline virtual void runFPS()		{ fps = ssvu::getFTToFPS(frameTime); }
 			virtual void runDraw();
 
 			inline FT getFrameTime() const noexcept	{ return frameTime; }
