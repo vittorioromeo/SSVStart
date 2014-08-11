@@ -17,7 +17,6 @@
 #include "SSVStart/Tileset/Tileset.hpp"
 #include "SSVStart/Utils/Utils.hpp"
 #include "SSVStart/Json/Json.hpp"
-#include "SSVStart/Ticker/Ticker.hpp"
 #include "SSVStart/VertexVector/VertexVector.hpp"
 
 #ifndef SSVUT_DISABLE
