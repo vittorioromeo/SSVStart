@@ -18,10 +18,10 @@ namespace ssvs
 		public:
 			inline BitmapFont(const sf::Texture& mTexture, BitmapFontData mData) : texture(mTexture), data(std::move(mData)) { }
 
-			inline const sf::Texture& getTexture() const noexcept	{ return texture; }
-			inline unsigned int getCellWidth() const noexcept		{ return data.cellWidth; }
-			inline unsigned int getCellHeight() const noexcept		{ return data.cellHeight; }
-			inline sf::IntRect getGlyphRect(char mChar) const
+			inline const auto& getTexture() const noexcept	{ return texture; }
+			inline auto getCellWidth() const noexcept		{ return data.cellWidth; }
+			inline auto getCellHeight() const noexcept		{ return data.cellHeight; }
+			inline auto getGlyphRect(char mChar) const
 			{
 				mChar += data.cellStart - 33;
 				const auto& i(ssvu::get2DIdxFrom1D(mChar, data.cellColumns));

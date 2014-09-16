@@ -20,19 +20,19 @@ namespace ssvs
 		template<Mode TT, typename T> struct Helper;
 		template<typename T> struct Helper<Mode::Load, T>
 		{
-			inline static UPtr<T> load(const Path& mPath)
+			inline static auto load(const Path& mPath)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromFile(mPath)) fail("from path");
 				return result;
 			}
-			inline static UPtr<T> load(const void* mData, std::size_t mSize)
+			inline static auto load(const void* mData, std::size_t mSize)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromMemory(mData, mSize)) fail("from memory");
 				return result;
 			}
-			inline static UPtr<T> load(sf::InputStream& mStream)
+			inline static auto load(sf::InputStream& mStream)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromStream(mStream)) fail("from stream");
@@ -41,19 +41,19 @@ namespace ssvs
 		};
 		template<typename T> struct Helper<Mode::Open, T>
 		{
-			inline static UPtr<T> load(const Path& mPath)
+			inline static auto load(const Path& mPath)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->openFromFile(mPath)) fail("from open path");
 				return result;
 			}
-			inline static UPtr<T> load(const void* mData, std::size_t mSize)
+			inline static auto load(const void* mData, std::size_t mSize)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->openFromMemory(mData, mSize)) fail("from open memory");
 				return result;
 			}
-			inline static UPtr<T> load(sf::InputStream& mStream)
+			inline static auto load(sf::InputStream& mStream)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->openFromStream(mStream)) fail("from open stream");
@@ -63,7 +63,7 @@ namespace ssvs
 		template<> struct Helper<Mode::Image, sf::Texture>
 		{
 			using T = sf::Texture;
-			inline static UPtr<T> load(const sf::Image& mImage)
+			inline static auto load(const sf::Image& mImage)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromImage(mImage)) fail("from image");
@@ -73,7 +73,7 @@ namespace ssvs
 		template<> struct Helper<Mode::Samples, sf::SoundBuffer>
 		{
 			using T = sf::SoundBuffer;
-			inline static UPtr<T> load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
+			inline static auto load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate)) fail("from samples");
@@ -83,37 +83,37 @@ namespace ssvs
 		template<> struct Helper<Mode::Shader, sf::Shader>
 		{
 			using T = sf::Shader;
-			inline static UPtr<T> load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
+			inline static auto load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromFile(mPath, mType)) fail("shader from path");
 				return result;
 			}
-			inline static UPtr<T> load(const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
+			inline static auto load(const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromFile(mPathVertex, mPathFragment)) fail("shader from path (2)");
 				return result;
 			}
-			inline static UPtr<T> load(const std::string& mShader, sf::Shader::Type mType, ShaderFromMemory)
+			inline static auto load(const std::string& mShader, sf::Shader::Type mType, ShaderFromMemory)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromMemory(mShader, mType)) fail("shader from memory");
 				return result;
 			}
-			inline static UPtr<T> load(const std::string& mShaderVertex, const std::string& mShaderFragment, ShaderFromMemory)
+			inline static auto load(const std::string& mShaderVertex, const std::string& mShaderFragment, ShaderFromMemory)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromMemory(mShaderVertex, mShaderFragment)) fail("shader from memory (2)");
 				return result;
 			}
-			inline static UPtr<T> load(sf::InputStream& mStream, sf::Shader::Type mType)
+			inline static auto load(sf::InputStream& mStream, sf::Shader::Type mType)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromStream(mStream, mType)) fail("shader from stream");
 				return result;
 			}
-			inline static UPtr<T> load(sf::InputStream& mStreamVertex, sf::InputStream& mStreamFragment)
+			inline static auto load(sf::InputStream& mStreamVertex, sf::InputStream& mStreamFragment)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromStream(mStreamVertex, mStreamFragment)) fail("shader from stream (2)");
@@ -123,7 +123,7 @@ namespace ssvs
 		template<> struct Helper<Mode::BitmapFont, BitmapFont>
 		{
 			using T = BitmapFont;
-			inline static UPtr<T> load(const sf::Texture& mTexture, const BitmapFontData& mData)
+			inline static auto load(const sf::Texture& mTexture, const BitmapFontData& mData)
 			{
 				return ssvu::makeUPtr<T>(mTexture, mData);
 			}
@@ -131,10 +131,10 @@ namespace ssvs
 		template<> struct Helper<Mode::Tileset, Tileset>
 		{
 			using T = Tileset;
-			inline static UPtr<T> load(const Tileset& mTileset) { return ssvu::makeUPtr<T>(mTileset); }
+			inline static auto load(const Tileset& mTileset) { return ssvu::makeUPtr<T>(mTileset); }
 
 			#ifndef SSVS_N_USE_JSON
-				inline static UPtr<T> load(const Path& mPath) { return ssvu::makeUPtr<T>(ssvuj::getExtr<Tileset>(ssvuj::getFromFile(mPath))); }
+				inline static auto load(const Path& mPath) { return ssvu::makeUPtr<T>(ssvuj::getExtr<Tileset>(ssvuj::getFromFile(mPath))); }
 			#endif
 		};
 	}

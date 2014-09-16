@@ -114,23 +114,23 @@ namespace ssvs
 			inline void setFPSLimited(bool mFPSLimited)								{ fpsLimited = mFPSLimited; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setGameState(GameState& mGameState) noexcept				{ gameEngine->setGameState(mGameState); }
 
-			inline operator sf::RenderWindow&() noexcept				{ return renderWindow; }
-			inline sf::RenderWindow& getRenderWindow() noexcept			{ return renderWindow; }
-			inline bool getFullscreen() const noexcept					{ return fullscreen; }
-			inline unsigned int getWidth() const noexcept				{ return width; }
-			inline unsigned int getHeight() const noexcept				{ return height; }
-			inline unsigned int getAntialiasingLevel() const noexcept	{ return antialiasingLevel; }
-			inline bool hasFocus() const noexcept						{ return focus; }
-			inline bool getVsync() const noexcept						{ return vsync; }
+			inline operator sf::RenderWindow&() noexcept		{ return renderWindow; }
+			inline auto& getRenderWindow() noexcept				{ return renderWindow; }
+			inline bool getFullscreen() const noexcept			{ return fullscreen; }
+			inline auto getWidth() const noexcept				{ return width; }
+			inline auto getHeight() const noexcept				{ return height; }
+			inline auto getAntialiasingLevel() const noexcept	{ return antialiasingLevel; }
+			inline bool hasFocus() const noexcept				{ return focus; }
+			inline bool getVsync() const noexcept				{ return vsync; }
 
-			inline FT getMsUpdate() const noexcept						{ return msUpdate; }
-			inline FT getMsDraw() const noexcept						{ return msDraw; }
+			inline FT getMsUpdate() const noexcept				{ return msUpdate; }
+			inline FT getMsDraw() const noexcept				{ return msDraw; }
 
-			inline Vec2f getMousePosition() const							{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
-			inline const Input::InputState& getInputState() const noexcept	{ return inputState; }
+			inline auto getMousePosition() const				{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
+			inline const auto& getInputState() const noexcept	{ return inputState; }
 
-			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(std::forward<TArgs>(mArgs)...); }
-			inline auto getFPS() const noexcept -> decltype(gameEngine->getFPS()) { return gameEngine->getFPS(); }
+			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(ssvu::fwd<TArgs>(mArgs)...); }
+			inline auto getFPS() const noexcept { return gameEngine->getFPS(); }
 	};
 }
 

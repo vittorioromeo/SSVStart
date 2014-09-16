@@ -35,16 +35,16 @@ namespace ssvs
 			ssvu::Delegate<void(FT)> onUpdate;
 			EventDelegate onAnyEvent;
 
-			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)
-			{
-				return addInput(mTrigger, mFuncOn, Internal::getNullInputFunc(), mType, mMode);
-			}
-			inline Input::Bind& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+			inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{
 				return inputManager.emplace(mTrigger, mType, mMode, mFuncOn, mFuncOff);
 			}
+			inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+			{
+				return addInput(mTrigger, mFuncOn, Internal::getNullInputFunc(), mType, mMode);
+			}
 
-			inline EventDelegate& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
+			inline auto& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }
 			inline void ignoreNextInputs() noexcept { inputManager.ignoreNextInputs(); }
 		};
 	}

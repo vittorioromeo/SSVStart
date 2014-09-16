@@ -20,7 +20,7 @@ namespace ssvs
 
 	namespace Internal
 	{
-		inline const std::string* getKKeyStrArray() noexcept
+		inline const auto* getKKeyStrArray() noexcept
 		{
 			#define SSVS_INS_KEY(mName) SSVS_KEY_PREFIX #mName
 			static std::string keys[]
@@ -132,7 +132,7 @@ namespace ssvs
 			return keys;
 		}
 
-		inline const std::string* getMBtnStrArray() noexcept
+		inline const auto* getMBtnStrArray() noexcept
 		{
 			#define SSVS_INS_BTN(mName) SSVS_BTN_PREFIX #mName
 			static std::string btns[]
@@ -148,7 +148,7 @@ namespace ssvs
 			return btns;
 		}
 
-		inline const std::map<std::string, KKey>& getStrKKeyMap() noexcept
+		inline const auto& getStrKKeyMap() noexcept
 		{
 			#define SSVS_INS_KEY(mName) {SSVS_KEY_PREFIX #mName, KKey::mName}
 			static std::map<std::string, KKey> keys
@@ -260,7 +260,7 @@ namespace ssvs
 			return keys;
 		}
 
-		inline const std::map<std::string, MBtn>& getStrMBtnMap() noexcept
+		inline const auto& getStrMBtnMap() noexcept
 		{
 			#define SSVS_INS_BTN(mName) {SSVS_BTN_PREFIX #mName, MBtn::mName}
 			static std::map<std::string, MBtn> btns
@@ -307,21 +307,21 @@ namespace ssvs
 	}
 
 	/// @brief Returns the std::string identifier associated with the mKKey KKey.
-	inline const std::string& getKKeyName(KKey mKKey) noexcept
+	inline const auto& getKKeyName(KKey mKKey) noexcept
 	{
 		SSVU_ASSERT(mKKey != KKey::Unknown);
 		return Internal::getKKeyStrArray()[static_cast<int>(mKKey)];
 	}
 
 	/// @brief Returns the std::string identifier associated with the mMBtn MBtn.
-	inline const std::string& getMBtnName(MBtn mMBtn) noexcept
+	inline const auto& getMBtnName(MBtn mMBtn) noexcept
 	{
 		return Internal::getMBtnStrArray()[static_cast<int>(mMBtn)];
 	}
 
 	/// @brief Shortcut to create a simple 2-state input that operates on a boolean value.
 	/// @return Returns a reference to the newly created bind.
-	inline Input::Bind& add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	inline auto& add2StateInput(GameState& mGameState, const ITrigger& mOn, bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
 		return mGameState.addInput(mOn, [&mValue](FT){ mValue = true; }, [&mValue](FT){ mValue = false; }, mType, mMode);
 	}
@@ -329,12 +329,12 @@ namespace ssvs
 	/// @brief Shortcut to create a simple 3-state input that operates on an int value.
 	/// @details The value is set to 0 when no triggers are in use, to -1 when mOff is in use, to 1 when mOn is in use.
 	/// @return Returns a pair containing references to the newly created binds.
-	inline std::pair<Input::Bind&, Input::Bind&> add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+	inline auto add3StateInput(GameState& mGameState, const ITrigger& mOff, const ITrigger& mOn, int& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 	{
 		auto& b1(mGameState.addInput(mOff, [&mValue](FT){ mValue = -1; }, [&mValue](FT){ if(mValue == -1) mValue = 0; }, mType, mMode));
 		auto& b2(mGameState.addInput(mOn, [&mValue](FT){ mValue = 1; }, [&mValue](FT){ if(mValue == 1) mValue = 0; }, mType, mMode));
 
-		return {b1, b2};
+		return std::make_pair<Input::Bind&, Input::Bind&>(b1, b2);
 	}
 }
 

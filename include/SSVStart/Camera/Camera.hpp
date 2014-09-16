@@ -85,15 +85,15 @@ namespace ssvs
 			// This property changes the view ON NEXT UPDATE
 			inline void setNextZoomFactor(float mFactor) noexcept	{ nextZoomFactor = mFactor;		invalid = true; }
 
-			inline const sf::View& getView() const noexcept	{ return view; }
+			inline const auto& getView() const noexcept		{ return view; }
 			inline float getRotation() const noexcept		{ return view.getRotation(); }
-			inline const Vec2f& getSkew() const noexcept	{ return skew; }
-			inline const Vec2f& getOffset() const noexcept	{ return offset; }
-			inline const Vec2f& getCenter() const noexcept	{ return view.getCenter(); }
+			inline const auto& getSkew() const noexcept		{ return skew; }
+			inline const auto& getOffset() const noexcept	{ return offset; }
+			inline const auto& getCenter() const noexcept	{ return view.getCenter(); }
 			inline float getNextZoomFactor() const noexcept	{ return nextZoomFactor; }
 
-			inline Vec2f getMousePosition() const						{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow), view); }
-			inline Vec2f getConvertedCoords(const Vec2i& mPos) const	{ return renderWindow.mapPixelToCoords(mPos, view); }
+			inline auto getMousePosition() const					{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow), view); }
+			inline auto getConvertedCoords(const Vec2i& mPos) const	{ return renderWindow.mapPixelToCoords(mPos, view); }
 			inline bool isInView(const Vec2f& mPos) const
 			{
 				return mPos.x <= view.getCenter().x + view.getSize().x && (mPos.x >= view.getCenter().x - view.getSize().x &&

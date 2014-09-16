@@ -25,8 +25,8 @@ namespace ssvs
 				SSVU_ASSERT(nextImpl == nullptr);
 			}
 
-			inline TimerBase* operator->()				{ return impl.get(); }
-			inline const TimerBase* operator->() const	{ return impl.get(); }
+			inline auto operator->()		{ return impl.get(); }
+			inline auto operator->() const	{ return impl.get(); }
 
 			template<typename T> inline T& getImpl() noexcept
 			{
@@ -35,7 +35,7 @@ namespace ssvs
 			}
 			template<typename T, typename... TArgs> inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
 			{
-				nextImpl = ssvu::makeUPtr<T>(mGameEngine, std::forward<TArgs>(mArgs)...);
+				nextImpl = ssvu::makeUPtr<T>(mGameEngine, ssvu::fwd<TArgs>(mArgs)...);
 			}
 	};
 }

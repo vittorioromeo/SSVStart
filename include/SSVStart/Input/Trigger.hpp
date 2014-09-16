@@ -21,8 +21,8 @@ namespace ssvs
 				inline bool operator==(const Trigger& mRhs) const noexcept { return combos == mRhs.combos; }
 				inline bool operator!=(const Trigger& mRhs) const noexcept { return !this->operator==(mRhs); }
 
-				inline decltype(combos)& getCombos() noexcept				{ return combos; }
-				inline const decltype(combos)& getCombos() const noexcept	{ return combos; }
+				inline auto& getCombos() noexcept				{ return combos; }
+				inline const auto& getCombos() const noexcept	{ return combos; }
 		};
 	}
 }

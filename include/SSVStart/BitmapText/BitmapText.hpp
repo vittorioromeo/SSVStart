@@ -76,12 +76,12 @@ namespace ssvs
 			inline void setColor(sf::Color mColor)	{ color = std::move(mColor); mustRefreshColor = true; }
 			inline void setTracking(int mTracking)	{ tracking = mTracking; mustRefreshGeometry = true; }
 
-			inline const BitmapFont& getBitmapFont() const noexcept	{ return bitmapFont; }
-			inline const std::string& getString() const noexcept	{ return str; }
-			inline const sf::Color& getColor() const noexcept		{ return color; }
-			inline int getTracking() const noexcept					{ return tracking; }
-			inline const sf::FloatRect& getLocalBounds() const		{ refreshGeometry(); return bounds; }
-			inline sf::FloatRect getGlobalBounds() const			{ return getTransform().transformRect(getLocalBounds()); }
+			inline const auto& getBitmapFont() const noexcept	{ return bitmapFont; }
+			inline const auto& getString() const noexcept		{ return str; }
+			inline const auto& getColor() const noexcept		{ return color; }
+			inline int getTracking() const noexcept				{ return tracking; }
+			inline const auto& getLocalBounds() const			{ refreshGeometry(); return bounds; }
+			inline auto getGlobalBounds() const					{ return getTransform().transformRect(getLocalBounds()); }
 	};
 }
 

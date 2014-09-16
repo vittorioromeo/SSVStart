@@ -20,17 +20,17 @@ namespace ssvs
 				BtnBitset btns;
 
 			public:
-				inline KeyBitset::reference operator[](KKey mKey) noexcept { return getKeyBit(keys, mKey); }
-				inline BtnBitset::reference operator[](MBtn mBtn) noexcept { return getBtnBit(btns, mBtn); }
-				inline bool operator[](KKey mKey) const noexcept { return getKeyBit(keys, mKey); }
-				inline bool operator[](MBtn mBtn) const noexcept { return getBtnBit(btns, mBtn); }
+				inline auto operator[](KKey mKey) noexcept			{ return getKeyBit(keys, mKey); }
+				inline auto operator[](MBtn mBtn) noexcept			{ return getBtnBit(btns, mBtn); }
+				inline bool operator[](KKey mKey) const noexcept	{ return getKeyBit(keys, mKey); }
+				inline bool operator[](MBtn mBtn) const noexcept	{ return getBtnBit(btns, mBtn); }
 
 				inline void reset() noexcept { keys.reset(); btns.reset(); }
 
-				inline KeyBitset& getKeys() noexcept				{ return keys; }
-				inline BtnBitset& getBtns() noexcept				{ return btns; }
-				inline const KeyBitset& getKeys() const noexcept	{ return keys; }
-				inline const BtnBitset& getBtns() const noexcept	{ return btns; }
+				inline auto& getKeys() noexcept				{ return keys; }
+				inline auto& getBtns() noexcept				{ return btns; }
+				inline const auto& getKeys() const noexcept	{ return keys; }
+				inline const auto& getBtns() const noexcept	{ return btns; }
 		};
 	}
 }

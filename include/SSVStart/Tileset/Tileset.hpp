@@ -27,13 +27,13 @@ namespace ssvs
 			inline void setTileSize(const Vec2u& mTileSize) noexcept			{ tileSize = mTileSize; }
 			inline void setLabel(const std::string& mLabel, const Vec2u& mIdx)	{ labels[mLabel] = mIdx; }
 
-			inline const decltype(labels)& getLabels() const noexcept			{ return labels; }
-			inline const Vec2u& getTileSize() const noexcept					{ return tileSize; }
-			inline const Vec2u& getIdx(const std::string& mLabel) const			{ return labels.at(mLabel); }
+			inline const auto& getLabels() const noexcept				{ return labels; }
+			inline const auto& getTileSize() const noexcept				{ return tileSize; }
+			inline const auto& getIdx(const std::string& mLabel) const	{ return labels.at(mLabel); }
 
-			inline sf::IntRect operator()(unsigned int mX, unsigned int mY) const noexcept	{ return sf::IntRect(mX * tileSize.x, mY * tileSize.y, tileSize.x, tileSize.y); }
-			inline sf::IntRect operator()(const Vec2u& mIdx) const noexcept					{ return (*this)(mIdx.x, mIdx.y); }
-			inline sf::IntRect operator()(const std::string& mLabel) const noexcept			{ return (*this)(getIdx(mLabel)); }
+			inline auto operator()(unsigned int mX, unsigned int mY) const noexcept	{ return sf::IntRect(mX * tileSize.x, mY * tileSize.y, tileSize.x, tileSize.y); }
+			inline auto operator()(const Vec2u& mIdx) const noexcept				{ return (*this)(mIdx.x, mIdx.y); }
+			inline auto operator()(const std::string& mLabel) const noexcept		{ return (*this)(getIdx(mLabel)); }
 	};
 }
 

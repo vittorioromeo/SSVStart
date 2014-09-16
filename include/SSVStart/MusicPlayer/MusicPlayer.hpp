@@ -40,8 +40,8 @@ namespace ssvs
 			inline void setVolume(float mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
 			inline void setLoop(bool mLoop)			{ loop = mLoop;		if(current != nullptr) current->setLoop(loop); }
 
-			inline sf::Music* getCurrent() noexcept	{ return current; }
-			inline float getVolume() const noexcept	{ return volume; }
+			inline auto getCurrent() noexcept		{ return current; }
+			inline auto getVolume() const noexcept	{ return volume; }
 			inline bool getLoop() const noexcept	{ return loop; }
 	};
 }

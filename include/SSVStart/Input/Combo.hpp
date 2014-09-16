@@ -35,8 +35,8 @@ namespace ssvs
 				inline void addKey(KKey mKey) noexcept { getKeyBit(keys, mKey) = true; }
 				inline void addBtn(MBtn mBtn) noexcept { getBtnBit(btns, mBtn) = true; }
 
-				inline const KeyBitset& getKeys() const noexcept { return keys; }
-				inline const BtnBitset& getBtns() const noexcept { return btns; }
+				inline const auto& getKeys() const noexcept { return keys; }
+				inline const auto& getBtns() const noexcept { return btns; }
 		};
 	}
 }

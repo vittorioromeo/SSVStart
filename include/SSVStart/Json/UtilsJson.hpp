@@ -24,7 +24,7 @@ namespace ssvs
 {
 	class AssetManager;
 
-	inline Animation getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
+	inline auto getAnimationFromJson(const Tileset& mTileset, const ssvuj::Obj& mObj)
 	{
 		Animation::Type type{Animation::Type::Loop};
 

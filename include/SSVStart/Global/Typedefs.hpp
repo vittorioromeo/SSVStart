@@ -37,18 +37,14 @@ namespace ssvs
 	using Vec2f = Vec2<float>;
 	using Vec2u = Vec2<unsigned int>;
 
-	inline KeyBitset::reference getKeyBit(KeyBitset& mBitset, KKey mKey) noexcept { return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
-	inline BtnBitset::reference getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept { return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
-	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept { return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
-	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept { return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
+	inline auto getKeyBit(KeyBitset& mBitset, KKey mKey) noexcept					{ return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
+	inline auto getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept					{ return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
+	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept	{ return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
+	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept	{ return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
 
 	namespace Internal
 	{
-		inline const InputFunc& getNullInputFunc() noexcept
-		{
-			static InputFunc result([](FT){ });
-			return result;
-		}
+		inline auto& getNullInputFunc() noexcept { static InputFunc result([](FT){ }); return result; }
 	}
 }
 

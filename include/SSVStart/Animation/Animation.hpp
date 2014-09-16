@@ -43,13 +43,6 @@ namespace ssvs
 
 		public:
 			inline Animation(Type mType = Type::Loop) noexcept : type{mType} { }
-			inline void update(FT mFT)
-			{
-				if(steps.empty()) return;
-
-				time += mFT * speed;
-				if(time >= getStep().time) nextStep();
-			}
 			inline void addStep(AnimationStep mStep)											{ steps.emplace_back(std::move(mStep)); refreshTargets(); }
 			inline void addSteps(const std::initializer_list<AnimationStep>& mSteps)			{ for(const auto& s : mSteps) addStep(s); }
 			inline void addSteps(const std::initializer_list<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) addStep({i, mStepTime}); }
@@ -58,13 +51,21 @@ namespace ssvs
 			inline void setType(Type mType) noexcept		{ type = mType; }
 			inline void setReverse(bool mReverse) noexcept	{ dir = mReverse ? -1 : 1; refreshTargets(); }
 
-			inline float getSpeed() const noexcept			{ return speed; }
-			inline float getTime() const noexcept			{ return time; }
-			inline unsigned int getIdx() const noexcept		{ return index; }
-			inline bool isReverse() const noexcept			{ return dir == -1; }
-			inline Type getType() const noexcept			{ return type; }
-			inline const AnimationStep& getStep() const		{ return steps[index]; }
-			inline Vec2u getTileIndex() const				{ return getStep().index; }
+			inline float getSpeed() const noexcept		{ return speed; }
+			inline float getTime() const noexcept		{ return time; }
+			inline unsigned int getIdx() const noexcept	{ return index; }
+			inline bool isReverse() const noexcept		{ return dir == -1; }
+			inline auto getType() const noexcept		{ return type; }
+			inline const auto& getStep() const			{ return steps[index]; }
+			inline auto getTileIndex() const			{ return getStep().index; }
+
+			inline void update(FT mFT)
+			{
+				if(steps.empty()) return;
+
+				time += mFT * speed;
+				if(time >= getStep().time) nextStep();
+			}
 	};
 }
 

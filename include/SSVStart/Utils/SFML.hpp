@@ -67,8 +67,12 @@ namespace ssvs
 	/// @param mH Hue. [0..1]
 	/// @param mS Saturation. [0..1]
 	/// @param mV Value. [0..1]
-	inline sf::Color getColorFromHSV(float mH, float mS, float mV) noexcept
+	inline auto getColorFromHSV(float mH, float mS, float mV) noexcept
 	{
+		SSVU_ASSERT(mH >= 0.f && mH <= 1.f);
+		SSVU_ASSERT(mS >= 0.f && mS <= 1.f);
+		SSVU_ASSERT(mV >= 0.f && mV <= 1.f);
+
 		if(mV == 0.f) return sf::Color::Black;
 
 		float r, g, b;
@@ -92,7 +96,7 @@ namespace ssvs
 	}
 
 	/// @brief Creates and returns an sf::Color from an hexadecimal value.
-	inline sf::Color getColorFromHex(unsigned int mHex) noexcept
+	inline auto getColorFromHex(unsigned int mHex) noexcept
 	{
 		float r(((mHex >> 16) & 255)), g(((mHex >> 8) & 255)), b(((mHex >> 0) & 255));
 		return sf::Color(r, g, b);
