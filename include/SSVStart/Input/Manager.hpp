@@ -37,7 +37,7 @@ namespace ssvs
 				{
 					if(mustSort)
 					{
-						ssvu::sort(binds, [](const ssvu::UPtr<Bind>& mA, const ssvu::UPtr<Bind>& mB){ return *mA < *mB; });
+						ssvu::sort(binds, [](const auto& mA, const auto& mB){ return *mA < *mB; });
 						mustSort = false;
 					}
 

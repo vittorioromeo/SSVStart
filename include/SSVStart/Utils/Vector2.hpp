@@ -17,13 +17,13 @@ namespace ssvs
 	/// @param mVec Starting point.
 	/// @param mTarget Target point.
 	/// @return Returns the needed radians.
-	template<typename T1, typename T2> inline CT<T1, T2> getRadTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getRadTowards(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T1, typename T2> inline auto getRadTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getRadTowards(mA.x, mA.y, mB.x, mB.y); }
 
 	/// @brief Calculates degrees needed to turn towards a point.
 	/// @param mVec Starting point.
 	/// @param mTarget Target point.
 	/// @return Returns the needed degrees.
-	template<typename T1, typename T2> inline CT<T1, T2> getDegTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDegTowards(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T1, typename T2> inline auto getDegTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDegTowards(mA.x, mA.y, mB.x, mB.y); }
 
 	/// @brief Checks if a point is inside a polygon.
 	/// @param mVertices Container of the polygon vertices.
@@ -135,13 +135,13 @@ namespace ssvs
 	/// @details Internally checks if the magnitude is not 0.
 	/// @param mVec Original vector. (will not be modified)
 	/// @return Returns a copy of the original vector, normalized.
-	template<typename T> inline Vec2<T> getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
+	template<typename T> inline auto getNormalized(Vec2<T> mVec) noexcept { normalize(mVec); return mVec; }
 
 	/// @brief Gets a normalized copy of the original vector. (unsafe)
 	/// @details Does not check if the magnitude is 0.
 	/// @param mVec Original vector. (will not be modified)
 	/// @return Returns a copy of the original vector, normalized.
-	template<typename T> inline Vec2<T> getNormalizedUnsafe(Vec2<T> mVec) noexcept { normalizeUnsafe(mVec); return mVec; }
+	template<typename T> inline auto getNormalizedUnsafe(Vec2<T> mVec) noexcept { normalizeUnsafe(mVec); return mVec; }
 
 	/// @brief Resizes a vector. (known magnitude)
 	/// @details Internally multiplies by the desired magnitude.
@@ -285,13 +285,13 @@ namespace ssvs
 	/// @param mRad Radians of the desired vector.
 	/// @param mMag Magnitude of the desired vector. (defaults to 1)
 	/// @return Returns a new vector with specified angle and magnitude.
-	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromRad(const T1& mRad, const T2& mMag = 1.f) { return Vec2<CT<T1, T2>>(mMag * std::cos(mRad), mMag * std::sin(mRad)); }
+	template<typename T1, typename T2 = float> inline auto getVecFromRad(const T1& mRad, const T2& mMag = 1.f) { return Vec2<CT<T1, T2>>(mMag * std::cos(mRad), mMag * std::sin(mRad)); }
 
 	/// @brief Gets a vector from an angle. (from degrees)
 	/// @param mRad Degrees of the desired vector.
 	/// @param mMag Magnitude of the desired vector. (defaults to 1)
 	/// @return Returns a new vector with specified angle and magnitude.
-	template<typename T1, typename T2 = float> inline Vec2<CT<T1, T2>> getVecFromDeg(const T1& mDeg, const T2& mMag = 1.f) { return getVecFromRad(ssvu::toRad(mDeg), mMag); }
+	template<typename T1, typename T2 = float> inline auto getVecFromDeg(const T1& mDeg, const T2& mMag = 1.f) { return getVecFromRad(ssvu::toRad(mDeg), mMag); }
 
 	/// @brief Gets the direction vector between two vectors.
 	/// @param mA First vector.
@@ -317,7 +317,7 @@ namespace ssvs
 	/// @param mRad Radians of the orbit.
 	/// @param mRadius Radius of the orbit.
 	/// @return Returns a copy of mVec, orbited by mRad radians and mRadius radius.
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius)
+	template<typename T1, typename T2, typename T3> inline auto getOrbitRad(const Vec2<T1>& mVec, const T2& mRad, const T3& mRadius)
 	{
 		return Vec2<CT<T1, T2, T3>>(mVec) + getVecFromRad(mRad, mRadius);
 	}
@@ -327,7 +327,7 @@ namespace ssvs
 	/// @param mDeg Degrees of the orbit.
 	/// @param mRadius Radius of the orbit.
 	/// @return Returns a copy of mVec, orbited by mDeg degrees and mRadius radius.
-	template<typename T1, typename T2, typename T3> inline Vec2<CT<T1, T2, T3>> getOrbitDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius)
+	template<typename T1, typename T2, typename T3> inline auto getOrbitDeg(const Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius)
 	{
 		return getOrbitRad(mVec, ssvu::toRad(mDeg), mRadius);
 	}
@@ -342,13 +342,13 @@ namespace ssvs
 	/// @param mA First point.
 	/// @param mB Second point.
 	/// @return Returns the calculated distance (squared).
-	template<typename T1, typename T2> inline CT<T1, T2> getDistSquaredEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T1, typename T2> inline auto getDistSquaredEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y); }
 
 	/// @brief Calculates Euclidean distance between two points.
 	/// @param mA First point.
 	/// @param mB Second point.
 	/// @return Returns the calculated distance.
-	template<typename T1, typename T2> inline CT<T1, T2> getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
+	template<typename T1, typename T2> inline auto getDistEuclidean(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept { return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y); }
 
 	/// @brief Projects mVec on mTarget.
 	/// @details Does not check if the target's magnitude is 0.
@@ -381,12 +381,12 @@ namespace ssvs
 
 	// AABB utils
 	// TODO: put AABB class here from SSVSC?
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getCenter(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
+	template<typename T1, typename T2> inline auto getCenter(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
 	{
 		using T = CT<T1, T2>;
 		return Vec2<T>(mMin.x + (mMax.x - mMin.x) / T(2), mMin.y + (mMax.y - mMin.y) / T(2));
 	}
-	template<typename T1, typename T2> inline Vec2<CT<T1, T2>> getHalfSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
+	template<typename T1, typename T2> inline auto getHalfSize(const Vec2<T1>& mMin, const Vec2<T2>& mMax) noexcept
 	{
 		using T = CT<T1, T2>;
 		return Vec2<T>((mMax.x - mMin.x) / T(2), (mMax.y - mMin.y) / T(2));
