@@ -72,8 +72,11 @@ namespace ssvs
 				mRenderTarget.draw(vertices, mRenderStates);
 			}
 
-			inline void setString(std::string mStr)	{ str = std::move(mStr); mustRefreshGeometry = true; }
-			inline void setColor(sf::Color mColor)	{ color = std::move(mColor); mustRefreshColor = true; }
+			// Sink setters
+			inline void setString(const std::string& mStr)	{ str = mStr; mustRefreshGeometry = true; }
+			inline void setString(std::string&& mStr)		{ str = std::move(mStr); mustRefreshGeometry = true; }
+
+			inline void setColor(const sf::Color& mColor)	{ color = mColor; mustRefreshColor = true; }
 			inline void setTracking(int mTracking)	{ tracking = mTracking; mustRefreshGeometry = true; }
 
 			inline const auto& getBitmapFont() const noexcept	{ return bitmapFont; }
