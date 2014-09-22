@@ -11,7 +11,7 @@ namespace ssvs
 	{
 		private:
 			Input::InputState inputState;
-			ssvu::UPtr<GameEngine> gameEngine{new GameEngine()}; // TODO: should the user create a GameEngine?
+			ssvu::UPtr<GameEngine> gameEngine{ssvu::makeUPtr<GameEngine>()}; // TODO: should the user create a GameEngine?
 			sf::RenderWindow renderWindow;
 			std::string title;
 			FT msUpdate, msDraw;
@@ -49,6 +49,7 @@ namespace ssvs
 				renderWindow.create({width, height}, title, fullscreen ? sf::Style::Fullscreen : sf::Style::Default, sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 				renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
 				renderWindow.setVerticalSyncEnabled(vsync);
+				renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
 
 				inputState.reset();
 
