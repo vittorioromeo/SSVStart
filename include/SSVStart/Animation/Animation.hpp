@@ -19,7 +19,7 @@ namespace ssvs
 		private:
 			std::vector<AnimationStep> steps;
 			unsigned int index{0};
-			float speed{1}, time{0};
+			float speed{1.f}, time{0.f};
 			int dir{1};
 			Type type;
 			unsigned int currentTarget, nextTarget;

@@ -13,17 +13,15 @@ namespace ssvs
 	class SoundPlayer
 	{
 		private:
-			struct ManageableSound : public sf::Sound { using sf::Sound::Sound; };
-
 			float volume{100};
-			ssvu::MonoManager<ManageableSound> sounds;
+			ssvu::MonoManager<sf::Sound> sounds;
 
 			inline void refreshVolume() { for(auto& s : sounds) s->setVolume(volume); }
 
 		public:
 			enum class Mode{Overlap, Override, Abort};
 
-			inline ManageableSound& play(sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap, float mPitch = 1.f)
+			inline auto& play(sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap, float mPitch = 1.f)
 			{
 				for(const auto& s : sounds) if(s->getStatus() == sf::Sound::Status::Stopped) sounds.del(*s);
 				sounds.refresh();
@@ -44,7 +42,7 @@ namespace ssvs
 			inline float getVolume() const noexcept	{ return volume; }
 
 			inline bool isPlaying(const sf::SoundBuffer& mSoundBuffer) const { return findFirst(mSoundBuffer) != nullptr; }
-			inline ManageableSound* findFirst(const sf::SoundBuffer& mSoundBuffer) const
+			inline sf::Sound* findFirst(const sf::SoundBuffer& mSoundBuffer) const
 			{
 				for(const auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) return s.get();
 				return nullptr;
