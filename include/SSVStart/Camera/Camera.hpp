@@ -24,7 +24,7 @@ namespace ssvs
 			bool invalid{true}, mustRecompute{true};
 
 		public:
-			inline Camera(GameWindow& mGameWindow, sf::View mView) : gameWindow(mGameWindow), renderWindow(gameWindow), view{std::move(mView)} { }
+			inline Camera(GameWindow& mGameWindow, const sf::View& mView) : gameWindow(mGameWindow), renderWindow(gameWindow), view{mView} { }
 
 			inline Camera(GameWindow& mGameWindow, const Vec2f& mCenter, float mZoomFactor = 1.f)
 				: gameWindow(mGameWindow), renderWindow(gameWindow), view{mCenter, {gameWindow.getWidth() / mZoomFactor, gameWindow.getHeight() / mZoomFactor}}
@@ -76,7 +76,7 @@ namespace ssvs
 			}
 
 			// These properties IMMEDIATELY change the view
-			inline void setView(sf::View mView) noexcept			{ view = std::move(mView);		mustRecompute = true; }
+			inline void setView(const sf::View& mView) noexcept		{ view = mView;					mustRecompute = true; }
 			inline void setRotation(float mDeg) noexcept			{ view.setRotation(mDeg);		mustRecompute = true; }
 			inline void setSkew(const Vec2f& mSkew) noexcept		{ skew = mSkew;					mustRecompute = true; }
 			inline void setOffset(const Vec2f& mOffset) noexcept	{ offset = mOffset;				mustRecompute = true; }

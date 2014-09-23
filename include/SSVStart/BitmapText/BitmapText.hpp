@@ -73,8 +73,8 @@ namespace ssvs
 			}
 
 			// Sink setters
-			inline void setString(const std::string& mStr)	{ str = mStr; mustRefreshGeometry = true; }
-			inline void setString(std::string&& mStr)		{ str = std::move(mStr); mustRefreshGeometry = true; }
+			inline void setString(const std::string& mStr)		{ str = mStr; mustRefreshGeometry = true; }
+			inline void setString(std::string&& mStr) noexcept	{ str = std::move(mStr); mustRefreshGeometry = true; }
 
 			inline void setColor(const sf::Color& mColor)	{ color = mColor; mustRefreshColor = true; }
 			inline void setTracking(int mTracking)	{ tracking = mTracking; mustRefreshGeometry = true; }
