@@ -15,7 +15,4 @@ else()
 	add_definitions(-DSSVS_N_USE_JSON)
 endif()
 
-add_library(HEADER_ONLY_TARGET STATIC ${SRC_LIST})
-set_target_properties(HEADER_ONLY_TARGET PROPERTIES LINKER_LANGUAGE CXX)
-
-install(DIRECTORY ${INC_DIR} DESTINATION .)
+SSVCMake_setAndInstallHeaderOnly()
