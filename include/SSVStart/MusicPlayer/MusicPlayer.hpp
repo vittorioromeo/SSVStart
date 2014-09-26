@@ -27,10 +27,10 @@ namespace ssvs
 
 				stop();
 
-				mMusic.setPlayingOffset(mPlayingOffset);
 				mMusic.setVolume(volume);
 				mMusic.setLoop(true);
 				mMusic.play();
+				mMusic.setPlayingOffset(mPlayingOffset);
 
 				current = &mMusic;
 			}
