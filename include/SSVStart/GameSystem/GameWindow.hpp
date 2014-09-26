@@ -7,7 +7,7 @@
 
 namespace ssvs
 {
-	class GameWindow : ssvu::NoCopy
+	class GameWindow
 	{
 		private:
 			Input::InputState inputState;
@@ -61,6 +61,9 @@ namespace ssvs
 			ssvu::Delegate<void()> onRecreation;
 
 			inline GameWindow() { gameEngine->setInputState(inputState); }
+
+			inline GameWindow(const GameWindow&) = delete;
+			inline GameWindow& operator=(const GameWindow&) = delete;
 
 			inline void run()
 			{

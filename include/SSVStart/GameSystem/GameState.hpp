@@ -9,7 +9,7 @@ namespace ssvs
 {
 	class GameEngine;
 
-	class GameState : ssvu::NoCopy
+	class GameState
 	{
 		friend GameEngine;
 
@@ -34,6 +34,11 @@ namespace ssvs
 			ssvu::Delegate<void()> onDraw, onPostUpdate;
 			ssvu::Delegate<void(FT)> onUpdate;
 			EventDelegate onAnyEvent;
+
+			inline GameState() = default;
+
+			inline GameState(const GameState&) = delete;
+			inline GameState& operator=(const GameState&) = delete;
 
 			inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{

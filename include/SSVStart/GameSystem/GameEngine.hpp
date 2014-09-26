@@ -9,7 +9,7 @@ namespace ssvs
 {
 	class GameWindow;
 
-	class GameEngine : ssvu::NoCopy
+	class GameEngine
 	{
 		friend GameWindow;
 		friend class TimerBase;
@@ -46,6 +46,11 @@ namespace ssvs
 			inline bool isValid() const noexcept { return gameState != nullptr; }
 
 		public:
+			inline GameEngine() = default;
+
+			inline GameEngine(const GameEngine&) = delete;
+			inline GameEngine& operator=(const GameEngine&) = delete;
+
 			inline void stop() noexcept { running = false; }
 
 			inline void runUpdate()
