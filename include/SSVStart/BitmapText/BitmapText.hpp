@@ -14,8 +14,8 @@ namespace ssvs
 	class BitmapText : public sf::Transformable, public sf::Drawable
 	{
 		private:
-			const BitmapFont& bitmapFont;
-			const sf::Texture& texture;
+			const BitmapFont* bitmapFont{nullptr};
+			const sf::Texture* texture{nullptr};
 			std::string str;
 			mutable ssvs::VertexVector<sf::PrimitiveType::Quads> vertices;
 			mutable sf::FloatRect bounds;
@@ -27,7 +27,9 @@ namespace ssvs
 			{
 				if(!mustRefreshGeometry) return;
 
-				unsigned int iX{0}, iY{0}, width{bitmapFont.getCellWidth()}, height{bitmapFont.getCellHeight()};
+				SSVU_ASSERT(bitmapFont != nullptr);
+
+				unsigned int iX{0}, iY{0}, width{bitmapFont->getCellWidth()}, height{bitmapFont->getCellHeight()};
 				float xMin{0}, xMax{0}, yMin{0}, yMax{0};
 
 				vertices.clear();
@@ -40,7 +42,7 @@ namespace ssvs
 						case L'\v': iY += 4;		continue;
 					}
 
-					const auto& rect(bitmapFont.getGlyphRect(c));
+					const auto& rect(bitmapFont->getGlyphRect(c));
 					unsigned int spacing{tracking * iX};
 
 					float gLeft(iX * width + spacing);			if(xMin > gLeft) xMin = gLeft;
@@ -62,13 +64,16 @@ namespace ssvs
 			inline void refreshColor() const { if(!mustRefreshColor) return; for(auto& v : vertices) v.color = color; mustRefreshColor = false; }
 
 		public:
-			inline BitmapText(const BitmapFont& mBitmapFont, std::string mStr = "") : bitmapFont(mBitmapFont), texture(bitmapFont.getTexture()), str{std::move(mStr)} { }
+			inline BitmapText() { }
+			inline BitmapText(const BitmapFont& mBitmapFont, std::string mStr = "") : bitmapFont{&mBitmapFont}, texture{&bitmapFont->getTexture()}, str{std::move(mStr)} { }
 
 			inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
 			{
+				SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
+
 				refreshGeometry(); refreshColor();
 				mRenderStates.transform *= getTransform();
-				mRenderStates.texture = &texture;
+				mRenderStates.texture = texture;
 				mRenderTarget.draw(vertices, mRenderStates);
 			}
 
