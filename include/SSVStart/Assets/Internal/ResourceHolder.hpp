@@ -20,7 +20,7 @@ namespace ssvs
 				template<typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 				{
 					SSVU_ASSERT(!has(mId));
-					const auto& inserted(resources.insert(std::make_pair(mId, std::move(Loader<T>::load(mArgs...)))));
+					const auto& inserted(resources.emplace(mId, std::move(Loader<T>::load(mArgs...))));
 					return *inserted.first->second;
 				}
 

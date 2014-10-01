@@ -16,7 +16,7 @@ namespace ssvs
 			const BitmapFontData data;
 
 		public:
-			inline BitmapFont(const sf::Texture& mTexture, BitmapFontData mData) : texture(mTexture), data(std::move(mData)) { }
+			inline BitmapFont(const sf::Texture& mTexture, const BitmapFontData& mData) : texture(mTexture), data(mData) { }
 
 			inline const auto& getTexture() const noexcept	{ return texture; }
 			inline auto getCellWidth() const noexcept		{ return data.cellWidth; }
