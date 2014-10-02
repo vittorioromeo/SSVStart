@@ -31,7 +31,7 @@ namespace ssvs
 			template<typename T> inline T& getImpl() noexcept
 			{
 				SSVU_ASSERT(impl != nullptr);
-				return reinterpret_cast<T&>(*impl);
+				return ssvu::castUp<T>(*impl);
 			}
 			template<typename T, typename... TArgs> inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
 			{
