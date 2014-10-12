@@ -21,10 +21,10 @@
 
 SSVJ_CNV_NAMESPACE()
 {
-	template<typename T> SSVJ_CNV_SIMPLE(ssvs::Vec2<T>, mV, mX)	{ ssvj::convertArr(mV, mX.x, mX.y); }													SSVJ_CNV_END()
-	template<> SSVJ_CNV_SIMPLE(ssvs::BitmapFontData, mV, mX)	{ ssvj::convertArr(mV, mX.cellColumns, mX.cellWidth, mX.cellHeight, mX.cellStart); }	SSVJ_CNV_END()
-	template<> SSVJ_CNV_SIMPLE(sf::Color, mV, mX)				{ ssvj::convertArr(mV, mX.r, mX.g, mX.b, mX.a); }										SSVJ_CNV_END()
-	template<> SSVJ_CNV_SIMPLE(ssvs::Input::Trigger, mV, mX)	{ ssvj::convert(mV, mX.getCombos()); }													SSVJ_CNV_END()
+	template<typename T> SSVJ_CNV(ssvs::Vec2<T>, mV, mX)	{ ssvj::cnvArr(mV, mX.x, mX.y); }													SSVJ_CNV_END()
+	template<> SSVJ_CNV(ssvs::BitmapFontData, mV, mX)		{ ssvj::cnvArr(mV, mX.cellColumns, mX.cellWidth, mX.cellHeight, mX.cellStart); }	SSVJ_CNV_END()
+	template<> SSVJ_CNV(sf::Color, mV, mX)					{ ssvj::cnvArr(mV, mX.r, mX.g, mX.b, mX.a); }										SSVJ_CNV_END()
+	template<> SSVJ_CNV(ssvs::Input::Trigger, mV, mX)		{ ssvj::cnv(mV, mX.getCombos()); }													SSVJ_CNV_END()
 
 	template<> struct Cnv<ssvs::KKey>
 	{
@@ -58,8 +58,8 @@ SSVJ_CNV_NAMESPACE()
 			auto i(0u);
 			const auto& keys(mX.getKeys());
 			const auto& btns(mX.getBtns());
-			for(auto j(0u); j < ssvs::kKeyCount; ++j) if(ssvs::getKeyBit(keys, ssvs::KKey(j))) mV.as<Arr>().emplace_back(ssvs::KKey(j));
-			for(auto j(0u); j < ssvs::mBtnCount; ++j) if(ssvs::getBtnBit(btns, ssvs::MBtn(j))) mV.as<Arr>().emplace_back(ssvs::MBtn(j));
+			for(auto j(0u); j < ssvs::kKeyCount; ++j) if(ssvs::getKeyBit(keys, ssvs::KKey(j))) mV.emplace(ssvs::KKey(j));
+			for(auto j(0u); j < ssvs::mBtnCount; ++j) if(ssvs::getBtnBit(btns, ssvs::MBtn(j))) mV.emplace(ssvs::MBtn(j));
 		}
 	};
 
@@ -68,9 +68,9 @@ SSVJ_CNV_NAMESPACE()
 		using T = ssvs::Tileset;
 		inline static void fromVal(const Val& mV, T& mX)
 		{
-			const auto& labels(mV["labels"].as<Arr>());
-			for(auto iY(0u); iY < labels.size(); ++iY)
-				for(auto iX(0u); iX < labels[iY].as<Arr>().size(); ++iX)
+			const auto& labels(mV["labels"]);
+			for(auto iY(0u); iY < labels.getSizeArr(); ++iY)
+				for(auto iX(0u); iX < labels[iY].getSizeArr(); ++iX)
 					mX.setLabel(labels[iY][iX].as<std::string>(), {iX, iY});
 
 			mX.setTileSize(mV["tileSize"].as<ssvs::Vec2u>());
@@ -80,8 +80,7 @@ SSVJ_CNV_NAMESPACE()
 			mV["tileSize"] = mX.getTileSize();
 
 			mV["labels"] = Arr{};
-			auto& labels(mV["labels"].as<Arr>());
-			for(const auto& l : mX.labels) labels[l.second.y][l.second.x] = l.first;
+			for(const auto& l : mX.labels) mV["labels"][l.second.y][l.second.x] = l.first;
 		}
 	};
 }
