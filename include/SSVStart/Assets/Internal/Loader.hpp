@@ -21,7 +21,7 @@ namespace ssvs
 		{
 			using T = sf::Texture;
 			inline static UPtr<T> load(const Path& mPath)						{ return Helper<Mode::Load, T>::load(mPath); }
-			inline static UPtr<T> load(const void* mData, std::size_t mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
+			inline static UPtr<T> load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
 			inline static UPtr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
 			inline static UPtr<T> load(const sf::Image& mImage)					{ return Helper<Mode::Image, T>::load(mImage); }
 		};
@@ -29,9 +29,9 @@ namespace ssvs
 		{
 			using T = sf::SoundBuffer;
 			inline static UPtr<T> load(const Path& mPath)						{ return Helper<Mode::Load, T>::load(mPath); }
-			inline static UPtr<T> load(const void* mData, std::size_t mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
+			inline static UPtr<T> load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
 			inline static UPtr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
-			inline static UPtr<T> load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }
+			inline static UPtr<T> load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }
 		};
 		template<> struct Loader<sf::Music> // Music can be opened from Path, Memory or StreamloadFromFile
 		{

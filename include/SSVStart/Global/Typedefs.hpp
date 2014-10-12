@@ -19,19 +19,20 @@
 
 namespace ssvs
 {
+	using SizeT = ssvu::SizeT;
 	using HRClock = ssvu::HRClock;
 	using FT = ssvu::FT;
 	using FTDuration = ssvu::FTDuration;
 	using KKey = sf::Keyboard::Key;
 	using MBtn = sf::Mouse::Button;
-	constexpr std::size_t inputBitOffset{1};
-	constexpr std::size_t kKeyCount{KKey::KeyCount};
-	constexpr std::size_t mBtnCount{MBtn::ButtonCount};
+	constexpr SizeT inputBitOffset{1};
+	constexpr SizeT kKeyCount{KKey::KeyCount};
+	constexpr SizeT mBtnCount{MBtn::ButtonCount};
 	using KeyBitset = std::bitset<kKeyCount + inputBitOffset>; // +offset because it also works with KKey::Unknown, which is -1
 	using BtnBitset = std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
 	using Path = ssvufs::Path;
 	using InputFunc = ssvu::Func<void(FT)>;
-	template<typename T, typename TDeleter = std::default_delete<T>> using UPtr = ssvu::UPtr<T, TDeleter>;
+	template<typename T, typename TD = ssvu::DefDel<T>> using UPtr = ssvu::UPtr<T, TD>;
 	template<typename T> using Vec2 = sf::Vector2<T>;
 	using Vec2i = Vec2<int>;
 	using Vec2f = Vec2<float>;

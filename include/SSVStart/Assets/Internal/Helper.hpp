@@ -26,7 +26,7 @@ namespace ssvs
 				if(!result->loadFromFile(mPath)) fail("from path");
 				return result;
 			}
-			inline static auto load(const void* mData, std::size_t mSize)
+			inline static auto load(const void* mData, SizeT mSize)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromMemory(mData, mSize)) fail("from memory");
@@ -47,7 +47,7 @@ namespace ssvs
 				if(!result->openFromFile(mPath)) fail("from open path");
 				return result;
 			}
-			inline static auto load(const void* mData, std::size_t mSize)
+			inline static auto load(const void* mData, SizeT mSize)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->openFromMemory(mData, mSize)) fail("from open memory");
@@ -73,7 +73,7 @@ namespace ssvs
 		template<> struct Helper<Mode::Samples, sf::SoundBuffer>
 		{
 			using T = sf::SoundBuffer;
-			inline static auto load(const sf::Int16* mSamples, std::size_t mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
+			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
 			{
 				auto result(ssvu::makeUPtr<T>());
 				if(!result->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate)) fail("from samples");

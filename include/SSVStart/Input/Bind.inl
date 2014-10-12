@@ -9,7 +9,7 @@ namespace ssvs
 {
 	namespace Input
 	{
-		inline void Bind::setPriorityUser(std::size_t mValue) noexcept
+		inline void Bind::setPriorityUser(SizeT mValue) noexcept
 		{
 			priorityUser = mValue;
 			manager.mustSort = true;

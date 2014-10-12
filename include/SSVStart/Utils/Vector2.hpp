@@ -32,7 +32,7 @@ namespace ssvs
 	template<typename TC, typename T> inline bool isPointInPolygon(const TC& mVertices, const Vec2<T>& mPoint)
 	{
 		bool result{false};
-		for(std::size_t i{0}, j{mVertices.size() - 1}; i < mVertices.size(); j = i++)
+		for(SizeT i{0}, j{mVertices.size() - 1}; i < mVertices.size(); j = i++)
 		{
 			const auto& vI(mVertices[i]);
 			const auto& vJ(mVertices[j]);
