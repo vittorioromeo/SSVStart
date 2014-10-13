@@ -55,7 +55,6 @@ SSVJ_CNV_NAMESPACE()
 		inline static void toVal(Val& mV, const T& mX)
 		{
 			mV = Arr{};
-			auto i(0u);
 			const auto& keys(mX.getKeys());
 			const auto& btns(mX.getBtns());
 			for(auto j(0u); j < ssvs::kKeyCount; ++j) if(ssvs::getKeyBit(keys, ssvs::KKey(j))) mV.emplace(ssvs::KKey(j));
