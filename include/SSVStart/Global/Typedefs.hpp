@@ -9,13 +9,7 @@
 #include <SFML/Audio.hpp>
 #include <SSVUtils/Core/Core.hpp>
 #include <SSVUtils/Delegate/Delegate.hpp>
-
-#if SSVS_N_USE_JSON
-	#define SSVS_JSON_CNV_FRIEND(...)
-#else
-	#include <SSVUtilsJson/SSVUtilsJson.hpp>
-	#define SSVS_JSON_CNV_FRIEND() SSVUJ_CNV_FRIEND()
-#endif
+#include <SSVUtils/Json/Json.hpp>
 
 namespace ssvs
 {

@@ -86,39 +86,4 @@ SSVUT_TEST(SSVS_UtilsJsonNewTests)
 	#undef MAKETEST
 }
 
-#ifndef SSVS_N_USE_JSON
-SSVUT_TEST(SSVS_UtilsJsonTests)
-{
-	using namespace std;
-	using namespace ssvu;
-	using namespace ssvuj;
-	using namespace ssvs;
-
-	#define EXECTEST			do { string s; writeToString(getArch<Type>(original), s); SSVUT_EXPECT(getExtr<Type>(getFromString(s)) == original); } while(false)
-	#define MAKETEST(T, ...)	do { using Type = T; Type original(__VA_ARGS__); EXECTEST; } while(false)
-
-	MAKETEST(ssvs::Vec2f, 52.f, 33.f);
-	MAKETEST(ssvs::Vec2i, 52, -33);
-	MAKETEST(ssvs::Vec2u, 52, 33);
-
-	MAKETEST(sf::Color, 52, 33, 22);
-	MAKETEST(sf::Color, 0, 0, 0);
-	MAKETEST(sf::Color, 255, 255, 255);
-
-	MAKETEST(ssvs::KKey, ssvs::KKey::Up);
-	MAKETEST(ssvs::KKey, ssvs::KKey::A);
-	MAKETEST(ssvs::KKey, ssvs::KKey::B);
-	MAKETEST(ssvs::KKey, ssvs::KKey::Num0);
-	MAKETEST(ssvs::KKey, ssvs::KKey::F1);
-
-	MAKETEST(ssvs::MBtn, ssvs::MBtn::Left);
-	MAKETEST(ssvs::MBtn, ssvs::MBtn::XButton1);
-
-	MAKETEST(ssvs::Input::Combo, {ssvs::KKey::Up}, {ssvs::MBtn::Left});
-	MAKETEST(ssvs::Input::Trigger, {{{ssvs::KKey::Up}, {ssvs::MBtn::Left}}, {ssvs::KKey::F1}});
-
-	#undef MAKETEST
-}
-#endif
-
 #endif

@@ -14,9 +14,6 @@ namespace ssvs
 {
 	class Tileset
 	{
-		SSVS_JSON_CNV_FRIEND();
-		SSVJ_CNV_FRIEND();
-
 		private:
 			Vec2u tileSize;
 			std::unordered_map<std::string, Vec2u> labels;

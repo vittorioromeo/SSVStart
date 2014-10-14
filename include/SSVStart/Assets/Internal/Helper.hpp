@@ -132,10 +132,6 @@ namespace ssvs
 		{
 			using T = Tileset;
 			inline static auto load(const Tileset& mTileset) { return ssvu::makeUPtr<T>(mTileset); }
-
-			#ifndef SSVS_N_USE_JSON
-				inline static auto load(const Path& mPath) { return ssvu::makeUPtr<T>(ssvuj::getExtr<Tileset>(ssvuj::getFromFile(mPath))); }
-			#endif
 		};
 	}
 }

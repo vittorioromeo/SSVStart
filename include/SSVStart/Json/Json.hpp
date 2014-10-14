@@ -6,6 +6,5 @@
 #define SSVS_JSON
 
 #include "SSVStart/Json/UtilsJson.hpp"
-#include "SSVStart/Json/UtilsJsonNew.hpp"
 
 #endif
