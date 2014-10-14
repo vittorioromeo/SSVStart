@@ -9,8 +9,6 @@
 #include <SFML/Audio.hpp>
 #include <SSVUtils/Core/Core.hpp>
 
-namespace sf { class Music; }
-
 namespace ssvs
 {
 	class MusicPlayer

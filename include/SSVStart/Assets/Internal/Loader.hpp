@@ -15,43 +15,43 @@ namespace ssvs
 	{
 		template<typename T> struct Loader // Most resources can be loaded only from Path, Memory or Stream
 		{
-			template<typename... TArgs> inline static UPtr<T> load(TArgs&&... mArgs) { return Helper<Mode::Load, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Load, T>::load(mArgs...); }
 		};
 		template<> struct Loader<sf::Texture> // Texture can also be loaded from Image
 		{
 			using T = sf::Texture;
-			inline static UPtr<T> load(const Path& mPath)						{ return Helper<Mode::Load, T>::load(mPath); }
-			inline static UPtr<T> load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
-			inline static UPtr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
-			inline static UPtr<T> load(const sf::Image& mImage)					{ return Helper<Mode::Image, T>::load(mImage); }
+			inline static auto load(const Path& mPath)				{ return Helper<Mode::Load, T>::load(mPath); }
+			inline static auto load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
+			inline static auto load(sf::InputStream& mStream)		{ return Helper<Mode::Load, T>::load(mStream); }
+			inline static auto load(const sf::Image& mImage)		{ return Helper<Mode::Image, T>::load(mImage); }
 		};
 		template<> struct Loader<sf::SoundBuffer> // SoundBuffer can also be loaded from samples
 		{
 			using T = sf::SoundBuffer;
-			inline static UPtr<T> load(const Path& mPath)						{ return Helper<Mode::Load, T>::load(mPath); }
-			inline static UPtr<T> load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
-			inline static UPtr<T> load(sf::InputStream& mStream)				{ return Helper<Mode::Load, T>::load(mStream); }
-			inline static UPtr<T> load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }
+			inline static auto load(const Path& mPath)				{ return Helper<Mode::Load, T>::load(mPath); }
+			inline static auto load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
+			inline static auto load(sf::InputStream& mStream)		{ return Helper<Mode::Load, T>::load(mStream); }
+			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }
 		};
 		template<> struct Loader<sf::Music> // Music can be opened from Path, Memory or StreamloadFromFile
 		{
 			using T = sf::Music;
-			template<typename... TArgs> inline static UPtr<T> load(TArgs&&... mArgs) { return Helper<Mode::Open, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Open, T>::load(mArgs...); }
 		};
 		template<> struct Loader<sf::Shader> // Shader has unique syntax
 		{
 			using T = sf::Shader;
-			template<typename... TArgs> inline static UPtr<T> load(TArgs&&... mArgs) { return Helper<Mode::Shader, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Shader, T>::load(mArgs...); }
 		};
 		template<> struct Loader<BitmapFont> // BitmapFont has unique syntax
 		{
 			using T = BitmapFont;
-			template<typename... TArgs> inline static UPtr<T> load(TArgs&&... mArgs) { return Helper<Mode::BitmapFont, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::BitmapFont, T>::load(mArgs...); }
 		};
 		template<> struct Loader<Tileset> // Tileset has unique syntax
 		{
 			using T = Tileset;
-			template<typename... TArgs> inline static UPtr<T> load(TArgs&&... mArgs) { return Helper<Mode::Tileset, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Tileset, T>::load(mArgs...); }
 		};
 	}
 }

@@ -43,7 +43,7 @@ namespace ssvs
 
 		public:
 			inline Animation(Type mType = Type::Loop) noexcept : type{mType} { }
-			inline void addStep(AnimationStep mStep)											{ steps.emplace_back(mStep); refreshTargets(); }
+			inline void addStep(const AnimationStep& mStep)										{ steps.emplace_back(mStep); refreshTargets(); }
 			inline void addSteps(const std::initializer_list<AnimationStep>& mSteps)			{ for(const auto& s : mSteps) addStep(s); }
 			inline void addSteps(const std::initializer_list<Vec2u>& mIndexes, float mStepTime)	{ for(const auto& i : mIndexes) addStep({i, mStepTime}); }
 
