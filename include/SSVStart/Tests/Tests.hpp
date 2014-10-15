@@ -46,7 +46,7 @@ SSVUT_TEST(SSVS_UtilsInputTests)
 	SSVUT_EXPECT(ssvs::getMBtnName(ssvs::MBtn::XButton1) == "bXButton1");
 }
 
-SSVUT_TEST(SSVS_UtilsJsonNewTests)
+SSVUT_TEST(SSVS_JsonTests)
 {
 	using namespace std;
 	using namespace ssvu;
