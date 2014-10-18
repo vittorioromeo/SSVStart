@@ -88,7 +88,7 @@ namespace ssvs
 	/// @param mRad Number of degrees.
 	template<typename T1, typename T2, typename T3> inline void rotateDegAround(Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mDeg)
 	{
-		return rotateRadAround(mVec, mCenter, ssvu::toRad(mDeg));
+		rotateRadAround(mVec, mCenter, ssvu::toRad(mDeg));
 	}
 
 	/// @brief Sets a vector's components to 0.
