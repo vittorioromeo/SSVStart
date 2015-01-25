@@ -30,8 +30,11 @@ namespace ssvs
 				else if(mMode == Mode::Abort)	{ auto first(findFirst(mSoundBuffer)); if(first != nullptr) return *first; }
 
 				auto& sound(sounds.create(mSoundBuffer));
-				sound.setVolume(volume); sound.setPitch(mPitch);
+				sound.setVolume(volume);
+				sound.setPitch(mPitch);
 				sound.play();
+
+				sounds.refresh();
 
 				return sound;
 			}
@@ -47,7 +50,14 @@ namespace ssvs
 				for(const auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) return s.get();
 				return nullptr;
 			}
+
+			inline auto& getSounds() noexcept { return sounds; }
+			inline const auto& getSounds() const noexcept { return sounds; }
 	};
 }
 
 #endif
+
+// TODO: fading
+// TODO: looping
+// TODO: needs to refresh more often (if you create a sound, then stop it immediately, it won't work as sounds was not refreshed)
