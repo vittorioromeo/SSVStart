@@ -24,7 +24,6 @@ namespace ssvs
 			inline auto& play(sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap, float mPitch = 1.f)
 			{
 				for(const auto& s : sounds) if(s->getStatus() == sf::Sound::Status::Stopped) sounds.del(*s);
-				sounds.refresh();
 
 				if(mMode == Mode::Override)		{ stop(mSoundBuffer); }
 				else if(mMode == Mode::Abort)	{ auto first(findFirst(mSoundBuffer)); if(first != nullptr) return *first; }
@@ -38,8 +37,16 @@ namespace ssvs
 
 				return sound;
 			}
-			inline void stop() { for(auto& s : sounds) s->stop(); }
-			inline void stop(const sf::SoundBuffer& mSoundBuffer) { for(auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) s->stop(); }
+			inline void stop()
+			{
+				sounds.refresh();
+				for(auto& s : sounds) s->stop();
+			}
+			inline void stop(const sf::SoundBuffer& mSoundBuffer)
+			{
+				sounds.refresh();
+				for(auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) s->stop();
+			}
 
 			inline void setVolume(float mVolume)	{ volume = mVolume; refreshVolume(); }
 			inline float getVolume() const noexcept	{ return volume; }
@@ -47,6 +54,7 @@ namespace ssvs
 			inline bool isPlaying(const sf::SoundBuffer& mSoundBuffer) const { return findFirst(mSoundBuffer) != nullptr; }
 			inline sf::Sound* findFirst(const sf::SoundBuffer& mSoundBuffer) const
 			{
+				sounds.refresh();
 				for(const auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) return s.get();
 				return nullptr;
 			}
@@ -60,4 +68,3 @@ namespace ssvs
 
 // TODO: fading
 // TODO: looping
-// TODO: needs to refresh more often (if you create a sound, then stop it immediately, it won't work as sounds was not refreshed)

@@ -168,7 +168,7 @@ namespace ssvs
 	/// @brief Returns local center-west of a drawable element.
 	template<typename T> inline Vec2f getLocalCenterW(const T& mX) noexcept		{ return Impl::getCenterW(mX.getLocalBounds()); }
 
-	// TODO: docs
+	/// @brief Sets the origin of a drawable element using a function that returns a `Vec2f`.
 	template<typename T> inline void setOrigin(T& mX, Vec2f(*mFn)(const T&)) noexcept { mX.setOrigin(mFn(mX)); }
 
 	/// @brief Creates and returns an sf::Color from HSV values.
