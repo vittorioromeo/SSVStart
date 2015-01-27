@@ -20,7 +20,7 @@ namespace ssvs
 			mutable ssvs::VertexVector<sf::PrimitiveType::Quads> vertices;
 			mutable sf::FloatRect bounds;
 			sf::Color color{sf::Color::White};
-			int tracking{0};
+			float tracking{0};
 			mutable bool mustRefreshGeometry{true}, mustRefreshColor{true};
 
 			inline void refreshGeometry() const
@@ -43,7 +43,7 @@ namespace ssvs
 					}
 
 					const auto& rect(bitmapFont->getGlyphRect(c));
-					unsigned int spacing{tracking * iX};
+					float spacing{tracking * iX};
 
 					float gLeft(iX * width + spacing);			if(xMin > gLeft) xMin = gLeft;
 					float gRight((iX + 1) * width + spacing);	if(xMax < gRight) xMax = gRight;
@@ -82,12 +82,12 @@ namespace ssvs
 			inline void setString(std::string&& mStr) noexcept	{ str = std::move(mStr); mustRefreshGeometry = true; }
 
 			inline void setColor(const sf::Color& mColor)	{ color = mColor; mustRefreshColor = true; }
-			inline void setTracking(int mTracking)	{ tracking = mTracking; mustRefreshGeometry = true; }
+			inline void setTracking(float mTracking)		{ tracking = mTracking; mustRefreshGeometry = true; }
 
 			inline const auto& getBitmapFont() const noexcept	{ return bitmapFont; }
 			inline const auto& getString() const noexcept		{ return str; }
 			inline const auto& getColor() const noexcept		{ return color; }
-			inline int getTracking() const noexcept				{ return tracking; }
+			inline auto getTracking() const noexcept			{ return tracking; }
 			inline const auto& getLocalBounds() const			{ refreshGeometry(); return bounds; }
 			inline auto getGlobalBounds() const					{ return getTransform().transformRect(getLocalBounds()); }
 	};
