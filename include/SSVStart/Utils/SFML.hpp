@@ -9,59 +9,167 @@
 
 namespace ssvs
 {
-	/// @brief Returns global left position of a drawable element.
-	template<typename T> inline float getGlobalLeft(const T& mElement) noexcept		{ return mElement.getGlobalBounds().left; }
+	namespace Impl
+	{
+		template<typename T> inline float getLeft(const T& mX) noexcept			{ return mX.left; }
+		template<typename T> inline float getTop(const T& mX) noexcept			{ return mX.top; }
+		template<typename T> inline float getWidth(const T& mX) noexcept		{ return mX.width; }
+		template<typename T> inline float getHeight(const T& mX) noexcept		{ return mX.height; }
 
-	/// @brief Returns global right position of a drawable element.
-	template<typename T> inline float getGlobalRight(const T& mElement) noexcept	{ return mElement.getGlobalBounds().left + mElement.getGlobalBounds().width; }
+		template<typename T> inline float getRight(const T& mX) noexcept		{ return getLeft(mX) + getWidth(mX); }
+		template<typename T> inline float getBottom(const T& mX) noexcept		{ return getTop(mX) + getHeight(mX); }
+		template<typename T> inline float getHalfWidth(const T& mX) noexcept	{ return getWidth(mX) / 2.f; }
+		template<typename T> inline float getHalfHeight(const T& mX) noexcept	{ return getHeight(mX) / 2.f; }
+
+		template<typename T> inline float getCenterX(const T& mX) noexcept		{ return getLeft(mX) + getHalfWidth(mX); }
+		template<typename T> inline float getCenterY(const T& mX) noexcept		{ return getTop(mX) + getHalfHeight(mX); }
+
+		template<typename T> inline Vec2f getSize(const T& mX) noexcept			{ return {getWidth(mX), getHeight(mX)}; }
+		template<typename T> inline Vec2f getHalfSize(const T& mX) noexcept		{ return {getHalfWidth(mX), getHalfHeight(mX)}; }
+
+		template<typename T> inline Vec2f getNW(const T& mX) noexcept			{ return {getLeft(mX), getTop(mX)}; }
+		template<typename T> inline Vec2f getNE(const T& mX) noexcept			{ return {getRight(mX), getTop(mX)}; }
+		template<typename T> inline Vec2f getSW(const T& mX) noexcept			{ return {getLeft(mX), getBottom(mX)}; }
+		template<typename T> inline Vec2f getSE(const T& mX) noexcept			{ return {getRight(mX), getBottom(mX)}; }
+
+		template<typename T> inline Vec2f getCenter(const T& mX) noexcept		{ return getNW(mX) + getHalfSize(mX); }
+
+		template<typename T> inline Vec2f getCenterN(const T& mX) noexcept		{ return {getCenterX(mX), getTop(mX)}; }
+		template<typename T> inline Vec2f getCenterE(const T& mX) noexcept		{ return {getRight(mX), getCenterY(mX)}; }
+		template<typename T> inline Vec2f getCenterS(const T& mX) noexcept		{ return {getCenterX(mX), getBottom(mX)}; }
+		template<typename T> inline Vec2f getCenterW(const T& mX) noexcept		{ return {getLeft(mX), getCenterY(mX)}; }
+	}
+
+	/// @brief Returns global left position of a drawable element.
+	template<typename T> inline float getGlobalLeft(const T& mX) noexcept		{ return Impl::getLeft(mX.getGlobalBounds()); }
 
 	/// @brief Returns global top position of a drawable element.
-	template<typename T> inline float getGlobalTop(const T& mElement) noexcept		{ return mElement.getGlobalBounds().top; }
-
-	/// @brief Returns global bottom position of a drawable element.
-	template<typename T> inline float getGlobalBottom(const T& mElement) noexcept	{ return mElement.getGlobalBounds().top + mElement.getGlobalBounds().height; }
+	template<typename T> inline float getGlobalTop(const T& mX) noexcept		{ return Impl::getTop(mX.getGlobalBounds()); }
 
 	/// @brief Returns global width of a drawable element.
-	template<typename T> inline float getGlobalWidth(const T& mElement) noexcept	{ return mElement.getGlobalBounds().width; }
+	template<typename T> inline float getGlobalWidth(const T& mX) noexcept		{ return Impl::getWidth(mX.getGlobalBounds()); }
 
 	/// @brief Returns global height of a drawable element.
-	template<typename T> inline float getGlobalHeight(const T& mElement) noexcept	{ return mElement.getGlobalBounds().height; }
+	template<typename T> inline float getGlobalHeight(const T& mX) noexcept		{ return Impl::getHeight(mX.getGlobalBounds()); }
+
+	/// @brief Returns global right position of a drawable element.
+	template<typename T> inline float getGlobalRight(const T& mX) noexcept		{ return Impl::getRight(mX.getGlobalBounds()); }
+
+	/// @brief Returns global bottom position of a drawable element.
+	template<typename T> inline float getGlobalBottom(const T& mX) noexcept		{ return Impl::getBottom(mX.getGlobalBounds()); }
+
+	/// @brief Returns global half width of a drawable element.
+	template<typename T> inline float getGlobalHalfWidth(const T& mX) noexcept	{ return Impl::getHalfWidth(mX.getGlobalBounds()); }
+
+	/// @brief Returns global half height of a drawable element.
+	template<typename T> inline float getGlobalHalfHeight(const T& mX) noexcept	{ return Impl::getHalfHeight(mX.getGlobalBounds()); }
+
+	/// @brief Returns global center X of a drawable element.
+	template<typename T> inline float getGlobalCenterX(const T& mX) noexcept	{ return Impl::getCenterX(mX.getGlobalBounds()); }
+
+	/// @brief Returns global center X of a drawable element.
+	template<typename T> inline float getGlobalCenterY(const T& mX) noexcept	{ return Impl::getCenterY(mX.getGlobalBounds()); }
 
 	/// @brief Returns global size of a drawable element.
-	template<typename T> inline Vec2f getGlobalSize(const T& mElement) noexcept		{ return {getGlobalWidth(mElement), getGlobalHeight(mElement)}; }
+	template<typename T> inline Vec2f getGlobalSize(const T& mX) noexcept		{ return Impl::getSize(mX.getGlobalBounds()); }
 
 	/// @brief Returns global halfsize of a drawable element.
-	template<typename T> inline Vec2f getGlobalHalfSize(const T& mElement) noexcept	{ return getGlobalSize(mElement) / 2.f; }
+	template<typename T> inline Vec2f getGlobalHalfSize(const T& mX) noexcept	{ return Impl::getHalfSize(mX.getGlobalBounds()); }
+
+	/// @brief Returns global NW corner of a drawable element.
+	template<typename T> inline Vec2f getGlobalNW(const T& mX) noexcept			{ return Impl::getNW(mX.getGlobalBounds()); }
+
+	/// @brief Returns global NE corner of a drawable element.
+	template<typename T> inline Vec2f getGlobalNE(const T& mX) noexcept			{ return Impl::getNE(mX.getGlobalBounds()); }
+
+	/// @brief Returns global SW corner of a drawable element.
+	template<typename T> inline Vec2f getGlobalSW(const T& mX) noexcept			{ return Impl::getSW(mX.getGlobalBounds()); }
+
+	/// @brief Returns global SE corner of a drawable element.
+	template<typename T> inline Vec2f getGlobalSE(const T& mX) noexcept			{ return Impl::getSE(mX.getGlobalBounds()); }
 
 	/// @brief Returns global center of a drawable element.
-	template<typename T> inline Vec2f getGlobalCenter(const T& mElement) noexcept	{ return Vec2f{getGlobalLeft(mElement), getGlobalTop(mElement)} + getGlobalHalfSize(mElement); }
+	template<typename T> inline Vec2f getGlobalCenter(const T& mX) noexcept		{ return Impl::getCenter(mX.getGlobalBounds()); }
+
+	/// @brief Returns global center-north of a drawable element.
+	template<typename T> inline Vec2f getGlobalCenterN(const T& mX) noexcept	{ return Impl::getCenterN(mX.getGlobalBounds()); }
+
+	/// @brief Returns global center-east of a drawable element.
+	template<typename T> inline Vec2f getGlobalCenterE(const T& mX) noexcept	{ return Impl::getCenterE(mX.getGlobalBounds()); }
+
+	/// @brief Returns global center-south of a drawable element.
+	template<typename T> inline Vec2f getGlobalCenterS(const T& mX) noexcept	{ return Impl::getCenterS(mX.getGlobalBounds()); }
+
+	/// @brief Returns global center-west of a drawable element.
+	template<typename T> inline Vec2f getGlobalCenterW(const T& mX) noexcept	{ return Impl::getCenterW(mX.getGlobalBounds()); }
+
+
 
 	/// @brief Returns local left position of a drawable element.
-	template<typename T> inline float getLocalLeft(const T& mElement) noexcept		{ return mElement.getLocalBounds().left; }
-
-	/// @brief Returns local right position of a drawable element.
-	template<typename T> inline float getLocalRight(const T& mElement) noexcept		{ return mElement.getLocalBounds().left + mElement.getLocalBounds().width; }
+	template<typename T> inline float getLocalLeft(const T& mX) noexcept		{ return Impl::getLeft(mX.getLocalBounds()); }
 
 	/// @brief Returns local top position of a drawable element.
-	template<typename T> inline float getLocalTop(const T& mElement) noexcept		{ return mElement.getLocalBounds().top; }
-
-	/// @brief Returns local bottom position of a drawable element.
-	template<typename T> inline float getLocalBottom(const T& mElement) noexcept	{ return mElement.getLocalBounds().top + mElement.getLocalBounds().height; }
+	template<typename T> inline float getLocalTop(const T& mX) noexcept			{ return Impl::getTop(mX.getLocalBounds()); }
 
 	/// @brief Returns local width of a drawable element.
-	template<typename T> inline float getLocalWidth(const T& mElement) noexcept		{ return mElement.getLocalBounds().width; }
+	template<typename T> inline float getLocalWidth(const T& mX) noexcept		{ return Impl::getWidth(mX.getLocalBounds()); }
 
 	/// @brief Returns local height of a drawable element.
-	template<typename T> inline float getLocalHeight(const T& mElement) noexcept	{ return mElement.getLocalBounds().height; }
+	template<typename T> inline float getLocalHeight(const T& mX) noexcept		{ return Impl::getHeight(mX.getLocalBounds()); }
+
+	/// @brief Returns local right position of a drawable element.
+	template<typename T> inline float getLocalRight(const T& mX) noexcept		{ return Impl::getRight(mX.getLocalBounds()); }
+
+	/// @brief Returns local bottom position of a drawable element.
+	template<typename T> inline float getLocalBottom(const T& mX) noexcept		{ return Impl::getBottom(mX.getLocalBounds()); }
+
+	/// @brief Returns local half width of a drawable element.
+	template<typename T> inline float getLocalHalfWidth(const T& mX) noexcept	{ return Impl::getHalfWidth(mX.getLocalBounds()); }
+
+	/// @brief Returns local half height of a drawable element.
+	template<typename T> inline float getLocalHalfHeight(const T& mX) noexcept	{ return Impl::getHalfHeight(mX.getLocalBounds()); }
+
+	/// @brief Returns local center X of a drawable element.
+	template<typename T> inline float getLocalCenterX(const T& mX) noexcept		{ return Impl::getCenterX(mX.getLocalBounds()); }
+
+	/// @brief Returns local center X of a drawable element.
+	template<typename T> inline float getLocalCenterY(const T& mX) noexcept		{ return Impl::getCenterY(mX.getLocalBounds()); }
 
 	/// @brief Returns local size of a drawable element.
-	template<typename T> inline Vec2f getLocalSize(const T& mElement) noexcept		{ return {getLocalWidth(mElement), getLocalHeight(mElement)}; }
+	template<typename T> inline Vec2f getLocalSize(const T& mX) noexcept		{ return Impl::getSize(mX.getLocalBounds()); }
 
 	/// @brief Returns local halfsize of a drawable element.
-	template<typename T> inline Vec2f getLocalHalfSize(const T& mElement) noexcept	{ return getLocalSize(mElement) / 2.f; }
+	template<typename T> inline Vec2f getLocalHalfSize(const T& mX) noexcept	{ return Impl::getHalfSize(mX.getLocalBounds()); }
+
+	/// @brief Returns local NW corner of a drawable element.
+	template<typename T> inline Vec2f getLocalNW(const T& mX) noexcept			{ return Impl::getNW(mX.getLocalBounds()); }
+
+	/// @brief Returns local NE corner of a drawable element.
+	template<typename T> inline Vec2f getLocalNE(const T& mX) noexcept			{ return Impl::getNE(mX.getLocalBounds()); }
+
+	/// @brief Returns local SW corner of a drawable element.
+	template<typename T> inline Vec2f getLocalSW(const T& mX) noexcept			{ return Impl::getSW(mX.getLocalBounds()); }
+
+	/// @brief Returns local SE corner of a drawable element.
+	template<typename T> inline Vec2f getLocalSE(const T& mX) noexcept			{ return Impl::getSE(mX.getLocalBounds()); }
 
 	/// @brief Returns local center of a drawable element.
-	template<typename T> inline Vec2f getLocalCenter(const T& mElement) noexcept	{ return Vec2f{getLocalLeft(mElement), getLocalTop(mElement)} + getLocalHalfSize(mElement); }
+	template<typename T> inline Vec2f getLocalCenter(const T& mX) noexcept		{ return Impl::getCenter(mX.getLocalBounds()); }
+
+	/// @brief Returns local center-north of a drawable element.
+	template<typename T> inline Vec2f getLocalCenterN(const T& mX) noexcept		{ return Impl::getCenterN(mX.getLocalBounds()); }
+
+	/// @brief Returns local center-east of a drawable element.
+	template<typename T> inline Vec2f getLocalCenterE(const T& mX) noexcept		{ return Impl::getCenterE(mX.getLocalBounds()); }
+
+	/// @brief Returns local center-south of a drawable element.
+	template<typename T> inline Vec2f getLocalCenterS(const T& mX) noexcept		{ return Impl::getCenterS(mX.getLocalBounds()); }
+
+	/// @brief Returns local center-west of a drawable element.
+	template<typename T> inline Vec2f getLocalCenterW(const T& mX) noexcept		{ return Impl::getCenterW(mX.getLocalBounds()); }
+
+	// TODO: docs
+	template<typename T> inline void setOrigin(T& mX, Vec2f(*mFn)(const T&)) noexcept { mX.setOrigin(mFn(mX)); }
 
 	/// @brief Creates and returns an sf::Color from HSV values.
 	/// @param mH Hue. [0..1]
