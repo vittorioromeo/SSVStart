@@ -274,7 +274,7 @@ namespace ssvs
 
 	inline void BTRPart::apply()
 	{
-		for(auto c : children) c->apply();
+		for(auto c : children) if(c->enabled) c->apply();
 	}
 	inline void BTRPart::setEnabled(bool mX) noexcept
 	{
