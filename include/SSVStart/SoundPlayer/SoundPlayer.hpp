@@ -51,8 +51,8 @@ namespace ssvs
 			inline void setVolume(float mVolume)	{ volume = mVolume; refreshVolume(); }
 			inline float getVolume() const noexcept	{ return volume; }
 
-			inline bool isPlaying(const sf::SoundBuffer& mSoundBuffer) const { return findFirst(mSoundBuffer) != nullptr; }
-			inline sf::Sound* findFirst(const sf::SoundBuffer& mSoundBuffer) const
+			inline bool isPlaying(const sf::SoundBuffer& mSoundBuffer) { return findFirst(mSoundBuffer) != nullptr; }
+			inline sf::Sound* findFirst(const sf::SoundBuffer& mSoundBuffer)
 			{
 				sounds.refresh();
 				for(const auto& s : sounds) if(s->getBuffer() == &mSoundBuffer) return s.get();
