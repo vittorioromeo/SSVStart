@@ -203,6 +203,42 @@ namespace ssvs
 		return sf::Color(r * 255.f, g * 255.f, b * 255.f);
 	}
 
+	/// @brief Creates and returns an sf::Color from HSV values.
+	/// @return Returns an `std::tuple` of [0..1] HSV values.
+	inline auto getHSVFromColor(const sf::Color& mX)
+	{
+		// Credits: lolengine.net/blog/2013/01/13/fast-rgb-to-hsv
+
+		auto r(mX.r / 255.f);
+		auto g(mX.g / 255.f);
+		auto b(mX.b / 255.f);
+
+		SSVU_ASSERT(r >= 0.f && r <= 1.f);
+		SSVU_ASSERT(g >= 0.f && g <= 1.f);
+		SSVU_ASSERT(b >= 0.f && b <= 1.f);
+
+		float k{0.f};
+
+		if(g < b)
+		{
+			std::swap(g, b);
+			k = -1.f;
+		}
+
+		if(r < g)
+		{
+			std::swap(r, g);
+			k = -2.f / 6.f - k;
+		}
+
+		auto chroma(r - std::min(g, b));
+		auto h(std::fabs(k + (g - b) / (6.f * chroma + 1e-20f)));
+		auto s(chroma / (r + 1e-20f));
+
+		return std::make_tuple(h, s, r);
+	}
+
+
 	/// @brief Creates and returns an sf::Color from an hexadecimal value.
 	inline auto getColorFromHex(unsigned int mHex) noexcept
 	{
