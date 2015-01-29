@@ -29,18 +29,74 @@ namespace ssvs
 
 				inline BitmapTextBase() { }
 				inline BitmapTextBase(const BitmapFont& mBF) : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()} { }
-
-				inline void createVertices(const std::string& mStr) const
+/*
+				inline auto getMaxRowCells(const std::string& mStr) const
 				{
-					vertices.reserve(mStr.size() * 4);
+					SizeT max{0}, currentMax{0};
 
 					for(const auto& c : mStr)
 					{
 						switch(c)
 						{
-							case L'\t': bdd.iX += 4;			continue;
-							case L'\n': ++bdd.iY; bdd.iX = 0;	continue;
-							case L'\v': bdd.iY += 4;			continue;
+							case L'\t': currentMax += 4;									continue;
+							case L'\n': max = std::max(max, currentMax); currentMax = 0;	continue;
+							default: ++currentMax;											continue;
+						}
+					}
+
+					return std::max(max, currentMax);
+				}
+
+				inline auto getRowOffsets(const std::string& mStr) const
+				{
+					auto maxCellsX(getMaxRowCells(mStr));
+
+					std::vector<float> result;
+
+					SizeT currentRow{0};
+
+					for(const auto& c : mStr)
+					{
+						switch(c)
+						{
+							case L'\t': currentRow += 4; continue;
+							case L'\n':
+							{
+								auto diff(maxCellsX - currentRow);
+								result.emplace_back((diff * bitmapFont->getCellWidth()) / 2.f);
+								currentRow = 0;
+								continue;
+							}
+							default: ++currentRow; continue;
+						}
+					}
+
+					auto diff(maxCellsX - currentRow);
+					result.emplace_back((diff * bitmapFont->getCellWidth()) / 2.f);
+
+					return result;
+				}
+*/
+				inline void createVertices(const std::string& mStr) const
+				{
+					vertices.reserve(mStr.size() * 4);
+
+					/*
+					auto rowOffsets(getRowOffsets(mStr));
+					ssvu::lo() << rowOffsets << "\n\n";
+					SizeT currentRow{0};
+					*/
+
+					for(const auto& c : mStr)
+					{
+						//const auto& ro(rowOffsets[currentRow]);
+
+
+						switch(c)
+						{
+							case L'\t': bdd.iX += 4;						continue;
+							case L'\n': ++bdd.iY; bdd.iX = 0; /*++currentRow;*/	continue;
+							case L'\v': bdd.iY += 4;						continue;
 						}
 
 						const auto& rect(bitmapFont->getGlyphRect(c));
