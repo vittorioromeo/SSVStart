@@ -55,7 +55,7 @@ namespace ssvs
 			}
 
 		public:
-			// inline BitmapTextRich() { }
+			inline BitmapTextRich() { }
 			inline BitmapTextRich(const BitmapFont& mBF) : Impl::BitmapTextBase<BitmapTextRich>{mBF} { }
 
 			inline void clear() { basePart->clear(); partManager.clear(); }

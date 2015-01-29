@@ -28,6 +28,8 @@ namespace ssvs
 			inline void refreshGeometry() const
 			{
 				if(!mustRefreshGeometry) return;
+				mustRefreshGeometry = false;
+
 				SSVU_ASSERT(bitmapFont != nullptr);
 
 				bdd.reset(*bitmapFont);
@@ -35,23 +37,23 @@ namespace ssvs
 				vertices.clear();
 				createVertices(str);
 
-				mustRefreshGeometry = false;
 			}
 			inline void refreshColor() const
 			{
 				if(!mustRefreshColor) return;
-				for(auto& v : vertices) v.color = bdd.colorFG;
 				mustRefreshColor = false;
+
+				for(auto& v : vertices) v.color = bdd.colorFG;
 			}
 
 		public:
-			// inline BitmapText() : Impl::BitmapTextBase<BitmapText>{}  { }
-			inline BitmapText(const BitmapFont& mBitmapFont, std::string mStr = "") : Impl::BitmapTextBase<BitmapText>{mBitmapFont}, str{mStr} { }
+			inline BitmapText() { }
+			inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "") : Impl::BitmapTextBase<BitmapText>{mBF}, str{mStr} { }
 
 			template<typename T> inline void setString(T&& mStr) { str = ssvu::fwd<T>(mStr); mustRefreshGeometry = true; }
 
-			inline void setColor(const sf::Color& mColor) noexcept { bdd.colorFG = mColor; mustRefreshColor = true; }
-			inline void setTracking(float mTracking) noexcept { bdd.tracking = mTracking; mustRefreshGeometry = true; }
+			inline void setColor(const sf::Color& mX) noexcept	{ bdd.colorFG = mX; mustRefreshColor = true; }
+			inline void setTracking(float mX) noexcept			{ bdd.tracking = mX; mustRefreshGeometry = true; }
 
 			inline const auto& getString() const noexcept { return str; }
 	};

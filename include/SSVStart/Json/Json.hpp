@@ -107,6 +107,7 @@ namespace ssvs
 		result.setSpeed(mVal.getIfHas<float>("speed", 1.f));
 		return result;
 	}
+
 	inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvj::Val& mVal)
 	{
 		using namespace std;

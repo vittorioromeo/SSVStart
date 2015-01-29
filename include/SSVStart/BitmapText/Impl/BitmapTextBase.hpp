@@ -27,11 +27,13 @@ namespace ssvs
 				mutable sf::FloatRect bounds;
 				mutable Impl::BitmapTextData bdd;
 
-				// inline BitmapTextBase() { }
+				inline BitmapTextBase() { }
 				inline BitmapTextBase(const BitmapFont& mBF) : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()} { }
 
 				inline void createVertices(const std::string& mStr) const
 				{
+					vertices.reserve(mStr.size() * 4);
+
 					for(const auto& c : mStr)
 					{
 						switch(c)
