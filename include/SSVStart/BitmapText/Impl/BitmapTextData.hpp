@@ -30,6 +30,8 @@ namespace ssvs
 			}
 		};
 	}
+
+	enum class TextAlign : int{Left = 0, Center = 1, Right = 2};
 }
 
 #endif

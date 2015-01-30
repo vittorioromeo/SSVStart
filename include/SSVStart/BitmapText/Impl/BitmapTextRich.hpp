@@ -23,6 +23,9 @@ namespace ssvs
 		friend class BTRPColorFG;
 		friend class BTRPTracking;
 
+		public:
+			using BaseType = Impl::BitmapTextBase<BitmapTextRich>;
+
 		private:
 			PartRecycler partRecycler;
 			std::vector<PartPtr> partManager;
@@ -34,15 +37,13 @@ namespace ssvs
 				if(!mustRefresh) return;
 				mustRefresh = false;
 
-				SSVU_ASSERT(bitmapFont != nullptr);
-				vertices.clear();
-
-				bdd.reset(*bitmapFont);
+				refreshStart();
 
 				bdd.tracking = 0.f;
 				bdd.colorFG = sf::Color::White;
-
 				basePart->apply();
+
+				refreshFinish();
 			}
 
 			inline void applyStr(const std::string& mStr) const { createVertices(mStr); }
@@ -56,7 +57,7 @@ namespace ssvs
 
 		public:
 			inline BitmapTextRich() { }
-			inline BitmapTextRich(const BitmapFont& mBF) : Impl::BitmapTextBase<BitmapTextRich>{mBF} { }
+			inline BitmapTextRich(const BitmapFont& mBF) : BaseType{mBF} { }
 
 			inline void clear() { basePart->clear(); partManager.clear(); }
 			inline void update(FT mFT) { basePart->update(mFT); }
@@ -65,6 +66,8 @@ namespace ssvs
 			template<typename T, typename... TArgs> auto& mk(T*& mTarget, TArgs&&... mArgs);
 
 			template<typename T> auto& operator<<(T&&);
+
+			inline void setAlign(TextAlign mX) noexcept { BaseType::setAlign(mX); mustRefresh = true; }
 	};
 }
 

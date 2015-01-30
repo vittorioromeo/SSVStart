@@ -16,6 +16,9 @@ namespace ssvs
 	{
 		template<typename> friend class Impl::BitmapTextBase;
 
+		public:
+			using BaseType = Impl::BitmapTextBase<BitmapText>;
+
 		private:
 			std::string str;
 			mutable bool mustRefreshGeometry{true}, mustRefreshColor{true};
@@ -30,12 +33,9 @@ namespace ssvs
 				if(!mustRefreshGeometry) return;
 				mustRefreshGeometry = false;
 
-				SSVU_ASSERT(bitmapFont != nullptr);
-
-				bdd.reset(*bitmapFont);
-
-				vertices.clear();
+				refreshStart();
 				createVertices(str);
+				refreshFinish();
 
 			}
 			inline void refreshColor() const
@@ -48,7 +48,7 @@ namespace ssvs
 
 		public:
 			inline BitmapText() { }
-			inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "") : Impl::BitmapTextBase<BitmapText>{mBF}, str{mStr} { }
+			inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "") : BaseType{mBF}, str{mStr} { }
 
 			template<typename T> inline void setString(T&& mStr) { str = ssvu::fwd<T>(mStr); mustRefreshGeometry = true; }
 
@@ -56,6 +56,8 @@ namespace ssvs
 			inline void setTracking(float mX) noexcept			{ bdd.tracking = mX; mustRefreshGeometry = true; }
 
 			inline const auto& getString() const noexcept { return str; }
+
+			inline void setAlign(TextAlign mX) noexcept { BaseType::setAlign(mX); mustRefreshGeometry = true; }
 	};
 }
 

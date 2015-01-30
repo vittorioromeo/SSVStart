@@ -24,8 +24,9 @@ namespace ssvs
 		public:
 			inline BTRPart(BitmapTextRich& mBTR) noexcept : btr{mBTR} { }
 
-			inline virtual void apply()			{ for(auto c : children) if(c->enabled) c->apply(); }
-			inline virtual void update(FT mFT)	{ for(auto c : children) if(c->enabled) c->update(mFT); }
+			inline virtual void apply()				{ for(auto c : children) if(c->enabled) c->apply(); }
+			inline virtual void update(FT mFT)		{ for(auto c : children) if(c->enabled) c->update(mFT); }
+
 			inline void clear()
 			{
 				for(auto c : children) c->clear();
