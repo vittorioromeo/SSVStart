@@ -7,7 +7,7 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
-#include "SSVStart/BitmapText/Impl/BitmapTextData.hpp"
+#include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextBase.hpp"
 
 namespace ssvs
@@ -34,7 +34,6 @@ namespace ssvs
 			}
 
 			template<typename T, typename... TArgs> auto& mk(TArgs&&... mArgs);
-			template<typename T, typename... TArgs> auto& mk(T*& mTarget, TArgs&&... mArgs);
 
 			auto& operator<<(BTRPart&);
 			auto& operator<<(const std::string& mX);
@@ -53,6 +52,7 @@ namespace ssvs
 			std::string str;
 
 		public:
+			inline BTRPString(BitmapTextRich& mBTR) : BTRPart{mBTR} { }
 			template<typename T> inline BTRPString(BitmapTextRich& mBTR, T&& mStr) : BTRPart{mBTR}, str{ssvu::fwd<T>(mStr)} { }
 			void apply() override;
 			inline void update(FT mFT) override

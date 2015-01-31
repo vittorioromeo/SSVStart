@@ -8,7 +8,7 @@
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
-#include "SSVStart/BitmapText/Impl/BitmapTextData.hpp"
+#include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextBase.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapText.hpp"
 #include "SSVStart/BitmapText/Impl/Parts.hpp"

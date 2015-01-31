@@ -8,7 +8,7 @@
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
-#include "SSVStart/BitmapText/Impl/BitmapTextData.hpp"
+#include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextBase.hpp"
 #include "SSVStart/BitmapText/Impl/Parts.hpp"
 
@@ -59,12 +59,14 @@ namespace ssvs
 			inline BitmapTextRich() { }
 			inline BitmapTextRich(const BitmapFont& mBF) : BaseType{mBF} { }
 
-			inline void clear() { basePart->clear(); partManager.clear(); }
+			inline void clear()
+			{
+				// basePart->clear();
+				partManager.clear();
+			}
 			inline void update(FT mFT) { basePart->update(mFT); }
 
 			template<typename T, typename... TArgs> auto& mk(TArgs&&... mArgs);
-			template<typename T, typename... TArgs> auto& mk(T*& mTarget, TArgs&&... mArgs);
-
 			template<typename T> auto& operator<<(T&&);
 
 			inline void setAlign(TextAlign mX) noexcept { BaseType::setAlign(mX); mustRefresh = true; }

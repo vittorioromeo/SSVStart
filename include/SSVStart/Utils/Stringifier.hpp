@@ -15,59 +15,76 @@ namespace ssvu
 {
 	template<typename T> struct Stringifier<ssvs::Vec2<T>>
 	{
-		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::Vec2<T>& mValue)
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::Vec2<T>& mX)
 		{
 			Internal::printBold<TFmt>(mStream, "(");
-			Internal::callStringifyImpl<TFmt>(mStream, mValue.x);
+			Internal::callStringifyImpl<TFmt>(mStream, mX.x);
 			Internal::printBold<TFmt>(mStream, "; ");
-			Internal::callStringifyImpl<TFmt>(mStream, mValue.y);
+			Internal::callStringifyImpl<TFmt>(mStream, mX.y);
 			Internal::printBold<TFmt>(mStream, ")");
 		}
 	};
+
+	template<typename T> struct Stringifier<sf::Rect<T>>
+	{
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const sf::Rect<T>& mX)
+		{
+			Internal::printBold<TFmt>(mStream, "R((");
+			Internal::callStringifyImpl<TFmt>(mStream, mX.left);
+			Internal::printBold<TFmt>(mStream, "; ");
+			Internal::callStringifyImpl<TFmt>(mStream, mX.top);
+			Internal::printBold<TFmt>(mStream, ")[");
+			Internal::callStringifyImpl<TFmt>(mStream, mX.width);
+			Internal::printBold<TFmt>(mStream, "; ");
+			Internal::callStringifyImpl<TFmt>(mStream, mX.height);
+			Internal::printBold<TFmt>(mStream, "])");
+		}
+	};
+
 	template<> struct Stringifier<sf::Color>
 	{
-		template<bool TFmt> inline static void impl(std::ostream& mStream, const sf::Color& mValue)
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const sf::Color& mX)
 		{
 			Internal::printBold<TFmt>(mStream, "(");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.r), Console::Color::Red);
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.r), Console::Color::Red);
 			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.g), Console::Color::Green);
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.g), Console::Color::Green);
 			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.b), Console::Color::Blue);
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.b), Console::Color::Blue);
 			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mValue.a));
+			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.a));
 			Internal::printBold<TFmt>(mStream, ")");
 		}
 	};
 
 	template<> struct Stringifier<ssvs::KKey>
 	{
-		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::KKey& mValue)
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::KKey& mX)
 		{
-			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getKKeyName(mValue) + ")", Console::Color::Yellow);
+			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getKKeyName(mX) + ")", Console::Color::Yellow);
 		}
 	};
 
 	template<> struct Stringifier<ssvs::MBtn>
 	{
-		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::MBtn& mValue)
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::MBtn& mX)
 		{
-			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getMBtnName(mValue) + ")", Console::Color::Green);
+			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getMBtnName(mX) + ")", Console::Color::Green);
 		}
 	};
 
 	template<> struct Stringifier<ssvs::Input::Combo>
 	{
 		using T = ssvs::Input::Combo;
-		template<bool TFmt> inline static void impl(std::ostream& mStream, const T& mValue)
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const T& mX)
 		{
 			mStream << "[";
 
-			int added{0}, total(mValue.getKeys().count() + mValue.getBtns().count());
+			int added{0}, total(mX.getKeys().count() + mX.getBtns().count());
 
-			for(auto i(0u); i < mValue.getKeys().size(); ++i)
+			for(auto i(0u); i < mX.getKeys().size(); ++i)
 			{
-				if(mValue.getKeys()[i])
+				if(mX.getKeys()[i])
 				{
 					++added;
 					Internal::callStringifyImpl<TFmt>(mStream, ssvs::KKey(i - 1));
@@ -75,9 +92,9 @@ namespace ssvu
 				}
 			}
 
-			for(auto i(0u); i < mValue.getBtns().size(); ++i)
+			for(auto i(0u); i < mX.getBtns().size(); ++i)
 			{
-				if(mValue.getBtns()[i])
+				if(mX.getBtns()[i])
 				{
 					++added;
 					Internal::callStringifyImpl<TFmt>(mStream, ssvs::MBtn(i - 1));
@@ -92,13 +109,13 @@ namespace ssvu
 	template<> struct Stringifier<ssvs::Input::Trigger>
 	{
 		using T = ssvs::Input::Trigger;
-		template<bool TFmt> inline static void impl(std::ostream& mStream, const T& mValue)
+		template<bool TFmt> inline static void impl(std::ostream& mStream, const T& mX)
 		{
 			mStream << "{";
-			for(auto i(0u); i < mValue.getCombos().size(); ++i)
+			for(auto i(0u); i < mX.getCombos().size(); ++i)
 			{
-				Internal::callStringifyImpl<TFmt>(mStream, mValue.getCombos()[i]);
-				mStream << ((i == mValue.getCombos().size() - 1) ? "" : ", ");
+				Internal::callStringifyImpl<TFmt>(mStream, mX.getCombos()[i]);
+				mStream << ((i == mX.getCombos().size() - 1) ? "" : ", ");
 			}
 			mStream << "}";
 		}

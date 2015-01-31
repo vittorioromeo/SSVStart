@@ -19,10 +19,9 @@ namespace ssvs
 		for(auto c : children) c->setEnabled(mX);
 	}
 
-	template<typename T, typename... TArgs> auto& BTRPart::mk(TArgs&&... mArgs)					{ return btr.createPart<T>(ssvu::fwd<TArgs>(mArgs)...); }
-	template<typename T, typename... TArgs> auto& BTRPart::mk(T*& mTarget, TArgs&&... mArgs)	{ mTarget = &mk<T>(ssvu::fwd<TArgs>(mArgs)...); return *mTarget; }
+	template<typename T, typename... TArgs> auto& BTRPart::mk(TArgs&&... mArgs) { return btr.createPart<T>(ssvu::fwd<TArgs>(mArgs)...); }
 
-	inline auto& BTRPart::operator<<(BTRPart& mX)			{ adopt(mX);							return *this; }
+	inline auto& BTRPart::operator<<(BTRPart& mX)			{ if(&mX != this) adopt(mX);			return *this; }
 	inline auto& BTRPart::operator<<(const std::string& mX)	{ adopt(mk<BTRP::Str>(mX));				return *this; }
 	inline auto& BTRPart::operator<<(std::string&& mX)		{ adopt(mk<BTRP::Str>(std::move(mX)));	return *this; }
 	inline auto& BTRPart::operator<<(const sf::Color& mX)	{ adopt(mk<BTRP::ClFG>(mX));			return *this; }

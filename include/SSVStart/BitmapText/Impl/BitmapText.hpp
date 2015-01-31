@@ -7,7 +7,7 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
-#include "SSVStart/BitmapText/Impl/BitmapTextData.hpp"
+#include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextBase.hpp"
 
 namespace ssvs

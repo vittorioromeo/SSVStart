@@ -2,8 +2,8 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_BITMAPTEXT_IMPL_BITMAPTEXTDATA
-#define SSVS_BITMAPTEXT_IMPL_BITMAPTEXTDATA
+#ifndef SSVS_BITMAPTEXT_IMPL_BITMAPTEXTDRAWSTATE
+#define SSVS_BITMAPTEXT_IMPL_BITMAPTEXTDRAWSTATE
 
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
@@ -14,7 +14,7 @@ namespace ssvs
 
 	namespace Impl
 	{
-		struct BitmapTextData
+		struct BitmapTextDrawState
 		{
 			sf::Color colorFG{sf::Color::White};
 			float xMin, xMax, yMin, yMax;
