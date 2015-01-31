@@ -74,3 +74,5 @@ namespace ssvs
 }
 
 #endif
+
+// TODO: do not refresh geometry when only color is chagned
