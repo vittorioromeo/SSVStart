@@ -85,7 +85,7 @@ namespace ssvs
 			inline bool isRunning() const noexcept { return running; }
 
 			template<typename T> inline T& getTimer() { return timer.getImpl<T>(); }
-			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { timer.setImpl<T>(*this, ssvu::fwd<TArgs>(mArgs)...); }
+			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { timer.setImpl<T>(*this, SSVU_FWD(mArgs)...); }
 	};
 }
 

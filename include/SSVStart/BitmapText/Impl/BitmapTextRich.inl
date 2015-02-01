@@ -17,8 +17,8 @@
 
 namespace ssvs
 {
-	template<typename T, typename... TArgs> auto& BitmapTextRich::mk(TArgs&&... mArgs)	{ return basePart->mk<T>(ssvu::fwd<TArgs>(mArgs)...); }
-	template<typename T> inline auto& BitmapTextRich::operator<<(T&& mX)				{ return ((*basePart) << ssvu::fwd<T>(mX)); }
+	template<typename T, typename... TArgs> auto& BitmapTextRich::mk(TArgs&&... mArgs)	{ return basePart->mk<T>(SSVU_FWD(mArgs)...); }
+	template<typename T> inline auto& BitmapTextRich::operator<<(T&& mX)				{ return ((*basePart) << SSVU_FWD(mX)); }
 }
 
 #endif

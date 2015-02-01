@@ -33,7 +33,7 @@ namespace ssvs
 			template<typename T, typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 			{
 				ssvu::lo("ssvs::AssetManager::load<T>") << mId << " resource loading\n";
-				return getResourceHolder<T>().load(mId, ssvu::fwd<TArgs>(mArgs)...);
+				return getResourceHolder<T>().load(mId, SSVU_FWD(mArgs)...);
 			}
 			template<typename T> inline auto& getAll()						{ return getResourceHolder<T>().getResources(); }
 			template<typename T> inline bool has(const std::string& mId)	{ return getResourceHolder<T>().has(mId); }

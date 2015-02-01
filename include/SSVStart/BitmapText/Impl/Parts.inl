@@ -19,7 +19,7 @@ namespace ssvs
 		for(auto c : children) c->setEnabled(mX);
 	}
 
-	template<typename T, typename... TArgs> auto& BTRPart::mk(TArgs&&... mArgs) { return btr.createPart<T>(ssvu::fwd<TArgs>(mArgs)...); }
+	template<typename T, typename... TArgs> auto& BTRPart::mk(TArgs&&... mArgs) { return btr.createPart<T>(SSVU_FWD(mArgs)...); }
 
 	inline auto& BTRPart::operator<<(BTRPart& mX)			{ if(&mX != this) adopt(mX);			return *this; }
 	inline auto& BTRPart::operator<<(const std::string& mX)	{ adopt(mk<BTRP::Str>(mX));				return *this; }
@@ -37,7 +37,7 @@ namespace ssvs
 	template<typename T> inline void BTRPString::setStr(T&& mX)
 	{
 		if(str != mX) btr.mustRefresh = true;
-		str = ssvu::fwd<T>(mX);
+		str = SSVU_FWD(mX);
 	}
 
 	// BTRPColorFG
