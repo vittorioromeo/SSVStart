@@ -38,7 +38,7 @@ namespace ssvs
 				}
 
 			public:
-				inline Bind(Manager& mManager, Trigger mTrigger, Type mType, Mode mMode, const InputFunc& mOn = Internal::getNullInputFunc(), const InputFunc& mOff = Internal::getNullInputFunc())
+				inline Bind(Manager& mManager, Trigger mTrigger, Type mType, Mode mMode, const InputFunc& mOn = Impl::getNullInputFunc(), const InputFunc& mOff = Impl::getNullInputFunc())
 					: manager(mManager), trigger{std::move(mTrigger)}, on{mOn}, off{mOff}, type{mType}, mode{mMode}
 				{
 					recalculatePriorityCombo();

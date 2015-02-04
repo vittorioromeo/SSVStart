@@ -9,7 +9,7 @@
 
 namespace ssvs
 {
-	namespace Internal
+	namespace Impl
 	{
 		template<typename T> class ResourceHolder
 		{

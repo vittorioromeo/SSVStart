@@ -18,16 +18,16 @@ namespace ssvs
 	class AssetManager
 	{
 		private:
-			Internal::ResourceHolder<sf::Font> fonts;
-			Internal::ResourceHolder<sf::Image> images;
-			Internal::ResourceHolder<sf::Texture> textures;
-			Internal::ResourceHolder<sf::SoundBuffer> soundBuffers;
-			Internal::ResourceHolder<sf::Music> musics;
-			Internal::ResourceHolder<sf::Shader> shaders;
-			Internal::ResourceHolder<BitmapFont> bitmapFonts;
-			Internal::ResourceHolder<Tileset> tilesets;
+			Impl::ResourceHolder<sf::Font> fonts;
+			Impl::ResourceHolder<sf::Image> images;
+			Impl::ResourceHolder<sf::Texture> textures;
+			Impl::ResourceHolder<sf::SoundBuffer> soundBuffers;
+			Impl::ResourceHolder<sf::Music> musics;
+			Impl::ResourceHolder<sf::Shader> shaders;
+			Impl::ResourceHolder<BitmapFont> bitmapFonts;
+			Impl::ResourceHolder<Tileset> tilesets;
 
-			template<typename T> inline Internal::ResourceHolder<T>& getResourceHolder() noexcept;
+			template<typename T> inline Impl::ResourceHolder<T>& getResourceHolder() noexcept;
 
 		public:
 			template<typename T, typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
@@ -40,14 +40,14 @@ namespace ssvs
 			template<typename T> inline T& get(const std::string& mId)		{ SSVU_ASSERT(has<T>(mId)); return getResourceHolder<T>()[mId]; }
 	};
 
-	template<> inline Internal::ResourceHolder<sf::Font>& AssetManager::getResourceHolder<sf::Font>() noexcept					{ return fonts; }
-	template<> inline Internal::ResourceHolder<sf::Image>& AssetManager::getResourceHolder<sf::Image>() noexcept				{ return images; }
-	template<> inline Internal::ResourceHolder<sf::Texture>& AssetManager::getResourceHolder<sf::Texture>() noexcept			{ return textures; }
-	template<> inline Internal::ResourceHolder<sf::SoundBuffer>& AssetManager::getResourceHolder<sf::SoundBuffer>() noexcept	{ return soundBuffers; }
-	template<> inline Internal::ResourceHolder<sf::Music>& AssetManager::getResourceHolder<sf::Music>() noexcept				{ return musics; }
-	template<> inline Internal::ResourceHolder<sf::Shader>& AssetManager::getResourceHolder<sf::Shader>() noexcept				{ return shaders; }
-	template<> inline Internal::ResourceHolder<BitmapFont>& AssetManager::getResourceHolder<BitmapFont>() noexcept				{ return bitmapFonts; }
-	template<> inline Internal::ResourceHolder<Tileset>& AssetManager::getResourceHolder<Tileset>() noexcept					{ return tilesets; }
+	template<> inline Impl::ResourceHolder<sf::Font>& AssetManager::getResourceHolder<sf::Font>() noexcept					{ return fonts; }
+	template<> inline Impl::ResourceHolder<sf::Image>& AssetManager::getResourceHolder<sf::Image>() noexcept				{ return images; }
+	template<> inline Impl::ResourceHolder<sf::Texture>& AssetManager::getResourceHolder<sf::Texture>() noexcept			{ return textures; }
+	template<> inline Impl::ResourceHolder<sf::SoundBuffer>& AssetManager::getResourceHolder<sf::SoundBuffer>() noexcept	{ return soundBuffers; }
+	template<> inline Impl::ResourceHolder<sf::Music>& AssetManager::getResourceHolder<sf::Music>() noexcept				{ return musics; }
+	template<> inline Impl::ResourceHolder<sf::Shader>& AssetManager::getResourceHolder<sf::Shader>() noexcept				{ return shaders; }
+	template<> inline Impl::ResourceHolder<BitmapFont>& AssetManager::getResourceHolder<BitmapFont>() noexcept				{ return bitmapFonts; }
+	template<> inline Impl::ResourceHolder<Tileset>& AssetManager::getResourceHolder<Tileset>() noexcept					{ return tilesets; }
 }
 
 #endif

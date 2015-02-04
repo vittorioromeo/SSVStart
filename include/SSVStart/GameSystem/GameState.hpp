@@ -46,7 +46,7 @@ namespace ssvs
 			}
 			inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IType mType = IType::Always, IMode mMode = IMode::Overlap)
 			{
-				return addInput(mTrigger, mFuncOn, Internal::getNullInputFunc(), mType, mMode);
+				return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType, mMode);
 			}
 
 			inline auto& onEvent(sf::Event::EventType mEventType) { return eventDelegates[mEventType]; }

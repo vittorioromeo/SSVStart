@@ -71,13 +71,13 @@ namespace ssvs
 				for(const auto& f : getFilteredFiles({".vert"}))
 				{
 					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Vertex, Internal::ShaderFromPath{});
+					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
 					ssvu::lo("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " vertex shader added\n";
 				}
 				for(const auto& f : getFilteredFiles({".frag"}))
 				{
 					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Fragment, Internal::ShaderFromPath{});
+					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
 					ssvu::lo("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " fragment shader added\n";
 				}
 			}

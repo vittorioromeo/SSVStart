@@ -37,7 +37,7 @@ namespace ssvs
 	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept	{ return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
 	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept	{ return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
 
-	namespace Internal
+	namespace Impl
 	{
 		inline auto& getNullInputFunc() noexcept { static InputFunc result([](FT){ }); return result; }
 	}

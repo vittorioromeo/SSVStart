@@ -17,11 +17,11 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::Vec2<T>& mX)
 		{
-			Internal::printBold<TFmt>(mStream, "(");
-			Internal::callStringifyImpl<TFmt>(mStream, mX.x);
-			Internal::printBold<TFmt>(mStream, "; ");
-			Internal::callStringifyImpl<TFmt>(mStream, mX.y);
-			Internal::printBold<TFmt>(mStream, ")");
+			Impl::printBold<TFmt>(mStream, "(");
+			Impl::callStringifyImpl<TFmt>(mStream, mX.x);
+			Impl::printBold<TFmt>(mStream, "; ");
+			Impl::callStringifyImpl<TFmt>(mStream, mX.y);
+			Impl::printBold<TFmt>(mStream, ")");
 		}
 	};
 
@@ -29,15 +29,15 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const sf::Rect<T>& mX)
 		{
-			Internal::printBold<TFmt>(mStream, "R((");
-			Internal::callStringifyImpl<TFmt>(mStream, mX.left);
-			Internal::printBold<TFmt>(mStream, "; ");
-			Internal::callStringifyImpl<TFmt>(mStream, mX.top);
-			Internal::printBold<TFmt>(mStream, ")[");
-			Internal::callStringifyImpl<TFmt>(mStream, mX.width);
-			Internal::printBold<TFmt>(mStream, "; ");
-			Internal::callStringifyImpl<TFmt>(mStream, mX.height);
-			Internal::printBold<TFmt>(mStream, "])");
+			Impl::printBold<TFmt>(mStream, "R((");
+			Impl::callStringifyImpl<TFmt>(mStream, mX.left);
+			Impl::printBold<TFmt>(mStream, "; ");
+			Impl::callStringifyImpl<TFmt>(mStream, mX.top);
+			Impl::printBold<TFmt>(mStream, ")[");
+			Impl::callStringifyImpl<TFmt>(mStream, mX.width);
+			Impl::printBold<TFmt>(mStream, "; ");
+			Impl::callStringifyImpl<TFmt>(mStream, mX.height);
+			Impl::printBold<TFmt>(mStream, "])");
 		}
 	};
 
@@ -45,15 +45,15 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const sf::Color& mX)
 		{
-			Internal::printBold<TFmt>(mStream, "(");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.r), Console::Color::Red);
-			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.g), Console::Color::Green);
-			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.b), Console::Color::Blue);
-			Internal::printBold<TFmt>(mStream, ", ");
-			Internal::printNonBold<TFmt>(mStream, static_cast<int>(mX.a));
-			Internal::printBold<TFmt>(mStream, ")");
+			Impl::printBold<TFmt>(mStream, "(");
+			Impl::printNonBold<TFmt>(mStream, static_cast<int>(mX.r), Console::Color::Red);
+			Impl::printBold<TFmt>(mStream, ", ");
+			Impl::printNonBold<TFmt>(mStream, static_cast<int>(mX.g), Console::Color::Green);
+			Impl::printBold<TFmt>(mStream, ", ");
+			Impl::printNonBold<TFmt>(mStream, static_cast<int>(mX.b), Console::Color::Blue);
+			Impl::printBold<TFmt>(mStream, ", ");
+			Impl::printNonBold<TFmt>(mStream, static_cast<int>(mX.a));
+			Impl::printBold<TFmt>(mStream, ")");
 		}
 	};
 
@@ -61,7 +61,7 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::KKey& mX)
 		{
-			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getKKeyName(mX) + ")", Console::Color::Yellow);
+			Impl::printNonBold<TFmt>(mStream, "(" + ssvs::getKKeyName(mX) + ")", Console::Color::Yellow);
 		}
 	};
 
@@ -69,7 +69,7 @@ namespace ssvu
 	{
 		template<bool TFmt> inline static void impl(std::ostream& mStream, const ssvs::MBtn& mX)
 		{
-			Internal::printNonBold<TFmt>(mStream, "(" + ssvs::getMBtnName(mX) + ")", Console::Color::Green);
+			Impl::printNonBold<TFmt>(mStream, "(" + ssvs::getMBtnName(mX) + ")", Console::Color::Green);
 		}
 	};
 
@@ -87,7 +87,7 @@ namespace ssvu
 				if(mX.getKeys()[i])
 				{
 					++added;
-					Internal::callStringifyImpl<TFmt>(mStream, ssvs::KKey(i - 1));
+					Impl::callStringifyImpl<TFmt>(mStream, ssvs::KKey(i - 1));
 					mStream << ((added >= total) ? "" : ", ");
 				}
 			}
@@ -97,7 +97,7 @@ namespace ssvu
 				if(mX.getBtns()[i])
 				{
 					++added;
-					Internal::callStringifyImpl<TFmt>(mStream, ssvs::MBtn(i - 1));
+					Impl::callStringifyImpl<TFmt>(mStream, ssvs::MBtn(i - 1));
 					mStream << ((added >= total) ? "" : ", ");
 				}
 			}
@@ -114,7 +114,7 @@ namespace ssvu
 			mStream << "{";
 			for(auto i(0u); i < mX.getCombos().size(); ++i)
 			{
-				Internal::callStringifyImpl<TFmt>(mStream, mX.getCombos()[i]);
+				Impl::callStringifyImpl<TFmt>(mStream, mX.getCombos()[i]);
 				mStream << ((i == mX.getCombos().size() - 1) ? "" : ", ");
 			}
 			mStream << "}";

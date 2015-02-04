@@ -7,7 +7,7 @@
 
 namespace ssvs
 {
-	namespace Internal
+	namespace Impl
 	{
 		enum class Mode{Load, Open, Image, Samples, Shader, BitmapFont, Tileset};
 

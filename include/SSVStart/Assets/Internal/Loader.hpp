@@ -11,7 +11,7 @@
 
 namespace ssvs
 {
-	namespace Internal
+	namespace Impl
 	{
 		template<typename T> struct Loader // Most resources can be loaded only from Path, Memory or Stream
 		{

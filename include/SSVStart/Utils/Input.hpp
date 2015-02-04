@@ -18,7 +18,7 @@ namespace ssvs
 	#define SSVS_KEY_PREFIX "k"
 	#define SSVS_BTN_PREFIX "b"
 
-	namespace Internal
+	namespace Impl
 	{
 		inline const auto* getKKeyStrArray() noexcept
 		{
@@ -283,40 +283,40 @@ namespace ssvs
 	/// @brief Returns whether mId is a valid KKey name or not.
 	inline bool isKKeyNameValid(const std::string& mId) noexcept
 	{
-		return Internal::getStrKKeyMap().count(mId) > 0;
+		return Impl::getStrKKeyMap().count(mId) > 0;
 	}
 
 	/// @brief Returns whether mId is a valid MBtn name or not.
 	inline bool isMBtnNameValid(const std::string& mId)	noexcept
 	{
-		return Internal::getStrMBtnMap().count(mId) > 0;
+		return Impl::getStrMBtnMap().count(mId) > 0;
 	}
 
 	/// @brief Returns a KKey from a valid mId string identifier.
 	inline KKey getKKey(const std::string& mId)	noexcept
 	{
 		SSVU_ASSERT(isKKeyNameValid(mId));
-		return Internal::getStrKKeyMap().at(mId);
+		return Impl::getStrKKeyMap().at(mId);
 	}
 
 	/// @brief Returns a MBtn from a valid mId string identifier.
 	inline MBtn getMBtn(const std::string& mId)	noexcept
 	{
 		SSVU_ASSERT(isMBtnNameValid(mId));
-		return Internal::getStrMBtnMap().at(mId);
+		return Impl::getStrMBtnMap().at(mId);
 	}
 
 	/// @brief Returns the std::string identifier associated with the mKKey KKey.
 	inline const auto& getKKeyName(KKey mKKey) noexcept
 	{
 		SSVU_ASSERT(mKKey != KKey::Unknown);
-		return Internal::getKKeyStrArray()[static_cast<int>(mKKey)];
+		return Impl::getKKeyStrArray()[static_cast<int>(mKKey)];
 	}
 
 	/// @brief Returns the std::string identifier associated with the mMBtn MBtn.
 	inline const auto& getMBtnName(MBtn mMBtn) noexcept
 	{
-		return Internal::getMBtnStrArray()[static_cast<int>(mMBtn)];
+		return Impl::getMBtnStrArray()[static_cast<int>(mMBtn)];
 	}
 
 	/// @brief Shortcut to create a simple 2-state input that operates on a boolean value.
