@@ -47,7 +47,7 @@ namespace ssvs
 				}
 				template<typename... TArgs> inline Bind& emplace(TArgs&&... mArgs)
 				{
-					auto& result(ssvu::getEmplaceUPtr<Bind>(binds, *this, SSVU_FWD(mArgs)...));
+					auto& result(ssvu::getEmplaceUPtr<Bind>(binds, *this, FWD(mArgs)...));
 					mustSort = true;
 					return result;
 				}

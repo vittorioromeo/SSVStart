@@ -133,7 +133,7 @@ namespace ssvs
 			inline auto getMousePosition() const				{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
 			inline const auto& getInputState() const noexcept	{ return inputState; }
 
-			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(SSVU_FWD(mArgs)...); }
+			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...); }
 			inline auto getFPS() const noexcept { return gameEngine->getFPS(); }
 	};
 }

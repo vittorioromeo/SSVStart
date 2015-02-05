@@ -35,7 +35,7 @@ namespace ssvs
 			}
 			template<typename T, typename... TArgs> inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
 			{
-				nextImpl = ssvu::makeUPtr<T>(mGameEngine, SSVU_FWD(mArgs)...);
+				nextImpl = ssvu::makeUPtr<T>(mGameEngine, FWD(mArgs)...);
 			}
 	};
 }

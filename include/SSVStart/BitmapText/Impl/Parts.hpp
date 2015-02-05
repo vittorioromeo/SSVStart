@@ -53,7 +53,7 @@ namespace ssvs
 
 		public:
 			inline BTRPString(BitmapTextRich& mBTR) : BTRPart{mBTR} { }
-			template<typename T> inline BTRPString(BitmapTextRich& mBTR, T&& mStr) : BTRPart{mBTR}, str{SSVU_FWD(mStr)} { }
+			template<typename T> inline BTRPString(BitmapTextRich& mBTR, T&& mStr) : BTRPart{mBTR}, str{FWD(mStr)} { }
 			void apply() override;
 			inline void update(FT mFT) override
 			{

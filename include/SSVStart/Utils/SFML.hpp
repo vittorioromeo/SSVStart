@@ -204,7 +204,7 @@ namespace ssvs
 	}
 
 	/// @brief Creates and returns an sf::Color from HSV values.
-	/// @return Returns an `std::tuple` of [0..1] HSV values.
+	/// @return Returns a tuple of [0..1] HSV values.
 	inline auto getHSVFromColor(const sf::Color& mX)
 	{
 		// Credits: lolengine.net/blog/2013/01/13/fast-rgb-to-hsv

@@ -52,7 +52,7 @@ namespace ssvs
 
 			template<typename T, typename... TArgs> inline T& createPart(TArgs&&... mArgs)
 			{
-				return partRecycler.getCreateEmplace<T>(partManager, *this, SSVU_FWD(mArgs)...);
+				return partRecycler.getCreateEmplace<T>(partManager, *this, FWD(mArgs)...);
 			}
 
 		public:

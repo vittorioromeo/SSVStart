@@ -50,7 +50,7 @@ namespace ssvs
 			inline BitmapText() { }
 			inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "") : BaseType{mBF}, str{mStr} { }
 
-			template<typename T> inline void setString(T&& mStr) { str = SSVU_FWD(mStr); mustRefreshGeometry = true; }
+			template<typename T> inline void setString(T&& mStr) { str = FWD(mStr); mustRefreshGeometry = true; }
 
 			inline void setColor(const sf::Color& mX) noexcept	{ bdd.colorFG = mX; mustRefreshColor = true; }
 			inline void setTracking(float mX) noexcept			{ bdd.tracking = mX; mustRefreshGeometry = true; }
