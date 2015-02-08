@@ -68,3 +68,4 @@ namespace ssvs
 
 // TODO: fading
 // TODO: looping
+// TODO: in-out loop markers
