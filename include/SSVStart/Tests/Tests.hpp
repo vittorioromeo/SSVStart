@@ -57,7 +57,7 @@ SSVUT_TEST(SSVS_JsonTests)
 		do \
 		{ \
 			auto s(Val{original}.getWriteToStr()); \
-			SSVUT_EXPECT(Val::fromStr(s).as<Type>() == original); \
+			SSVUT_EXPECT(fromStr(s).as<Type>() == original); \
 		} while(false)
 
 	#define MAKETEST(T, ...)	do { using Type = T; Type original(__VA_ARGS__); EXECTEST; } while(false)

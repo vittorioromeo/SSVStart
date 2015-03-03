@@ -22,19 +22,19 @@ namespace ssvs
 		{
 			inline static auto load(const Path& mPath)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromFile(mPath)) fail("from path");
 				return result;
 			}
 			inline static auto load(const void* mData, SizeT mSize)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromMemory(mData, mSize)) fail("from memory");
 				return result;
 			}
 			inline static auto load(sf::InputStream& mStream)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromStream(mStream)) fail("from stream");
 				return result;
 			}
@@ -43,19 +43,19 @@ namespace ssvs
 		{
 			inline static auto load(const Path& mPath)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->openFromFile(mPath)) fail("from open path");
 				return result;
 			}
 			inline static auto load(const void* mData, SizeT mSize)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->openFromMemory(mData, mSize)) fail("from open memory");
 				return result;
 			}
 			inline static auto load(sf::InputStream& mStream)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->openFromStream(mStream)) fail("from open stream");
 				return result;
 			}
@@ -65,7 +65,7 @@ namespace ssvs
 			using T = sf::Texture;
 			inline static auto load(const sf::Image& mImage)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromImage(mImage)) fail("from image");
 				return result;
 			}
@@ -75,7 +75,7 @@ namespace ssvs
 			using T = sf::SoundBuffer;
 			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate)) fail("from samples");
 				return result;
 			}
@@ -85,37 +85,37 @@ namespace ssvs
 			using T = sf::Shader;
 			inline static auto load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromFile(mPath, mType)) fail("shader from path");
 				return result;
 			}
 			inline static auto load(const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromFile(mPathVertex, mPathFragment)) fail("shader from path (2)");
 				return result;
 			}
 			inline static auto load(const std::string& mShader, sf::Shader::Type mType, ShaderFromMemory)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromMemory(mShader, mType)) fail("shader from memory");
 				return result;
 			}
 			inline static auto load(const std::string& mShaderVertex, const std::string& mShaderFragment, ShaderFromMemory)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromMemory(mShaderVertex, mShaderFragment)) fail("shader from memory (2)");
 				return result;
 			}
 			inline static auto load(sf::InputStream& mStream, sf::Shader::Type mType)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromStream(mStream, mType)) fail("shader from stream");
 				return result;
 			}
 			inline static auto load(sf::InputStream& mStreamVertex, sf::InputStream& mStreamFragment)
 			{
-				auto result(ssvu::makeUPtr<T>());
+				auto result(ssvu::mkUPtr<T>());
 				if(!result->loadFromStream(mStreamVertex, mStreamFragment)) fail("shader from stream (2)");
 				return result;
 			}
@@ -125,13 +125,13 @@ namespace ssvs
 			using T = BitmapFont;
 			inline static auto load(const sf::Texture& mTexture, const BitmapFontData& mData)
 			{
-				return ssvu::makeUPtr<T>(mTexture, mData);
+				return ssvu::mkUPtr<T>(mTexture, mData);
 			}
 		};
 		template<> struct Helper<Mode::Tileset, Tileset>
 		{
 			using T = Tileset;
-			inline static auto load(const Tileset& mTileset) { return ssvu::makeUPtr<T>(mTileset); }
+			inline static auto load(const Tileset& mTileset) { return ssvu::mkUPtr<T>(mTileset); }
 		};
 	}
 }

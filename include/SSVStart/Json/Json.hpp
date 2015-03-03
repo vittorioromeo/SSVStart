@@ -17,13 +17,13 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/AssetManager.hpp"
 
+SSVJ_CNV_TO_VAL(ssvs::Input::Trigger, getCombos())
+SSVJ_CNV_TO_ARR(sf::Color, r, g, b, a)
+SSVJ_CNV_TO_ARR(ssvs::BitmapFontData, cellColumns, cellWidth, cellHeight, cellStart)
+SSVJ_CNV_TO_ARR_TEMPLATE(typename T, ssvs::Vec2<T>, x, y)
+
 SSVJ_CNV_NAMESPACE()
 {
-	template<typename T> SSVJ_CNV(ssvs::Vec2<T>, mV, mX)	{ ssvj::cnvArr(mV, mX.x, mX.y); }													SSVJ_CNV_END()
-	template<> SSVJ_CNV(ssvs::BitmapFontData, mV, mX)		{ ssvj::cnvArr(mV, mX.cellColumns, mX.cellWidth, mX.cellHeight, mX.cellStart); }	SSVJ_CNV_END()
-	template<> SSVJ_CNV(sf::Color, mV, mX)					{ ssvj::cnvArr(mV, mX.r, mX.g, mX.b, mX.a); }										SSVJ_CNV_END()
-	template<> SSVJ_CNV(ssvs::Input::Trigger, mV, mX)		{ ssvj::cnv(mV, mX.getCombos()); }													SSVJ_CNV_END()
-
 	template<> struct Cnv<ssvs::KKey>
 	{
 		using T = ssvs::KKey;
@@ -122,12 +122,12 @@ namespace ssvs
 
 		for(const auto& f : mVal["bitmapFonts"].forObj())
 		{
-			auto dv(ssvj::Val::fromFile(mRootPath + f.value[1].as<string>()));
+			auto dv(ssvj::fromFile(mRootPath + f.value[1].as<string>()));
 			mAssetManager.load<BitmapFont>(f.key, mAssetManager.get<sf::Texture>(f.value[0].as<string>()), dv.as<BitmapFontData>());
 		}
 		for(const auto& f : mVal["tilesets"].forObj())
 		{
-			auto dv(ssvj::Val::fromFile(mRootPath + f.value.as<string>()));
+			auto dv(ssvj::fromFile(mRootPath + f.value.as<string>()));
 			mAssetManager.load<Tileset>(f.key, dv.as<Tileset>());
 		}
 	}
