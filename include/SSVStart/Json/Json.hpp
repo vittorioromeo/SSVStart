@@ -17,10 +17,10 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/AssetManager.hpp"
 
-SSVJ_CNV_TO_VAL(ssvs::Input::Trigger, getCombos())
-SSVJ_CNV_TO_ARR(sf::Color, r, g, b, a)
-SSVJ_CNV_TO_ARR(ssvs::BitmapFontData, cellColumns, cellWidth, cellHeight, cellStart)
-SSVJ_CNV_TO_ARR_TEMPLATE(typename T, ssvs::Vec2<T>, x, y)
+SSVJ_CNV_VAL(ssvs::Input::Trigger, getCombos())
+SSVJ_CNV_ARR(sf::Color, r, g, b, a)
+SSVJ_CNV_ARR(ssvs::BitmapFontData, cellColumns, cellWidth, cellHeight, cellStart)
+SSVJ_CNV_ARR_TEMPLATE(typename T, ssvs::Vec2<T>, x, y)
 
 SSVJ_CNV_NAMESPACE()
 {
