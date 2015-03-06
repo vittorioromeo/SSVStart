@@ -61,10 +61,15 @@ namespace ssvs
 
 			inline void clear()
 			{
-				// basePart->clear();
+				mustRefresh = true;
 				partManager.clear();
+				basePart = &createPart<BTRPart>();
 			}
-			inline void update(FT mFT) { basePart->update(mFT); }
+			inline void update(FT mFT)
+			{
+				BaseType::update(mFT);
+				basePart->update(mFT);
+			}
 
 			template<typename T, typename... TArgs> auto& mk(TArgs&&... mArgs);
 			template<typename T> auto& operator<<(T&&);
@@ -76,3 +81,4 @@ namespace ssvs
 #endif
 
 // TODO: do not refresh geometry when only color is chagned
+// TODO: review code

@@ -104,12 +104,15 @@ namespace ssvs
 				}
 
 			public:
+				inline void update(FT)
+				{
+				}
+
 				inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
 				{
 					SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
 
 					getTD().refresh();
-
 					mRenderStates.texture = texture;
 
 					/*
