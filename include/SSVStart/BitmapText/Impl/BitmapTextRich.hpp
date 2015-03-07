@@ -32,18 +32,18 @@ namespace ssvs
 			BTRPart* basePart{&createPart<BTRPart>()};
 			mutable bool mustRefresh{true};
 
-			inline void refresh() const
+			inline void refreshIfNeeded() const
 			{
 				if(!mustRefresh) return;
 				mustRefresh = false;
 
-				refreshStart();
+				refreshGeometryStart();
 
 				bdd.tracking = 0.f;
 				bdd.colorFG = sf::Color::White;
 				basePart->apply();
 
-				refreshFinish();
+				refreshGeometryFinish();
 			}
 
 			inline void applyStr(const std::string& mStr) const { createVertices(mStr); }
@@ -67,7 +67,6 @@ namespace ssvs
 			}
 			inline void update(FT mFT)
 			{
-				BaseType::update(mFT);
 				basePart->update(mFT);
 			}
 
@@ -79,6 +78,3 @@ namespace ssvs
 }
 
 #endif
-
-// TODO: do not refresh geometry when only color is chagned
-// TODO: review code

@@ -23,22 +23,22 @@ namespace ssvs
 			std::string str;
 			mutable bool mustRefreshGeometry{true}, mustRefreshColor{true};
 
-			inline void refresh() const
+			inline void refreshIfNeeded() const
 			{
-				refreshGeometry();
-				refreshColor();
+				refreshGeometryIfNeeded();
+				refreshColorIfNeeded();
 			}
-			inline void refreshGeometry() const
+			inline void refreshGeometryIfNeeded() const
 			{
 				if(!mustRefreshGeometry) return;
 				mustRefreshGeometry = false;
 
-				refreshStart();
+				refreshGeometryStart();
 				createVertices(str);
-				refreshFinish();
+				refreshGeometryFinish();
 
 			}
-			inline void refreshColor() const
+			inline void refreshColorIfNeeded() const
 			{
 				if(!mustRefreshColor) return;
 				mustRefreshColor = false;
@@ -47,7 +47,7 @@ namespace ssvs
 			}
 
 		public:
-			inline BitmapText() { }
+			inline BitmapText() = default;
 			inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "") : BaseType{mBF}, str{mStr} { }
 
 			template<typename T> inline void setString(T&& mStr) { str = FWD(mStr); mustRefreshGeometry = true; }

@@ -31,12 +31,12 @@ namespace ssvs
 				mutable std::vector<SizeT> rowCells;
 				float alignMultiplier{0.f};
 
-				inline BitmapTextBase() noexcept { }
+				inline BitmapTextBase() = default;
 				inline BitmapTextBase(const BitmapFont& mBF) : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()} { }
 
 				inline void setAlign(TextAlign mX) noexcept { alignMultiplier = static_cast<float>(static_cast<int>(mX)) * 0.5f; }
 
-				inline void refreshStart() const
+				inline void refreshGeometryStart() const
 				{
 					SSVU_ASSERT(bitmapFont != nullptr);
 
@@ -62,7 +62,7 @@ namespace ssvs
 						const auto& rect(bitmapFont->getGlyphRect(c));
 						auto spacing(bdd.tracking * bdd.iX);
 
-						auto gLeft(bdd.iX * bdd.width + spacing );			ssvu::clampMax(bdd.xMin, gLeft);
+						auto gLeft(bdd.iX * bdd.width + spacing);			ssvu::clampMax(bdd.xMin, gLeft);
 						auto gRight((bdd.iX + 1) * bdd.width + spacing);	ssvu::clampMin(bdd.xMax, gRight);
 						auto gTop(bdd.iY * bdd.height);						ssvu::clampMax(bdd.yMin, gTop);
 						auto gBottom((bdd.iY + 1) * bdd.height);			ssvu::clampMin(bdd.yMax, gBottom);
@@ -76,7 +76,7 @@ namespace ssvs
 					}
 				}
 
-				inline void refreshFinish() const
+				inline void refreshGeometryFinish() const
 				{
 					// Recalculate bounds
 					auto width(bdd.xMax - bdd.xMin);
@@ -104,34 +104,19 @@ namespace ssvs
 				}
 
 			public:
-				inline void update(FT)
-				{
-				}
-
 				inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
 				{
 					SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
 
-					getTD().refresh();
+					getTD().refreshIfNeeded();
+
 					mRenderStates.texture = texture;
-
-					/*
-					sf::RectangleShape rs;
-					rs.setSize(Vec2f{bounds.width, bounds.height});
-					rs.setPosition(Vec2f(getPosition()));
-					rs.setFillColor(sf::Color{255, 0, 0, 150});
-					rs.setOrigin(getOrigin());
-
-					mRenderTarget.draw(rs, mRenderStates);
-					*/
-
-
 					mRenderStates.transform *= getTransform();
 					mRenderTarget.draw(vertices, mRenderStates);
 				}
 
 				inline const auto& getBitmapFont() const noexcept	{ return bitmapFont; }
-				inline const auto& getLocalBounds() const			{ getTD().refresh(); return bounds; }
+				inline const auto& getLocalBounds() const			{ getTD().refreshIfNeeded(); return bounds; }
 				inline auto getGlobalBounds() const					{ return getTransform().transformRect(getLocalBounds()); }
 				inline const auto& getColor() const noexcept		{ return bdd.colorFG; }
 				inline auto getTracking() const noexcept			{ return bdd.tracking; }

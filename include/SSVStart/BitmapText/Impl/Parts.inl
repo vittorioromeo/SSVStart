@@ -62,11 +62,6 @@ namespace ssvs
 			btr.mustRefresh = true;
 		}
 
-		// auto x = getHSVFromColor(computed);
-		// std::get<0>(x) = std::fmod(std::get<0>(x) + (mFT * 0.01f), 1.0f);
-		// computed = getColorFromHSV(std::get<0>(x), std::get<1>(x), std::get<2>(x));
-		// btr.mustRefresh = true;
-
 		BTRPart::update(mFT);
 	}
 
