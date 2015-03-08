@@ -27,7 +27,6 @@ namespace ssvs
 				mutable sf::FloatRect bounds;
 				mutable Impl::BitmapTextDrawState bdd;
 
-				mutable SizeT rowCellCount;
 				mutable std::vector<SizeT> rowCells;
 				float alignMultiplier{0.f};
 
@@ -40,7 +39,6 @@ namespace ssvs
 				{
 					SSVU_ASSERT(bitmapFont != nullptr);
 
-					rowCellCount = 0;
 					rowCells.clear();
 					vertices.clear();
 					bdd.reset(*bitmapFont);
