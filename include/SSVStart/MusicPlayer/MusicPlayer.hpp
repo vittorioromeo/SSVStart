@@ -32,8 +32,9 @@ namespace ssvs
 
 				current = &mMusic;
 			}
-			inline void stop()	{ if(current != nullptr) current->stop(); }
-			inline void pause()	{ if(current != nullptr) current->pause(); }
+			inline void stop()		{ if(current != nullptr) current->stop(); }
+			inline void pause()		{ if(current != nullptr) current->pause(); }
+			inline void resume()	{ if(current != nullptr) current->play(); }
 
 			inline void setVolume(float mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
 			inline void setLoop(bool mLoop)			{ loop = mLoop;		if(current != nullptr) current->setLoop(loop); }
