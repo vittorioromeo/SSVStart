@@ -36,22 +36,22 @@ namespace ssvs
 		template<> struct Loader<sf::Music> // Music can be opened from Path, Memory or StreamloadFromFile
 		{
 			using T = sf::Music;
-			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Open, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Open, T>::load(FWD(mArgs)...); }
 		};
 		template<> struct Loader<sf::Shader> // Shader has unique syntax
 		{
 			using T = sf::Shader;
-			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Shader, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Shader, T>::load(FWD(mArgs)...); }
 		};
 		template<> struct Loader<BitmapFont> // BitmapFont has unique syntax
 		{
 			using T = BitmapFont;
-			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::BitmapFont, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::BitmapFont, T>::load(FWD(mArgs)...); }
 		};
 		template<> struct Loader<Tileset> // Tileset has unique syntax
 		{
 			using T = Tileset;
-			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Tileset, T>::load(mArgs...); }
+			template<typename... TArgs> inline static auto load(TArgs&&... mArgs) { return Helper<Mode::Tileset, T>::load(FWD(mArgs)...); }
 		};
 	}
 }

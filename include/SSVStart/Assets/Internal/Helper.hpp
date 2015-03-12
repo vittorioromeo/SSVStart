@@ -15,49 +15,45 @@ namespace ssvs
 		using ShaderFromMemory = ShaderDisambiguationTag<true>;
 		using ShaderFromPath = ShaderDisambiguationTag<false>;
 
-		inline void fail(const std::string& mMessage = "") { throw std::runtime_error("Failed to load resource - " + mMessage); }
+		template<typename T, typename TF> inline auto loadImpl(TF mFn, const std::string& mErr)
+		{
+			auto result(ssvu::mkUPtr<T>());
+			if(mFn(result)) return result;
+
+			// TODO: lo?
+			ssvu::lo("Failed to load resource - " + mErr);
+			return ssvu::UPtr<T>{nullptr};
+		}
 
 		template<Mode TT, typename T> struct Helper;
 		template<typename T> struct Helper<Mode::Load, T>
 		{
 			inline static auto load(const Path& mPath)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromFile(mPath)) fail("from path");
-				return result;
+				return loadImpl<T>([&mPath](auto& mP){ return mP->loadFromFile(mPath); }, "from path");
 			}
 			inline static auto load(const void* mData, SizeT mSize)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromMemory(mData, mSize)) fail("from memory");
-				return result;
+				return loadImpl<T>([&mData, &mSize](auto& mP){ return mP->loadFromMemory(mData, mSize); }, "from memory");
 			}
 			inline static auto load(sf::InputStream& mStream)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromStream(mStream)) fail("from stream");
-				return result;
+				return loadImpl<T>([&mStream](auto& mP){ return mP->loadFromStream(mStream); }, "from stream");
 			}
 		};
 		template<typename T> struct Helper<Mode::Open, T>
 		{
 			inline static auto load(const Path& mPath)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->openFromFile(mPath)) fail("from open path");
-				return result;
+				return loadImpl<T>([&mPath](auto& mP){ return mP->openFromFile(mPath); }, "from path");
 			}
 			inline static auto load(const void* mData, SizeT mSize)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->openFromMemory(mData, mSize)) fail("from open memory");
-				return result;
+				return loadImpl<T>([&mData, &mSize](auto& mP){ return mP->openFromMemory(mData, mSize); }, "from memory");
 			}
 			inline static auto load(sf::InputStream& mStream)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->openFromStream(mStream)) fail("from open stream");
-				return result;
+				return loadImpl<T>([&mStream](auto& mP){ return mP->openFromStream(mStream); }, "from stream");
 			}
 		};
 		template<> struct Helper<Mode::Image, sf::Texture>
@@ -65,9 +61,7 @@ namespace ssvs
 			using T = sf::Texture;
 			inline static auto load(const sf::Image& mImage)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromImage(mImage)) fail("from image");
-				return result;
+				return loadImpl<T>([&mImage](auto& mP){ return mP->loadFromImage(mImage); }, "from image");
 			}
 		};
 		template<> struct Helper<Mode::Samples, sf::SoundBuffer>
@@ -75,9 +69,7 @@ namespace ssvs
 			using T = sf::SoundBuffer;
 			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate)) fail("from samples");
-				return result;
+				return loadImpl<T>([&mSamples, &mSampleCount, &mChannelCount, &mSampleRate](auto& mP){ return mP->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate); }, "from samples");
 			}
 		};
 		template<> struct Helper<Mode::Shader, sf::Shader>
@@ -85,39 +77,27 @@ namespace ssvs
 			using T = sf::Shader;
 			inline static auto load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromFile(mPath, mType)) fail("shader from path");
-				return result;
+				return loadImpl<T>([&mPath, &mType](auto& mP){ return mP->loadFromFile(mPath, mType); }, "shader from path");
 			}
 			inline static auto load(const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromFile(mPathVertex, mPathFragment)) fail("shader from path (2)");
-				return result;
+				return loadImpl<T>([&mPathVertex, &mPathFragment](auto& mP){ return mP->loadFromFile(mPathVertex, mPathFragment); }, "shader from path (2)");
 			}
 			inline static auto load(const std::string& mShader, sf::Shader::Type mType, ShaderFromMemory)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromMemory(mShader, mType)) fail("shader from memory");
-				return result;
+				return loadImpl<T>([&mShader, &mType](auto& mP){ return mP->loadFromMemory(mShader, mType); }, "shader from memory");
 			}
 			inline static auto load(const std::string& mShaderVertex, const std::string& mShaderFragment, ShaderFromMemory)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromMemory(mShaderVertex, mShaderFragment)) fail("shader from memory (2)");
-				return result;
+				return loadImpl<T>([&mShaderVertex, &mShaderFragment](auto& mP){ return mP->loadFromMemory(mShaderVertex, mShaderFragment); }, "shader from memory (2)");
 			}
 			inline static auto load(sf::InputStream& mStream, sf::Shader::Type mType)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromStream(mStream, mType)) fail("shader from stream");
-				return result;
+				return loadImpl<T>([&mStream, &mType](auto& mP){ return mP->loadFromStream(mStream, mType); }, "shader from stream");
 			}
 			inline static auto load(sf::InputStream& mStreamVertex, sf::InputStream& mStreamFragment)
 			{
-				auto result(ssvu::mkUPtr<T>());
-				if(!result->loadFromStream(mStreamVertex, mStreamFragment)) fail("shader from stream (2)");
-				return result;
+				return loadImpl<T>([&mStreamVertex, &mStreamFragment](auto& mP){ return mP->loadFromStream(mStreamVertex, mStreamFragment); }, "shader from stream (2)");
 			}
 		};
 		template<> struct Helper<Mode::BitmapFont, BitmapFont>

@@ -6,29 +6,52 @@
 #define SSVS_ASSETS_INTERNAL_RESOURCEHOLDER
 
 #include "SSVStart/Assets/Internal/Loader.hpp"
+#include "SSVStart/Assets/Internal/DefaultAssets.hpp"
+#include "SSVStart/Assets/Internal/Policies.hpp"
 
 namespace ssvs
 {
 	namespace Impl
 	{
-		template<typename T> class ResourceHolder
+		template<typename T, typename TPolicy> class ResourceHolder
 		{
+			friend struct ssvs::RHPolicyAssert;
+			friend struct ssvs::RHPolicyDefault;
+
+			public:
+				using ResType = T;
+				TPolicy policy;
+
 			private:
-				std::unordered_map<std::string, UPtr<T>> resources;
+				std::vector<UPtr<T>> ownership;
+				std::unordered_map<std::string, T*> resources;
+
+				inline auto& emplaceAndGet(const std::string& mId, T* mPtr)
+				{
+					const auto& inserted(resources.emplace(mId, mPtr));
+					return *inserted.first->second;
+				}
 
 			public:
 				template<typename... TArgs> inline T& load(const std::string& mId, TArgs&&... mArgs)
 				{
 					SSVU_ASSERT(!has(mId));
-					const auto& inserted(resources.emplace(mId, std::move(Loader<T>::load(mArgs...))));
-					return *inserted.first->second;
+					return policy.load(*this, mId, FWD(mArgs)...);
 				}
 
-				inline const T& operator[](const std::string& mId) const	{ SSVU_ASSERT(has(mId)); return *resources.at(mId); }
-				inline T& operator[](const std::string& mId)				{ SSVU_ASSERT(has(mId)); return *resources[mId]; }
+				inline const T& operator[](const std::string& mId) const
+				{
+					policy.checkMissing(*this, mId);
+					return *resources.at(mId);
+				}
+				inline T& operator[](const std::string& mId)
+				{
+					policy.checkMissing(*this, mId);
+					return *resources[mId];
+				}
 
-				inline bool has(const std::string& mId) const noexcept	{ return resources.count(mId) > 0; }
-				inline decltype(resources)& getResources() noexcept		{ return resources; }
+				inline bool has(const std::string& mId) const noexcept { return resources.count(mId) > 0; }
+				inline auto& getResources() noexcept { return resources; }
 		};
 	}
 }

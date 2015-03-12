@@ -85,7 +85,7 @@ SSVJ_CNV_NAMESPACE_END()
 
 namespace ssvs
 {
-	class AssetManager;
+	//template<typename> class AssetManager;
 
 	inline auto getAnimationFromJson(const Tileset& mTileset, const ssvj::Val& mVal)
 	{
@@ -108,27 +108,34 @@ namespace ssvs
 		return result;
 	}
 
-	inline void loadAssetsFromJson(AssetManager& mAssetManager, const Path& mRootPath, const ssvj::Val& mVal)
+	template<typename TM> inline void loadAssetsFromJson(TM& mMgr, const Path& mRootPath, const ssvj::Val& mVal)
 	{
 		using namespace std;
 
-		for(const auto& f : mVal["fonts"].forArrAs<string>())			mAssetManager.load<sf::Font>(f, mRootPath + f);
-		for(const auto& f : mVal["images"].forArrAs<string>())			mAssetManager.load<sf::Image>(f, mRootPath + f);
-		for(const auto& f : mVal["textures"].forArrAs<string>())		mAssetManager.load<sf::Texture>(f, mRootPath + f);
-		for(const auto& f : mVal["soundBuffers"].forArrAs<string>())	mAssetManager.load<sf::SoundBuffer>(f, mRootPath + f);
-		for(const auto& f : mVal["musics"].forArrAs<string>())			mAssetManager.load<sf::Music>(f, mRootPath + f);
-		for(const auto& f : mVal["shadersVertex"].forArrAs<string>())	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
-		for(const auto& f : mVal["shadersFragment"].forArrAs<string>())	mAssetManager.load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
+		for(const auto& f : mVal["fonts"].forArrAs<string>())			mMgr.template load<sf::Font>(f, mRootPath + f);
+		for(const auto& f : mVal["images"].forArrAs<string>())			mMgr.template load<sf::Image>(f, mRootPath + f);
+		for(const auto& f : mVal["textures"].forArrAs<string>())		mMgr.template load<sf::Texture>(f, mRootPath + f);
+		for(const auto& f : mVal["soundBuffers"].forArrAs<string>())	mMgr.template load<sf::SoundBuffer>(f, mRootPath + f);
+		for(const auto& f : mVal["musics"].forArrAs<string>())			mMgr.template load<sf::Music>(f, mRootPath + f);
+		for(const auto& f : mVal["shadersVertex"].forArrAs<string>())	mMgr.template load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
+		for(const auto& f : mVal["shadersFragment"].forArrAs<string>())	mMgr.template load<sf::Shader>(f, mRootPath + f, sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
 
 		for(const auto& f : mVal["bitmapFonts"].forObj())
 		{
-			auto dv(ssvj::fromFile(mRootPath + f.value[1].as<string>()));
-			mAssetManager.load<BitmapFont>(f.key, mAssetManager.get<sf::Texture>(f.value[0].as<string>()), dv.as<BitmapFontData>());
+			auto dv(ssvj::fromFile(mRootPath + f.value[1].template as<string>()));
+			auto texName(f.value[0].template as<string>());
+			auto& tex(mMgr.template get<sf::Texture>(texName));
+
+			if(&tex != &Impl::getNullTexture())
+			{
+				mMgr.template load<BitmapFont>(f.key, mMgr.template get<sf::Texture>(texName), dv.template as<BitmapFontData>());
+			}
 		}
+
 		for(const auto& f : mVal["tilesets"].forObj())
 		{
-			auto dv(ssvj::fromFile(mRootPath + f.value.as<string>()));
-			mAssetManager.load<Tileset>(f.key, dv.as<Tileset>());
+			auto dv(ssvj::fromFile(mRootPath + f.value.template as<string>()));
+			mMgr.template load<Tileset>(f.key, dv.template as<Tileset>());
 		}
 	}
 }

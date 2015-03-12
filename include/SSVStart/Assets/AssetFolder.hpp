@@ -7,7 +7,7 @@
 
 namespace ssvs
 {
-	class AssetManager;
+	template<typename> class AssetManager;
 
 	class AssetFolder
 	{
@@ -15,83 +15,71 @@ namespace ssvs
 			Path rootPath;
 			std::vector<Path> files;
 
-			inline std::vector<Path> getFilteredFiles(const std::vector<std::string>& mExtensions)
+			inline auto getFilteredFiles(const std::vector<std::string>& mExtensions)
 			{
 				std::vector<Path> result;
 				for(const auto& f : files) for(const auto& e : mExtensions) if(f.hasExtension(e)) result.emplace_back(f);
 				return result;
 			}
-			inline void loadFontsToManager(AssetManager& mAssetManager)
+
+			template<typename T, typename TM> inline void loadImpl(TM& mMgr, const std::vector<std::string>& mExtensions, const std::string mLoTitle)
 			{
-				for(const auto& f : getFilteredFiles({".ttf", ".otf", ".pfm"}))
+				for(const auto& f : getFilteredFiles(mExtensions))
 				{
 					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Font>(id, f);
-					ssvu::lo("ssvs::AssetFolder::loadFontsToManager(" + rootPath.getStr() + ")") << id + " font added\n";
+					mMgr.template load<T>(id, f);
+					ssvu::lo("ssvs::AssetFolder::" + mLoTitle + "(" + rootPath.getStr() + ")") << id + " added\n";
 				}
 			}
-			inline void loadImagesToManager(AssetManager& mAssetManager)
+
+			template<typename TM> inline void loadFontsToManager(TM& mMgr)
 			{
-				for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
-				{
-					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Image>(id, f);
-					ssvu::lo("ssvs::AssetFolder::loadImagesToManager(" + rootPath.getStr() + ")") << id + " image added\n";
-				}
+				loadImpl<sf::Font>(mMgr, {".ttf", ".otf", ".pfm"}, "loadFontsToManager");
 			}
-			inline void loadTexturesToManager(AssetManager& mAssetManager)
+			template<typename TM> inline void loadImagesToManager(TM& mMgr)
 			{
-				for(const auto& f : getFilteredFiles({".png", ".jpg", ".bmp", ".jpeg"}))
-				{
-					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Texture>(id, f);
-					ssvu::lo("ssvs::AssetFolder::loadTexturesToManager(" + rootPath.getStr() + ")") << id + " texture added\n";
-				}
+				loadImpl<sf::Image>(mMgr, {".png", ".jpg", ".bmp", ".jpeg"}, "loadImagesToManager");
 			}
-			inline void loadSoundBuffersToManager(AssetManager& mAssetManager)
+			template<typename TM> inline void loadTexturesToManager(TM& mMgr)
 			{
-				for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
-				{
-					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::SoundBuffer>(id, f);
-					ssvu::lo("ssvs::AssetFolder::loadSoundsToManager(" + rootPath.getStr() + ")") << id + " soundBuffer added\n";
-				}
+				loadImpl<sf::Texture>(mMgr, {".png", ".jpg", ".bmp", ".jpeg"}, "loadTexturesToManager");
 			}
-			inline void loadMusicsToManager(AssetManager& mAssetManager)
+			template<typename TM> inline void loadSoundBuffersToManager(TM& mMgr)
 			{
-				for(const auto& f : getFilteredFiles({".wav", ".ogg"}))
-				{
-					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Music>(id, f);
-					ssvu::lo("ssvs::AssetFolder::loadMusicsToManager(" + rootPath.getStr() + ")") << id + " music added\n";
-				}
+				loadImpl<sf::SoundBuffer>(mMgr, {".wav", ".ogg"}, "loadSoundBuffersToManager");
 			}
-			inline void loadShadersToManager(AssetManager& mAssetManager)
+			template<typename TM> inline void loadMusicsToManager(TM& mMgr)
+			{
+				loadImpl<sf::Music>(mMgr, {".wav", ".ogg"}, "loadMusicsToManager");
+			}
+
+			template<typename TM> inline void loadShadersToManager(TM& mMgr)
 			{
 				for(const auto& f : getFilteredFiles({".vert"}))
 				{
 					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
+					mMgr.template load<sf::Shader>(id, f, sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
 					ssvu::lo("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " vertex shader added\n";
 				}
+
 				for(const auto& f : getFilteredFiles({".frag"}))
 				{
 					std::string id{ssvu::getReplaced(f, rootPath, "")};
-					mAssetManager.load<sf::Shader>(id, f, sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
+					mMgr.template load<sf::Shader>(id, f, sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
 					ssvu::lo("ssvs::AssetFolder::loadShadersToManager(" + rootPath.getStr() + ")") << id + " fragment shader added\n";
 				}
 			}
 
 		public:
 			inline AssetFolder(const Path& mRootPath) : rootPath{mRootPath}, files{ssvufs::getScan<ssvufs::Mode::Recurse, ssvufs::Type::File>(rootPath)} { }
-			inline void loadToManager(AssetManager& mAssetManager)
+			template<typename TM> inline void loadToManager(TM& mMgr)
 			{
-				loadImagesToManager(mAssetManager);
-				loadTexturesToManager(mAssetManager);
-				loadSoundBuffersToManager(mAssetManager);
-				loadMusicsToManager(mAssetManager);
-				loadFontsToManager(mAssetManager);
-				loadShadersToManager(mAssetManager);
+				loadImagesToManager(mMgr);
+				loadTexturesToManager(mMgr);
+				loadSoundBuffersToManager(mMgr);
+				loadMusicsToManager(mMgr);
+				loadFontsToManager(mMgr);
+				loadShadersToManager(mMgr);
 
 				ssvu::lo().flush();
 			}
