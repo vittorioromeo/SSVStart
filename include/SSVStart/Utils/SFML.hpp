@@ -235,7 +235,7 @@ namespace ssvs
 		auto h(std::fabs(k + (g - b) / (6.f * chroma + 1e-20f)));
 		auto s(chroma / (r + 1e-20f));
 
-		return std::make_tuple(h, s, r);
+		return ssvu::mkTpl(h, s, r);
 	}
 
 
