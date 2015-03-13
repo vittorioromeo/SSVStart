@@ -69,7 +69,10 @@ namespace ssvs
 			using T = sf::SoundBuffer;
 			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
 			{
-				return loadImpl<T>([&mSamples, &mSampleCount, &mChannelCount, &mSampleRate](auto& mP){ return mP->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate); }, "from samples");
+				return loadImpl<T>([&mSamples, &mSampleCount, &mChannelCount, &mSampleRate](auto& mP)
+				{
+					return mP->loadFromSamples(mSamples, mSampleCount, mChannelCount, mSampleRate);
+				}, "from samples");
 			}
 		};
 		template<> struct Helper<Mode::Shader, sf::Shader>

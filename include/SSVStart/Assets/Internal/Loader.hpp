@@ -31,7 +31,11 @@ namespace ssvs
 			inline static auto load(const Path& mPath)				{ return Helper<Mode::Load, T>::load(mPath); }
 			inline static auto load(const void* mData, SizeT mSize)	{ return Helper<Mode::Load, T>::load(mData, mSize); }
 			inline static auto load(sf::InputStream& mStream)		{ return Helper<Mode::Load, T>::load(mStream); }
-			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate) { return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate); }
+
+			inline static auto load(const sf::Int16* mSamples, SizeT mSampleCount, unsigned int mChannelCount, unsigned int mSampleRate)
+			{
+				return Helper<Mode::Samples, T>::load(mSamples, mSampleCount, mChannelCount, mSampleRate);
+			}
 		};
 		template<> struct Loader<sf::Music> // Music can be opened from Path, Memory or StreamloadFromFile
 		{
