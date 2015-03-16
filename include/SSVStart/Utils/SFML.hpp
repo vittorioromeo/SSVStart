@@ -247,4 +247,21 @@ namespace ssvs
 	}
 }
 
+/// @brief Serialize enum into `sf::Packet`.
+template<typename T> inline auto operator<<(sf::Packet& mP, const T& mX) noexcept
+	-> ssvu::EnableIf<ssvu::isEnum<ssvu::RmAll<T>>(), sf::Packet&>
+{
+	return mP << ssvu::castEnum(mX);
+}
+
+/// @brief Deserialize enum from `sf::Packet`.
+template<typename T> inline auto operator>>(sf::Packet& mP, T& mX) noexcept
+	-> ssvu::EnableIf<ssvu::isEnum<ssvu::RmAll<T>>(), sf::Packet&>
+{
+	ssvu::Underlying<T> temp;
+	mP >> temp;
+	mX = ssvu::toEnum<T>(temp);
+	return mP;
+}
+
 #endif

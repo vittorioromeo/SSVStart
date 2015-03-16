@@ -20,7 +20,7 @@ namespace ssvs
 			auto result(ssvu::mkUPtr<T>());
 			if(mFn(result)) return result;
 
-			// TODO: lo?
+			// TODO: loErr?
 			ssvu::lo("Failed to load resource - " + mErr);
 			return ssvu::UPtr<T>{nullptr};
 		}
