@@ -13,29 +13,38 @@
 
 namespace ssvs
 {
-	using SizeT = ssvu::SizeT;
-	using HRClock = ssvu::HRClock;
-	using FT = ssvu::FT;
-	using FTDuration = ssvu::FTDuration;
+	using ssvu::SizeT;
+	using ssvu::HRClock;
+	using ssvu::FT;
+	using ssvu::FTDuration;
+	using ssvu::UPtr;
+	using ssvufs::Path;
+
+	using ssvu::toNum;
+	using ssvu::toInt;
+	using ssvu::toFloat;
+	using ssvu::toSizeT;
+
 	using KKey = sf::Keyboard::Key;
 	using MBtn = sf::Mouse::Button;
+
 	constexpr SizeT inputBitOffset{1};
 	constexpr SizeT kKeyCount{KKey::KeyCount};
 	constexpr SizeT mBtnCount{MBtn::ButtonCount};
+
 	using KeyBitset = std::bitset<kKeyCount + inputBitOffset>; // +offset because it also works with KKey::Unknown, which is -1
 	using BtnBitset = std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
-	using Path = ssvufs::Path;
 	using InputFunc = ssvu::Func<void(FT)>;
-	template<typename T, typename TD = ssvu::DefDel<T>> using UPtr = ssvu::UPtr<T, TD>;
+
 	template<typename T> using Vec2 = sf::Vector2<T>;
 	using Vec2i = Vec2<int>;
 	using Vec2f = Vec2<float>;
 	using Vec2u = Vec2<unsigned int>;
 
-	inline auto getKeyBit(KeyBitset& mBitset, KKey mKey) noexcept					{ return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
-	inline auto getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept					{ return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
-	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept	{ return mBitset[static_cast<int>(mKey + inputBitOffset)]; }
-	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept	{ return mBitset[static_cast<int>(mBtn + inputBitOffset)]; }
+	inline auto getKeyBit(KeyBitset& mBitset, KKey mKey) noexcept					{ return mBitset[toInt(mKey + inputBitOffset)]; }
+	inline auto getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept					{ return mBitset[toInt(mBtn + inputBitOffset)]; }
+	inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept	{ return mBitset[toInt(mKey + inputBitOffset)]; }
+	inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept	{ return mBitset[toInt(mBtn + inputBitOffset)]; }
 
 	namespace Impl
 	{

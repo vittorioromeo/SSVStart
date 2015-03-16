@@ -33,7 +33,7 @@ namespace ssvs
 				inline BitmapTextBase() = default;
 				inline BitmapTextBase(const BitmapFont& mBF) : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()} { }
 
-				inline void setAlign(TextAlign mX) noexcept { alignMultiplier = static_cast<float>(static_cast<int>(mX)) * 0.5f; }
+				inline void setAlign(TextAlign mX) noexcept { alignMultiplier = toFloat(ssvu::castEnum(mX)) * 0.5f; }
 
 				inline void refreshGeometryStart() const
 				{

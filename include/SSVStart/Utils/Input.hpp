@@ -310,13 +310,13 @@ namespace ssvs
 	inline const auto& getKKeyName(KKey mKKey) noexcept
 	{
 		SSVU_ASSERT(mKKey != KKey::Unknown);
-		return Impl::getKKeyStrArray()[static_cast<int>(mKKey)];
+		return Impl::getKKeyStrArray()[ssvu::castEnum(mKKey)];
 	}
 
 	/// @brief Returns the std::string identifier associated with the mMBtn MBtn.
 	inline const auto& getMBtnName(MBtn mMBtn) noexcept
 	{
-		return Impl::getMBtnStrArray()[static_cast<int>(mMBtn)];
+		return Impl::getMBtnStrArray()[ssvu::castEnum(mMBtn)];
 	}
 
 	/// @brief Shortcut to create a simple 2-state input that operates on a boolean value.

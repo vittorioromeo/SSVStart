@@ -58,7 +58,7 @@ namespace ssvs
 		{
 			pulse = ssvu::getWrapRad(pulse + (mFT * pulseSpeed));
 			computed = color;
-			computed.a = static_cast<int>(255.f - std::abs((std::sin(pulse) * pulseMax)));
+			computed.a = toInt(255.f - std::abs((std::sin(pulse) * pulseMax)));
 			btr.mustRefresh = true;
 		}
 
