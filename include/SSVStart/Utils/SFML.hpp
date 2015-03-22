@@ -264,4 +264,19 @@ template<typename T> inline auto operator>>(sf::Packet& mP, T& mX) noexcept
 	return mP;
 }
 
+/// @brief Serialize ssvu JSON value into `sf::Packet`.
+inline sf::Packet& operator<<(sf::Packet& mP, const ssvj::Val& mX)
+{
+	return mP << mX.getWriteToStr<ssvj::WSMinified>();
+}
+
+/// @brief Deserialize ssvu JSON value from `sf::Packet`.
+inline sf::Packet& operator>>(sf::Packet& mP, ssvj::Val& mX)
+{
+	std::string str;
+	mP >> str;
+	mX.readFromStr(str);
+	return mP;
+}
+
 #endif
