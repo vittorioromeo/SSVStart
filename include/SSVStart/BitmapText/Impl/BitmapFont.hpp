@@ -25,7 +25,7 @@ namespace ssvs
 			inline auto getCellHeight() const noexcept		{ return data.cellHeight; }
 			inline auto getGlyphRect(char mX) const
 			{
-				mX += data.cellStart - 33;
+				mX += static_cast<long>(data.cellStart) - 33;
 				const auto& i(ssvu::get2DIdxFrom1D(mX, data.cellColumns));
 				return sf::IntRect(std::get<0>(i) * data.cellWidth, std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
 			}
