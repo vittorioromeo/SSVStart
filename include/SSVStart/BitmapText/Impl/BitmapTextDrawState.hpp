@@ -10,8 +10,6 @@
 
 namespace ssvs
 {
-	class BitmapTextRich;
-
 	namespace Impl
 	{
 		struct BitmapTextDrawState

@@ -11,9 +11,9 @@
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextBase.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapText.hpp"
-#include "SSVStart/BitmapText/Impl/Parts.hpp"
-#include "SSVStart/BitmapText/Impl/BitmapTextRich.hpp"
-#include "SSVStart/BitmapText/Impl/Parts.inl"
-#include "SSVStart/BitmapText/Impl/BitmapTextRich.inl"
+// #include "SSVStart/BitmapText/Impl/Parts.hpp"
+// #include "SSVStart/BitmapText/Impl/BitmapTextRich.hpp"
+// #include "SSVStart/BitmapText/Impl/Parts.inl"
+// #include "SSVStart/BitmapText/Impl/BitmapTextRich.inl"
 
 #endif
