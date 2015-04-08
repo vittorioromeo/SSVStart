@@ -60,7 +60,7 @@ namespace ssvs
 	/// @details Uses std::abs on both components.
 	/// @param mVec Original vector. (will not be modified)
 	///	@return Returns a new vector with absolute value components.
-	template<typename T> inline auto getAbs(Vec2<T> mVec) noexcept { abs(mVec); return mVec; }
+	template<typename T> inline auto getAbs(Vec2<T> mVec) noexcept { ssvs::abs(mVec); return mVec; }
 
 	/// @brief Get the magnitude of a vector, squared.
 	/// @param mVec Vector to use.

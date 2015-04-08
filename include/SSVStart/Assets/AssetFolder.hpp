@@ -22,7 +22,7 @@ namespace ssvs
 				return result;
 			}
 
-			template<typename T, typename TM> inline void loadImpl(TM& mMgr, const std::vector<std::string>& mExtensions, const std::string mLoTitle)
+			template<typename T, typename TM> inline void loadImpl(TM& mMgr, const std::vector<std::string>& mExtensions, const std::string& mLoTitle)
 			{
 				for(const auto& f : getFilteredFiles(mExtensions))
 				{

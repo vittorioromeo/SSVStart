@@ -22,7 +22,7 @@ namespace ssvs
 			float speed{1.f}, time{0.f};
 			int dir{1};
 			Type type;
-			unsigned int currentTarget, nextTarget;
+			unsigned int currentTarget{0u}, nextTarget{0u};
 
 			inline void refreshTargets() noexcept
 			{
