@@ -16,8 +16,8 @@ namespace ssvs
 		{
 			using ResType = typename TR::ResType;
 
-			auto uptr(std::move(Impl::Loader<ResType>::load(mArgs...)));
-			mRH.ownership.emplace_back(std::move(uptr));
+			auto uptr(ssvu::mv(Impl::Loader<ResType>::load(mArgs...)));
+			mRH.ownership.emplace_back(ssvu::mv(uptr));
 			return mRH.emplaceAndGet(mId, uptr.get());
 		}
 
@@ -34,7 +34,7 @@ namespace ssvs
 		{
 			using ResType = typename TR::ResType;
 
-			auto uptr(std::move(Impl::Loader<ResType>::load(mArgs...)));
+			auto uptr(ssvu::mv(Impl::Loader<ResType>::load(mArgs...)));
 			ResType* ptr;
 
 			if(uptr == nullptr)
@@ -44,7 +44,7 @@ namespace ssvs
 			else
 			{
 				ptr = uptr.get();
-				mRH.ownership.emplace_back(std::move(uptr));
+				mRH.ownership.emplace_back(ssvu::mv(uptr));
 			}
 
 			return mRH.emplaceAndGet(mId, ptr);

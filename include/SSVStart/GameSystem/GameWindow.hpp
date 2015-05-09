@@ -113,7 +113,7 @@ namespace ssvs
 			inline void setPixelMult(float mPixelMult) noexcept						{ pixelMult = mPixelMult;			mustRecreate = true; }
 
 			inline void setMouseCursorVisible(bool mEnabled)						{ renderWindow.setMouseCursorVisible(mEnabled); }
-			inline void setTitle(std::string mTitle)								{ title = std::move(mTitle); renderWindow.setTitle(mTitle); }
+			inline void setTitle(std::string mTitle)								{ title = ssvu::mv(mTitle); renderWindow.setTitle(mTitle); }
 			inline void setMaxFPS(float mMaxFPS)									{ maxFPS = mMaxFPS; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setFPSLimited(bool mFPSLimited)								{ fpsLimited = mFPSLimited; renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0); }
 			inline void setGameState(GameState& mGameState) noexcept				{ gameEngine->setGameState(mGameState); }
