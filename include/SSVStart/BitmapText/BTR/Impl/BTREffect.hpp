@@ -20,6 +20,8 @@ namespace ssvs
 				friend class BTR::Impl::BTRRoot;
 
 				public:
+					inline virtual ~BTREffect() { }
+
 					inline virtual void update(FT) noexcept { }
 					inline virtual void apply(BTRChunk&) noexcept { }
 			};
