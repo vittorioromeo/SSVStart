@@ -90,6 +90,8 @@ namespace ssvs
 
 		#undef SSVS_IMPL_SPECIALIZE_PDEF
 	}
+
+	template<typename T> inline const auto& getDefaultAsset() noexcept { return *Impl::DefResHelper<T>::get(); }
 }
 
 #endif

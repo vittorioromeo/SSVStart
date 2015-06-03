@@ -65,6 +65,9 @@ namespace ssvs
 			inline GameWindow(const GameWindow&) = delete;
 			inline GameWindow& operator=(const GameWindow&) = delete;
 
+			inline GameWindow(GameWindow&&) = default;
+			inline GameWindow& operator=(GameWindow&&) = default;
+
 			inline void run()
 			{
 				SSVU_ASSERT(gameEngine != nullptr);
