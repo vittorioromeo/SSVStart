@@ -5,6 +5,9 @@
 #ifndef SSVS_GAMESYSTEM_GAMEWINDOW
 #define SSVS_GAMESYSTEM_GAMEWINDOW
 
+#include "SSVStart/Global/Typedefs.hpp"
+#include "SSVStart/Input/Input.hpp"
+
 namespace ssvs
 {
 	class GameWindow
@@ -35,6 +38,9 @@ namespace ssvs
 						case sf::Event::KeyReleased:			inputState[event.key.code] = false;				break;
 						case sf::Event::MouseButtonPressed:		inputState[event.mouseButton.button] = true;	break;
 						case sf::Event::MouseButtonReleased:	inputState[event.mouseButton.button] = false;	break;
+						// case sf::Event::TouchBegan:																break;
+						// case sf::Event::TouchEnded:																break;
+						// case sf::Event::TouchMoved:																break;
 						default:																				break;
 					}
 
