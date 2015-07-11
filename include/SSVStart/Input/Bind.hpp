@@ -38,7 +38,7 @@ namespace ssvs
 				}
 
 			public:
-				inline Bind(Manager& mManager, Trigger mTrigger, Type mType, Mode mMode, const InputFunc& mOn = Impl::getNullInputFunc(), const InputFunc& mOff = Impl::getNullInputFunc())
+				inline Bind(Manager& mManager, Trigger mTrigger, Type mType, Mode mMode, const InputFunc& mOn = ssvs::Impl::getNullInputFunc(), const InputFunc& mOff = ssvs::Impl::getNullInputFunc())
 					: manager(mManager), trigger{ssvu::mv(mTrigger)}, on{mOn}, off{mOff}, type{mType}, mode{mMode}
 				{
 					recalculatePriorityCombo();

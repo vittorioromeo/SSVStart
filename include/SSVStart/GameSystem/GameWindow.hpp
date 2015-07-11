@@ -31,17 +31,16 @@ namespace ssvs
 				{
 					switch(event.type)
 					{
-						case sf::Event::Closed:					gameEngine->stop();								break;
-						case sf::Event::GainedFocus:			focus = true;									break;
-						case sf::Event::LostFocus:				inputState.reset(); focus = false;				break;
-						case sf::Event::KeyPressed:				inputState[event.key.code] = true;				break;
-						case sf::Event::KeyReleased:			inputState[event.key.code] = false;				break;
-						case sf::Event::MouseButtonPressed:		inputState[event.mouseButton.button] = true;	break;
-						case sf::Event::MouseButtonReleased:	inputState[event.mouseButton.button] = false;	break;
-						// case sf::Event::TouchBegan:																break;
-						// case sf::Event::TouchEnded:																break;
-						// case sf::Event::TouchMoved:																break;
-						default:																				break;
+						case sf::Event::Closed:					gameEngine->stop();									break;
+						case sf::Event::GainedFocus:			focus = true;										break;
+						case sf::Event::LostFocus:				inputState.reset(); focus = false;					break;
+						case sf::Event::KeyPressed:				inputState[event.key.code] = true;					break;
+						case sf::Event::KeyReleased:			inputState[event.key.code] = false;					break;
+						case sf::Event::MouseButtonPressed:		inputState[event.mouseButton.button] = true;		break;
+						case sf::Event::MouseButtonReleased:	inputState[event.mouseButton.button] = false;		break;
+						case sf::Event::TouchBegan:				inputState.getFinger(event.touch.finger) = true;	break;
+						case sf::Event::TouchEnded:				inputState.getFinger(event.touch.finger) = false;	break;
+						default:																					break;
 					}
 
 					gameEngine->handleEvent(event);
@@ -139,8 +138,23 @@ namespace ssvs
 			inline FT getMsUpdate() const noexcept				{ return msUpdate; }
 			inline FT getMsDraw() const noexcept				{ return msDraw; }
 
-			inline auto getMousePosition() const				{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
+			inline auto getMousePosition() const noexcept				{ return renderWindow.mapPixelToCoords(sf::Mouse::getPosition(renderWindow)); }
+			inline auto getFingerPosition(FingerID mX) const noexcept	{ return renderWindow.mapPixelToCoords(sf::Touch::getPosition(mX, renderWindow)); }
+
 			inline const auto& getInputState() const noexcept	{ return inputState; }
+
+			inline auto getFingerDownCount() const noexcept { return inputState.fingers.count(); }
+			inline auto getFingerDownPositions() const noexcept
+			{
+				std::vector<Vec2i> result;
+
+				// TODO: bitset iteration function (forTrueBits?)
+				for(auto i(0u); i < fingerCount; ++i)
+					if(inputState.fingers[i])
+						result.emplace_back(getFingerPosition(i));
+
+				return result;
+			}
 
 			template<typename T, typename... TArgs> inline void setTimer(TArgs&&... mArgs) { gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...); }
 			inline auto getFPS() const noexcept { return gameEngine->getFPS(); }
