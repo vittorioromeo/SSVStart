@@ -17,12 +17,12 @@ namespace ssvs
 			sf::Color colorFG{sf::Color::White};
 			float xMin, xMax, yMin, yMax;
 			float tracking{0.f};
-			unsigned int iX, iY, width, height;
+			unsigned int iX, iY, width, height, chCount;
 
 			inline void reset(const BitmapFont& mBF)
 			{
 				xMin = xMax = yMin = yMax = 0;
-				iX = iY = 0;
+				iX = iY = chCount = 0;
 				width = mBF.getCellWidth();
 				height = mBF.getCellHeight();
 			}

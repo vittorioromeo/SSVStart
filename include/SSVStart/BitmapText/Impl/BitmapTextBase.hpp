@@ -52,9 +52,15 @@ namespace ssvs
 					{
 						switch(c)
 						{
-							case L'\t': bdd.iX += 4;											continue;
-							case L'\n': ++bdd.iY; rowCells.emplace_back(bdd.iX); bdd.iX = 0;	continue;
-							case L'\v': bdd.iY += 4;											continue;
+							case L'\t': bdd.iX += 4; continue;
+							case L'\v': bdd.iY += 4; continue;
+							case L'\n':
+							{
+								++bdd.iY;
+								rowCells.emplace_back(bdd.chCount);
+								bdd.iX = bdd.chCount = 0;
+								continue;
+							}
 						}
 
 						const auto& rect(bitmapFont->getGlyphRect(c));
@@ -70,6 +76,10 @@ namespace ssvs
 						vertices.emplace_back(Vec2f(gRight, gBottom),	bdd.colorFG,	Vec2f(rect.left + rect.width,	rect.top + rect.height));
 						vertices.emplace_back(Vec2f(gLeft, gBottom),	bdd.colorFG,	Vec2f(rect.left,				rect.top + rect.height));
 
+						// Count printable characters in the current row.
+						++bdd.chCount;
+
+						// Count all characters in the current row.
 						++bdd.iX;
 					}
 				}
@@ -93,7 +103,10 @@ namespace ssvs
 						// Find out the width of the current row
 						auto targetVIdx(lastVIdx + rc * 4);
 						float maxX{0.f};
-						for(; vIdx < targetVIdx; vIdx += 4) maxX = std::max({maxX, vertices[vIdx].position.x, vertices[vIdx + 1].position.x});
+						for(; vIdx < targetVIdx; vIdx += 4)
+						{
+							maxX = std::max({maxX, vertices[vIdx].position.x, vertices[vIdx + 1].position.x});
+						}
 
 						// Apply horizontal alignment
 						auto offset(width - maxX);
