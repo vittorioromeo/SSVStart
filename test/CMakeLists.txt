@@ -71,6 +71,13 @@ foreach(_file IN LISTS SSVS_TEST_SOURCES)
     ssvs_target_name_for(_target "${_file}")
 
     add_executable(${_target} EXCLUDE_FROM_ALL "${_file}")
+
+    target_link_libraries(${_target} ${SFML_AUDIO_LIBRARY_RELEASE})
+    target_link_libraries(${_target} ${SFML_GRAPHICS_LIBRARY_RELEASE})
+    target_link_libraries(${_target} ${SFML_WINDOW_LIBRARY_RELEASE})
+    target_link_libraries(${_target} ${SFML_SYSTEM_LIBRARY_RELEASE})
+    target_link_libraries(${_target} ${SFML_NETWORK_LIBRARY_RELEASE})
+
     ssvs_add_unit_test(${_target} ${CMAKE_CURRENT_BINARY_DIR}/${_target})
 endforeach()
 
