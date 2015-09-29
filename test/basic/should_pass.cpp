@@ -6,4 +6,4 @@ int main()
     TEST_ASSERT(true);
 
     return 0;
-} 
+}
