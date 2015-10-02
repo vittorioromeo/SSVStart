@@ -37,7 +37,7 @@ before_install:
     - tar -xvzf /tmp/sfml.tar.gz
     - sudo cp -r SFML-2.3.2/* /usr/
     - sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1 libxrandr2 libxrender1 libsoil1 libxcb-image0-dev libudev-dev libxcb-randr0-dev
-
+    - sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.0 /lib/x86_64-linux-gnu/libudev.so.1
 
 install:
     - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
