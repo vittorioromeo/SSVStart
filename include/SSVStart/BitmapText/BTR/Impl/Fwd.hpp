@@ -7,15 +7,16 @@
 
 namespace ssvs
 {
-	namespace BTR
-	{
-		namespace Impl
-		{
-			class BTRRoot;
-			class BTRChunk;
-			template<typename> struct EffectHelper;
-		}
-	}
+namespace BTR
+{
+    namespace Impl
+    {
+        class BTRRoot;
+        class BTRChunk;
+        template <typename>
+        struct EffectHelper;
+    }
+}
 }
 
 #endif

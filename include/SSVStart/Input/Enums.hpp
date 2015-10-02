@@ -7,11 +7,19 @@
 
 namespace ssvs
 {
-	namespace Input
-	{
-		enum class Type{Always, Once};
-		enum class Mode{Overlap, Exclusive};
-	}
+namespace Input
+{
+    enum class Type
+    {
+        Always,
+        Once
+    };
+    enum class Mode
+    {
+        Overlap,
+        Exclusive
+    };
+}
 }
 
 #endif

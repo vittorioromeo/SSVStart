@@ -9,27 +9,35 @@
 
 namespace ssvs
 {
-	struct BitmapFontData { unsigned int cellColumns, cellWidth, cellHeight, cellStart; };
+struct BitmapFontData
+{
+    unsigned int cellColumns, cellWidth, cellHeight, cellStart;
+};
 
-	class BitmapFont
-	{
-		private:
-			const sf::Texture& texture;
-			const BitmapFontData data;
+class BitmapFont
+{
+private:
+    const sf::Texture& texture;
+    const BitmapFontData data;
 
-		public:
-			inline BitmapFont(const sf::Texture& mTexture, const BitmapFontData& mData) noexcept : texture(mTexture), data(mData) { }
+public:
+    inline BitmapFont(const sf::Texture& mTexture,
+    const BitmapFontData& mData) noexcept : texture(mTexture),
+                                            data(mData)
+    {
+    }
 
-			inline const auto& getTexture() const noexcept	{ return texture; }
-			inline auto getCellWidth() const noexcept		{ return data.cellWidth; }
-			inline auto getCellHeight() const noexcept		{ return data.cellHeight; }
-			inline auto getGlyphRect(char mX) const
-			{
-				mX += toNum<long>(data.cellStart) - 33;
-				const auto& i(ssvu::get2DIdxFrom1D(mX, data.cellColumns));
-				return sf::IntRect(std::get<0>(i) * data.cellWidth, std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
-			}
-	};
+    inline const auto& getTexture() const noexcept { return texture; }
+    inline auto getCellWidth() const noexcept { return data.cellWidth; }
+    inline auto getCellHeight() const noexcept { return data.cellHeight; }
+    inline auto getGlyphRect(char mX) const
+    {
+        mX += toNum<long>(data.cellStart) - 33;
+        const auto& i(ssvu::get2DIdxFrom1D(mX, data.cellColumns));
+        return sf::IntRect(std::get<0>(i) * data.cellWidth,
+        std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
+    }
+};
 }
 
 #endif

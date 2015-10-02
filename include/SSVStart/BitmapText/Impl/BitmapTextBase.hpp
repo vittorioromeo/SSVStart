@@ -12,127 +12,152 @@
 
 namespace ssvs
 {
-	namespace Impl
-	{
-		template<typename TDerived> class BitmapTextBase : public sf::Transformable, public sf::Drawable
-		{
-			private:
-				inline auto& getTD() noexcept				{ return ssvu::castUp<TDerived>(*this); }
-				inline const auto& getTD() const noexcept	{ return ssvu::castUp<TDerived>(*this); }
+namespace Impl
+{
+    template <typename TDerived>
+    class BitmapTextBase : public sf::Transformable, public sf::Drawable
+    {
+    private:
+        inline auto& getTD() noexcept { return ssvu::castUp<TDerived>(*this); }
+        inline const auto& getTD() const noexcept
+        {
+            return ssvu::castUp<TDerived>(*this);
+        }
 
-			protected:
-				const BitmapFont* bitmapFont{nullptr};
-				const sf::Texture* texture{nullptr};
-				mutable ssvs::VertexVector<sf::PrimitiveType::Quads> vertices;
-				mutable sf::FloatRect bounds;
-				mutable Impl::BitmapTextDrawState bdd;
+    protected:
+        const BitmapFont* bitmapFont{nullptr};
+        const sf::Texture* texture{nullptr};
+        mutable ssvs::VertexVector<sf::PrimitiveType::Quads> vertices;
+        mutable sf::FloatRect bounds;
+        mutable Impl::BitmapTextDrawState bdd;
 
-				mutable std::vector<SizeT> rowCells;
-				float alignMultiplier{0.f};
+        mutable std::vector<SizeT> rowCells;
+        float alignMultiplier{0.f};
 
-				inline BitmapTextBase() = default;
-				inline BitmapTextBase(const BitmapFont& mBF) : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()} { }
+        inline BitmapTextBase() = default;
+        inline BitmapTextBase(const BitmapFont& mBF)
+            : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()}
+        {
+        }
 
-				inline void setAlign(TextAlign mX) noexcept { alignMultiplier = toFloat(ssvu::castEnum(mX)) * 0.5f; }
+        inline void setAlign(TextAlign mX) noexcept
+        {
+            alignMultiplier = toFloat(ssvu::castEnum(mX)) * 0.5f;
+        }
 
-				inline void refreshGeometryStart() const
-				{
-					SSVU_ASSERT(bitmapFont != nullptr);
+        inline void refreshGeometryStart() const
+        {
+            SSVU_ASSERT(bitmapFont != nullptr);
 
-					rowCells.clear();
-					vertices.clear();
-					bdd.reset(*bitmapFont);
-				}
+            rowCells.clear();
+            vertices.clear();
+            bdd.reset(*bitmapFont);
+        }
 
-				inline void createVertices(const std::string& mStr) const
-				{
-					vertices.reserve(mStr.size() * 4);
+        inline void createVertices(const std::string& mStr) const
+        {
+            vertices.reserve(mStr.size() * 4);
 
-					for(const auto& c : mStr)
-					{
-						switch(c)
-						{
-							case L'\t': bdd.iX += 4; continue;
-							case L'\v': bdd.iY += 4; continue;
-							case L'\n':
-							{
-								++bdd.iY;
-								rowCells.emplace_back(bdd.chCount);
-								bdd.iX = bdd.chCount = 0;
-								continue;
-							}
-						}
+            for(const auto& c : mStr) {
+                switch(c)
+                {
+                    case L'\t': bdd.iX += 4; continue;
+                    case L'\v': bdd.iY += 4; continue;
+                    case L'\n':
+                    {
+                        ++bdd.iY;
+                        rowCells.emplace_back(bdd.chCount);
+                        bdd.iX = bdd.chCount = 0;
+                        continue;
+                    }
+                }
 
-						const auto& rect(bitmapFont->getGlyphRect(c));
-						auto spacing(bdd.tracking * bdd.iX);
+                const auto& rect(bitmapFont->getGlyphRect(c));
+                auto spacing(bdd.tracking * bdd.iX);
 
-						auto gLeft(bdd.iX * bdd.width + spacing);			ssvu::clampMax(bdd.xMin, gLeft);
-						auto gRight((bdd.iX + 1) * bdd.width + spacing);	ssvu::clampMin(bdd.xMax, gRight);
-						auto gTop(bdd.iY * bdd.height);						ssvu::clampMax(bdd.yMin, gTop);
-						auto gBottom((bdd.iY + 1) * bdd.height);			ssvu::clampMin(bdd.yMax, gBottom);
+                auto gLeft(bdd.iX * bdd.width + spacing);
+                ssvu::clampMax(bdd.xMin, gLeft);
+                auto gRight((bdd.iX + 1) * bdd.width + spacing);
+                ssvu::clampMin(bdd.xMax, gRight);
+                auto gTop(bdd.iY * bdd.height);
+                ssvu::clampMax(bdd.yMin, gTop);
+                auto gBottom((bdd.iY + 1) * bdd.height);
+                ssvu::clampMin(bdd.yMax, gBottom);
 
-						vertices.emplace_back(Vec2f(gLeft, gTop),		bdd.colorFG,	Vec2f(rect.left,				rect.top));
-						vertices.emplace_back(Vec2f(gRight, gTop),		bdd.colorFG,	Vec2f(rect.left + rect.width,	rect.top));
-						vertices.emplace_back(Vec2f(gRight, gBottom),	bdd.colorFG,	Vec2f(rect.left + rect.width,	rect.top + rect.height));
-						vertices.emplace_back(Vec2f(gLeft, gBottom),	bdd.colorFG,	Vec2f(rect.left,				rect.top + rect.height));
+                vertices.emplace_back(
+                Vec2f(gLeft, gTop), bdd.colorFG, Vec2f(rect.left, rect.top));
+                vertices.emplace_back(Vec2f(gRight, gTop), bdd.colorFG,
+                Vec2f(rect.left + rect.width, rect.top));
+                vertices.emplace_back(Vec2f(gRight, gBottom), bdd.colorFG,
+                Vec2f(rect.left + rect.width, rect.top + rect.height));
+                vertices.emplace_back(Vec2f(gLeft, gBottom), bdd.colorFG,
+                Vec2f(rect.left, rect.top + rect.height));
 
-						// Count printable characters in the current row.
-						++bdd.chCount;
+                // Count printable characters in the current row.
+                ++bdd.chCount;
 
-						// Count all characters in the current row.
-						++bdd.iX;
-					}
-				}
+                // Count all characters in the current row.
+                ++bdd.iX;
+            }
+        }
 
-				inline void refreshGeometryFinish() const
-				{
-					// Recalculate bounds
-					auto width(bdd.xMax - bdd.xMin);
-					bounds = {bdd.xMin, bdd.yMin, width, bdd.yMax - bdd.yMin};
+        inline void refreshGeometryFinish() const
+        {
+            // Recalculate bounds
+            auto width(bdd.xMax - bdd.xMin);
+            bounds = {bdd.xMin, bdd.yMin, width, bdd.yMax - bdd.yMin};
 
-					// Add current row to `rowCells`, return if its the only one
-					if(rowCells.empty()) return;
-					rowCells.emplace_back(bdd.iX);
+            // Add current row to `rowCells`, return if its the only one
+            if(rowCells.empty()) return;
+            rowCells.emplace_back(bdd.iX);
 
-					SizeT lastVIdx{0};
+            SizeT lastVIdx{0};
 
-					for(auto rc : rowCells)
-					{
-						auto vIdx(lastVIdx);
+            for(auto rc : rowCells) {
+                auto vIdx(lastVIdx);
 
-						// Find out the width of the current row
-						auto targetVIdx(lastVIdx + rc * 4);
-						float maxX{0.f};
-						for(; vIdx < targetVIdx; vIdx += 4)
-						{
-							maxX = std::max({maxX, vertices[vIdx].position.x, vertices[vIdx + 1].position.x});
-						}
+                // Find out the width of the current row
+                auto targetVIdx(lastVIdx + rc * 4);
+                float maxX{0.f};
+                for(; vIdx < targetVIdx; vIdx += 4) {
+                    maxX = std::max({maxX, vertices[vIdx].position.x,
+                    vertices[vIdx + 1].position.x});
+                }
 
-						// Apply horizontal alignment
-						auto offset(width - maxX);
-						for(; lastVIdx < vIdx; ++lastVIdx) vertices[lastVIdx].position.x += offset * alignMultiplier;
-					}
-				}
+                // Apply horizontal alignment
+                auto offset(width - maxX);
+                for(; lastVIdx < vIdx; ++lastVIdx)
+                    vertices[lastVIdx].position.x += offset * alignMultiplier;
+            }
+        }
 
-			public:
-				inline void draw(sf::RenderTarget& mRenderTarget, sf::RenderStates mRenderStates) const override
-				{
-					SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
+    public:
+        inline void draw(sf::RenderTarget& mRenderTarget,
+        sf::RenderStates mRenderStates) const override
+        {
+            SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
 
-					getTD().refreshIfNeeded();
+            getTD().refreshIfNeeded();
 
-					mRenderStates.texture = texture;
-					mRenderStates.transform *= getTransform();
-					mRenderTarget.draw(vertices, mRenderStates);
-				}
+            mRenderStates.texture = texture;
+            mRenderStates.transform *= getTransform();
+            mRenderTarget.draw(vertices, mRenderStates);
+        }
 
-				inline const auto& getBitmapFont() const noexcept	{ return bitmapFont; }
-				inline const auto& getLocalBounds() const			{ getTD().refreshIfNeeded(); return bounds; }
-				inline auto getGlobalBounds() const					{ return getTransform().transformRect(getLocalBounds()); }
-				inline const auto& getColor() const noexcept		{ return bdd.colorFG; }
-				inline auto getTracking() const noexcept			{ return bdd.tracking; }
-		};
-	}
+        inline const auto& getBitmapFont() const noexcept { return bitmapFont; }
+        inline const auto& getLocalBounds() const
+        {
+            getTD().refreshIfNeeded();
+            return bounds;
+        }
+        inline auto getGlobalBounds() const
+        {
+            return getTransform().transformRect(getLocalBounds());
+        }
+        inline const auto& getColor() const noexcept { return bdd.colorFG; }
+        inline auto getTracking() const noexcept { return bdd.tracking; }
+    };
+}
 }
 
 #endif

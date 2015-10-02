@@ -7,24 +7,33 @@
 
 namespace ssvs
 {
-	namespace Input
-	{
-		class Trigger
-		{
-			private:
-				std::vector<Combo> combos;
+namespace Input
+{
+    class Trigger
+    {
+    private:
+        std::vector<Combo> combos;
 
-			public:
-				inline Trigger() = default;
-				inline Trigger(const std::initializer_list<Combo>& mCombos) noexcept : combos{mCombos} { }
+    public:
+        inline Trigger() = default;
+        inline Trigger(const std::initializer_list<Combo>& mCombos) noexcept
+        : combos{mCombos}
+        {
+        }
 
-				inline bool operator==(const Trigger& mRhs) const noexcept { return combos == mRhs.combos; }
-				inline bool operator!=(const Trigger& mRhs) const noexcept { return !this->operator==(mRhs); }
+        inline bool operator==(const Trigger& mRhs) const noexcept
+        {
+            return combos == mRhs.combos;
+        }
+        inline bool operator!=(const Trigger& mRhs) const noexcept
+        {
+            return !this->operator==(mRhs);
+        }
 
-				inline auto& getCombos() noexcept				{ return combos; }
-				inline const auto& getCombos() const noexcept	{ return combos; }
-		};
-	}
+        inline auto& getCombos() noexcept { return combos; }
+        inline const auto& getCombos() const noexcept { return combos; }
+    };
+}
 }
 
 #endif

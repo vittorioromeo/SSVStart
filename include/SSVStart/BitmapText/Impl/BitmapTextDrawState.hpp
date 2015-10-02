@@ -10,26 +10,31 @@
 
 namespace ssvs
 {
-	namespace Impl
-	{
-		struct BitmapTextDrawState
-		{
-			sf::Color colorFG{sf::Color::White};
-			float xMin, xMax, yMin, yMax;
-			float tracking{0.f};
-			unsigned int iX, iY, width, height, chCount;
+namespace Impl
+{
+    struct BitmapTextDrawState
+    {
+        sf::Color colorFG{sf::Color::White};
+        float xMin, xMax, yMin, yMax;
+        float tracking{0.f};
+        unsigned int iX, iY, width, height, chCount;
 
-			inline void reset(const BitmapFont& mBF)
-			{
-				xMin = xMax = yMin = yMax = 0;
-				iX = iY = chCount = 0;
-				width = mBF.getCellWidth();
-				height = mBF.getCellHeight();
-			}
-		};
-	}
+        inline void reset(const BitmapFont& mBF)
+        {
+            xMin = xMax = yMin = yMax = 0;
+            iX = iY = chCount = 0;
+            width = mBF.getCellWidth();
+            height = mBF.getCellHeight();
+        }
+    };
+}
 
-	enum class TextAlign : int{Left = 0, Center = 1, Right = 2};
+enum class TextAlign : int
+{
+    Left = 0,
+    Center = 1,
+    Right = 2
+};
 }
 
 #endif

@@ -46,7 +46,7 @@ int main()
 
     MAKETEST(ssvs::Input::Combo, {ssvs::KKey::Up}, {ssvs::MBtn::Left});
     MAKETEST(ssvs::Input::Trigger,
-             {{{ssvs::KKey::Up}, {ssvs::MBtn::Left}}, {ssvs::KKey::F1}});
+    {{{ssvs::KKey::Up}, {ssvs::MBtn::Left}}, {ssvs::KKey::F1}});
 
 #undef EXECTEST
 #undef MAKETEST

@@ -11,38 +11,56 @@
 
 namespace ssvs
 {
-	class MusicPlayer
-	{
-		private:
-			sf::Music* current{nullptr};
-			float volume{100};
-			bool loop{true};
+class MusicPlayer
+{
+private:
+    sf::Music* current{nullptr};
+    float volume{100};
+    bool loop{true};
 
-		public:
-			inline void play(sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
-			{
-				SSVU_ASSERT(mPlayingOffset <= mMusic.getDuration());
+public:
+    inline void play(
+    sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
+    {
+        SSVU_ASSERT(mPlayingOffset <= mMusic.getDuration());
 
-				stop();
+        stop();
 
-				mMusic.setVolume(volume);
-				mMusic.setLoop(true);
-				mMusic.play();
-				mMusic.setPlayingOffset(mPlayingOffset);
+        mMusic.setVolume(volume);
+        mMusic.setLoop(true);
+        mMusic.play();
+        mMusic.setPlayingOffset(mPlayingOffset);
 
-				current = &mMusic;
-			}
-			inline void stop()		{ if(current != nullptr) current->stop(); }
-			inline void pause()		{ if(current != nullptr) current->pause(); }
-			inline void resume()	{ if(current != nullptr) current->play(); }
+        current = &mMusic;
+    }
+    inline void stop()
+    {
+        if(current != nullptr) current->stop();
+    }
+    inline void pause()
+    {
+        if(current != nullptr) current->pause();
+    }
+    inline void resume()
+    {
+        if(current != nullptr) current->play();
+    }
 
-			inline void setVolume(float mVolume)	{ volume = mVolume; if(current != nullptr) current->setVolume(mVolume); }
-			inline void setLoop(bool mLoop)			{ loop = mLoop;		if(current != nullptr) current->setLoop(loop); }
+    inline void setVolume(float mVolume)
+    {
+        volume = mVolume;
+        if(current != nullptr) current->setVolume(mVolume);
+    }
+    inline void setLoop(bool mLoop)
+    {
+        loop = mLoop;
+        if(current != nullptr) current->setLoop(loop);
+    }
 
-			inline auto getCurrent() noexcept		{ return current; }
-			inline auto getVolume() const noexcept	{ return volume; }
-			inline bool getLoop() const noexcept	{ return loop; }
-	};
+    inline auto getCurrent() noexcept { return current; }
+    inline auto getVolume() const noexcept { return volume; }
+    inline bool getLoop() const noexcept { return loop; }
+};
 }
 
 #endif

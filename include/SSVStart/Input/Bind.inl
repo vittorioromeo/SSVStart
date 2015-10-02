@@ -7,14 +7,14 @@
 
 namespace ssvs
 {
-	namespace Input
-	{
-		inline void Bind::setPriorityUser(SizeT mValue) noexcept
-		{
-			priorityUser = mValue;
-			manager.mustSort = true;
-		}
-	}
+namespace Input
+{
+    inline void Bind::setPriorityUser(SizeT mValue) noexcept
+    {
+        priorityUser = mValue;
+        manager.mustSort = true;
+    }
+}
 }
 
 #endif

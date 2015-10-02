@@ -11,22 +11,22 @@
 
 namespace ssvs
 {
-	namespace BTR
-	{
-		namespace Impl
-		{
-			class BTREffect
-			{
-				friend class BTR::Impl::BTRRoot;
+namespace BTR
+{
+    namespace Impl
+    {
+        class BTREffect
+        {
+            friend class BTR::Impl::BTRRoot;
 
-				public:
-					inline virtual ~BTREffect() { }
+        public:
+            inline virtual ~BTREffect() {}
 
-					inline virtual void update(FT) noexcept { }
-					inline virtual void apply(BTRChunk&) noexcept { }
-			};
-		}
-	}
+            inline virtual void update(FT) noexcept {}
+            inline virtual void apply(BTRChunk&) noexcept {}
+        };
+    }
+}
 }
 
 #endif

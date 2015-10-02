@@ -7,7 +7,7 @@
 
 namespace ssvs
 {
-	inline void TimerBase::runDraw() { gameEngine.drawFromTimer(); }
+inline void TimerBase::runDraw() { gameEngine.drawFromTimer(); }
 }
 
 #endif

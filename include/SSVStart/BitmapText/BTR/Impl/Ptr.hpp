@@ -9,30 +9,47 @@
 
 namespace ssvs
 {
-	namespace BTR
-	{
-		template<typename T> class Ptr
-		{
-			private:
-				T* ptr;
+namespace BTR
+{
+    template <typename T>
+    class Ptr
+    {
+    private:
+        T* ptr;
 
-			public:
-				#if defined(SSVU_DEBUG)
-					inline Ptr() noexcept : ptr{nullptr} { }
-				#else
-					inline Ptr() noexcept { }
-				#endif
+    public:
+#if defined(SSVU_DEBUG)
+        inline Ptr() noexcept : ptr{nullptr} {}
+#else
+        inline Ptr() noexcept {}
+#endif
 
-				inline Ptr(T* mX) noexcept : ptr{mX} { }
+        inline Ptr(T* mX) noexcept : ptr{mX} {}
 
-				inline auto& operator*() noexcept				{ SSVU_ASSERT(ptr != nullptr); return *ptr; }
-				inline const auto& operator*() const noexcept	{ SSVU_ASSERT(ptr != nullptr); return *ptr; }
-				inline T* operator->() noexcept					{ SSVU_ASSERT(ptr != nullptr); return ptr; }
-				inline T* operator->() const noexcept			{ SSVU_ASSERT(ptr != nullptr); return ptr; }
+        inline auto& operator*() noexcept
+        {
+            SSVU_ASSERT(ptr != nullptr);
+            return *ptr;
+        }
+        inline const auto& operator*() const noexcept
+        {
+            SSVU_ASSERT(ptr != nullptr);
+            return *ptr;
+        }
+        inline T* operator->() noexcept
+        {
+            SSVU_ASSERT(ptr != nullptr);
+            return ptr;
+        }
+        inline T* operator->() const noexcept
+        {
+            SSVU_ASSERT(ptr != nullptr);
+            return ptr;
+        }
 
-				inline operator T*() const noexcept { return ptr; }
-		};
-	}
+        inline operator T*() const noexcept { return ptr; }
+    };
+}
 }
 
 #endif
