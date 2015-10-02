@@ -16,7 +16,6 @@ include_directories(${CMAKE_CURRENT_LIST_DIR})
 foreach(_file IN LISTS SSVS_TEST_SOURCES)
     file(READ "${_file}" _contents)
     vrm_cmake_target_name_for(_target "${_file}")
-    message("\nPORCO DIO\n ${_target} \n\n${${PROJECT_NAME_UPPER}_SOURCE_DIR}\n\n\n")
 
     add_executable(${_target} EXCLUDE_FROM_ALL "${_file}")
 
