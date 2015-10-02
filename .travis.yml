@@ -39,14 +39,14 @@ before_install:
     - mkdir ${DEPS_DIR} ; cd ${DEPS_DIR}
     - |
       CMAKE_URL="http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-x86_64.tar.gz"
-      mkdir cmake && travis_retry wget --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+      mkdir -p cmake && travis_retry wget --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
 
     # Get SFML2
     - SFML_DIR="${DEPS_DIR}/sfml"
     - wget http://www.sfml-dev.org/files/SFML-2.3.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
     - tar -xvzf /tmp/sfml.tar.gz
-    - mkdir ${SFML_DIR}
+    - mkdir -p ${SFML_DIR}
     - cp -r SFML-2.3.2/* ${SFML_DIR}
 
 install:
