@@ -18,7 +18,6 @@ addons:
             - gcc-5
             - g++-5
             - valgrind
-            - libsfml2-dev
 
 before_install:
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -33,10 +32,17 @@ install:
     - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
 
 before_script:
+    # Get CMake 3
     - cd ${TRAVIS_BUILD_DIR}
     - ./init-repository.sh
     - mkdir build && cd build
     - cmake .. -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=WIP
+    
+    # Get SFML2
+    - wget http://sfml-dev.org/download/sfml/2.1/SFML-2.1-linux-gcc-64bits.tar.bz2 -O /tmp/sfml.tar.bz2
+    - tar -xjvf /tmp/sfml.tar.bz2
+    - sudo cp -r SFML-2.1/* /usr/
+    - sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1  libxrandr2 libxrender1 libsoil1 
 
 script:
     - cd ${TRAVIS_BUILD_DIR}
