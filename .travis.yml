@@ -29,10 +29,11 @@ before_install:
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
 
     # Get SFML2
-    - wget http://sfml-dev.org/download/sfml/2.1/SFML-2.1-linux-gcc-64bits.tar.bz2 -O /tmp/sfml.tar.bz2
-    - tar -xjvf /tmp/sfml.tar.bz2
-    - sudo cp -r SFML-2.1/* /usr/
-    - sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1 libxrandr2 libxrender1 libsoil1 
+    - SFML_DIR="${DEPS_DIR}/sfml"
+    - wget http://www.sfml-dev.org/files/SFML-2.3.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
+    - tar -xjvf /tmp/sfml.tar.gz
+    - mkdir ${SFML_DIR}
+    - cp -r SFML-2.3.2/* ${SFML_DIR}
 
 install:
     - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
@@ -42,7 +43,7 @@ before_script:
     - cd ${TRAVIS_BUILD_DIR}
     - ./init-repository.sh
     - mkdir build && cd build
-    - cmake .. -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=WIP
+    - cmake .. -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=WIP -DSFML_ROOT=${SFML_DIR}
 
 script:
     - cd ${TRAVIS_BUILD_DIR}
