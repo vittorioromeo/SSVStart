@@ -13,20 +13,12 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 include_directories(${CMAKE_CURRENT_LIST_DIR})
 
 # Add all the unit tests.
-foreach(_file IN LISTS SSVS_TEST_SOURCES)
-    file(READ "${_file}" _contents)
-    vrm_cmake_target_name_for(_target "${_file}")
+vrm_cmake_generate_unit_tests(SSVS_TEST_SOURCES)
 
-    add_executable(${_target} EXCLUDE_FROM_ALL "${_file}")
-
-    target_link_libraries(${_target} ${SFML_AUDIO_LIBRARY_RELEASE})
-    target_link_libraries(${_target} ${SFML_GRAPHICS_LIBRARY_RELEASE})
-    target_link_libraries(${_target} ${SFML_WINDOW_LIBRARY_RELEASE})
-    target_link_libraries(${_target} ${SFML_SYSTEM_LIBRARY_RELEASE})
-    target_link_libraries(${_target} ${SFML_NETWORK_LIBRARY_RELEASE})
-
-    vrm_cmake_add_unit_test(${_target} ${CMAKE_CURRENT_BINARY_DIR}/${_target})
+foreach(_t IN LISTS vrm_cmake_out)
+    target_link_libraries(${_t} ${SFML_AUDIO_LIBRARY_RELEASE})
+    target_link_libraries(${_t} ${SFML_GRAPHICS_LIBRARY_RELEASE})
+    target_link_libraries(${_t} ${SFML_WINDOW_LIBRARY_RELEASE})
+    target_link_libraries(${_t} ${SFML_SYSTEM_LIBRARY_RELEASE})
+    target_link_libraries(${_t} ${SFML_NETWORK_LIBRARY_RELEASE})
 endforeach()
-
-# TODO: rewrite
-# TODO: add tests
