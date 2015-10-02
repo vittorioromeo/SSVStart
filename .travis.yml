@@ -24,8 +24,7 @@ addons:
             - valgrind
             - libjpeg62-dev
             - libsndfile1-dev
-            - libglew1.5
-            - libglew1.5-dev
+            - libglew-dev
             - libfreetype6
             - libjpeg-turbo8
             - libjpeg8
@@ -33,7 +32,6 @@ addons:
             - libopenal1
             - libxrandr2
             - libxrender1
-            - libsoil1
 
 before_install:
     # Get CMake 3
