@@ -18,7 +18,7 @@ addons:
             - gcc-5
             - g++-5
             - valgrind
-            - libsfml-dev
+            - libsfml2-dev
 
 before_install:
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
