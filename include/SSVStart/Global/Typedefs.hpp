@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <SFML/Window.hpp>
 #include <SSVUtils/Core/Core.hpp>
 #include <SSVUtils/Delegate/Delegate.hpp>
 #include <SSVUtils/Json/Json.hpp>
