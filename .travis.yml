@@ -1,6 +1,6 @@
 language: cpp
 os: linux
-sudo: false
+sudo: required
 
 cache:
     apt: true
@@ -22,16 +22,6 @@ addons:
             - gcc-5
             - g++-5
             - valgrind
-            - libjpeg62-dev
-            - libsndfile1-dev
-            - libglew-dev
-            - libfreetype6
-            - libjpeg-turbo8
-            - libjpeg8
-            - libopenal-data
-            - libopenal1
-            - libxrandr2
-            - libxrender1
 
 before_install:
     # Get CMake 3
@@ -43,11 +33,9 @@ before_install:
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
 
     # Get SFML2
-    - SFML_DIR="${DEPS_DIR}/sfml"
-    - wget http://www.sfml-dev.org/files/SFML-2.3.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
-    - tar -xvzf /tmp/sfml.tar.gz
-    - mkdir -p ${SFML_DIR}
-    - cp -r SFML-2.3.2/* ${SFML_DIR}
+    - sudo apt-add-repository -y ppa:sonkun/sfml-development
+    - sudo apt-get update
+    - sudo apt-get -y install sfml
 
 install:
     - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
@@ -57,7 +45,7 @@ before_script:
     - cd ${TRAVIS_BUILD_DIR}
     - ./init-repository.sh
     - mkdir build && cd build
-    - cmake .. -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=WIP -DSFML_ROOT=${SFML_DIR}
+    - cmake .. -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=WIP
 
 script:
     - cd ${TRAVIS_BUILD_DIR}
