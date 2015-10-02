@@ -33,9 +33,9 @@ before_install:
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
 
     # Get SFML2
-    - sudo apt-add-repository -y ppa:sonkun/sfml-development
+    - sudo apt-add-repository -y ppa:sonkun/sfml
     - sudo apt-get update
-    - sudo apt-get -y install sfml
+    - sudo apt-get -y install libsfml2-dev
 
 install:
     - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
