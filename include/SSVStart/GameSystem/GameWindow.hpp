@@ -245,6 +245,8 @@ public:
         gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...);
     }
     inline auto getFPS() const noexcept { return gameEngine->getFPS(); }
+
+    inline void recreate() noexcept { mustRecreate = true; }
 };
 }
 
