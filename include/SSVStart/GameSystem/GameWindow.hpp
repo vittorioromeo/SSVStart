@@ -70,6 +70,7 @@ private:
         renderWindow.create({width, height}, title,
         fullscreen ? sf::Style::Fullscreen : sf::Style::Default,
         sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
+
         renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
         renderWindow.setVerticalSyncEnabled(vsync);
         renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
@@ -198,6 +199,7 @@ public:
 
     inline operator sf::RenderWindow&() noexcept { return renderWindow; }
     inline auto& getRenderWindow() noexcept { return renderWindow; }
+    inline const auto& getRenderWindow() const noexcept { return renderWindow; }
     inline bool getFullscreen() const noexcept { return fullscreen; }
     inline auto getWidth() const noexcept { return width; }
     inline auto getHeight() const noexcept { return height; }
