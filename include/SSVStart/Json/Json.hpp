@@ -20,7 +20,7 @@
 SSVJ_CNV_VAL(ssvs::Input::Trigger, getCombos())
 SSVJ_CNV_ARR(sf::Color, r, g, b, a)
 SSVJ_CNV_ARR(
-ssvs::BitmapFontData, cellColumns, cellWidth, cellHeight, cellStart)
+    ssvs::BitmapFontData, cellColumns, cellWidth, cellHeight, cellStart)
 SSVJ_CNV_ARR_TEMPLATE(typename T, ssvs::Vec2<T>, x, y)
 
 SSVJ_CNV_NAMESPACE()
@@ -57,7 +57,8 @@ SSVJ_CNV_NAMESPACE()
         using T = ssvs::Input::Combo;
         inline static void fromVal(const Val& mV, T& mX)
         {
-            for(const auto& i : mV.forArr()) {
+            for(const auto& i : mV.forArr())
+            {
                 const auto& name(i.as<std::string>());
 
                 if(ssvs::isKKeyNameValid(name))
@@ -66,7 +67,8 @@ SSVJ_CNV_NAMESPACE()
                     mX.addBtn(i.as<ssvs::MBtn>());
                 else
                     ssvu::lo("ssvs::getInputComboFromJSON")
-                    << "<" << i << "> is not a valid input name" << std::endl;
+                        << "<" << i << "> is not a valid input name"
+                        << std::endl;
             }
         }
         inline static void toVal(Val& mV, const T& mX)
@@ -110,70 +112,76 @@ SSVJ_CNV_NAMESPACE_END()
 
 namespace ssvs
 {
-// template<typename> class AssetManager;
+    // template<typename> class AssetManager;
 
-inline auto getAnimationFromJson(const Tileset& mTileset, const ssvj::Val& mVal)
-{
-    Animation::Type type{Animation::Type::Loop};
+    inline auto getAnimationFromJson(
+        const Tileset& mTileset, const ssvj::Val& mVal)
+    {
+        Animation::Type type{Animation::Type::Loop};
 
-    const auto& jsonType(mVal.getIfHas<std::string>("type", ""));
-    if(jsonType == "once")
-        type = Animation::Type::Once;
-    else if(jsonType == "pingpong")
-        type = Animation::Type::PingPong;
-    // else if(jsonType == "loop") type = Animation::Type::Loop;
+        const auto& jsonType(mVal.getIfHas<std::string>("type", ""));
+        if(jsonType == "once")
+            type = Animation::Type::Once;
+        else if(jsonType == "pingpong")
+            type = Animation::Type::PingPong;
+        // else if(jsonType == "loop") type = Animation::Type::Loop;
 
-    Animation result{type};
+        Animation result{type};
 
-    for(const auto& i : mVal["frames"].forArr()) {
-        const auto& index(mTileset.getIdx(i[0].as<std::string>()));
-        result.addStep({index, i[1].as<float>()});
+        for(const auto& i : mVal["frames"].forArr())
+        {
+            const auto& index(mTileset.getIdx(i[0].as<std::string>()));
+            result.addStep({index, i[1].as<float>()});
+        }
+
+        result.setSpeed(mVal.getIfHas<float>("speed", 1.f));
+        return result;
     }
 
-    result.setSpeed(mVal.getIfHas<float>("speed", 1.f));
-    return result;
-}
+    template <typename TM>
+    inline void loadAssetsFromJson(
+        TM& mMgr, const Path& mRootPath, const ssvj::Val& mVal)
+    {
+        using namespace std;
 
-template <typename TM>
-inline void loadAssetsFromJson(
-TM& mMgr, const Path& mRootPath, const ssvj::Val& mVal)
-{
-    using namespace std;
+        for(const auto& f : mVal["fonts"].forArrAs<string>())
+            mMgr.template load<sf::Font>(f, mRootPath + f);
+        for(const auto& f : mVal["images"].forArrAs<string>())
+            mMgr.template load<sf::Image>(f, mRootPath + f);
+        for(const auto& f : mVal["textures"].forArrAs<string>())
+            mMgr.template load<sf::Texture>(f, mRootPath + f);
+        for(const auto& f : mVal["soundBuffers"].forArrAs<string>())
+            mMgr.template load<sf::SoundBuffer>(f, mRootPath + f);
+        for(const auto& f : mVal["musics"].forArrAs<string>())
+            mMgr.template load<sf::Music>(f, mRootPath + f);
+        for(const auto& f : mVal["shadersVertex"].forArrAs<string>())
+            mMgr.template load<sf::Shader>(f, mRootPath + f,
+                sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
+        for(const auto& f : mVal["shadersFragment"].forArrAs<string>())
+            mMgr.template load<sf::Shader>(f, mRootPath + f,
+                sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
 
-    for(const auto& f : mVal["fonts"].forArrAs<string>())
-        mMgr.template load<sf::Font>(f, mRootPath + f);
-    for(const auto& f : mVal["images"].forArrAs<string>())
-        mMgr.template load<sf::Image>(f, mRootPath + f);
-    for(const auto& f : mVal["textures"].forArrAs<string>())
-        mMgr.template load<sf::Texture>(f, mRootPath + f);
-    for(const auto& f : mVal["soundBuffers"].forArrAs<string>())
-        mMgr.template load<sf::SoundBuffer>(f, mRootPath + f);
-    for(const auto& f : mVal["musics"].forArrAs<string>())
-        mMgr.template load<sf::Music>(f, mRootPath + f);
-    for(const auto& f : mVal["shadersVertex"].forArrAs<string>())
-        mMgr.template load<sf::Shader>(
-        f, mRootPath + f, sf::Shader::Type::Vertex, Impl::ShaderFromPath{});
-    for(const auto& f : mVal["shadersFragment"].forArrAs<string>())
-        mMgr.template load<sf::Shader>(
-        f, mRootPath + f, sf::Shader::Type::Fragment, Impl::ShaderFromPath{});
+        for(const auto& f : mVal["bitmapFonts"].forObj())
+        {
+            auto dv(
+                ssvj::fromFile(mRootPath + f.value[1].template as<string>()));
+            auto texName(f.value[0].template as<string>());
+            auto& tex(mMgr.template get<sf::Texture>(texName));
 
-    for(const auto& f : mVal["bitmapFonts"].forObj()) {
-        auto dv(ssvj::fromFile(mRootPath + f.value[1].template as<string>()));
-        auto texName(f.value[0].template as<string>());
-        auto& tex(mMgr.template get<sf::Texture>(texName));
+            if(&tex != &Impl::getNullTexture())
+            {
+                mMgr.template load<BitmapFont>(f.key,
+                    mMgr.template get<sf::Texture>(texName),
+                    dv.template as<BitmapFontData>());
+            }
+        }
 
-        if(&tex != &Impl::getNullTexture()) {
-            mMgr.template load<BitmapFont>(f.key,
-            mMgr.template get<sf::Texture>(texName),
-            dv.template as<BitmapFontData>());
+        for(const auto& f : mVal["tilesets"].forObj())
+        {
+            auto dv(ssvj::fromFile(mRootPath + f.value.template as<string>()));
+            mMgr.template load<Tileset>(f.key, dv.template as<Tileset>());
         }
     }
-
-    for(const auto& f : mVal["tilesets"].forObj()) {
-        auto dv(ssvj::fromFile(mRootPath + f.value.template as<string>()));
-        mMgr.template load<Tileset>(f.key, dv.template as<Tileset>());
-    }
-}
 }
 
 #endif

@@ -7,33 +7,34 @@
 
 namespace ssvs
 {
-class GameEngine;
+    class GameEngine;
 
-class TimerBase
-{
-protected:
-    GameEngine& gameEngine;
-    sf::Clock clock;
-    FT frameTime{0};
-    float fps{0};
-
-public:
-    inline TimerBase(GameEngine& mGameEngine) noexcept : gameEngine(mGameEngine)
+    class TimerBase
     {
-    }
-    inline virtual ~TimerBase() {}
+    protected:
+        GameEngine& gameEngine;
+        sf::Clock clock;
+        FT frameTime{0};
+        float fps{0};
 
-    inline virtual void runUpdate() {}
-    inline virtual void runFrameTime()
-    {
-        frameTime = ssvu::getSecondsToFT(clock.restart().asSeconds());
-    }
-    inline virtual void runFPS() { fps = ssvu::getFTToFPS(frameTime); }
-    virtual void runDraw();
+    public:
+        inline TimerBase(GameEngine& mGameEngine) noexcept
+            : gameEngine(mGameEngine)
+        {
+        }
+        inline virtual ~TimerBase() {}
 
-    inline FT getFrameTime() const noexcept { return frameTime; }
-    inline float getFPS() const noexcept { return fps; }
-};
+        inline virtual void runUpdate() {}
+        inline virtual void runFrameTime()
+        {
+            frameTime = ssvu::getSecondsToFT(clock.restart().asSeconds());
+        }
+        inline virtual void runFPS() { fps = ssvu::getFTToFPS(frameTime); }
+        virtual void runDraw();
+
+        inline FT getFrameTime() const noexcept { return frameTime; }
+        inline float getFPS() const noexcept { return fps; }
+    };
 }
 
 #endif

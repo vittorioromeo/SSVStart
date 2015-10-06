@@ -9,81 +9,81 @@
 
 namespace ssvs
 {
-namespace Impl
-{
-    inline auto& getNullImage() noexcept
+    namespace Impl
     {
-        struct NullImage
+        inline auto& getNullImage() noexcept
         {
-            sf::Image data;
-            inline NullImage() { data.create(32, 32, sf::Color::Magenta); }
-        };
-
-        static NullImage result;
-        return result.data;
-    }
-
-    inline auto& getNullTexture() noexcept
-    {
-        struct NullTexture
-        {
-            sf::Texture data;
-            inline NullTexture() { data.loadFromImage(getNullImage()); }
-        };
-
-        static NullTexture result;
-        return result.data;
-    }
-
-    inline auto& getNullFont() noexcept
-    {
-        struct NullFont
-        {
-            sf::Font data;
-
-            inline NullFont()
+            struct NullImage
             {
-                data.loadFromMemory(__FreeSans_2strip_ttf,
-                ssvu::getCArraySize(__FreeSans_2strip_ttf));
-            }
-        };
+                sf::Image data;
+                inline NullImage() { data.create(32, 32, sf::Color::Magenta); }
+            };
 
-        static NullFont result;
-        return result.data;
-    }
+            static NullImage result;
+            return result.data;
+        }
 
-    inline auto& getNullBitmapFont() noexcept
-    {
-        struct NullBitmapFont
+        inline auto& getNullTexture() noexcept
         {
-            sf::Texture texture;
-            ssvs::BitmapFont data;
-
-            inline NullBitmapFont()
-                : data(texture, BitmapFontData{16, 8, 10, 3})
+            struct NullTexture
             {
-                texture.loadFromMemory(
-                fontObStrokedData, ssvu::getCArraySize(fontObStrokedData));
-            }
-        };
+                sf::Texture data;
+                inline NullTexture() { data.loadFromImage(getNullImage()); }
+            };
 
-        static NullBitmapFont result;
-        return result.data;
-    }
+            static NullTexture result;
+            return result.data;
+        }
 
-    inline auto& getNullSoundBuffer() noexcept
-    {
-        static sf::SoundBuffer result;
-        return result;
-    }
-    inline auto& getNullMusic() noexcept
-    {
-        static sf::Music result;
-        return result;
-    }
+        inline auto& getNullFont() noexcept
+        {
+            struct NullFont
+            {
+                sf::Font data;
 
-    template <typename T>
-    struct DefResHelper;
+                inline NullFont()
+                {
+                    data.loadFromMemory(__FreeSans_2strip_ttf,
+                        ssvu::getCArraySize(__FreeSans_2strip_ttf));
+                }
+            };
+
+            static NullFont result;
+            return result.data;
+        }
+
+        inline auto& getNullBitmapFont() noexcept
+        {
+            struct NullBitmapFont
+            {
+                sf::Texture texture;
+                ssvs::BitmapFont data;
+
+                inline NullBitmapFont()
+                    : data(texture, BitmapFontData{16, 8, 10, 3})
+                {
+                    texture.loadFromMemory(fontObStrokedData,
+                        ssvu::getCArraySize(fontObStrokedData));
+                }
+            };
+
+            static NullBitmapFont result;
+            return result.data;
+        }
+
+        inline auto& getNullSoundBuffer() noexcept
+        {
+            static sf::SoundBuffer result;
+            return result;
+        }
+        inline auto& getNullMusic() noexcept
+        {
+            static sf::Music result;
+            return result;
+        }
+
+        template <typename T>
+        struct DefResHelper;
 
 #define SSVS_IMPL_SPECIALIZE_PDEF(mType) \
     template <>                          \
@@ -92,9 +92,9 @@ namespace Impl
         using T = mType;                 \
     inline static auto get() noexcept
 
-    SSVS_IMPL_SPECIALIZE_PDEF(sf::Font) { return &getNullFont(); }
-};
-SSVS_IMPL_SPECIALIZE_PDEF(sf::Image) { return &getNullImage(); }
+        SSVS_IMPL_SPECIALIZE_PDEF(sf::Font) { return &getNullFont(); }
+    };
+    SSVS_IMPL_SPECIALIZE_PDEF(sf::Image) { return &getNullImage(); }
 };
 SSVS_IMPL_SPECIALIZE_PDEF(sf::Texture) { return &getNullTexture(); }
 }

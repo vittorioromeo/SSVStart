@@ -7,43 +7,51 @@
 
 namespace ssvs
 {
-class TimerStatic final : public TimerBase
-{
-private:
-    FT step, timeSlice, time{0};
-    float maxLoops, loops{0};
-
-public:
-    TimerStatic(GameEngine& mGameEngine, FT mStep = 1.f, FT mTimeSlice = 1.f,
-    float mMaxLoops = 50.f) noexcept : TimerBase(mGameEngine),
-                                       step{mStep},
-                                       timeSlice{mTimeSlice},
-                                       maxLoops{mMaxLoops}
+    class TimerStatic final : public TimerBase
     {
-    }
+    private:
+        FT step, timeSlice, time{0};
+        float maxLoops, loops{0};
 
-    inline void runUpdate() override
-    {
-        loops = 0;
-        time += frameTime;
-
-        while(time >= timeSlice && loops < maxLoops) {
-            gameEngine.updateFromTimer(step);
-            time -= timeSlice;
-            ++loops;
+    public:
+        TimerStatic(GameEngine& mGameEngine, FT mStep = 1.f,
+            FT mTimeSlice = 1.f, float mMaxLoops = 50.f) noexcept
+            : TimerBase(mGameEngine),
+              step{mStep},
+              timeSlice{mTimeSlice},
+              maxLoops{mMaxLoops}
+        {
         }
-    }
 
-    inline void setStep(FT mStep) noexcept { step = mStep; }
-    inline void setTimeSlice(FT mTimeSlice) noexcept { timeSlice = mTimeSlice; }
-    inline void setMaxLoops(float mMaxLoops) noexcept { maxLoops = mMaxLoops; }
+        inline void runUpdate() override
+        {
+            loops = 0;
+            time += frameTime;
 
-    inline FT getStep() const noexcept { return step; }
-    inline FT getTimeSlice() const noexcept { return timeSlice; }
-    inline FT getTime() const noexcept { return time; }
-    inline float getMaxLoops() const noexcept { return maxLoops; }
-    inline float getLoops() const noexcept { return loops; }
-};
+            while(time >= timeSlice && loops < maxLoops)
+            {
+                gameEngine.updateFromTimer(step);
+                time -= timeSlice;
+                ++loops;
+            }
+        }
+
+        inline void setStep(FT mStep) noexcept { step = mStep; }
+        inline void setTimeSlice(FT mTimeSlice) noexcept
+        {
+            timeSlice = mTimeSlice;
+        }
+        inline void setMaxLoops(float mMaxLoops) noexcept
+        {
+            maxLoops = mMaxLoops;
+        }
+
+        inline FT getStep() const noexcept { return step; }
+        inline FT getTimeSlice() const noexcept { return timeSlice; }
+        inline FT getTime() const noexcept { return time; }
+        inline float getMaxLoops() const noexcept { return maxLoops; }
+        inline float getLoops() const noexcept { return loops; }
+    };
 }
 
 #endif

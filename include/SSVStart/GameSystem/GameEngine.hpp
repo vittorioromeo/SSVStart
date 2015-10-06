@@ -7,100 +7,100 @@
 
 namespace ssvs
 {
-class GameWindow;
+    class GameWindow;
 
-class GameEngine
-{
-    friend GameWindow;
-    friend class TimerBase;
-    friend class TimerStatic;
-    friend class TimerDynamic;
-
-private:
-    GameTimer timer;
-    GameState* gameState{nullptr};
-    Input::InputState* inputState{nullptr};
-    bool running{true};
-
-    inline void refreshTimer() { timer.refresh(); }
-
-    // These methods are called from the timer
-    inline void updateFromTimer(FT mFT)
+    class GameEngine
     {
-        SSVU_ASSERT(isValid());
-        if(inputState != nullptr) gameState->updateInput(*inputState, mFT);
-        gameState->update(mFT);
-    }
-    inline void drawFromTimer()
-    {
-        SSVU_ASSERT(isValid());
-        gameState->draw();
-    }
+        friend GameWindow;
+        friend class TimerBase;
+        friend class TimerStatic;
+        friend class TimerDynamic;
 
-    inline void handleEvent(const sf::Event& mEvent) const noexcept
-    {
-        SSVU_ASSERT(isValid());
-        gameState->handleEvent(mEvent);
-    }
+    private:
+        GameTimer timer;
+        GameState* gameState{nullptr};
+        Input::InputState* inputState{nullptr};
+        bool running{true};
 
-    inline bool isValid() const noexcept { return gameState != nullptr; }
+        inline void refreshTimer() { timer.refresh(); }
 
-public:
-    inline GameEngine() = default;
+        // These methods are called from the timer
+        inline void updateFromTimer(FT mFT)
+        {
+            SSVU_ASSERT(isValid());
+            if(inputState != nullptr) gameState->updateInput(*inputState, mFT);
+            gameState->update(mFT);
+        }
+        inline void drawFromTimer()
+        {
+            SSVU_ASSERT(isValid());
+            gameState->draw();
+        }
 
-    inline GameEngine(const GameEngine&) = delete;
-    inline GameEngine& operator=(const GameEngine&) = delete;
+        inline void handleEvent(const sf::Event& mEvent) const noexcept
+        {
+            SSVU_ASSERT(isValid());
+            gameState->handleEvent(mEvent);
+        }
 
-    inline void stop() noexcept { running = false; }
+        inline bool isValid() const noexcept { return gameState != nullptr; }
 
-    inline void runUpdate()
-    {
-        SSVU_ASSERT(isValid());
+    public:
+        inline GameEngine() = default;
 
-        if(inputState != nullptr) gameState->refreshInput(*inputState);
-        timer->runUpdate();
-        gameState->onPostUpdate();
-    }
+        inline GameEngine(const GameEngine&) = delete;
+        inline GameEngine& operator=(const GameEngine&) = delete;
 
-    inline void runDraw()
-    {
-        SSVU_ASSERT(isValid());
+        inline void stop() noexcept { running = false; }
 
-        timer->runDraw();
-    }
+        inline void runUpdate()
+        {
+            SSVU_ASSERT(isValid());
 
-    inline void runFPS()
-    {
-        SSVU_ASSERT(isValid());
+            if(inputState != nullptr) gameState->refreshInput(*inputState);
+            timer->runUpdate();
+            gameState->onPostUpdate();
+        }
 
-        timer->runFrameTime();
-        timer->runFPS();
-    }
+        inline void runDraw()
+        {
+            SSVU_ASSERT(isValid());
 
-    inline float getFPS() const noexcept { return timer->getFPS(); }
+            timer->runDraw();
+        }
 
-    inline void setGameState(GameState& mGameState) noexcept
-    {
-        gameState = &mGameState;
-    }
-    inline void setInputState(Input::InputState& mInputState) noexcept
-    {
-        inputState = &mInputState;
-    }
+        inline void runFPS()
+        {
+            SSVU_ASSERT(isValid());
 
-    inline bool isRunning() const noexcept { return running; }
+            timer->runFrameTime();
+            timer->runFPS();
+        }
 
-    template <typename T>
-    inline T& getTimer()
-    {
-        return timer.getImpl<T>();
-    }
-    template <typename T, typename... TArgs>
-    inline void setTimer(TArgs&&... mArgs)
-    {
-        timer.setImpl<T>(*this, FWD(mArgs)...);
-    }
-};
+        inline float getFPS() const noexcept { return timer->getFPS(); }
+
+        inline void setGameState(GameState& mGameState) noexcept
+        {
+            gameState = &mGameState;
+        }
+        inline void setInputState(Input::InputState& mInputState) noexcept
+        {
+            inputState = &mInputState;
+        }
+
+        inline bool isRunning() const noexcept { return running; }
+
+        template <typename T>
+        inline T& getTimer()
+        {
+            return timer.getImpl<T>();
+        }
+        template <typename T, typename... TArgs>
+        inline void setTimer(TArgs&&... mArgs)
+        {
+            timer.setImpl<T>(*this, FWD(mArgs)...);
+        }
+    };
 }
 
 #endif

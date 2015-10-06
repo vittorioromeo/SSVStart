@@ -7,39 +7,39 @@
 
 namespace ssvs
 {
-class GameEngine;
+    class GameEngine;
 
-class GameTimer
-{
-private:
-    UPtr<TimerBase> impl, nextImpl;
-
-public:
-    inline void refresh() noexcept
+    class GameTimer
     {
-        if(nextImpl == nullptr) return;
+    private:
+        UPtr<TimerBase> impl, nextImpl;
 
-        impl.swap(nextImpl);
-        nextImpl = nullptr;
+    public:
+        inline void refresh() noexcept
+        {
+            if(nextImpl == nullptr) return;
 
-        SSVU_ASSERT(nextImpl == nullptr);
-    }
+            impl.swap(nextImpl);
+            nextImpl = nullptr;
 
-    inline auto operator-> () { return impl.get(); }
-    inline auto operator-> () const { return impl.get(); }
+            SSVU_ASSERT(nextImpl == nullptr);
+        }
 
-    template <typename T>
-    inline T& getImpl() noexcept
-    {
-        SSVU_ASSERT(impl != nullptr);
-        return ssvu::castUp<T>(*impl);
-    }
-    template <typename T, typename... TArgs>
-    inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
-    {
-        nextImpl = ssvu::mkUPtr<T>(mGameEngine, FWD(mArgs)...);
-    }
-};
+        inline auto operator-> () { return impl.get(); }
+        inline auto operator-> () const { return impl.get(); }
+
+        template <typename T>
+        inline T& getImpl() noexcept
+        {
+            SSVU_ASSERT(impl != nullptr);
+            return ssvu::castUp<T>(*impl);
+        }
+        template <typename T, typename... TArgs>
+        inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
+        {
+            nextImpl = ssvu::mkUPtr<T>(mGameEngine, FWD(mArgs)...);
+        }
+    };
 }
 
 #endif

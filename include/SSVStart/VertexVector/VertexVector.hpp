@@ -10,17 +10,17 @@
 
 namespace ssvs
 {
-template <sf::PrimitiveType TPrimitive>
-struct VertexVector : public std::vector<sf::Vertex>, public sf::Drawable
-{
-    using std::vector<sf::Vertex>::vector;
-    inline void draw(sf::RenderTarget& mRenderTarget,
-    sf::RenderStates mRenderStates) const override
+    template <sf::PrimitiveType TPrimitive>
+    struct VertexVector : public std::vector<sf::Vertex>, public sf::Drawable
     {
-        mRenderTarget.draw(
-        this->data(), this->size(), TPrimitive, mRenderStates);
-    }
-};
+        using std::vector<sf::Vertex>::vector;
+        inline void draw(sf::RenderTarget& mRenderTarget,
+            sf::RenderStates mRenderStates) const override
+        {
+            mRenderTarget.draw(
+                this->data(), this->size(), TPrimitive, mRenderStates);
+        }
+    };
 }
 
 #endif

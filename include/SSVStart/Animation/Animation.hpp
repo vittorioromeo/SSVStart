@@ -9,105 +9,107 @@
 
 namespace ssvs
 {
-struct AnimationStep
-{
-    Vec2u index;
-    float time;
-};
-
-class Animation
-{
-public:
-    enum class Type
+    struct AnimationStep
     {
-        Once,
-        Loop,
-        PingPong
+        Vec2u index;
+        float time;
     };
 
-private:
-    std::vector<AnimationStep> steps;
-    unsigned int index{0};
-    float speed{1.f}, time{0.f};
-    int dir{1};
-    Type type;
-    unsigned int currentTarget{0u}, nextTarget{0u};
-
-    inline void refreshTargets() noexcept
+    class Animation
     {
-        if(dir > 0) {
-            currentTarget = steps.size() - 1;
-            nextTarget = 0u;
-        }
-        else
+    public:
+        enum class Type
         {
-            currentTarget = 0u;
-            nextTarget = steps.size() - 1;
-        }
-    }
+            Once,
+            Loop,
+            PingPong
+        };
 
-    inline void nextStep() noexcept
-    {
-        SSVU_ASSERT(index < steps.size());
+    private:
+        std::vector<AnimationStep> steps;
+        unsigned int index{0};
+        float speed{1.f}, time{0.f};
+        int dir{1};
+        Type type;
+        unsigned int currentTarget{0u}, nextTarget{0u};
 
-        time = 0;
-
-        if(dir > 0 ? index < currentTarget : index > 0u) {
-            index += dir;
-        }
-        else if(type == Type::Loop)
+        inline void refreshTargets() noexcept
         {
-            index = nextTarget;
+            if(dir > 0)
+            {
+                currentTarget = steps.size() - 1;
+                nextTarget = 0u;
+            }
+            else
+            {
+                currentTarget = 0u;
+                nextTarget = steps.size() - 1;
+            }
         }
-        else if(type == Type::PingPong)
+
+        inline void nextStep() noexcept
         {
-            dir *= -1;
+            SSVU_ASSERT(index < steps.size());
+
+            time = 0;
+
+            if(dir > 0 ? index < currentTarget : index > 0u)
+            {
+                index += dir;
+            }
+            else if(type == Type::Loop)
+            {
+                index = nextTarget;
+            }
+            else if(type == Type::PingPong)
+            {
+                dir *= -1;
+                refreshTargets();
+                index += dir;
+            }
+        }
+
+    public:
+        inline Animation(Type mType = Type::Loop) noexcept : type{mType} {}
+        inline void addStep(const AnimationStep& mStep)
+        {
+            steps.emplace_back(mStep);
             refreshTargets();
-            index += dir;
         }
-    }
+        inline void addSteps(const std::initializer_list<AnimationStep>& mSteps)
+        {
+            for(const auto& s : mSteps) addStep(s);
+        }
+        inline void addSteps(
+            const std::initializer_list<Vec2u>& mIndexes, float mStepTime)
+        {
+            for(const auto& i : mIndexes) addStep({i, mStepTime});
+        }
 
-public:
-    inline Animation(Type mType = Type::Loop) noexcept : type{mType} {}
-    inline void addStep(const AnimationStep& mStep)
-    {
-        steps.emplace_back(mStep);
-        refreshTargets();
-    }
-    inline void addSteps(const std::initializer_list<AnimationStep>& mSteps)
-    {
-        for(const auto& s : mSteps) addStep(s);
-    }
-    inline void addSteps(
-    const std::initializer_list<Vec2u>& mIndexes, float mStepTime)
-    {
-        for(const auto& i : mIndexes) addStep({i, mStepTime});
-    }
+        inline void setSpeed(float mSpeed) noexcept { speed = mSpeed; }
+        inline void setType(Type mType) noexcept { type = mType; }
+        inline void setReverse(bool mReverse) noexcept
+        {
+            dir = mReverse ? -1 : 1;
+            refreshTargets();
+        }
 
-    inline void setSpeed(float mSpeed) noexcept { speed = mSpeed; }
-    inline void setType(Type mType) noexcept { type = mType; }
-    inline void setReverse(bool mReverse) noexcept
-    {
-        dir = mReverse ? -1 : 1;
-        refreshTargets();
-    }
+        inline float getSpeed() const noexcept { return speed; }
+        inline float getTime() const noexcept { return time; }
+        inline unsigned int getIdx() const noexcept { return index; }
+        inline bool isReverse() const noexcept { return dir == -1; }
+        inline auto getType() const noexcept { return type; }
+        inline const auto& getStep() const { return steps[index]; }
+        inline auto getTileIndex() const { return getStep().index; }
 
-    inline float getSpeed() const noexcept { return speed; }
-    inline float getTime() const noexcept { return time; }
-    inline unsigned int getIdx() const noexcept { return index; }
-    inline bool isReverse() const noexcept { return dir == -1; }
-    inline auto getType() const noexcept { return type; }
-    inline const auto& getStep() const { return steps[index]; }
-    inline auto getTileIndex() const { return getStep().index; }
+        inline void update(FT mFT)
+        {
+            if(steps.empty()) return;
 
-    inline void update(FT mFT)
-    {
-        if(steps.empty()) return;
-
-        time += mFT * speed;
-        if(time >= getStep().time) nextStep();
-    }
-};
+            time += mFT * speed;
+            if(time >= getStep().time) nextStep();
+        }
+    };
 }
 
 #endif

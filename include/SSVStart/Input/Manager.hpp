@@ -7,58 +7,61 @@
 
 namespace ssvs
 {
-namespace Input
-{
-    class Combo;
-    class Bind;
-
-    class Manager
+    namespace Input
     {
-        friend Combo;
-        friend Bind;
+        class Combo;
+        class Bind;
 
-    private:
-        InputState processedInput;
-        ssvu::VecUPtr<Bind> binds;
-        bool isIgnoring{false}, mustSort{false};
-
-    public:
-        inline void update(InputState& mInputState, FT mFT)
+        class Manager
         {
-            for(auto& b : binds) {
-                b->update(mFT, mInputState);
+            friend Combo;
+            friend Bind;
 
-                // Some special input combos, such as ALT+ENTER (fullscreen),
-                // may work best if all the other inputs are then ignored.
-                if(isIgnoring) break;
-            }
-        }
-        inline void refresh(InputState& mInputState)
-        {
-            if(mustSort) {
-                ssvu::sort(binds, [](const auto& mA, const auto& mB)
+        private:
+            InputState processedInput;
+            ssvu::VecUPtr<Bind> binds;
+            bool isIgnoring{false}, mustSort{false};
+
+        public:
+            inline void update(InputState& mInputState, FT mFT)
+            {
+                for(auto& b : binds)
                 {
-                    return *mA < *mB;
-                });
-                mustSort = false;
+                    b->update(mFT, mInputState);
+
+                    // Some special input combos, such as ALT+ENTER
+                    // (fullscreen),
+                    // may work best if all the other inputs are then ignored.
+                    if(isIgnoring) break;
+                }
+            }
+            inline void refresh(InputState& mInputState)
+            {
+                if(mustSort)
+                {
+                    ssvu::sort(binds, [](const auto& mA, const auto& mB)
+                        {
+                            return *mA < *mB;
+                        });
+                    mustSort = false;
+                }
+
+                isIgnoring = false;
+                processedInput.reset();
+                for(auto& b : binds) b->refresh(mInputState);
+            }
+            template <typename... TArgs>
+            inline Bind& emplace(TArgs&&... mArgs)
+            {
+                auto& result(
+                    ssvu::getEmplaceUPtr<Bind>(binds, *this, FWD(mArgs)...));
+                mustSort = true;
+                return result;
             }
 
-            isIgnoring = false;
-            processedInput.reset();
-            for(auto& b : binds) b->refresh(mInputState);
-        }
-        template <typename... TArgs>
-        inline Bind& emplace(TArgs&&... mArgs)
-        {
-            auto& result(
-            ssvu::getEmplaceUPtr<Bind>(binds, *this, FWD(mArgs)...));
-            mustSort = true;
-            return result;
-        }
-
-        inline void ignoreNextInputs() noexcept { isIgnoring = true; }
-    };
-}
+            inline void ignoreNextInputs() noexcept { isIgnoring = true; }
+        };
+    }
 }
 
 #endif

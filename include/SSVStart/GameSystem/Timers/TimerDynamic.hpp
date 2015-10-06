@@ -7,24 +7,27 @@
 
 namespace ssvs
 {
-class TimerDynamic final : public TimerBase
-{
-private:
-    FT frameTimeLimit{4.f};
-
-public:
-    inline TimerDynamic(GameEngine& mGameEngine) noexcept
-    : TimerBase(mGameEngine)
+    class TimerDynamic final : public TimerBase
     {
-    }
+    private:
+        FT frameTimeLimit{4.f};
 
-    inline void runUpdate() override { gameEngine.updateFromTimer(frameTime); }
-    inline void runFPS() override
-    {
-        ssvu::clampMax(frameTime, frameTimeLimit);
-        TimerBase::runFPS();
-    }
-};
+    public:
+        inline TimerDynamic(GameEngine& mGameEngine) noexcept
+            : TimerBase(mGameEngine)
+        {
+        }
+
+        inline void runUpdate() override
+        {
+            gameEngine.updateFromTimer(frameTime);
+        }
+        inline void runFPS() override
+        {
+            ssvu::clampMax(frameTime, frameTimeLimit);
+            TimerBase::runFPS();
+        }
+    };
 }
 
 #endif
