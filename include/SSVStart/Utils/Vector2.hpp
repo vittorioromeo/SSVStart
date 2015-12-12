@@ -15,8 +15,8 @@ namespace ssvs
     using CT = ssvu::Common<TArgs...>;
 
     /// @brief Calculates radians needed to turn towards a point.
-    /// @param mVec Starting point.
-    /// @param mTarget Target point.
+    /// @param mA Starting point.
+    /// @param mB Target point.
     /// @return Returns the needed radians.
     template <typename T1, typename T2>
     inline auto getRadTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept
@@ -25,8 +25,8 @@ namespace ssvs
     }
 
     /// @brief Calculates degrees needed to turn towards a point.
-    /// @param mVec Starting point.
-    /// @param mTarget Target point.
+    /// @param mA Starting point.
+    /// @param mB Target point.
     /// @return Returns the needed degrees.
     template <typename T1, typename T2>
     inline auto getDegTowards(const Vec2<T1>& mA, const Vec2<T2>& mB) noexcept
@@ -121,7 +121,7 @@ namespace ssvs
     /// @brief Rotates a vector by n degrees around a point.
     /// @param mVec Vector to rotate. (will be modified)
     /// @param mCenter Point to use as center for the rotation.
-    /// @param mRad Number of degrees.
+    /// @param mDeg Number of degrees.
     template <typename T1, typename T2, typename T3>
     inline void rotateDegAround(
         Vec2<T1>& mVec, const Vec2<T2>& mCenter, const T3& mDeg)
@@ -419,7 +419,7 @@ namespace ssvs
     /// @brief Gets a vector with clamped magnitude. (max only)
     /// @details Internally resizes a copy of the vector, if needed.
     /// @param mVec Original vector. (will not be modified)
-    /// @param mMin Max magnitude.
+    /// @param mMax Max magnitude.
     /// @return Returns a copy of the original vector, clamped.
     template <typename T1, typename T2>
     inline Vec2<CT<T1, T2>> getMClampedMax(
@@ -478,7 +478,7 @@ namespace ssvs
     }
 
     /// @brief Gets a vector from an angle. (from degrees)
-    /// @param mRad Degrees of the desired vector.
+    /// @param mDeg Degrees of the desired vector.
     /// @param mMag Magnitude of the desired vector. (defaults to 1)
     /// @return Returns a new vector with specified angle and magnitude.
     template <typename T1, typename T2 = float>

@@ -31,6 +31,8 @@ namespace ssvs
             sf::Event event;
             while(renderWindow.pollEvent(event))
             {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
                 switch(event.type)
                 {
                     case sf::Event::Closed: gameEngine->stop(); break;
@@ -62,6 +64,7 @@ namespace ssvs
 
                 gameEngine->handleEvent(event);
             }
+#pragma GCC diagnostic pop
         }
 
         inline void recreateWindow()
