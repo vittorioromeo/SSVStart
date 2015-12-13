@@ -12,7 +12,6 @@
 #include <SSVUtils/Core/Core.hpp>
 #include <SSVUtils/Delegate/Delegate.hpp>
 #include <SSVUtils/Json/Json.hpp>
-#include <SSVUtils/Test/Test.hpp>
 
 namespace ssvs
 {
