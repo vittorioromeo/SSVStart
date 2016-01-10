@@ -74,7 +74,7 @@ namespace ssvs
             public:
                 inline BTRChunk(BTRRoot& mRoot) noexcept : root{mRoot} {}
 
-                inline auto getTracking() const noexcept
+                inline auto getTracking() const noexcept SSVU_ATTRIBUTE(pure)
                 {
                     float result{0.f};
                     recurseParents([&result](const auto& mP)
@@ -83,7 +83,7 @@ namespace ssvs
                         });
                     return result;
                 }
-                inline auto getLeading() const noexcept
+                inline auto getLeading() const noexcept SSVU_ATTRIBUTE(pure)
                 {
                     float result{0.f};
                     recurseParents([&result](const auto& mP)
@@ -92,7 +92,7 @@ namespace ssvs
                         });
                     return result;
                 }
-                inline auto getHChunkSpacing() const noexcept
+                inline auto getHChunkSpacing() const noexcept SSVU_ATTRIBUTE(pure)
                 {
                     float result{0.f};
                     recurseParents([&result](const auto& mP)
