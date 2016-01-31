@@ -21,7 +21,10 @@ namespace ssvs
             class BTREWave : public BTREffect
             {
             private:
-                float angle, amplitude, repeat, speedMult;
+                float angle;
+
+            public:
+                float amplitude, repeat, speedMult;
 
             public:
                 inline BTREWave(float mAmplitude = 2.f, float mSpeedMult = 0.1f,

@@ -26,6 +26,9 @@ namespace ssvs
 
             inline Ptr(T* mX) noexcept : ptr{mX} {}
 
+            inline Ptr(const Ptr&) = default;
+            Ptr& operator=(const Ptr&) = default;
+
             inline auto& operator*() noexcept
             {
                 SSVU_ASSERT(ptr != nullptr);
