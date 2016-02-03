@@ -21,11 +21,14 @@ namespace ssvs
             {
             }
 
-            inline bool operator==(const Trigger& mRhs) const noexcept
+            inline bool SSVU_ATTRIBUTE(pure) operator==(
+                const Trigger& mRhs) const noexcept
             {
                 return combos == mRhs.combos;
             }
-            inline bool operator!=(const Trigger& mRhs) const noexcept
+
+            inline bool SSVU_ATTRIBUTE(pure) operator!=(
+                const Trigger& mRhs) const noexcept
             {
                 return !this->operator==(mRhs);
             }
