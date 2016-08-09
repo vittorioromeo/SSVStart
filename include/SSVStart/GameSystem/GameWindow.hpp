@@ -88,7 +88,10 @@ namespace ssvs
     public:
         ssvu::Delegate<void()> onRecreation;
 
-        inline GameWindow() { gameEngine->setInputState(inputState); }
+        inline GameWindow()
+        {
+            gameEngine->setInputState(inputState);
+        }
 
         inline GameWindow(const GameWindow&) = delete;
         inline GameWindow& operator=(const GameWindow&) = delete;
@@ -148,7 +151,10 @@ namespace ssvs
 
         inline void saveScreenshot(const ssvufs::Path& mPath) const
         {
-            renderWindow.capture().saveToFile(mPath);
+            sf::Texture t;
+            t.update(renderWindow);
+            auto img = t.copyToImage();
+            img.saveToFile(mPath);
         }
 
         inline void setFullscreen(bool mFullscreen) noexcept
@@ -202,24 +208,51 @@ namespace ssvs
             gameEngine->setGameState(mGameState);
         }
 
-        inline operator sf::RenderWindow&() noexcept { return renderWindow; }
-        inline auto& getRenderWindow() noexcept { return renderWindow; }
+        inline operator sf::RenderWindow&() noexcept
+        {
+            return renderWindow;
+        }
+        inline auto& getRenderWindow() noexcept
+        {
+            return renderWindow;
+        }
         inline const auto& getRenderWindow() const noexcept
         {
             return renderWindow;
         }
-        inline bool getFullscreen() const noexcept { return fullscreen; }
-        inline auto getWidth() const noexcept { return width; }
-        inline auto getHeight() const noexcept { return height; }
+        inline bool getFullscreen() const noexcept
+        {
+            return fullscreen;
+        }
+        inline auto getWidth() const noexcept
+        {
+            return width;
+        }
+        inline auto getHeight() const noexcept
+        {
+            return height;
+        }
         inline auto getAntialiasingLevel() const noexcept
         {
             return antialiasingLevel;
         }
-        inline bool hasFocus() const noexcept { return focus; }
-        inline bool getVsync() const noexcept { return vsync; }
+        inline bool hasFocus() const noexcept
+        {
+            return focus;
+        }
+        inline bool getVsync() const noexcept
+        {
+            return vsync;
+        }
 
-        inline FT getMsUpdate() const noexcept { return msUpdate; }
-        inline FT getMsDraw() const noexcept { return msDraw; }
+        inline FT getMsUpdate() const noexcept
+        {
+            return msUpdate;
+        }
+        inline FT getMsDraw() const noexcept
+        {
+            return msDraw;
+        }
 
         inline auto getMousePosition() const noexcept
         {
@@ -232,7 +265,10 @@ namespace ssvs
                 sf::Touch::getPosition(mX, renderWindow));
         }
 
-        inline const auto& getInputState() const noexcept { return inputState; }
+        inline const auto& getInputState() const noexcept
+        {
+            return inputState;
+        }
 
         inline auto getFingerDownCount() const noexcept
         {
@@ -255,9 +291,15 @@ namespace ssvs
         {
             gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...);
         }
-        inline auto getFPS() const noexcept { return gameEngine->getFPS(); }
+        inline auto getFPS() const noexcept
+        {
+            return gameEngine->getFPS();
+        }
 
-        inline void recreate() noexcept { mustRecreate = true; }
+        inline void recreate() noexcept
+        {
+            mustRecreate = true;
+        }
     };
 }
 
