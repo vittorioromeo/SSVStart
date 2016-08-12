@@ -1,27 +1,24 @@
 cmake_minimum_required(VERSION 3.0)
 
+# Include `vrm_cmake`.
 list(APPEND CMAKE_MODULE_PATH
-    "${CMAKE_SOURCE_DIR}/../SSVCMake/cmake/modules/"
-    "${CMAKE_SOURCE_DIR}/extlibs/SSVCMake/cmake/modules/")
+    "${CMAKE_SOURCE_DIR}/../vrm_cmake/cmake/"
+    "${CMAKE_SOURCE_DIR}/extlibs/vrm_cmake/cmake/")
 
-include(SSVCMake)
+include(vrm_cmake)
 
 # Basic project setup.
 vrm_cmake_init_project(SSVStart)
 vrm_cmake_find_extlib(vrm_pp)
 vrm_cmake_find_extlib(SSVUtils)
-SSVCMake_findSFML()
+find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
+include_directories(${SFML_INCLUDE_DIR})
 
 # Alias the include directory.
 set(SSVSTART_INC_DIR "${SSVSTART_SOURCE_DIR}/include/")
 
 # Other compiler flags.
 vrm_cmake_add_common_compiler_flags()
-
-# Setup user options.
-vrm_cmake_add_option_memcheck()
-vrm_cmake_add_option_no_exceptions()
-vrm_cmake_add_option_werror()
 
 # The `check` target runs all tests and examples.
 vrm_check_target()
