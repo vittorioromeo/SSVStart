@@ -7,6 +7,8 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Input/Input.hpp"
+#include "SSVStart/GameSystem/GameEngine.hpp"
+#include "SSVStart/GameSystem/GameState.hpp"
 
 namespace ssvs
 {
@@ -96,8 +98,8 @@ namespace ssvs
         inline GameWindow(const GameWindow&) = delete;
         inline GameWindow& operator=(const GameWindow&) = delete;
 
-        inline GameWindow(GameWindow&&) = default;
-        inline GameWindow& operator=(GameWindow&&) = default;
+        inline GameWindow(GameWindow&&) = delete;
+        inline GameWindow& operator=(GameWindow&&) = delete;
 
         inline void run()
         {

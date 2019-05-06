@@ -1,4 +1,5 @@
 callgrind.*
+compile_commands.json
 CMakeLists.txt.user.*
 
 /lib
