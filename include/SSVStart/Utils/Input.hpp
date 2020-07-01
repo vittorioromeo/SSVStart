@@ -9,6 +9,8 @@
 #include "SSVStart/Input/Input.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
 
+#include <SSVUtils/Core/Common/Casts.hpp>
+
 namespace ssvs
 {
     using ITrigger = Input::Trigger;

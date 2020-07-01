@@ -7,6 +7,8 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
+#include <SSVUtils/Core/Utils/Math.hpp>
+
 namespace ssvs
 {
     struct BitmapFontData

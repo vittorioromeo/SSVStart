@@ -5,7 +5,6 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_BTRCHUNK_INL
 #define SSVS_BITMAPTEXT_BTR_IMPL_BTRCHUNK_INL
 
-#include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 
@@ -18,6 +17,10 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTRDrawState.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRRoot.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTR.hpp"
+
+#include <SSVUtils/MemoryManager/MemoryManager.hpp>
+#include <SSVUtils/Core/Utils/Math.hpp>
+
 
 namespace ssvs
 {

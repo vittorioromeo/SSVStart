@@ -9,31 +9,31 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
-#include <SSVUtils/Core/Core.hpp>
-#include <SSVUtils/Delegate/Delegate.hpp>
-#include <SSVUtils/Json/Json.hpp>
+
+#include <SSVUtils/Core/Common/Casts.hpp>
+#include <SSVUtils/Core/Common/Frametime.hpp>
+#include <SSVUtils/Core/FileSystem/FileSystem.hpp>
+
+#include <bitset>
 
 namespace ssvs
 {
-    using ssvu::SizeT;
-    using ssvu::HRClock;
     using ssvu::FT;
     using ssvu::FTDuration;
-    using ssvu::UPtr;
     using ssvufs::Path;
 
     using ssvu::toNum;
     using ssvu::toInt;
     using ssvu::toFloat;
-    using ssvu::toSizeT;
 
     using KKey = sf::Keyboard::Key;
     using MBtn = sf::Mouse::Button;
 
-    constexpr SizeT inputBitOffset{1};
-    constexpr SizeT fingerCount{16};
-    constexpr SizeT kKeyCount{KKey::KeyCount};
-    constexpr SizeT mBtnCount{MBtn::ButtonCount};
+    constexpr std::size_t inputBitOffset{1};
+    constexpr std::size_t fingerCount{16};
+    constexpr std::size_t kKeyCount{KKey::KeyCount};
+    constexpr std::size_t mBtnCount{MBtn::ButtonCount};
+    constexpr std::size_t jBtnCount{sf::Joystick::ButtonCount};
 
     using FingerID = unsigned int;
     using FingerBitset = std::bitset<fingerCount>;
@@ -43,7 +43,7 @@ namespace ssvs
                                      // KKey::Unknown, which is -1
     using BtnBitset =
         std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
-    using InputFunc = ssvu::Func<void(FT)>;
+    using InputFunc = std::function<void(FT)>;
 
     template <typename T>
     using Vec2 = sf::Vector2<T>;

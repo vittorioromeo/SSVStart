@@ -5,6 +5,10 @@
 #ifndef SSVS_GAMESYSTEM_GAMESTATE
 #define SSVS_GAMESYSTEM_GAMESTATE
 
+#include <SSVUtils/Delegate/Delegate.hpp>
+
+#include <map>
+
 namespace ssvs
 {
     class GameEngine;

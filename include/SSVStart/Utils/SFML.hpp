@@ -7,6 +7,11 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
+#include <SSVUtils/Core/Common/Casts.hpp>
+#include <SSVUtils/Json/Json.hpp>
+
+#include <tuple>
+
 namespace ssvs
 {
     namespace Impl
@@ -518,7 +523,7 @@ namespace ssvs
         auto h(std::fabs(k + (g - b) / (6.f * chroma + 1e-20f)));
         auto s(chroma / (r + 1e-20f));
 
-        return ssvu::mkTpl(h, s, r);
+        return std::make_tuple(h, s, r);
     }
 
 
@@ -534,7 +539,7 @@ namespace ssvs
 /// @brief Serialize enum into `sf::Packet`.
 template <typename T>
 inline auto operator<<(sf::Packet& mP, const T& mX) noexcept
-    -> ssvu::EnableIf<ssvu::isEnum<ssvu::RmAll<T>>(), sf::Packet&>
+    -> std::enable_if_t<std::is_enum_v<std::decay<T>>, sf::Packet&>
 {
     return mP << ssvu::castEnum(mX);
 }
@@ -542,9 +547,9 @@ inline auto operator<<(sf::Packet& mP, const T& mX) noexcept
 /// @brief Deserialize enum from `sf::Packet`.
 template <typename T>
 inline auto operator>>(sf::Packet& mP, T& mX) noexcept
-    -> ssvu::EnableIf<ssvu::isEnum<ssvu::RmAll<T>>(), sf::Packet&>
+    -> std::enable_if_t<std::is_enum_v<std::decay<T>>, sf::Packet&>
 {
-    ssvu::Underlying<T> temp;
+    std::underlying_type_t<T> temp;
     mP >> temp;
     mX = ssvu::toEnum<T>(temp);
     return mP;

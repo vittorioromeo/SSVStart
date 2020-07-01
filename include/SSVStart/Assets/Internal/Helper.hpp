@@ -5,6 +5,9 @@
 #ifndef SSVS_ASSETS_INTERNAL_HELPER
 #define SSVS_ASSETS_INTERNAL_HELPER
 
+#include <SSVUtils/Core/Log/Log.hpp>
+
+
 namespace ssvs
 {
     namespace Impl
@@ -30,12 +33,12 @@ namespace ssvs
         template <typename T, typename TF>
         inline auto loadImpl(TF mFn, const std::string& mErr)
         {
-            auto result(ssvu::mkUPtr<T>());
+            auto result(std::make_unique<T>());
             if(mFn(result)) return result;
 
             // TODO: loErr?
             ssvu::lo("Failed to load resource - " + mErr);
-            return ssvu::UPtr<T>{nullptr};
+            return std::unique_ptr<T>{nullptr};
         }
 
         template <Mode TT, typename T>
@@ -52,7 +55,7 @@ namespace ssvs
                     },
                     "from path");
             }
-            inline static auto load(const void* mData, SizeT mSize)
+            inline static auto load(const void* mData, std::size_t mSize)
             {
                 return loadImpl<T>(
                     [&mData, &mSize](auto& mP)
@@ -83,7 +86,7 @@ namespace ssvs
                     },
                     "from path");
             }
-            inline static auto load(const void* mData, SizeT mSize)
+            inline static auto load(const void* mData, std::size_t mSize)
             {
                 return loadImpl<T>(
                     [&mData, &mSize](auto& mP)
@@ -121,7 +124,7 @@ namespace ssvs
         {
             using T = sf::SoundBuffer;
             inline static auto load(const sf::Int16* mSamples,
-                SizeT mSampleCount, unsigned int mChannelCount,
+                std::size_t mSampleCount, unsigned int mChannelCount,
                 unsigned int mSampleRate)
             {
                 return loadImpl<T>(
@@ -208,7 +211,7 @@ namespace ssvs
             inline static auto load(
                 const sf::Texture& mTexture, const BitmapFontData& mData)
             {
-                return ssvu::mkUPtr<T>(mTexture, mData);
+                return std::make_unique<T>(mTexture, mData);
             }
         };
         template <>
@@ -217,7 +220,7 @@ namespace ssvs
             using T = Tileset;
             inline static auto load(const Tileset& mTileset)
             {
-                return ssvu::mkUPtr<T>(mTileset);
+                return std::make_unique<T>(mTileset);
             }
         };
     }

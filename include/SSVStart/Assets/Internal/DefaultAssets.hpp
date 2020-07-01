@@ -7,6 +7,8 @@
 
 #include "SSVStart/Assets/Internal/Embedded.hpp"
 
+#include <SSVUtils/Core/Utils/Containers.hpp>
+
 namespace ssvs
 {
     namespace Impl

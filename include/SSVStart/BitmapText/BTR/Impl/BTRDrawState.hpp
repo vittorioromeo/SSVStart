@@ -25,9 +25,9 @@ namespace ssvs
                 struct RowData
                 {
                     float width;
-                    SizeT cells;
+                    std::size_t cells;
 
-                    inline RowData(float mWidth, SizeT mCells) noexcept
+                    inline RowData(float mWidth, std::size_t mCells) noexcept
                         : width{mWidth},
                           cells{mCells}
                     {
@@ -36,7 +36,7 @@ namespace ssvs
 
                 std::vector<RowData> rDatas;
                 float xMin, xMax, yMin, yMax, nextHChunkSpacing;
-                SizeT width, height, iX;
+                std::size_t width, height, iX;
                 int nl, htab, vtab;
 
                 inline void reset(const BitmapFont& mBF) noexcept

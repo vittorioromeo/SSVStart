@@ -5,13 +5,17 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_BTRECOLORFG
 #define SSVS_BITMAPTEXT_BTR_IMPL_BTRECOLORFG
 
-#include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 
 #include "SSVStart/BitmapText/BTR/Impl/BTREffect.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRChunk.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTREWave.hpp"
+
+#include <SSVUtils/MemoryManager/MemoryManager.hpp>
+#include <SSVUtils/Core/Utils/Math.hpp>
+#include <SSVUtils/Core/Common/Casts.hpp>
+
 
 namespace ssvs
 {

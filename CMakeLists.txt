@@ -1,18 +1,50 @@
 cmake_minimum_required(VERSION 3.0)
 
+# -----------------------------------------------------------------------------
+# CPM
+set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/cmake/CPM.cmake")
+set(CPM_DOWNLOAD_VERSION 0.25.1)
+
+if(NOT (EXISTS ${CPM_DOWNLOAD_LOCATION} AND CPM_VERSION STREQUAL CPM_DOWNLOAD_VERSION))
+  message(STATUS "Downloading CPM.cmake")
+  file(DOWNLOAD https://github.com/TheLartians/CPM.cmake/releases/download/v${CPM_DOWNLOAD_VERSION}/CPM.cmake ${CPM_DOWNLOAD_LOCATION})
+endif()
+
+include(${CPM_DOWNLOAD_LOCATION})
+# -----------------------------------------------------------------------------
+
+CPMAddPackage(
+  NAME SFML
+  GITHUB_REPOSITORY SFML/SFML
+  VERSION 2.5.1
+  GIT_TAG 2f11710abc5aa478503a7ff3f9e654bd2078ebab
+)
+
 # Include `vrm_cmake`.
 list(APPEND CMAKE_MODULE_PATH
+    "${CMAKE_SOURCE_DIR}/cmake/"
+    "${CMAKE_SOURCE_DIR}/cmake/modules/"
     "${CMAKE_SOURCE_DIR}/../vrm_cmake/cmake/"
     "${CMAKE_SOURCE_DIR}/extlibs/vrm_cmake/cmake/")
 
 include(vrm_cmake)
 
 # Basic project setup.
-vrm_cmake_init_project(SSVStart)
+vrm_cmake_set_cxxstd(20)
+
+project(SSVStart CXX)
+enable_testing()
+
+vrm_cmake_init_project_name_upper()
+vrm_cmake_init_project_source_dir()
+vrm_cmake_init_project_common_module_paths()
+
+vrm_cmake_message("initialized project ${project_name}")
+
 vrm_cmake_find_extlib(vrm_pp)
 vrm_cmake_find_extlib(SSVUtils)
-find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
-include_directories(${SFML_INCLUDE_DIR})
+#find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
+include_directories(${SFML_SOURCE_DIR}/include)
 
 # Alias the include directory.
 set(SSVSTART_INC_DIR "${SSVSTART_SOURCE_DIR}/include/")
@@ -28,3 +60,4 @@ add_subdirectory(test)
 
 # Create header-only install target (automatically glob)
 vrm_cmake_header_only_install_glob("${SSVSTART_INC_DIR}" "include")
+

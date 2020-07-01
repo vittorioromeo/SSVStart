@@ -18,8 +18,8 @@ namespace ssvs
             Manager& manager;
             Trigger trigger;
             InputFunc on, off;
-            SizeT priorityCombo{0u}; // Priority calculated automatically
-            SizeT priorityUser{0u};  // Priority set by user
+            std::size_t priorityCombo{0u}; // Priority calculated automatically
+            std::size_t priorityUser{0u};  // Priority set by user
             Type type{Type::Always};
             Mode mode{Mode::Overlap};
             bool released{true};
@@ -33,7 +33,7 @@ namespace ssvs
 
             inline void recalculatePriorityCombo()
             {
-                SizeT max{0u};
+                std::size_t max{0u};
                 for(auto& c : trigger.getCombos())
                     max = std::max(
                         c.getKeys().count() + c.getBtns().count(), max);
@@ -45,7 +45,7 @@ namespace ssvs
                 Mode mMode,
                 const InputFunc& mOn = ssvs::Impl::getNullInputFunc(),
                 const InputFunc& mOff = ssvs::Impl::getNullInputFunc())
-                : manager(mManager), trigger{ssvu::mv(mTrigger)}, on{mOn},
+                : manager(mManager), trigger{std::move(mTrigger)}, on{mOn},
                   off{mOff}, type{mType}, mode{mMode}
             {
                 recalculatePriorityCombo();
@@ -84,7 +84,7 @@ namespace ssvs
                 return priorityUser < mRhs.priorityUser;
             }
 
-            void setPriorityUser(SizeT mValue) noexcept;
+            void setPriorityUser(std::size_t mValue) noexcept;
         };
     }
 }

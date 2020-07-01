@@ -7,6 +7,9 @@
 
 #include "SSVStart/Assets/Internal/ResourceHolder.hpp"
 
+#include <SSVUtils/Core/Log/Log.hpp>
+#include <SSVUtils/Core/MPL/MPL.hpp>
+
 namespace sf
 {
     class Font;

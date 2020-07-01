@@ -5,6 +5,13 @@
 #ifndef SSVS_ASSETS_ASSETFOLDER
 #define SSVS_ASSETS_ASSETFOLDER
 
+#include <SSVUtils/Core/Log/Log.hpp>
+#include <SSVUtils/Core/FileSystem/FileSystem.hpp>
+#include <SSVUtils/Core/String/Utils.hpp>
+
+#include <vector>
+#include <string>
+
 namespace ssvs
 {
     template <typename>

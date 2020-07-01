@@ -5,13 +5,14 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_BTRCHUNK
 #define SSVS_BITMAPTEXT_BTR_IMPL_BTRCHUNK
 
-#include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 
 #include "SSVStart/BitmapText/BTR/Impl/Ptr.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/Fwd.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTREffect.hpp"
+
+#include <SSVUtils/MemoryManager/MemoryManager.hpp>
 
 namespace ssvs
 {
@@ -32,7 +33,7 @@ namespace ssvs
                 std::vector<Ptr<BTREffect>> childrenEffects;
                 std::vector<Ptr<BTRChunk>> children;
                 float modTracking{0.f}, modLeading{0.f}, modHChunkSpacing{0.f};
-                SizeT idxHierarchyBegin, idxHierarchyEnd;
+                std::size_t idxHierarchyBegin, idxHierarchyEnd;
                 bool enabled{true};
 
                 template <typename... TArgs>

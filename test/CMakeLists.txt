@@ -15,10 +15,8 @@ include_directories(${CMAKE_CURRENT_LIST_DIR})
 # Add all the unit tests.
 vrm_cmake_generate_unit_tests(SSVS_TEST_SOURCES)
 
+set(SFML_LIBRARIES sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+
 foreach(_t IN LISTS vrm_cmake_out)
-    target_link_libraries(${_t} ${SFML_AUDIO_LIBRARY_RELEASE})
-    target_link_libraries(${_t} ${SFML_GRAPHICS_LIBRARY_RELEASE})
-    target_link_libraries(${_t} ${SFML_WINDOW_LIBRARY_RELEASE})
-    target_link_libraries(${_t} ${SFML_SYSTEM_LIBRARY_RELEASE})
-    target_link_libraries(${_t} ${SFML_NETWORK_LIBRARY_RELEASE})
+    target_link_libraries(${_t} ${SFML_LIBRARIES})
 endforeach()

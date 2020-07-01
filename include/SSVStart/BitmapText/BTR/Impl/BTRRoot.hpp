@@ -5,7 +5,6 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_BTRROOT
 #define SSVS_BITMAPTEXT_BTR_IMPL_BTRROOT
 
-#include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 
@@ -14,6 +13,9 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREWave.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTREColor.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRDrawState.hpp"
+
+#include <SSVUtils/MemoryManager/MemoryManager.hpp>
+#include <SSVUtils/Core/Utils/Math.hpp>
 
 namespace ssvs
 {
@@ -99,7 +101,7 @@ namespace ssvs
                     globalBounds = getTransform().transformRect(bounds);
 
                     // Apply horizontal alignment
-                    SizeT lastVIdx{0};
+                    std::size_t lastVIdx{0};
                     for(const auto& rd : bdd.rDatas)
                     {
                         auto targetVIdx(lastVIdx + rd.cells * 4);

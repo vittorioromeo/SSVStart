@@ -5,6 +5,8 @@
 #ifndef SSVS_GAMESYSTEM_TIMERS_BASE
 #define SSVS_GAMESYSTEM_TIMERS_BASE
 
+#include <SSVUtils/Core/Common/Frametime.hpp>
+
 namespace ssvs
 {
     class GameEngine;

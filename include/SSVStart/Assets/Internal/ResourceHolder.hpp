@@ -24,7 +24,7 @@ namespace ssvs
             TPolicy policy;
 
         private:
-            std::vector<UPtr<T>> ownership;
+            std::vector<std::unique_ptr<T>> ownership;
             std::unordered_map<std::string, T*> resources;
 
             inline auto& emplaceAndGet(const std::string& mId, T* mPtr)

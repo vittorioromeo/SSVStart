@@ -10,6 +10,9 @@
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 
+#include <SSVUtils/Core/Utils/Math.hpp>
+#include <SSVUtils/Core/Common/Casts.hpp>
+
 namespace ssvs
 {
     namespace Impl
@@ -34,7 +37,7 @@ namespace ssvs
             mutable sf::FloatRect bounds;
             mutable Impl::BitmapTextDrawState bdd;
 
-            mutable std::vector<SizeT> rowCells;
+            mutable std::vector<std::size_t> rowCells;
             float alignMultiplier{0.f};
 
             inline BitmapTextBase() = default;
@@ -115,7 +118,7 @@ namespace ssvs
                 if(rowCells.empty()) return;
                 rowCells.emplace_back(bdd.iX);
 
-                SizeT lastVIdx{0};
+                std::size_t lastVIdx{0};
 
                 for(auto rc : rowCells)
                 {

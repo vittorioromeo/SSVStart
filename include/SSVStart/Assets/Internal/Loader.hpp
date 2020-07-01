@@ -31,7 +31,7 @@ namespace ssvs
             {
                 return Helper<Mode::Load, T>::load(mPath);
             }
-            inline static auto load(const void* mData, SizeT mSize)
+            inline static auto load(const void* mData, std::size_t mSize)
             {
                 return Helper<Mode::Load, T>::load(mData, mSize);
             }
@@ -53,7 +53,7 @@ namespace ssvs
             {
                 return Helper<Mode::Load, T>::load(mPath);
             }
-            inline static auto load(const void* mData, SizeT mSize)
+            inline static auto load(const void* mData, std::size_t mSize)
             {
                 return Helper<Mode::Load, T>::load(mData, mSize);
             }
@@ -63,7 +63,7 @@ namespace ssvs
             }
 
             inline static auto load(const sf::Int16* mSamples,
-                SizeT mSampleCount, unsigned int mChannelCount,
+                std::size_t mSampleCount, unsigned int mChannelCount,
                 unsigned int mSampleRate)
             {
                 return Helper<Mode::Samples, T>::load(

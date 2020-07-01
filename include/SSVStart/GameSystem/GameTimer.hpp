@@ -5,6 +5,9 @@
 #ifndef SSVS_GAMESYSTEM_GAMETIMER
 #define SSVS_GAMESYSTEM_GAMETIMER
 
+#include <SSVUtils/Core/Common/Casts.hpp>
+#include <SSVUtils/Core/Assert/Assert.hpp>
+
 namespace ssvs
 {
     class GameEngine;
@@ -12,7 +15,7 @@ namespace ssvs
     class GameTimer
     {
     private:
-        UPtr<TimerBase> impl, nextImpl;
+        std::unique_ptr<TimerBase> impl, nextImpl;
 
     public:
         inline void refresh() noexcept
@@ -37,7 +40,7 @@ namespace ssvs
         template <typename T, typename... TArgs>
         inline void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
         {
-            nextImpl = ssvu::mkUPtr<T>(mGameEngine, FWD(mArgs)...);
+            nextImpl = std::make_unique<T>(mGameEngine, FWD(mArgs)...);
         }
     };
 }

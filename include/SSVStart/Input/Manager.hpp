@@ -19,7 +19,7 @@ namespace ssvs
 
         private:
             InputState processedInput;
-            ssvu::VecUPtr<Bind> binds;
+            std::vector<std::unique_ptr<Bind>> binds;
             bool isIgnoring{false}, mustSort{false};
 
         public:
@@ -39,7 +39,7 @@ namespace ssvs
             {
                 if(mustSort)
                 {
-                    ssvu::sort(binds, [](const auto& mA, const auto& mB)
+                    std::sort(std::begin(binds), std::end(binds), [](const auto& mA, const auto& mB)
                         {
                             return *mA < *mB;
                         });
@@ -53,10 +53,9 @@ namespace ssvs
             template <typename... TArgs>
             inline Bind& emplace(TArgs&&... mArgs)
             {
-                auto& result(
-                    ssvu::getEmplaceUPtr<Bind>(binds, *this, FWD(mArgs)...));
+                auto& result = binds.emplace_back(std::make_unique<Bind>(*this, FWD(mArgs)...));
                 mustSort = true;
-                return result;
+                return *result;
             }
 
             inline void ignoreNextInputs() noexcept { isIgnoring = true; }

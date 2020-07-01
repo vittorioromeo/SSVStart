@@ -6,13 +6,17 @@
 #define SSVS_UTILS_VECTOR2
 
 #include <SFML/Graphics.hpp>
-#include <SSVUtils/Core/Core.hpp>
+
+#include <SSVUtils/Core/Utils/Math.hpp>
+
 #include "SSVStart/Global/Typedefs.hpp"
+
+#include <type_traits>
 
 namespace ssvs
 {
     template <typename... TArgs>
-    using CT = ssvu::Common<TArgs...>;
+    using CT = std::common_type_t<TArgs...>;
 
     /// @brief Calculates radians needed to turn towards a point.
     /// @param mA Starting point.
@@ -42,7 +46,7 @@ namespace ssvs
     inline bool isPointInPolygon(const TC& mVertices, const Vec2<T>& mPoint)
     {
         bool result{false};
-        for(SizeT i{0}, j{mVertices.size() - 1}; i < mVertices.size(); j = i++)
+        for(std::size_t i{0}, j{mVertices.size() - 1}; i < mVertices.size(); j = i++)
         {
             const auto& vI(mVertices[i]);
             const auto& vJ(mVertices[j]);
