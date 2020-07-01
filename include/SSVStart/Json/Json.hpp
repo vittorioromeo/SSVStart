@@ -5,9 +5,6 @@
 #ifndef SSVS_JSON
 #define SSVS_JSON
 
-#include <SFML/System.hpp>
-#include <SSVUtils/Core/Core.hpp>
-#include <SSVUtils/Json/Json.hpp>
 #include "SSVStart/Tileset/Tileset.hpp"
 #include "SSVStart/Animation/Animation.hpp"
 #include "SSVStart/Input/Combo.hpp"
@@ -16,6 +13,11 @@
 #include "SSVStart/Utils/Input.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Assets/AssetManager.hpp"
+
+#include <SSVUtils/Core/Log/Log.hpp>
+#include <SSVUtils/Json/Json.hpp>
+
+#include <SFML/System.hpp>
 
 SSVJ_CNV_VAL(ssvs::Input::Trigger, getCombos())
 SSVJ_CNV_ARR(sf::Color, r, g, b, a)

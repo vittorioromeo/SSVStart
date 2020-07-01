@@ -5,6 +5,8 @@
 #ifndef SSVS_GAMESYSTEM_GAMETIMER
 #define SSVS_GAMESYSTEM_GAMETIMER
 
+#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
+
 #include <SSVUtils/Core/Common/Casts.hpp>
 #include <SSVUtils/Core/Assert/Assert.hpp>
 

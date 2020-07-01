@@ -5,6 +5,8 @@
 #ifndef SSVS_GAMESYSTEM_GAMESTATE
 #define SSVS_GAMESYSTEM_GAMESTATE
 
+#include "SSVStart/Input/Input.hpp"
+
 #include <SSVUtils/Delegate/Delegate.hpp>
 
 #include <map>

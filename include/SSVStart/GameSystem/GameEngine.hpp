@@ -5,6 +5,12 @@
 #ifndef SSVS_GAMESYSTEM_GAMEENGINE
 #define SSVS_GAMESYSTEM_GAMEENGINE
 
+#include "SSVStart/GameSystem/GameTimer.hpp"
+#include "SSVStart/GameSystem/GameState.hpp"
+
+#include "SSVStart/Input/InputState.hpp"
+
+
 namespace ssvs
 {
     class GameWindow;

@@ -5,9 +5,10 @@
 #ifndef SSVS_MUSICPLAYER
 #define SSVS_MUSICPLAYER
 
+#include <SSVUtils/Core/Assert/Assert.hpp>
+
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include <SSVUtils/Core/Core.hpp>
 
 namespace ssvs
 {
