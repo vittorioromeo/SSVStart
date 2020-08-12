@@ -19,6 +19,22 @@ namespace ssvs
             Overlap,
             Exclusive
         };
+        enum class TNum
+        {
+            Unknown = -1,
+            RotateCCW = 0,
+            RotateCW,
+            Focus,
+            Exit,
+            ForceRestart,
+            Restart,
+            Replay,
+            Screenshot,
+            Swap,
+            Up,
+            Down,
+            TriggersCount
+        };
     }
 }
 
