@@ -21,8 +21,10 @@ namespace ssvs
 
     private:
         using ITrigger = Input::Trigger;
+        using ICombo = Input::Combo;
         using IType = Input::Type;
         using IMode = Input::Mode;
+        using TNum = Input::TNum;
         using IFunc = InputFunc;
         using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
@@ -57,16 +59,26 @@ namespace ssvs
         inline GameState& operator=(const GameState&) = delete;
 
         inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff,
-            IType mType = IType::Always, IMode mMode = IMode::Overlap)
+            IType mType = IType::Always, TNum mTriggerID = TNum::Unknown,
+            IMode mMode = IMode::Overlap)
         {
             return inputManager.emplace(
-                mTrigger, mType, mMode, mFuncOn, mFuncOff);
+                mTrigger, mType, mMode, mTriggerID, mFuncOn, mFuncOff);
         }
         inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn,
-            IType mType = IType::Always, IMode mMode = IMode::Overlap)
+            IType mType = IType::Always,
+            TNum mTriggerID = TNum::Unknown, IMode mMode = IMode::Overlap)
         {
-            return addInput(
-                mTrigger, mFuncOn, Impl::getNullInputFunc(), mType, mMode);
+            return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType,
+                mTriggerID, mMode);
+        }
+        inline void refreshTrigger(ITrigger trigger, TNum bindID)
+        {
+            inputManager.refreshTriggers(trigger, bindID);
+        }
+        inline bool isBindAssigned(const KKey key, const MBtn btn)
+        {
+            return inputManager.isBindAssigned(key, btn);
         }
 
         inline auto& onEvent(sf::Event::EventType mEventType)
