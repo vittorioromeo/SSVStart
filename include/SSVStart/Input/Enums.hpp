@@ -22,6 +22,7 @@ namespace ssvs
         enum class TNum
         {
             Unknown = -1,
+#ifdef OPEN_HEXAGON
             RotateCCW = 0,
             RotateCW,
             Focus,
@@ -33,6 +34,7 @@ namespace ssvs
             Swap,
             Up,
             Down,
+#endif
             TriggersCount
         };
     }
