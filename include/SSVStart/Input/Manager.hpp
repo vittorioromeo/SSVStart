@@ -66,7 +66,7 @@ namespace ssvs
                 return false;
             }
             
-            inline void refreshTriggers(Trigger trigger, TNum bindID)
+            inline void refreshTriggers(Trigger trigger, Tid bindID)
             {
                 for(auto& b : binds)
                     if(b->getTriggerID() == bindID)
