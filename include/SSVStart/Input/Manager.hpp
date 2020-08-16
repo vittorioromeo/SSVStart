@@ -58,15 +58,7 @@ namespace ssvs
                 return *result;
             }
             
-            inline bool isBindAssigned(const KKey key, const MBtn btn)
-            {
-                for(auto& b : binds)
-                    if(b->isBindAssigned(key, btn))
-                        return true;
-                return false;
-            }
-            
-            inline void refreshTriggers(Trigger trigger, TNum bindID)
+            inline void refreshTriggers(Trigger trigger, Tid bindID)
             {
                 for(auto& b : binds)
                     if(b->getTriggerID() == bindID)

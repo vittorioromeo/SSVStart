@@ -16,7 +16,7 @@ namespace ssvs
     using ITrigger = Input::Trigger;
     using IType = Input::Type;
     using IMode = Input::Mode;
-    using TNum = Input::TNum;
+    using ITid = Input::Tid;
 
 #define SSVS_KEY_PREFIX "k"
 #define SSVS_BTN_PREFIX "b"
@@ -138,7 +138,7 @@ namespace ssvs
         SSVS_KEY_PREFIX #mName, KKey::mName \
     }
         static std::map<std::string, KKey> keys{SSVS_INS_KEY(J),
-            SSVS_INS_KEY(K), SSVS_INS_KEY(L), SSVS_INS_KEY(R), SSVS_INS_KEY(S),
+            SSVS_INS_KEY(K), SSVS_INS_KEY(L), SSVS_INS_KEY(R),
             SSVS_INS_KEY(Y), SSVS_INS_KEY(LAlt), SSVS_INS_KEY(Return),
             SSVS_INS_KEY(BackSpace), SSVS_INS_KEY(Up), SSVS_INS_KEY(F1),
             SSVS_INS_KEY(F2), SSVS_INS_KEY(F3), SSVS_INS_KEY(F4)};
@@ -218,7 +218,7 @@ namespace ssvs
     /// value.
     /// @return Returns a reference to the newly created bind.
     inline auto& add2StateInput(GameState& mGameState, const ITrigger& mOn,
-        bool& mValue, TNum mTriggerID, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+        bool& mValue, ITid mTriggerID, IType mType = IType::Always, IMode mMode = IMode::Overlap)
     {
         return mGameState.addInput(mOn,
             [&mValue](FT)
@@ -239,7 +239,7 @@ namespace ssvs
     /// is in use, to 1 when mOn is in use.
     /// @return Returns a pair containing references to the newly created binds.
     inline auto add3StateInput(GameState& mGameState, const ITrigger& mOff,
-        const ITrigger& mOn, int& mValue, TNum mTriggerID, IType mType = IType::Always,
+        const ITrigger& mOn, int& mValue, ITid mTriggerID, IType mType = IType::Always,
         IMode mMode = IMode::Overlap)
     {
         auto& b1(mGameState.addInput(mOff,

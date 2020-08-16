@@ -19,7 +19,7 @@ namespace ssvs
             Overlap,
             Exclusive
         };
-        enum class TNum
+        enum class Tid
         {
             Unknown = -1,
 #ifdef OPEN_HEXAGON
