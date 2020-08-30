@@ -84,6 +84,10 @@ namespace ssvs
         {
             inputManager.ignoreNextInputs();
         }
+        inline void ignoreAllInputs(bool mIgnore) noexcept
+        {
+            inputManager.ignoreAllInputs(mIgnore);
+        }
     };
 }
 

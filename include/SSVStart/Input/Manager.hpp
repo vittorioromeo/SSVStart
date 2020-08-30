@@ -20,11 +20,13 @@ namespace ssvs
         private:
             InputState processedInput;
             std::vector<std::unique_ptr<Bind>> binds;
-            bool isIgnoring{false}, mustSort{false};
+            bool isIgnoringNext{false}, isIgnoringAll{false}, mustSort{false};
 
         public:
             inline void update(InputState& mInputState, FT mFT)
             {
+                if(isIgnoringAll) return;
+
                 for(auto& b : binds)
                 {
                     b->update(mFT, mInputState);
@@ -32,7 +34,7 @@ namespace ssvs
                     // Some special input combos, such as ALT+ENTER
                     // (fullscreen),
                     // may work best if all the other inputs are then ignored.
-                    if(isIgnoring) break;
+                    if(isIgnoringNext) break;
                 }
             }
             inline void refresh(InputState& mInputState)
@@ -46,7 +48,7 @@ namespace ssvs
                     mustSort = false;
                 }
 
-                isIgnoring = false;
+                isIgnoringNext = false;
                 processedInput.reset();
                 for(auto& b : binds) b->refresh(mInputState);
             }
@@ -57,7 +59,7 @@ namespace ssvs
                 mustSort = true;
                 return *result;
             }
-            
+
             inline void refreshTriggers(Trigger trigger, Tid bindID)
             {
                 for(auto& b : binds)
@@ -65,7 +67,8 @@ namespace ssvs
                         b->refreshTrigger(trigger);
             }
 
-            inline void ignoreNextInputs() noexcept { isIgnoring = true; }
+            inline void ignoreNextInputs() noexcept { isIgnoringNext = true; }
+            inline void ignoreAllInputs(bool mIgnore) noexcept { isIgnoringAll = mIgnore; }
         };
     }
 }
