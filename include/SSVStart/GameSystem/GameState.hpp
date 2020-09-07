@@ -23,7 +23,6 @@ namespace ssvs
         using ITrigger = Input::Trigger;
         using IType = Input::Type;
         using IMode = Input::Mode;
-        using ITid = Input::Tid;
         using IFunc = InputFunc;
         using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
@@ -58,7 +57,7 @@ namespace ssvs
         inline GameState& operator=(const GameState&) = delete;
 
         inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff,
-            IType mType = IType::Always, ITid mTriggerID = ITid::Unknown,
+            IType mType = IType::Always, int mTriggerID = -1,
             IMode mMode = IMode::Overlap)
         {
             return inputManager.emplace(
@@ -66,12 +65,12 @@ namespace ssvs
         }
         inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn,
             IType mType = IType::Always,
-            ITid mTriggerID = ITid::Unknown, IMode mMode = IMode::Overlap)
+            int mTriggerID = -1, IMode mMode = IMode::Overlap)
         {
             return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType,
                 mTriggerID, mMode);
         }
-        inline void refreshTrigger(ITrigger trigger, ITid bindID)
+        inline void refreshTrigger(const Input::Trigger& trigger, int bindID)
         {
             inputManager.refreshTriggers(trigger, bindID);
         }

@@ -60,7 +60,7 @@ namespace ssvs
                 return *result;
             }
 
-            inline void refreshTriggers(Trigger trigger, Tid bindID)
+            inline void refreshTriggers(const Trigger& trigger, int bindID)
             {
                 for(auto& b : binds)
                     if(b->getTriggerID() == bindID)

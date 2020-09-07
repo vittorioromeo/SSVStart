@@ -19,24 +19,6 @@ namespace ssvs
             Overlap,
             Exclusive
         };
-        enum class Tid
-        {
-            Unknown = -1,
-#ifdef OPEN_HEXAGON
-            RotateCCW = 0,
-            RotateCW,
-            Focus,
-            Exit,
-            ForceRestart,
-            Restart,
-            Replay,
-            Screenshot,
-            Swap,
-            Up,
-            Down,
-#endif
-            TriggersCount
-        };
     }
 }
 

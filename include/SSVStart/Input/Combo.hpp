@@ -63,13 +63,13 @@ namespace ssvs
     
                 getKeyBit(keys, KKey::Unknown) = true; //mark as unbound
             }
-            inline bool isUnbound() const
+            [[nodiscard]] inline bool isUnbound() const
             {
-                return getKeyBit(keys, KKey::Unknown) == true;
+                return getKeyBit(keys, KKey::Unknown);
             }
 
-            inline const auto& getKeys() const noexcept { return keys; }
-            inline const auto& getBtns() const noexcept { return btns; }
+            [[nodiscard]] inline const auto& getKeys() const noexcept { return keys; }
+            [[nodiscard]] inline const auto& getBtns() const noexcept { return btns; }
         };
     }
 }
