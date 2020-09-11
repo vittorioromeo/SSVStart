@@ -23,8 +23,8 @@ namespace ssvs
             inline Combo(const std::initializer_list<KKey>& mKeys,
                 const std::initializer_list<MBtn>& mBtns = {})
             {
-                for(const auto& k : mKeys) addKey(k);
-                for(const auto& b : mBtns) addBtn(b);
+                for(const KKey& k : mKeys) addKey(k);
+                for(const MBtn& b : mBtns) addBtn(b);
             }
             inline Combo(const std::initializer_list<MBtn>& mBtns)
                 : Combo{{}, mBtns}
@@ -46,14 +46,30 @@ namespace ssvs
             inline void addKey(KKey mKey) noexcept
             {
                 getKeyBit(keys, mKey) = true;
+                if(mKey != KKey::Unknown)
+                    getKeyBit(keys, KKey::Unknown) = false;
             }
             inline void addBtn(MBtn mBtn) noexcept
             {
                 getBtnBit(btns, mBtn) = true;
+                getKeyBit(keys, KKey::Unknown) = false;
+            }
+            inline void clearBind()
+            {
+                for(auto i(0u); i < kKeyCount; ++i)
+                    getKeyBit(keys, KKey(i)) = false;
+                for(auto j(0u); j < mBtnCount; ++j)
+                    getBtnBit(btns, MBtn(j)) = false;
+    
+                getKeyBit(keys, KKey::Unknown) = true; //mark as unbound
+            }
+            [[nodiscard]] inline bool isUnbound() const
+            {
+                return getKeyBit(keys, KKey::Unknown);
             }
 
-            inline const auto& getKeys() const noexcept { return keys; }
-            inline const auto& getBtns() const noexcept { return btns; }
+            [[nodiscard]] inline const auto& getKeys() const noexcept { return keys; }
+            [[nodiscard]] inline const auto& getBtns() const noexcept { return btns; }
         };
     }
 }

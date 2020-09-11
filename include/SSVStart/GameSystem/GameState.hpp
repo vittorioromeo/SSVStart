@@ -57,16 +57,22 @@ namespace ssvs
         inline GameState& operator=(const GameState&) = delete;
 
         inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff,
-            IType mType = IType::Always, IMode mMode = IMode::Overlap)
+            IType mType = IType::Always, int mTriggerID = -1,
+            IMode mMode = IMode::Overlap)
         {
             return inputManager.emplace(
-                mTrigger, mType, mMode, mFuncOn, mFuncOff);
+                mTrigger, mType, mMode, mTriggerID, mFuncOn, mFuncOff);
         }
         inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn,
-            IType mType = IType::Always, IMode mMode = IMode::Overlap)
+            IType mType = IType::Always,
+            int mTriggerID = -1, IMode mMode = IMode::Overlap)
         {
-            return addInput(
-                mTrigger, mFuncOn, Impl::getNullInputFunc(), mType, mMode);
+            return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType,
+                mTriggerID, mMode);
+        }
+        inline void refreshTrigger(const Input::Trigger& trigger, int bindID)
+        {
+            inputManager.refreshTriggers(trigger, bindID);
         }
 
         inline auto& onEvent(sf::Event::EventType mEventType)
@@ -76,6 +82,10 @@ namespace ssvs
         inline void ignoreNextInputs() noexcept
         {
             inputManager.ignoreNextInputs();
+        }
+        inline void ignoreAllInputs(bool mIgnore) noexcept
+        {
+            inputManager.ignoreAllInputs(mIgnore);
         }
     };
 }

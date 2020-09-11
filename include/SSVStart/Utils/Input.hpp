@@ -130,6 +130,22 @@ namespace ssvs
             return keys;
         }
 
+    inline const auto& getStrKKeyHardcodedMap() noexcept
+    {
+#define SSVS_INS_KEY(mName)                 \
+    {                                       \
+        SSVS_KEY_PREFIX #mName, KKey::mName \
+    }
+        static std::map<std::string, KKey> keys{SSVS_INS_KEY(J),
+            SSVS_INS_KEY(K), SSVS_INS_KEY(L), SSVS_INS_KEY(R),
+            SSVS_INS_KEY(Y), SSVS_INS_KEY(Escape), SSVS_INS_KEY(LAlt), SSVS_INS_KEY(Return),
+            SSVS_INS_KEY(BackSpace), SSVS_INS_KEY(Up), SSVS_INS_KEY(Down),
+            SSVS_INS_KEY(F1), SSVS_INS_KEY(F2), SSVS_INS_KEY(F3), SSVS_INS_KEY(F4)};
+#undef SSVS_INS_KEY
+    
+        return keys;
+    }
+
         inline const auto& getStrMBtnMap() noexcept
         {
 #define SSVS_INS_BTN(mName)                 \
@@ -152,6 +168,13 @@ namespace ssvs
     inline bool isKKeyNameValid(const std::string& mId) noexcept
     {
         return Impl::getStrKKeyMap().count(mId) > 0;
+    }
+
+    /// @brief Returns wherever a KKey cannot be set as bind from
+    /// the config.json file because it has an hardcoded behavior
+    inline bool isKKeyHardcoded(const std::string& mId) noexcept
+    {
+        return Impl::getStrKKeyHardcodedMap().count(mId) > 0;
     }
 
     /// @brief Returns whether mId is a valid MBtn name or not.
@@ -194,7 +217,7 @@ namespace ssvs
     /// value.
     /// @return Returns a reference to the newly created bind.
     inline auto& add2StateInput(GameState& mGameState, const ITrigger& mOn,
-        bool& mValue, IType mType = IType::Always, IMode mMode = IMode::Overlap)
+        bool& mValue, int mTriggerID, IType mType = IType::Always, IMode mMode = IMode::Overlap)
     {
         return mGameState.addInput(mOn,
             [&mValue](FT)
@@ -205,7 +228,7 @@ namespace ssvs
             {
                 mValue = false;
             },
-            mType, mMode);
+            mType, mTriggerID, mMode);
     }
 
     /// @brief Shortcut to create a simple 3-state input that operates on an int
@@ -215,7 +238,7 @@ namespace ssvs
     /// is in use, to 1 when mOn is in use.
     /// @return Returns a pair containing references to the newly created binds.
     inline auto add3StateInput(GameState& mGameState, const ITrigger& mOff,
-        const ITrigger& mOn, int& mValue, IType mType = IType::Always,
+        const ITrigger& mOn, int& mValue, int mTriggerID, IType mType = IType::Always,
         IMode mMode = IMode::Overlap)
     {
         auto& b1(mGameState.addInput(mOff,
@@ -227,7 +250,7 @@ namespace ssvs
             {
                 if(mValue == -1) mValue = 0;
             },
-            mType, mMode));
+            mType, mTriggerID, mMode));
         auto& b2(mGameState.addInput(mOn,
             [&mValue](FT)
             {
@@ -237,7 +260,7 @@ namespace ssvs
             {
                 if(mValue == 1) mValue = 0;
             },
-            mType, mMode));
+            mType, mTriggerID, mMode));
 
         return std::make_pair<Input::Bind&, Input::Bind&>(b1, b2);
     }

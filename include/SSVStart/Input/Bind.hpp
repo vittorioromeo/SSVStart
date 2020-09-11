@@ -23,6 +23,7 @@ namespace ssvs
             Type type{Type::Always};
             Mode mode{Mode::Overlap};
             bool released{true};
+            int triggerID{-1};
 
             inline bool isDown(InputState& mInputState) const
             {
@@ -42,11 +43,11 @@ namespace ssvs
 
         public:
             inline Bind(Manager& mManager, Trigger mTrigger, Type mType,
-                Mode mMode,
+                Mode mMode, int mTriggerID,
                 const InputFunc& mOn = ssvs::Impl::getNullInputFunc(),
                 const InputFunc& mOff = ssvs::Impl::getNullInputFunc())
                 : manager(mManager), trigger{std::move(mTrigger)}, on{mOn},
-                  off{mOff}, type{mType}, mode{mMode}
+                  off{mOff}, type{mType}, mode{mMode}, triggerID{mTriggerID}
             {
                 recalculatePriorityCombo();
             }
@@ -58,6 +59,15 @@ namespace ssvs
             inline void refresh(InputState& mInputState)
             {
                 if(!released && !isDown(mInputState)) released = true;
+            }
+            inline void refreshTrigger(const Trigger& mTrigger)
+            {
+                trigger = mTrigger;
+                recalculatePriorityCombo();
+            }
+            [[nodiscard]] inline int getTriggerID() const
+            {
+                return triggerID;
             }
 
             inline void setType(Type mType) noexcept { type = mType; }

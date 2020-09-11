@@ -12,8 +12,8 @@ namespace ssvs
         inline bool Combo::isDown(
             Manager& mManager, InputState& mInputState, Mode mMode) const
         {
-            // If this combo has no keys or no btns, it is not valid
-            if(keys.none() && btns.none()) return false;
+            // If this combo is unbound, it is not valid
+            if(isUnbound()) return false;
 
             // Check if the combo's keys/btns are currently pressed
             if((mInputState.getKeys() & keys) != keys) return false;
