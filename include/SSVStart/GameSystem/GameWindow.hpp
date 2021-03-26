@@ -18,7 +18,7 @@ private:
     Input::InputState inputState;
     std::unique_ptr<GameEngine> gameEngine{
         std::make_unique<GameEngine>()}; // TODO: should the user create a
-                                     // GameEngine?
+                                         // GameEngine?
     sf::RenderWindow renderWindow;
     std::string title;
     FT msUpdate, msDraw;
@@ -155,6 +155,7 @@ public:
     inline void saveScreenshot(const ssvufs::Path& mPath) const
     {
         sf::Texture t;
+        t.create(renderWindow.getSize().x, renderWindow.getSize().y);
         t.update(renderWindow);
         auto img = t.copyToImage();
         img.saveToFile(mPath);
