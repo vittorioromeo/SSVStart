@@ -2,56 +2,70 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_TILESET
-#define SSVS_TILESET
+#pragma once
+
+#include "SSVStart/Global/Typedefs.hpp"
+
+#include <SFML/Graphics/Rect.hpp>
 
 #include <string>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
-#include "SSVStart/Global/Typedefs.hpp"
 
 namespace ssvs
 {
-    class Tileset
+
+class Tileset
+{
+private:
+    Vec2u tileSize;
+    std::unordered_map<std::string, Vec2u> labels;
+
+public:
+    Tileset() = default;
+    Tileset(const Vec2u& mTileSize) noexcept : tileSize{mTileSize}
     {
-    private:
-        Vec2u tileSize;
-        std::unordered_map<std::string, Vec2u> labels;
+    }
 
-    public:
-        inline Tileset() = default;
-        inline Tileset(const Vec2u& mTileSize) noexcept : tileSize{mTileSize} {}
+    void setTileSize(const Vec2u& mTileSize) noexcept
+    {
+        tileSize = mTileSize;
+    }
 
-        inline void setTileSize(const Vec2u& mTileSize) noexcept
-        {
-            tileSize = mTileSize;
-        }
-        inline void setLabel(const std::string& mLabel, const Vec2u& mIdx)
-        {
-            labels[mLabel] = mIdx;
-        }
+    void setLabel(const std::string& mLabel, const Vec2u& mIdx)
+    {
+        labels[mLabel] = mIdx;
+    }
 
-        inline const auto& getLabels() const noexcept { return labels; }
-        inline const auto& getTileSize() const noexcept { return tileSize; }
-        inline const auto& getIdx(const std::string& mLabel) const
-        {
-            return labels.at(mLabel);
-        }
+    const auto& getLabels() const noexcept
+    {
+        return labels;
+    }
 
-        inline auto operator()(unsigned int mX, unsigned int mY) const noexcept
-        {
-            return sf::IntRect(
-                mX * tileSize.x, mY * tileSize.y, tileSize.x, tileSize.y);
-        }
-        inline auto operator()(const Vec2u& mIdx) const noexcept
-        {
-            return (*this)(mIdx.x, mIdx.y);
-        }
-        inline auto operator()(const std::string& mLabel) const noexcept
-        {
-            return (*this)(getIdx(mLabel));
-        }
-    };
-}
+    const auto& getTileSize() const noexcept
+    {
+        return tileSize;
+    }
 
-#endif
+    const auto& getIdx(const std::string& mLabel) const
+    {
+        return labels.at(mLabel);
+    }
+
+    auto operator()(unsigned int mX, unsigned int mY) const noexcept
+    {
+        return sf::IntRect(
+            mX * tileSize.x, mY * tileSize.y, tileSize.x, tileSize.y);
+    }
+
+    auto operator()(const Vec2u& mIdx) const noexcept
+    {
+        return (*this)(mIdx.x, mIdx.y);
+    }
+
+    auto operator()(const std::string& mLabel) const noexcept
+    {
+        return (*this)(getIdx(mLabel));
+    }
+};
+
+} // namespace ssvs

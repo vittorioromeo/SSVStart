@@ -2,16 +2,25 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_GAMESYSTEM_GAMEWINDOW
-#define SSVS_GAMESYSTEM_GAMEWINDOW
+#pragma once
 
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Input/Input.hpp"
 #include "SSVStart/GameSystem/GameEngine.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
 
+#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Mouse.hpp>
+#include <SFML/Window/Touch.hpp>
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Texture.hpp>
+
 namespace ssvs
 {
+
 class GameWindow
 {
 private:
@@ -27,7 +36,7 @@ private:
     bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false},
         fullscreen{false};
 
-    inline void runEvents()
+    void runEvents()
     {
         SSVU_ASSERT(gameEngine != nullptr);
 
@@ -70,7 +79,7 @@ private:
 #pragma GCC diagnostic pop
     }
 
-    inline void recreateWindow()
+    void recreateWindow()
     {
         if(renderWindow.isOpen()) renderWindow.close();
 
@@ -91,18 +100,18 @@ private:
 public:
     ssvu::Delegate<void()> onRecreation;
 
-    inline GameWindow()
+    GameWindow()
     {
         gameEngine->setInputState(inputState);
     }
 
-    inline GameWindow(const GameWindow&) = delete;
-    inline GameWindow& operator=(const GameWindow&) = delete;
+    GameWindow(const GameWindow&) = delete;
+    GameWindow& operator=(const GameWindow&) = delete;
 
-    inline GameWindow(GameWindow&&) = delete;
-    inline GameWindow& operator=(GameWindow&&) = delete;
+    GameWindow(GameWindow&&) = delete;
+    GameWindow& operator=(GameWindow&&) = delete;
 
-    inline void run()
+    void run()
     {
         SSVU_ASSERT(gameEngine != nullptr);
 
@@ -136,23 +145,23 @@ public:
             gameEngine->runFPS();
         }
     }
-    inline void stop() noexcept
+    void stop() noexcept
     {
         SSVU_ASSERT(gameEngine != nullptr);
         gameEngine->stop();
     }
 
-    inline void clear(const sf::Color& mColor = sf::Color::Transparent)
+    void clear(const sf::Color& mColor = sf::Color::Transparent)
     {
         renderWindow.clear(mColor);
     }
-    inline void draw(const sf::Drawable& mDrawable,
+    void draw(const sf::Drawable& mDrawable,
         const sf::RenderStates& mStates = sf::RenderStates::Default)
     {
         renderWindow.draw(mDrawable, mStates);
     }
 
-    inline void saveScreenshot(const ssvufs::Path& mPath) const
+    void saveScreenshot(const ssvufs::Path& mPath) const
     {
         sf::Texture t;
         t.create(renderWindow.getSize().x, renderWindow.getSize().y);
@@ -161,124 +170,124 @@ public:
         img.saveToFile(mPath);
     }
 
-    inline void setFullscreen(bool mFullscreen) noexcept
+    void setFullscreen(bool mFullscreen) noexcept
     {
         fullscreen = mFullscreen;
         mustRecreate = true;
     }
-    inline void setSize(unsigned int mWidth, unsigned int mHeight) noexcept
+    void setSize(unsigned int mWidth, unsigned int mHeight) noexcept
     {
         width = mWidth;
         height = mHeight;
         mustRecreate = true;
     }
-    inline void setAntialiasingLevel(unsigned int mLevel) noexcept
+    void setAntialiasingLevel(unsigned int mLevel) noexcept
     {
         antialiasingLevel = mLevel;
         mustRecreate = true;
     }
-    inline void setVsync(bool mEnabled) noexcept
+    void setVsync(bool mEnabled) noexcept
     {
         vsync = mEnabled;
         mustRecreate = true;
     }
-    inline void setPixelMult(float mPixelMult) noexcept
+    void setPixelMult(float mPixelMult) noexcept
     {
         pixelMult = mPixelMult;
         mustRecreate = true;
     }
 
-    inline void setMouseCursorVisible(bool mEnabled)
+    void setMouseCursorVisible(bool mEnabled)
     {
         renderWindow.setMouseCursorVisible(mEnabled);
     }
-    inline void setTitle(std::string mTitle)
+    void setTitle(std::string mTitle)
     {
         title = std::move(mTitle);
         renderWindow.setTitle(mTitle);
     }
-    inline void setMaxFPS(float mMaxFPS)
+    void setMaxFPS(float mMaxFPS)
     {
         maxFPS = mMaxFPS;
         renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
     }
-    inline void setFPSLimited(bool mFPSLimited)
+    void setFPSLimited(bool mFPSLimited)
     {
         fpsLimited = mFPSLimited;
         renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
     }
-    inline void setGameState(GameState& mGameState) noexcept
+    void setGameState(GameState& mGameState) noexcept
     {
         gameEngine->setGameState(mGameState);
     }
 
-    inline operator sf::RenderWindow &() noexcept
+    operator sf::RenderWindow &() noexcept
     {
         return renderWindow;
     }
-    inline auto& getRenderWindow() noexcept
+    auto& getRenderWindow() noexcept
     {
         return renderWindow;
     }
-    inline const auto& getRenderWindow() const noexcept
+    const auto& getRenderWindow() const noexcept
     {
         return renderWindow;
     }
-    inline bool getFullscreen() const noexcept
+    bool getFullscreen() const noexcept
     {
         return fullscreen;
     }
-    inline auto getWidth() const noexcept
+    auto getWidth() const noexcept
     {
         return width;
     }
-    inline auto getHeight() const noexcept
+    auto getHeight() const noexcept
     {
         return height;
     }
-    inline auto getAntialiasingLevel() const noexcept
+    auto getAntialiasingLevel() const noexcept
     {
         return antialiasingLevel;
     }
-    inline bool hasFocus() const noexcept
+    bool hasFocus() const noexcept
     {
         return focus;
     }
-    inline bool getVsync() const noexcept
+    bool getVsync() const noexcept
     {
         return vsync;
     }
 
-    inline FT getMsUpdate() const noexcept
+    FT getMsUpdate() const noexcept
     {
         return msUpdate;
     }
-    inline FT getMsDraw() const noexcept
+    FT getMsDraw() const noexcept
     {
         return msDraw;
     }
 
-    inline auto getMousePosition() const noexcept
+    auto getMousePosition() const noexcept
     {
         return renderWindow.mapPixelToCoords(
             sf::Mouse::getPosition(renderWindow));
     }
-    inline auto getFingerPosition(FingerID mX) const noexcept
+    auto getFingerPosition(FingerID mX) const noexcept
     {
         return renderWindow.mapPixelToCoords(
             sf::Touch::getPosition(mX, renderWindow));
     }
 
-    inline const auto& getInputState() const noexcept
+    const auto& getInputState() const noexcept
     {
         return inputState;
     }
 
-    inline auto getFingerDownCount() const noexcept
+    auto getFingerDownCount() const noexcept
     {
         return inputState.fingers.count();
     }
-    inline auto getFingerDownPositions() const noexcept
+    auto getFingerDownPositions() const noexcept
     {
         std::vector<Vec2i> result;
 
@@ -290,20 +299,19 @@ public:
     }
 
     template <typename T, typename... TArgs>
-    inline void setTimer(TArgs&&... mArgs)
+    void setTimer(TArgs&&... mArgs)
     {
         gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...);
     }
-    inline auto getFPS() const noexcept
+    auto getFPS() const noexcept
     {
         return gameEngine->getFPS();
     }
 
-    inline void recreate() noexcept
+    void recreate() noexcept
     {
         mustRecreate = true;
     }
 };
-} // namespace ssvs
 
-#endif
+} // namespace ssvs

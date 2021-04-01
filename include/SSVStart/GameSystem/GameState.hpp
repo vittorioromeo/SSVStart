@@ -2,92 +2,106 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_GAMESYSTEM_GAMESTATE
-#define SSVS_GAMESYSTEM_GAMESTATE
+#pragma once
 
 #include "SSVStart/Input/Input.hpp"
 
 #include <SSVUtils/Delegate/Delegate.hpp>
 
+#include <SFML/Window/Event.hpp>
+
 #include <map>
 
 namespace ssvs
 {
-    class GameEngine;
 
-    class GameState
+class GameEngine;
+
+class GameState
+{
+    friend GameEngine;
+
+private:
+    using ITrigger = Input::Trigger;
+    using IType = Input::Type;
+    using IMode = Input::Mode;
+    using IFunc = InputFunc;
+    using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
+
+    Input::Manager inputManager;
+    std::map<sf::Event::EventType, EventDelegate> eventDelegates;
+
+    void handleEvent(const sf::Event& mEvent)
     {
-        friend GameEngine;
+        onAnyEvent(mEvent);
+        eventDelegates[mEvent.type](mEvent);
+    }
 
-    private:
-        using ITrigger = Input::Trigger;
-        using IType = Input::Type;
-        using IMode = Input::Mode;
-        using IFunc = InputFunc;
-        using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
+    void update(FT mFT)
+    {
+        onUpdate(mFT);
+    }
 
-        Input::Manager inputManager;
-        std::map<sf::Event::EventType, EventDelegate> eventDelegates;
+    void draw()
+    {
+        onDraw();
+    }
 
-        inline void handleEvent(const sf::Event& mEvent)
-        {
-            onAnyEvent(mEvent);
-            eventDelegates[mEvent.type](mEvent);
-        }
-        inline void update(FT mFT) { onUpdate(mFT); }
-        inline void draw() { onDraw(); }
+    void updateInput(Input::InputState& mInputState, FT mFT)
+    {
+        inputManager.update(mInputState, mFT);
+    }
 
-        inline void updateInput(Input::InputState& mInputState, FT mFT)
-        {
-            inputManager.update(mInputState, mFT);
-        }
-        inline void refreshInput(Input::InputState& mInputState)
-        {
-            inputManager.refresh(mInputState);
-        }
+    void refreshInput(Input::InputState& mInputState)
+    {
+        inputManager.refresh(mInputState);
+    }
 
-    public:
-        ssvu::Delegate<void()> onDraw, onPostUpdate;
-        ssvu::Delegate<void(FT)> onUpdate;
-        EventDelegate onAnyEvent;
+public:
+    ssvu::Delegate<void()> onDraw, onPostUpdate;
+    ssvu::Delegate<void(FT)> onUpdate;
+    EventDelegate onAnyEvent;
 
-        inline GameState() = default;
+    GameState() = default;
 
-        inline GameState(const GameState&) = delete;
-        inline GameState& operator=(const GameState&) = delete;
+    GameState(const GameState&) = delete;
+    GameState& operator=(const GameState&) = delete;
 
-        inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff,
-            IType mType = IType::Always, int mTriggerID = -1,
-            IMode mMode = IMode::Overlap)
-        {
-            return inputManager.emplace(
-                mTrigger, mType, mMode, mTriggerID, mFuncOn, mFuncOff);
-        }
-        inline auto& addInput(ITrigger mTrigger, IFunc mFuncOn,
-            IType mType = IType::Always,
-            int mTriggerID = -1, IMode mMode = IMode::Overlap)
-        {
-            return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType,
-                mTriggerID, mMode);
-        }
-        inline void refreshTrigger(const Input::Trigger& trigger, int bindID)
-        {
-            inputManager.refreshTriggers(trigger, bindID);
-        }
+    auto& addInput(ITrigger mTrigger, IFunc mFuncOn, IFunc mFuncOff,
+        IType mType = IType::Always, int mTriggerID = -1,
+        IMode mMode = IMode::Overlap)
+    {
+        return inputManager.emplace(
+            mTrigger, mType, mMode, mTriggerID, mFuncOn, mFuncOff);
+    }
 
-        inline auto& onEvent(sf::Event::EventType mEventType)
-        {
-            return eventDelegates[mEventType];
-        }
-        inline void ignoreNextInputs() noexcept
-        {
-            inputManager.ignoreNextInputs();
-        }
-        inline void ignoreAllInputs(bool mIgnore) noexcept
-        {
-            inputManager.ignoreAllInputs(mIgnore);
-        }
-    };
-}
+    auto& addInput(ITrigger mTrigger, IFunc mFuncOn,
+        IType mType = IType::Always, int mTriggerID = -1,
+        IMode mMode = IMode::Overlap)
+    {
+        return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType,
+            mTriggerID, mMode);
+    }
 
-#endif
+    void refreshTrigger(const Input::Trigger& trigger, int bindID)
+    {
+        inputManager.refreshTriggers(trigger, bindID);
+    }
+
+    auto& onEvent(sf::Event::EventType mEventType)
+    {
+        return eventDelegates[mEventType];
+    }
+
+    void ignoreNextInputs() noexcept
+    {
+        inputManager.ignoreNextInputs();
+    }
+
+    void ignoreAllInputs(bool mIgnore) noexcept
+    {
+        inputManager.ignoreAllInputs(mIgnore);
+    }
+};
+
+} // namespace ssvs

@@ -2,66 +2,74 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_MUSICPLAYER
-#define SSVS_MUSICPLAYER
+#pragma once
 
 #include <SSVUtils/Core/Assert/Assert.hpp>
 
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
+#include <SFML/System/Time.hpp>
+#include <SFML/Audio/Music.hpp>
 
 namespace ssvs
 {
-    class MusicPlayer
+
+class MusicPlayer
+{
+private:
+    sf::Music* current{nullptr};
+    float volume{100};
+    bool loop{true};
+
+public:
+    void play(
+        sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
     {
-    private:
-        sf::Music* current{nullptr};
-        float volume{100};
-        bool loop{true};
+        SSVU_ASSERT(mPlayingOffset <= mMusic.getDuration());
 
-    public:
-        inline void play(
-            sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
-        {
-            SSVU_ASSERT(mPlayingOffset <= mMusic.getDuration());
+        stop();
 
-            stop();
+        mMusic.setVolume(volume);
+        mMusic.setLoop(true);
+        mMusic.play();
+        mMusic.setPlayingOffset(mPlayingOffset);
 
-            mMusic.setVolume(volume);
-            mMusic.setLoop(true);
-            mMusic.play();
-            mMusic.setPlayingOffset(mPlayingOffset);
+        current = &mMusic;
+    }
+    void stop()
+    {
+        if(current != nullptr) current->stop();
+    }
+    void pause()
+    {
+        if(current != nullptr) current->pause();
+    }
+    void resume()
+    {
+        if(current != nullptr) current->play();
+    }
 
-            current = &mMusic;
-        }
-        inline void stop()
-        {
-            if(current != nullptr) current->stop();
-        }
-        inline void pause()
-        {
-            if(current != nullptr) current->pause();
-        }
-        inline void resume()
-        {
-            if(current != nullptr) current->play();
-        }
+    void setVolume(float mVolume)
+    {
+        volume = mVolume;
+        if(current != nullptr) current->setVolume(mVolume);
+    }
+    void setLoop(bool mLoop)
+    {
+        loop = mLoop;
+        if(current != nullptr) current->setLoop(loop);
+    }
 
-        inline void setVolume(float mVolume)
-        {
-            volume = mVolume;
-            if(current != nullptr) current->setVolume(mVolume);
-        }
-        inline void setLoop(bool mLoop)
-        {
-            loop = mLoop;
-            if(current != nullptr) current->setLoop(loop);
-        }
+    auto getCurrent() noexcept
+    {
+        return current;
+    }
+    auto getVolume() const noexcept
+    {
+        return volume;
+    }
+    bool getLoop() const noexcept
+    {
+        return loop;
+    }
+};
 
-        inline auto getCurrent() noexcept { return current; }
-        inline auto getVolume() const noexcept { return volume; }
-        inline bool getLoop() const noexcept { return loop; }
-    };
-}
-
-#endif
+} // namespace ssvs

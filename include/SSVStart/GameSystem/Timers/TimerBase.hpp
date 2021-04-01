@@ -2,41 +2,59 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_GAMESYSTEM_TIMERS_BASE
-#define SSVS_GAMESYSTEM_TIMERS_BASE
+#pragma once
 
 #include <SSVUtils/Core/Common/Frametime.hpp>
 
+#include <SFML/System/Clock.hpp>
+
 namespace ssvs
 {
-    class GameEngine;
 
-    class TimerBase
+class GameEngine;
+
+class TimerBase
+{
+protected:
+    GameEngine& gameEngine;
+    sf::Clock clock;
+    FT frameTime{0};
+    float fps{0};
+
+public:
+    TimerBase(GameEngine& mGameEngine) noexcept : gameEngine(mGameEngine)
     {
-    protected:
-        GameEngine& gameEngine;
-        sf::Clock clock;
-        FT frameTime{0};
-        float fps{0};
+    }
 
-    public:
-        inline TimerBase(GameEngine& mGameEngine) noexcept
-            : gameEngine(mGameEngine)
-        {
-        }
-        inline virtual ~TimerBase() {}
+    virtual ~TimerBase()
+    {
+    }
 
-        inline virtual void runUpdate() {}
-        inline virtual void runFrameTime() final
-        {
-            frameTime = ssvu::getSecondsToFT(clock.restart().asSeconds());
-        }
-        inline virtual void runFPS() { fps = ssvu::getFTToFPS(frameTime); }
-        virtual void runDraw() final;
+    virtual void runUpdate()
+    {
+    }
 
-        inline FT getFrameTime() const noexcept { return frameTime; }
-        inline float getFPS() const noexcept { return fps; }
-    };
-}
+    virtual void runFrameTime() final
+    {
+        frameTime = ssvu::getSecondsToFT(clock.restart().asSeconds());
+    }
 
-#endif
+    virtual void runFPS()
+    {
+        fps = ssvu::getFTToFPS(frameTime);
+    }
+
+    virtual void runDraw() final;
+
+    FT getFrameTime() const noexcept
+    {
+        return frameTime;
+    }
+
+    float getFPS() const noexcept
+    {
+        return fps;
+    }
+};
+
+} // namespace ssvs

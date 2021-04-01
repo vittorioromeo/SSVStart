@@ -2,8 +2,7 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVSTART
-#define SSVSTART
+#pragma once
 
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Animation/Animation.hpp"
@@ -18,5 +17,3 @@
 #include "SSVStart/Utils/Utils.hpp"
 #include "SSVStart/Json/Json.hpp"
 #include "SSVStart/VertexVector/VertexVector.hpp"
-
-#endif

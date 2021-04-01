@@ -35,6 +35,8 @@ vrm_cmake_set_cxxstd(20)
 project(SSVStart CXX)
 enable_testing()
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+
 vrm_cmake_init_project_name_upper()
 vrm_cmake_init_project_source_dir()
 vrm_cmake_init_project_common_module_paths()

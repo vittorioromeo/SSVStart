@@ -2,12 +2,14 @@
 // License: Academic Free License ("AFL") v. 3.0
 // AFL License page: http://opensource.org/licenses/AFL-3.0
 
-#ifndef SSVS_GAMESYSTEM_TIMERS_BASE_INL
-#define SSVS_GAMESYSTEM_TIMERS_BASE_INL
+#pragma once
 
 namespace ssvs
 {
-    inline void TimerBase::runDraw() { gameEngine.drawFromTimer(); }
+
+inline void TimerBase::runDraw()
+{
+    gameEngine.drawFromTimer();
 }
 
-#endif
+} // namespace ssvs
