@@ -21,7 +21,7 @@ namespace ssvs
 {
 namespace Impl
 {
-auto& getNullImage() noexcept
+inline auto& getNullImage() noexcept
 {
     struct NullImage
     {
@@ -36,7 +36,7 @@ auto& getNullImage() noexcept
     return result.data;
 }
 
-auto& getNullTexture() noexcept
+inline auto& getNullTexture() noexcept
 {
     struct NullTexture
     {
@@ -51,7 +51,7 @@ auto& getNullTexture() noexcept
     return result.data;
 }
 
-auto& getNullFont() noexcept
+inline auto& getNullFont() noexcept
 {
     struct NullFont
     {
@@ -68,7 +68,7 @@ auto& getNullFont() noexcept
     return result.data;
 }
 
-auto& getNullBitmapFont() noexcept
+inline auto& getNullBitmapFont() noexcept
 {
     struct NullBitmapFont
     {
@@ -86,13 +86,13 @@ auto& getNullBitmapFont() noexcept
     return result.data;
 }
 
-auto& getNullSoundBuffer() noexcept
+inline auto& getNullSoundBuffer() noexcept
 {
     static sf::SoundBuffer result;
     return result;
 }
 
-auto& getNullMusic() noexcept
+inline auto& getNullMusic() noexcept
 {
     static sf::Music result;
     return result;
