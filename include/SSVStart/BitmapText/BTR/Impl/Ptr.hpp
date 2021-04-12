@@ -7,6 +7,8 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
+#include <cassert>
+
 namespace ssvs
 {
     namespace BTR
@@ -31,22 +33,22 @@ namespace ssvs
 
             inline auto& operator*() noexcept
             {
-                SSVU_ASSERT(ptr != nullptr);
+                assert(ptr != nullptr);
                 return *ptr;
             }
             inline const auto& operator*() const noexcept
             {
-                SSVU_ASSERT(ptr != nullptr);
+                assert(ptr != nullptr);
                 return *ptr;
             }
             inline T* operator->() noexcept
             {
-                SSVU_ASSERT(ptr != nullptr);
+                assert(ptr != nullptr);
                 return ptr;
             }
             inline T* operator->() const noexcept
             {
-                SSVU_ASSERT(ptr != nullptr);
+                assert(ptr != nullptr);
                 return ptr;
             }
 

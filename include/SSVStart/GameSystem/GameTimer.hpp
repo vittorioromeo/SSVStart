@@ -7,7 +7,8 @@
 #include "SSVStart/GameSystem/Timers/TimerBase.hpp"
 
 #include <SSVUtils/Core/Common/Casts.hpp>
-#include <SSVUtils/Core/Assert/Assert.hpp>
+
+#include <cassert>
 
 namespace ssvs
 {
@@ -27,7 +28,7 @@ public:
         impl.swap(nextImpl);
         nextImpl = nullptr;
 
-        SSVU_ASSERT(nextImpl == nullptr);
+        assert(nextImpl == nullptr);
     }
 
     auto operator->()
@@ -42,7 +43,7 @@ public:
     template <typename T>
     T& getImpl() noexcept
     {
-        SSVU_ASSERT(impl != nullptr);
+        assert(impl != nullptr);
         return ssvu::castUp<T>(*impl);
     }
     template <typename T, typename... TArgs>

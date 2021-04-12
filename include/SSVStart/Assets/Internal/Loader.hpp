@@ -8,6 +8,8 @@
 #include "SSVStart/Tileset/Tileset.hpp"
 #include "SSVStart/Assets/Internal/Helper.hpp"
 
+#include <SSVUtils/Core/FileSystem/Path.hpp>
+
 #include <cstddef>
 
 namespace ssvs::Impl
@@ -29,7 +31,7 @@ struct Loader<sf::Texture> // Texture can also be loaded from Image
 {
     using T = sf::Texture;
 
-    static auto load(const Path& mPath)
+    static auto load(const ssvufs::Path& mPath)
     {
         return Helper<Mode::Load, T>::load(mPath);
     }
@@ -56,7 +58,7 @@ struct Loader<sf::SoundBuffer> // SoundBuffer can also be loaded from
 {
     using T = sf::SoundBuffer;
 
-    static auto load(const Path& mPath)
+    static auto load(const ssvufs::Path& mPath)
     {
         return Helper<Mode::Load, T>::load(mPath);
     }

@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <cmath>
+#include <cassert>
 
 namespace ssvs
 {
@@ -157,7 +158,7 @@ inline void normalize(Vec2<T1>& mVec, const T2& mMag) noexcept
 template <typename T1, typename T2>
 inline void normalizeUnsafe(Vec2<T1>& mVec, const T2& mMag) noexcept
 {
-    SSVU_ASSERT(mMag != 0);
+    assert(mMag != 0);
     mVec /= mMag;
 }
 
@@ -358,7 +359,7 @@ inline Vec2<CT<T1, T2>> getCClampedMax(Vec2<T1> mVec, const T2& mMax) noexcept
 template <typename T1, typename T2, typename T3>
 inline void mClamp(Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
 {
-    SSVU_ASSERT(mMin <= mMax);
+    assert(mMin <= mMax);
     const auto& m(getMag(mVec));
     if(m < mMin)
         resize(mVec, mMin, m);
@@ -584,7 +585,7 @@ inline void project(Vec2<T1>& mVec, const Vec2<T2>& mTarget) noexcept
     const auto& p1(getDotProduct(mVec, mTarget));
     const auto& p2(getDotProduct(mTarget, mTarget));
 
-    SSVU_ASSERT(p2 != 0);
+    assert(p2 != 0);
     mVec = mTarget * (p1 / p2);
 }
 

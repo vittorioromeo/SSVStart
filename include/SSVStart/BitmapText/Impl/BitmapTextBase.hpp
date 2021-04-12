@@ -19,6 +19,7 @@
 #include <vector>
 #include <string>
 #include <cstddef>
+#include <cassert>
 
 namespace ssvs::Impl
 {
@@ -59,7 +60,7 @@ protected:
 
     void refreshGeometryStart() const
     {
-        SSVU_ASSERT(bitmapFont != nullptr);
+        assert(bitmapFont != nullptr);
 
         rowCells.clear();
         vertices.clear();
@@ -150,7 +151,7 @@ public:
     void draw(sf::RenderTarget& mRenderTarget,
         sf::RenderStates mRenderStates) const override
     {
-        SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
+        assert(bitmapFont != nullptr && texture != nullptr);
 
         getTD().refreshIfNeeded();
 

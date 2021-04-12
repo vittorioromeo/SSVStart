@@ -8,12 +8,11 @@
 #include "SSVStart/Assets/Internal/DefaultAssets.hpp"
 #include "SSVStart/Assets/Internal/Policies.hpp"
 
-#include <SSVUtils/Core/Assert/Assert.hpp>
-
 #include <vector>
 #include <unordered_map>
 #include <string>
 #include <memory>
+#include <cassert>
 
 namespace ssvs::Impl
 {
@@ -42,7 +41,7 @@ public:
     template <typename... TArgs>
     T& load(const std::string& mId, TArgs&&... mArgs)
     {
-        SSVU_ASSERT(!has(mId));
+        assert(!has(mId));
         return policy.load(*this, mId, FWD(mArgs)...);
     }
 

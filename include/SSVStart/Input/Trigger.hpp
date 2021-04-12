@@ -5,6 +5,10 @@
 #ifndef SSVS_INPUT_TRIGGER
 #define SSVS_INPUT_TRIGGER
 
+#include "SSVStart/Input/Combo.hpp"
+
+#include <SSVUtils/Core/Utils/Macros.hpp>
+
 namespace ssvs
 {
     namespace Input

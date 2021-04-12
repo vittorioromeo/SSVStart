@@ -14,6 +14,8 @@
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 
+#include <cassert>
+
 namespace ssvs
 {
     namespace BTR
@@ -138,12 +140,12 @@ namespace ssvs
                 // Go back one level
                 inline auto& out() noexcept
                 {
-                    SSVU_ASSERT(parent != nullptr);
+                    assert(parent != nullptr);
                     return *parent;
                 }
                 inline const auto& out() const noexcept
                 {
-                    SSVU_ASSERT(parent != nullptr);
+                    assert(parent != nullptr);
                     return *parent;
                 }
             };

@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <SSVUtils/Core/Assert/Assert.hpp>
-
 #include <SFML/System/Time.hpp>
 #include <SFML/Audio/Music.hpp>
+
+#include <cassert>
 
 namespace ssvs
 {
@@ -23,7 +23,7 @@ public:
     void play(
         sf::Music& mMusic, const sf::Time& mPlayingOffset = sf::seconds(0))
     {
-        SSVU_ASSERT(mPlayingOffset <= mMusic.getDuration());
+        assert(mPlayingOffset <= mMusic.getDuration());
 
         stop();
 

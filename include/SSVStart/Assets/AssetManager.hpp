@@ -79,4 +79,8 @@ public:
     }
 };
 
+class DefaultAssetManager : public AssetManager<RHPolicyDefault>
+{
+};
+
 } // namespace ssvs

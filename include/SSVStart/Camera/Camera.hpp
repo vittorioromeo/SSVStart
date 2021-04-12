@@ -5,8 +5,10 @@
 #pragma once
 
 #include "SSVStart/Global/Typedefs.hpp"
-#include "SSVStart/Utils/Utils.hpp"
+#include "SSVStart/Utils/Vector2.hpp"
 #include "SSVStart/GameSystem/GameSystem.hpp"
+
+#include <cassert>
 
 namespace ssvs
 {
@@ -37,7 +39,7 @@ public:
                                             gameWindow.getHeight() /
                                                 mZoomFactor}}
     {
-        SSVU_ASSERT(mZoomFactor != 0);
+        assert(mZoomFactor != 0);
     }
 
     Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f)
@@ -47,7 +49,7 @@ public:
               {gameWindow.getWidth() / mZoomFactor,
                   gameWindow.getHeight() / mZoomFactor}}
     {
-        SSVU_ASSERT(mZoomFactor != 0);
+        assert(mZoomFactor != 0);
     }
 
     template <typename T = float>

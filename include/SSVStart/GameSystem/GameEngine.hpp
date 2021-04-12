@@ -11,6 +11,8 @@
 
 #include <SFML/Window/Event.hpp>
 
+#include <cassert>
+
 namespace ssvs
 {
 
@@ -37,19 +39,19 @@ private:
     // These methods are called from the timer
     void updateFromTimer(FT mFT)
     {
-        SSVU_ASSERT(isValid());
+        assert(isValid());
         if(inputState != nullptr) gameState->updateInput(*inputState, mFT);
         gameState->update(mFT);
     }
     void drawFromTimer()
     {
-        SSVU_ASSERT(isValid());
+        assert(isValid());
         gameState->draw();
     }
 
     void handleEvent(const sf::Event& mEvent) const noexcept
     {
-        SSVU_ASSERT(isValid());
+        assert(isValid());
         gameState->handleEvent(mEvent);
     }
 
@@ -71,7 +73,7 @@ public:
 
     void runUpdate()
     {
-        SSVU_ASSERT(isValid());
+        assert(isValid());
 
         if(inputState != nullptr) gameState->refreshInput(*inputState);
         timer->runUpdate();
@@ -80,14 +82,14 @@ public:
 
     void runDraw()
     {
-        SSVU_ASSERT(isValid());
+        assert(isValid());
 
         timer->runDraw();
     }
 
     void runFPS()
     {
-        SSVU_ASSERT(isValid());
+        assert(isValid());
 
         timer->runFrameTime();
         timer->runFPS();

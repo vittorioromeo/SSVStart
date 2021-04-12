@@ -17,6 +17,8 @@
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 
+#include <cassert>
+
 namespace ssvs
 {
     namespace BTR
@@ -83,7 +85,7 @@ namespace ssvs
 
                 inline void refreshGeometryStart() const noexcept
                 {
-                    SSVU_ASSERT(bitmapFont != nullptr);
+                    assert(bitmapFont != nullptr);
 
                     vertices.clear();
                     verticesOriginal.clear();
@@ -223,7 +225,7 @@ namespace ssvs
                 inline void draw(sf::RenderTarget& mRenderTarget,
                     sf::RenderStates mRenderStates) const override
                 {
-                    SSVU_ASSERT(bitmapFont != nullptr && texture != nullptr);
+                    assert(bitmapFont != nullptr && texture != nullptr);
 
                     refreshIfNeeded();
 

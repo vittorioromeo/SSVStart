@@ -7,7 +7,6 @@
 
 #include <SSVUtils/Core/Common/Casts.hpp>
 #include <SSVUtils/Core/Common/Frametime.hpp>
-#include <SSVUtils/Core/FileSystem/FileSystem.hpp>
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Joystick.hpp>
@@ -22,7 +21,6 @@ namespace ssvs
 
 using ssvu::FT;
 using ssvu::FTDuration;
-using ssvufs::Path;
 
 using ssvu::toFloat;
 using ssvu::toInt;

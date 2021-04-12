@@ -18,6 +18,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <cassert>
+
 namespace ssvs
 {
 
@@ -38,7 +40,7 @@ private:
 
     void runEvents()
     {
-        SSVU_ASSERT(gameEngine != nullptr);
+        assert(gameEngine != nullptr);
 
         sf::Event event;
         while(renderWindow.pollEvent(event))
@@ -113,7 +115,7 @@ public:
 
     void run()
     {
-        SSVU_ASSERT(gameEngine != nullptr);
+        assert(gameEngine != nullptr);
 
         while(gameEngine->isRunning())
         {
@@ -147,7 +149,7 @@ public:
     }
     void stop() noexcept
     {
-        SSVU_ASSERT(gameEngine != nullptr);
+        assert(gameEngine != nullptr);
         gameEngine->stop();
     }
 
@@ -161,7 +163,7 @@ public:
         renderWindow.draw(mDrawable, mStates);
     }
 
-    void saveScreenshot(const ssvufs::Path& mPath) const
+    void saveScreenshot(const std::string& mPath) const
     {
         sf::Texture t;
         t.create(renderWindow.getSize().x, renderWindow.getSize().y);

@@ -9,10 +9,11 @@
 #include "SSVStart/GameSystem/GameState.hpp"
 
 #include <SSVUtils/Core/Common/Casts.hpp>
-#include <SSVUtils/Core/Assert/Assert.hpp>
 
 #include <string>
 #include <map>
+
+#include <cassert>
 
 namespace ssvs
 {
@@ -175,14 +176,14 @@ inline bool isMBtnNameValid(const std::string& mId) noexcept
 /// @brief Returns a KKey from a valid mId string identifier.
 inline KKey getKKey(const std::string& mId) noexcept
 {
-    SSVU_ASSERT(isKKeyNameValid(mId));
+    assert(isKKeyNameValid(mId));
     return Impl::getStrKKeyMap().at(mId);
 }
 
 /// @brief Returns a MBtn from a valid mId string identifier.
 inline MBtn getMBtn(const std::string& mId) noexcept
 {
-    SSVU_ASSERT(isMBtnNameValid(mId));
+    assert(isMBtnNameValid(mId));
     return Impl::getStrMBtnMap().at(mId);
 }
 
@@ -190,7 +191,7 @@ inline MBtn getMBtn(const std::string& mId) noexcept
 /// KKey.
 inline const auto& getKKeyName(KKey mKKey) noexcept
 {
-    SSVU_ASSERT(mKKey != KKey::Unknown);
+    assert(mKKey != KKey::Unknown);
     return Impl::getKKeyStrArray()[ssvu::castEnum(mKKey)];
 }
 

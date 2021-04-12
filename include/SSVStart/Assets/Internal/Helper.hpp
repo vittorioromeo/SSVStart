@@ -5,6 +5,7 @@
 #pragma once
 
 #include <SSVUtils/Core/Log/Log.hpp>
+#include <SSVUtils/Core/FileSystem/Path.hpp>
 
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Audio/Music.hpp>
@@ -52,13 +53,13 @@ auto loadImpl(TF mFn, const std::string& mErr)
     return std::unique_ptr<T>{nullptr};
 }
 
-
 template <Mode TT, typename T>
 struct Helper;
+
 template <typename T>
 struct Helper<Mode::Load, T>
 {
-    static auto load(const Path& mPath)
+    static auto load(const ssvufs::Path& mPath)
     {
         return loadImpl<T>(
             [&mPath](auto& mP) { return mP->loadFromFile(mPath); },
@@ -82,7 +83,7 @@ struct Helper<Mode::Load, T>
 template <typename T>
 struct Helper<Mode::Open, T>
 {
-    static auto load(const Path& mPath)
+    static auto load(const ssvufs::Path& mPath)
     {
         return loadImpl<T>(
             [&mPath](auto& mP) { return mP->openFromFile(mPath); },
@@ -135,7 +136,7 @@ template <>
 struct Helper<Mode::Shader, sf::Shader>
 {
     using T = sf::Shader;
-    static auto load(const Path& mPath, sf::Shader::Type mType, ShaderFromPath)
+    static auto load(const ssvufs::Path& mPath, sf::Shader::Type mType, ShaderFromPath)
     {
         return loadImpl<T>(
             [&mPath, &mType](
@@ -143,7 +144,7 @@ struct Helper<Mode::Shader, sf::Shader>
             "shader from path");
     }
     static auto load(
-        const Path& mPathVertex, const Path& mPathFragment, ShaderFromPath)
+        const ssvufs::Path& mPathVertex, const ssvufs::Path& mPathFragment, ShaderFromPath)
     {
         return loadImpl<T>(
             [&mPathVertex, &mPathFragment](auto& mP) {

@@ -8,3 +8,4 @@
 #include "SSVStart/Utils/SFML.hpp"
 #include "SSVStart/Utils/Vector2.hpp"
 #include "SSVStart/Utils/Stringifier.hpp"
+#include "SSVStart/Utils/Packet.hpp"

@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <initializer_list>
+#include <cassert>
 
 namespace ssvs
 {
@@ -52,7 +53,7 @@ private:
 
     void nextStep() noexcept
     {
-        SSVU_ASSERT(index < steps.size());
+        assert(index < steps.size());
 
         time = 0;
 

@@ -22,12 +22,12 @@ class AssetManager;
 class AssetFolder
 {
 private:
-    Path rootPath;
-    std::vector<Path> files;
+    ssvufs::Path rootPath;
+    std::vector<ssvufs::Path> files;
 
     auto getFilteredFiles(const std::vector<std::string>& mExtensions)
     {
-        std::vector<Path> result;
+        std::vector<ssvufs::Path> result;
 
         for(const auto& f : files)
             for(const auto& e : mExtensions)
@@ -109,7 +109,7 @@ private:
     }
 
 public:
-    AssetFolder(const Path& mRootPath)
+    AssetFolder(const ssvufs::Path& mRootPath)
         : rootPath{mRootPath},
           files{ssvufs::getScan<ssvufs::Mode::Recurse, ssvufs::Type::File>(
               rootPath)}

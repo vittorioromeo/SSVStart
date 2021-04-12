@@ -7,13 +7,12 @@
 #include "SSVStart/Global/Typedefs.hpp"
 
 #include <SSVUtils/Core/Common/Casts.hpp>
-#include <SSVUtils/Json/Json.hpp>
 
 #include <SFML/Graphics/Color.hpp>
 
-#include <SFML/Network/Packet.hpp>
-
 #include <tuple>
+#include <cmath>
+#include <cassert>
 
 namespace ssvs
 {
@@ -446,9 +445,9 @@ inline void setOrigin(T& mX, Vec2f (*mFn)(const T&)) noexcept
 /// @param mV Value. [0..1]
 inline auto getColorFromHSV(float mH, float mS, float mV) noexcept
 {
-    SSVU_ASSERT(mH >= 0.f && mH <= 1.f);
-    SSVU_ASSERT(mS >= 0.f && mS <= 1.f);
-    SSVU_ASSERT(mV >= 0.f && mV <= 1.f);
+    assert(mH >= 0.f && mH <= 1.f);
+    assert(mS >= 0.f && mS <= 1.f);
+    assert(mV >= 0.f && mV <= 1.f);
 
     if(mV == 0.f) return sf::Color::Black;
 
@@ -507,9 +506,9 @@ inline auto getHSVFromColor(const sf::Color& mX)
     auto g(mX.g / 255.f);
     auto b(mX.b / 255.f);
 
-    SSVU_ASSERT(r >= 0.f && r <= 1.f);
-    SSVU_ASSERT(g >= 0.f && g <= 1.f);
-    SSVU_ASSERT(b >= 0.f && b <= 1.f);
+    assert(r >= 0.f && r <= 1.f);
+    assert(g >= 0.f && g <= 1.f);
+    assert(b >= 0.f && b <= 1.f);
 
     float k{0.f};
 
@@ -542,37 +541,3 @@ inline auto getColorFromHex(unsigned int mHex) noexcept
 }
 
 } // namespace ssvs
-
-/// @brief Serialize enum into `sf::Packet`.
-template <typename T>
-inline auto operator<<(sf::Packet& mP, const T& mX) noexcept
-    -> std::enable_if_t<std::is_enum_v<std::decay<T>>, sf::Packet&>
-{
-    return mP << ssvu::castEnum(mX);
-}
-
-/// @brief Deserialize enum from `sf::Packet`.
-template <typename T>
-inline auto operator>>(sf::Packet& mP, T& mX) noexcept
-    -> std::enable_if_t<std::is_enum_v<std::decay<T>>, sf::Packet&>
-{
-    std::underlying_type_t<T> temp;
-    mP >> temp;
-    mX = ssvu::toEnum<T>(temp);
-    return mP;
-}
-
-/// @brief Serialize ssvu JSON value into `sf::Packet`.
-inline sf::Packet& operator<<(sf::Packet& mP, const ssvj::Val& mX)
-{
-    return mP << mX.getWriteToStr<ssvj::WSMinified>();
-}
-
-/// @brief Deserialize ssvu JSON value from `sf::Packet`.
-inline sf::Packet& operator>>(sf::Packet& mP, ssvj::Val& mX)
-{
-    std::string str;
-    mP >> str;
-    mX.readFromStr(str);
-    return mP;
-}

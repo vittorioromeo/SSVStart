@@ -5,6 +5,8 @@
 #ifndef SSVS_INPUT_COMBO
 #define SSVS_INPUT_COMBO
 
+#include "SSVStart/Input/Enums.hpp"
+
 namespace ssvs
 {
     namespace Input
@@ -60,7 +62,7 @@ namespace ssvs
                     getKeyBit(keys, KKey(i)) = false;
                 for(auto j(0u); j < mBtnCount; ++j)
                     getBtnBit(btns, MBtn(j)) = false;
-    
+
                 getKeyBit(keys, KKey::Unknown) = true; //mark as unbound
             }
             [[nodiscard]] inline bool isUnbound() const

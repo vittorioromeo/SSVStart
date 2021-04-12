@@ -7,11 +7,10 @@
 #include "SSVStart/Assets/Internal/Loader.hpp"
 #include "SSVStart/Assets/Internal/DefaultAssets.hpp"
 
-#include <SSVUtils/Core/Assert/Assert.hpp>
-
 #include <string>
 #include <utility>
 #include <memory>
+#include <cassert>
 
 namespace ssvs
 {
@@ -28,11 +27,11 @@ struct RHPolicyAssert
         return mRH.emplaceAndGet(mId, uptr.get());
     }
 
-#if defined(SSVU_ASSERT_IS_ENABLED)
+#ifndef NDEBUG
     template <typename T>
     void checkMissing(T& mRH, const std::string& mId)
     {
-        SSVU_ASSERT(mRH.has(mId));
+        assert(mRH.has(mId));
     }
 #else
     template <typename T>
