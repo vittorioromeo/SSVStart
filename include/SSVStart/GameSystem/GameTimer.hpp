@@ -9,6 +9,7 @@
 #include <SSVUtils/Core/Common/Casts.hpp>
 
 #include <cassert>
+#include <memory>
 
 namespace ssvs
 {
@@ -18,12 +19,16 @@ class GameEngine;
 class GameTimer
 {
 private:
-    std::unique_ptr<TimerBase> impl, nextImpl;
+    std::unique_ptr<TimerBase> impl;
+    std::unique_ptr<TimerBase> nextImpl;
 
 public:
     void refresh() noexcept
     {
-        if(nextImpl == nullptr) return;
+        if(nextImpl == nullptr)
+        {
+            return;
+        }
 
         impl.swap(nextImpl);
         nextImpl = nullptr;
@@ -31,21 +36,35 @@ public:
         assert(nextImpl == nullptr);
     }
 
-    auto operator->()
-    {
-        return impl.get();
-    }
-    auto operator->() const
+    [[nodiscard]] auto operator->()
     {
         return impl.get();
     }
 
+    [[nodiscard]] auto operator->() const
+    {
+        return impl.get();
+    }
+
+    [[nodiscard]] TimerBase& getBase() noexcept
+    {
+        assert(impl != nullptr);
+        return *impl;
+    }
+
+    [[nodiscard]] const TimerBase& getBase() const noexcept
+    {
+        assert(impl != nullptr);
+        return *impl;
+    }
+
     template <typename T>
-    T& getImpl() noexcept
+    [[nodiscard]] T& getImpl() noexcept
     {
         assert(impl != nullptr);
         return ssvu::castUp<T>(*impl);
     }
+
     template <typename T, typename... TArgs>
     void setImpl(GameEngine& mGameEngine, TArgs&&... mArgs)
     {

@@ -4,6 +4,10 @@
 
 #pragma once
 
+#include "SSVStart/GameSystem/Timers/TimerBase.hpp"
+#include "SSVStart/GameSystem/GameEngine.hpp"
+
+#include <SSVUtils/Core/Common/Frametime.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 
 namespace ssvs
@@ -12,10 +16,14 @@ namespace ssvs
 class TimerDynamic final : public TimerBase
 {
 private:
-    FT frameTimeLimit{4.f};
+    ssvu::FT frameTimeLimit{4.f};
 
 public:
     TimerDynamic(GameEngine& mGameEngine) noexcept : TimerBase(mGameEngine)
+    {
+    }
+
+    void reset() override
     {
     }
 
@@ -23,6 +31,7 @@ public:
     {
         gameEngine.updateFromTimer(frameTime);
     }
+
     void runFPS() override
     {
         ssvu::clampMax(frameTime, frameTimeLimit);

@@ -223,7 +223,7 @@ public:
         gameEngine->setGameState(mGameState);
     }
 
-    operator sf::RenderWindow &() noexcept
+    operator sf::RenderWindow&() noexcept
     {
         return renderWindow;
     }
@@ -305,6 +305,17 @@ public:
     {
         gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...);
     }
+
+    [[nodiscard]] TimerBase& getTimerBase() noexcept
+    {
+        return gameEngine->getTimerBase();
+    }
+
+    [[nodiscard]] const TimerBase& getTimerBase() const noexcept
+    {
+        return gameEngine->getTimerBase();
+    }
+
     auto getFPS() const noexcept
     {
         return gameEngine->getFPS();

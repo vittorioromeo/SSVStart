@@ -40,9 +40,15 @@ private:
     void updateFromTimer(FT mFT)
     {
         assert(isValid());
-        if(inputState != nullptr) gameState->updateInput(*inputState, mFT);
+
+        if(inputState != nullptr)
+        {
+            gameState->updateInput(*inputState, mFT);
+        }
+
         gameState->update(mFT);
     }
+
     void drawFromTimer()
     {
         assert(isValid());
@@ -55,7 +61,7 @@ private:
         gameState->handleEvent(mEvent);
     }
 
-    bool isValid() const noexcept
+    [[nodiscard]] bool isValid() const noexcept
     {
         return gameState != nullptr;
     }
@@ -95,7 +101,7 @@ public:
         timer->runFPS();
     }
 
-    float getFPS() const noexcept
+    [[nodiscard]] float getFPS() const noexcept
     {
         return timer->getFPS();
     }
@@ -104,21 +110,28 @@ public:
     {
         gameState = &mGameState;
     }
+
     void setInputState(Input::InputState& mInputState) noexcept
     {
         inputState = &mInputState;
     }
 
-    bool isRunning() const noexcept
+    [[nodiscard]] bool isRunning() const noexcept
     {
         return running;
     }
 
     template <typename T>
-    T& getTimer()
+    [[nodiscard]] T& getTimer()
     {
         return timer.getImpl<T>();
     }
+
+    [[nodiscard]] TimerBase& getTimerBase() noexcept
+    {
+        return timer.getBase();
+    }
+
     template <typename T, typename... TArgs>
     void setTimer(TArgs&&... mArgs)
     {
