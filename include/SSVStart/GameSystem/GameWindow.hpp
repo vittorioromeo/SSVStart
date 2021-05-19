@@ -220,6 +220,7 @@ public:
     }
     void setGameState(GameState& mGameState) noexcept
     {
+        assert(gameEngine != nullptr);
         gameEngine->setGameState(mGameState);
     }
 
@@ -303,21 +304,25 @@ public:
     template <typename T, typename... TArgs>
     void setTimer(TArgs&&... mArgs)
     {
+        assert(gameEngine != nullptr);
         gameEngine->setTimer<T, TArgs...>(FWD(mArgs)...);
     }
 
     [[nodiscard]] TimerBase& getTimerBase() noexcept
     {
+        assert(gameEngine != nullptr);
         return gameEngine->getTimerBase();
     }
 
     [[nodiscard]] const TimerBase& getTimerBase() const noexcept
     {
+        assert(gameEngine != nullptr);
         return gameEngine->getTimerBase();
     }
 
     auto getFPS() const noexcept
     {
+        assert(gameEngine != nullptr);
         return gameEngine->getFPS();
     }
 
