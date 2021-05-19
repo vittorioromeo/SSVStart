@@ -127,7 +127,17 @@ public:
         return timer.getImpl<T>();
     }
 
+    [[nodiscard]] bool hasTimer() const noexcept
+    {
+        return timer.hasTimer();
+    }
+
     [[nodiscard]] TimerBase& getTimerBase() noexcept
+    {
+        return timer.getBase();
+    }
+
+    [[nodiscard]] const TimerBase& getTimerBase() const noexcept
     {
         return timer.getBase();
     }

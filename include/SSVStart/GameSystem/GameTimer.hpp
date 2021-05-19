@@ -46,6 +46,11 @@ public:
         return impl.get();
     }
 
+    [[nodiscard]] bool hasTimer() const noexcept
+    {
+        return impl != nullptr;
+    }
+
     [[nodiscard]] TimerBase& getBase() noexcept
     {
         assert(impl != nullptr);

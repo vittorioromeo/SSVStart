@@ -320,6 +320,12 @@ public:
         return gameEngine->getTimerBase();
     }
 
+    [[nodiscard]] bool hasTimer() const noexcept
+    {
+        assert(gameEngine != nullptr);
+        return gameEngine->hasTimer();
+    }
+
     auto getFPS() const noexcept
     {
         assert(gameEngine != nullptr);
