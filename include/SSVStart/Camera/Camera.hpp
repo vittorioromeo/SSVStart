@@ -8,6 +8,8 @@
 #include "SSVStart/Utils/Vector2.hpp"
 #include "SSVStart/GameSystem/GameSystem.hpp"
 
+#include <SSVUtils/Core/Common/Casts.hpp>
+
 #include <SFML/System/Vector2.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -57,15 +59,16 @@ public:
         if(mustRecompute)
         {
             computedView = view;
-            computedView.setSize(toNum<T>(computedView.getSize().x * skew.x),
-                toNum<T>(computedView.getSize().y * skew.y));
+            computedView.setSize(
+                ssvu::toNum<T>(computedView.getSize().x * skew.x),
+                ssvu::toNum<T>(computedView.getSize().y * skew.y));
             if(getMag(offset) != 0)
                 computedView.setCenter(
                     view.getCenter() -
                     getVecFromDeg(
                         view.getRotation() + getDeg(offset), getMag(offset)));
-            computedView.setCenter(toNum<T>(computedView.getCenter().x),
-                toNum<T>(computedView.getCenter().y));
+            computedView.setCenter(ssvu::toNum<T>(computedView.getCenter().x),
+                ssvu::toNum<T>(computedView.getCenter().y));
             mustRecompute = false;
         }
 
