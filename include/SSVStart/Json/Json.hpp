@@ -148,7 +148,7 @@ inline auto getAnimationFromJson(const Tileset& mTileset, const ssvj::Val& mVal)
 
 template <typename TM>
 inline void loadAssetsFromJson(
-    TM& mMgr, const Path& mRootPath, const ssvj::Val& mVal)
+    TM& mMgr, const ssvu::FileSystem::Path& mRootPath, const ssvj::Val& mVal)
 {
     using namespace std;
 
@@ -179,14 +179,14 @@ inline void loadAssetsFromJson(
         {
             mMgr.template load<BitmapFont>(f.key,
                 mMgr.template get<sf::Texture>(texName),
-                dv.template as<BitmapFontData>());
+                dv.as<BitmapFontData>());
         }
     }
 
     for(const auto& f : mVal["tilesets"].forObj())
     {
         auto dv(ssvj::fromFile(mRootPath + f.value.template as<string>()));
-        mMgr.template load<Tileset>(f.key, dv.template as<Tileset>());
+        mMgr.template load<Tileset>(f.key, dv.as<Tileset>());
     }
 }
 

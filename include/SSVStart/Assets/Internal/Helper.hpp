@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
+#include "SSVStart/Tileset/Tileset.hpp"
+
 #include <SSVUtils/Core/Log/Log.hpp>
 #include <SSVUtils/Core/FileSystem/Path.hpp>
 
@@ -59,23 +62,22 @@ struct Helper;
 template <typename T>
 struct Helper<Mode::Load, T>
 {
-    static auto load(const ssvufs::Path& mPath)
+    static auto load(const ssvu::FileSystem::Path& mPath)
     {
-        return loadImpl<T>(
-            [&mPath](auto& mP) { return mP->loadFromFile(mPath); },
+        return loadImpl<T>([&mPath](auto& mP)
+            { return mP->loadFromFile(mPath); },
             "from path");
     }
     static auto load(const void* mData, std::size_t mSize)
     {
-        return loadImpl<T>(
-            [&mData, &mSize](
-                auto& mP) { return mP->loadFromMemory(mData, mSize); },
+        return loadImpl<T>([&mData, &mSize](auto& mP)
+            { return mP->loadFromMemory(mData, mSize); },
             "from memory");
     }
     static auto load(sf::InputStream& mStream)
     {
-        return loadImpl<T>(
-            [&mStream](auto& mP) { return mP->loadFromStream(mStream); },
+        return loadImpl<T>([&mStream](auto& mP)
+            { return mP->loadFromStream(mStream); },
             "from stream");
     }
 };
@@ -83,23 +85,22 @@ struct Helper<Mode::Load, T>
 template <typename T>
 struct Helper<Mode::Open, T>
 {
-    static auto load(const ssvufs::Path& mPath)
+    static auto load(const ssvu::FileSystem::Path& mPath)
     {
-        return loadImpl<T>(
-            [&mPath](auto& mP) { return mP->openFromFile(mPath); },
+        return loadImpl<T>([&mPath](auto& mP)
+            { return mP->openFromFile(mPath); },
             "from path");
     }
     static auto load(const void* mData, std::size_t mSize)
     {
-        return loadImpl<T>(
-            [&mData, &mSize](
-                auto& mP) { return mP->openFromMemory(mData, mSize); },
+        return loadImpl<T>([&mData, &mSize](auto& mP)
+            { return mP->openFromMemory(mData, mSize); },
             "from memory");
     }
     static auto load(sf::InputStream& mStream)
     {
-        return loadImpl<T>(
-            [&mStream](auto& mP) { return mP->openFromStream(mStream); },
+        return loadImpl<T>([&mStream](auto& mP)
+            { return mP->openFromStream(mStream); },
             "from stream");
     }
 };
@@ -110,8 +111,8 @@ struct Helper<Mode::Image, sf::Texture>
     using T = sf::Texture;
     static auto load(const sf::Image& mImage)
     {
-        return loadImpl<T>(
-            [&mImage](auto& mP) { return mP->loadFromImage(mImage); },
+        return loadImpl<T>([&mImage](auto& mP)
+            { return mP->loadFromImage(mImage); },
             "from image");
     }
 };
@@ -124,7 +125,8 @@ struct Helper<Mode::Samples, sf::SoundBuffer>
         unsigned int mChannelCount, unsigned int mSampleRate)
     {
         return loadImpl<T>(
-            [&mSamples, &mSampleCount, &mChannelCount, &mSampleRate](auto& mP) {
+            [&mSamples, &mSampleCount, &mChannelCount, &mSampleRate](auto& mP)
+            {
                 return mP->loadFromSamples(
                     mSamples, mSampleCount, mChannelCount, mSampleRate);
             },
@@ -136,53 +138,45 @@ template <>
 struct Helper<Mode::Shader, sf::Shader>
 {
     using T = sf::Shader;
-    static auto load(const ssvufs::Path& mPath, sf::Shader::Type mType, ShaderFromPath)
+    static auto load(const ssvu::FileSystem::Path& mPath,
+        sf::Shader::Type mType, ShaderFromPath)
     {
-        return loadImpl<T>(
-            [&mPath, &mType](
-                auto& mP) { return mP->loadFromFile(mPath, mType); },
+        return loadImpl<T>([&mPath, &mType](auto& mP)
+            { return mP->loadFromFile(mPath, mType); },
             "shader from path");
     }
-    static auto load(
-        const ssvufs::Path& mPathVertex, const ssvufs::Path& mPathFragment, ShaderFromPath)
+    static auto load(const ssvu::FileSystem::Path& mPathVertex,
+        const ssvu::FileSystem::Path& mPathFragment, ShaderFromPath)
     {
-        return loadImpl<T>(
-            [&mPathVertex, &mPathFragment](auto& mP) {
-                return mP->loadFromFile(mPathVertex, mPathFragment);
-            },
+        return loadImpl<T>([&mPathVertex, &mPathFragment](auto& mP)
+            { return mP->loadFromFile(mPathVertex, mPathFragment); },
             "shader from path (2)");
     }
     static auto load(
         const std::string& mShader, sf::Shader::Type mType, ShaderFromMemory)
     {
-        return loadImpl<T>(
-            [&mShader, &mType](
-                auto& mP) { return mP->loadFromMemory(mShader, mType); },
+        return loadImpl<T>([&mShader, &mType](auto& mP)
+            { return mP->loadFromMemory(mShader, mType); },
             "shader from memory");
     }
     static auto load(const std::string& mShaderVertex,
         const std::string& mShaderFragment, ShaderFromMemory)
     {
-        return loadImpl<T>(
-            [&mShaderVertex, &mShaderFragment](auto& mP) {
-                return mP->loadFromMemory(mShaderVertex, mShaderFragment);
-            },
+        return loadImpl<T>([&mShaderVertex, &mShaderFragment](auto& mP)
+            { return mP->loadFromMemory(mShaderVertex, mShaderFragment); },
             "shader from memory (2)");
     }
     static auto load(sf::InputStream& mStream, sf::Shader::Type mType)
     {
-        return loadImpl<T>(
-            [&mStream, &mType](
-                auto& mP) { return mP->loadFromStream(mStream, mType); },
+        return loadImpl<T>([&mStream, &mType](auto& mP)
+            { return mP->loadFromStream(mStream, mType); },
             "shader from stream");
     }
     static auto load(
         sf::InputStream& mStreamVertex, sf::InputStream& mStreamFragment)
     {
-        return loadImpl<T>(
-            [&mStreamVertex, &mStreamFragment](auto& mP) {
-                return mP->loadFromStream(mStreamVertex, mStreamFragment);
-            },
+        return loadImpl<T>([&mStreamVertex, &mStreamFragment](auto& mP)
+            { return mP->loadFromStream(mStreamVertex, mStreamFragment); },
             "shader from stream (2)");
     }
 };

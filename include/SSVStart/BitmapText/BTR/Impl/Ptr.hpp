@@ -11,50 +11,59 @@
 
 namespace ssvs
 {
-    namespace BTR
-    {
-        template <typename T>
-        class Ptr
-        {
-        private:
-            T* ptr;
+namespace BTR
+{
+template <typename T>
+class Ptr
+{
+private:
+    T* ptr;
 
-        public:
+public:
 #if defined(SSVU_DEBUG)
-            inline Ptr() noexcept : ptr{nullptr} {}
+    inline Ptr() noexcept : ptr{nullptr}
+    {
+    }
 #else
-            inline Ptr() noexcept {}
+    inline Ptr() noexcept
+    {
+    }
 #endif
 
-            inline Ptr(T* mX) noexcept : ptr{mX} {}
-
-            inline Ptr(const Ptr&) = default;
-            Ptr& operator=(const Ptr&) = default;
-
-            inline auto& operator*() noexcept
-            {
-                assert(ptr != nullptr);
-                return *ptr;
-            }
-            inline const auto& operator*() const noexcept
-            {
-                assert(ptr != nullptr);
-                return *ptr;
-            }
-            inline T* operator->() noexcept
-            {
-                assert(ptr != nullptr);
-                return ptr;
-            }
-            inline T* operator->() const noexcept
-            {
-                assert(ptr != nullptr);
-                return ptr;
-            }
-
-            inline operator T*() const noexcept { return ptr; }
-        };
+    inline Ptr(T* mX) noexcept : ptr{mX}
+    {
     }
-}
+
+    inline Ptr(const Ptr&) = default;
+    Ptr& operator=(const Ptr&) = default;
+
+    inline auto& operator*() noexcept
+    {
+        assert(ptr != nullptr);
+        return *ptr;
+    }
+    inline const auto& operator*() const noexcept
+    {
+        assert(ptr != nullptr);
+        return *ptr;
+    }
+    inline T* operator->() noexcept
+    {
+        assert(ptr != nullptr);
+        return ptr;
+    }
+    inline T* operator->() const noexcept
+    {
+        assert(ptr != nullptr);
+        return ptr;
+    }
+
+    inline operator T*() const noexcept
+    {
+        return ptr;
+    }
+};
+} // namespace BTR
+} // namespace ssvs
 
 #endif

@@ -6,9 +6,18 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
+#include "SSVStart/Assets/Internal/Helper.hpp"
+
 #include <SSVUtils/Core/Log/Log.hpp>
 #include <SSVUtils/Core/FileSystem/FileSystem.hpp>
 #include <SSVUtils/Core/String/Utils.hpp>
+
+#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Shader.hpp>
 
 #include <vector>
 #include <string>
@@ -22,12 +31,12 @@ class AssetManager;
 class AssetFolder
 {
 private:
-    ssvufs::Path rootPath;
-    std::vector<ssvufs::Path> files;
+    ssvu::FileSystem::Path rootPath;
+    std::vector<ssvu::FileSystem::Path> files;
 
     auto getFilteredFiles(const std::vector<std::string>& mExtensions)
     {
-        std::vector<ssvufs::Path> result;
+        std::vector<ssvu::FileSystem::Path> result;
 
         for(const auto& f : files)
             for(const auto& e : mExtensions)
@@ -109,10 +118,10 @@ private:
     }
 
 public:
-    AssetFolder(const ssvufs::Path& mRootPath)
+    AssetFolder(const ssvu::FileSystem::Path& mRootPath)
         : rootPath{mRootPath},
-          files{ssvufs::getScan<ssvufs::Mode::Recurse, ssvufs::Type::File>(
-              rootPath)}
+          files{ssvu::FileSystem::getScan<ssvu::FileSystem::Mode::Recurse,
+              ssvu::FileSystem::Type::File>(rootPath)}
     {
     }
 

@@ -37,7 +37,7 @@ private:
         eventDelegates[mEvent.type](mEvent);
     }
 
-    void update(FT mFT)
+    void update(ssvu::FT mFT)
     {
         onUpdate(mFT);
     }
@@ -47,7 +47,7 @@ private:
         onDraw();
     }
 
-    void updateInput(Input::InputState& mInputState, FT mFT)
+    void updateInput(Input::InputState& mInputState, ssvu::FT mFT)
     {
         inputManager.update(mInputState, mFT);
     }
@@ -59,7 +59,7 @@ private:
 
 public:
     ssvu::Delegate<void()> onDraw, onPostUpdate;
-    ssvu::Delegate<void(FT)> onUpdate;
+    ssvu::Delegate<void(ssvu::FT)> onUpdate;
     EventDelegate onAnyEvent;
 
     GameState() = default;

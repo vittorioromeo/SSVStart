@@ -11,6 +11,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Joystick.hpp>
 #include <SFML/Window/Mouse.hpp>
+
 #include <SFML/System/Vector2.hpp>
 
 #include <bitset>
@@ -18,13 +19,6 @@
 
 namespace ssvs
 {
-
-using ssvu::FT;
-using ssvu::FTDuration;
-
-using ssvu::toFloat;
-using ssvu::toInt;
-using ssvu::toNum;
 
 using KKey = sf::Keyboard::Key;
 using MBtn = sf::Mouse::Button;
@@ -44,7 +38,7 @@ using KeyBitset =
 using BtnBitset =
     std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
 
-using InputFunc = std::function<void(FT)>;
+using InputFunc = std::function<void(ssvu::FT)>;
 
 template <typename T>
 using Vec2 = sf::Vector2<T>;
@@ -53,43 +47,48 @@ using Vec2i = Vec2<int>;
 using Vec2f = Vec2<float>;
 using Vec2u = Vec2<unsigned int>;
 
-inline auto getFingerBit(FingerBitset& mBitset, FingerID mI) noexcept
+[[nodiscard]] inline FingerBitset::reference getFingerBit(
+    FingerBitset& mBitset, FingerID mI) noexcept
 {
     return mBitset[mI];
 }
 
-inline constexpr bool getFingerBit(
+[[nodiscard]] inline constexpr bool getFingerBit(
     const FingerBitset& mBitset, FingerID mI) noexcept
 {
     return mBitset[mI];
 }
 
-inline auto getKeyBit(KeyBitset& mBitset, KKey mKey) noexcept
+[[nodiscard]] inline KeyBitset::reference getKeyBit(
+    KeyBitset& mBitset, KKey mKey) noexcept
 {
-    return mBitset[toInt(mKey + inputBitOffset)];
+    return mBitset[ssvu::toInt(mKey + inputBitOffset)];
 }
 
-inline auto getBtnBit(BtnBitset& mBitset, MBtn mBtn) noexcept
+[[nodiscard]] inline BtnBitset::reference getBtnBit(
+    BtnBitset& mBitset, MBtn mBtn) noexcept
 {
-    return mBitset[toInt(mBtn + inputBitOffset)];
+    return mBitset[ssvu::toInt(mBtn + inputBitOffset)];
 }
 
-inline constexpr bool getKeyBit(const KeyBitset& mBitset, KKey mKey) noexcept
+[[nodiscard]] inline constexpr bool getKeyBit(
+    const KeyBitset& mBitset, KKey mKey) noexcept
 {
-    return mBitset[toInt(mKey + inputBitOffset)];
+    return mBitset[ssvu::toInt(mKey + inputBitOffset)];
 }
 
-inline constexpr bool getBtnBit(const BtnBitset& mBitset, MBtn mBtn) noexcept
+[[nodiscard]] inline constexpr bool getBtnBit(
+    const BtnBitset& mBitset, MBtn mBtn) noexcept
 {
-    return mBitset[toInt(mBtn + inputBitOffset)];
+    return mBitset[ssvu::toInt(mBtn + inputBitOffset)];
 }
 
 namespace Impl
 {
 
-inline auto& getNullInputFunc() noexcept
+[[nodiscard]] inline InputFunc& getNullInputFunc() noexcept
 {
-    static InputFunc result([](FT) {});
+    static InputFunc result([](ssvu::FT) {});
     return result;
 }
 

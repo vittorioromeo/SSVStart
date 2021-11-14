@@ -32,7 +32,7 @@ private:
                                          // GameEngine?
     sf::RenderWindow renderWindow;
     std::string title;
-    FT msUpdate, msDraw;
+    ssvu::FT msUpdate, msDraw;
     float maxFPS{60.f}, pixelMult{1.f};
     unsigned int width{640}, height{480}, antialiasingLevel{3};
     bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false},
@@ -131,7 +131,7 @@ public:
                 runEvents();
                 gameEngine->runUpdate();
             }
-            msUpdate = std::chrono::duration_cast<FTDuration>(
+            msUpdate = std::chrono::duration_cast<ssvu::FTDuration>(
                 std::chrono::high_resolution_clock::now() - tempMs)
                            .count();
 
@@ -140,7 +140,7 @@ public:
                 gameEngine->runDraw();
                 renderWindow.display();
             }
-            msDraw = std::chrono::duration_cast<FTDuration>(
+            msDraw = std::chrono::duration_cast<ssvu::FTDuration>(
                 std::chrono::high_resolution_clock::now() - tempMs)
                          .count();
 
@@ -261,11 +261,11 @@ public:
         return vsync;
     }
 
-    FT getMsUpdate() const noexcept
+    ssvu::FT getMsUpdate() const noexcept
     {
         return msUpdate;
     }
-    FT getMsDraw() const noexcept
+    ssvu::FT getMsDraw() const noexcept
     {
         return msDraw;
     }

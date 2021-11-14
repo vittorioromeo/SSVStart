@@ -55,7 +55,7 @@ protected:
 
     void setAlign(TextAlign mX) noexcept
     {
-        alignMultiplier = toFloat(ssvu::castEnum(mX)) * 0.5f;
+        alignMultiplier = ssvu::toFloat(ssvu::castEnum(mX)) * 0.5f;
     }
 
     void refreshGeometryStart() const

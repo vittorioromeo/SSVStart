@@ -16,44 +16,43 @@
 
 namespace ssvs
 {
-    namespace BTR
+namespace BTR
+{
+namespace Impl
+{
+struct BTRDrawState
+{
+    struct RowData
     {
-        namespace Impl
+        float width;
+        std::size_t cells;
+
+        inline RowData(float mWidth, std::size_t mCells) noexcept
+            : width{mWidth}, cells{mCells}
         {
-            struct BTRDrawState
-            {
-                struct RowData
-                {
-                    float width;
-                    std::size_t cells;
-
-                    inline RowData(float mWidth, std::size_t mCells) noexcept
-                        : width{mWidth},
-                          cells{mCells}
-                    {
-                    }
-                };
-
-                std::vector<RowData> rDatas;
-                float xMin, xMax, yMin, yMax, nextHChunkSpacing;
-                std::size_t width, height, iX;
-                int nl, htab, vtab;
-
-                inline void reset(const BitmapFont& mBF) noexcept
-                {
-                    rDatas.clear();
-
-                    xMin = xMax = yMin = yMax = nextHChunkSpacing = 0.f;
-
-                    width = mBF.getCellWidth();
-                    height = mBF.getCellHeight();
-                    iX = 0;
-
-                    nl = htab = vtab = 0;
-                }
-            };
         }
+    };
+
+    std::vector<RowData> rDatas;
+    float xMin, xMax, yMin, yMax, nextHChunkSpacing;
+    std::size_t width, height, iX;
+    int nl, htab, vtab;
+
+    inline void reset(const BitmapFont& mBF) noexcept
+    {
+        rDatas.clear();
+
+        xMin = xMax = yMin = yMax = nextHChunkSpacing = 0.f;
+
+        width = mBF.getCellWidth();
+        height = mBF.getCellHeight();
+        iX = 0;
+
+        nl = htab = vtab = 0;
     }
-}
+};
+} // namespace Impl
+} // namespace BTR
+} // namespace ssvs
 
 #endif

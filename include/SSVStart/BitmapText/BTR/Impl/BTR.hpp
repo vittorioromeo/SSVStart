@@ -14,33 +14,33 @@
 
 namespace ssvs
 {
-    namespace BTR
-    {
-        struct Tracking
-        {
-        };
-        struct Leading
-        {
-        };
-        struct HChunkSpacing
-        {
-        };
-        struct Pulse
-        {
-        };
-        struct PulseDef
-        {
-        };
-        using Color = Impl::BTREColor;
-        using Wave = Impl::BTREWave;
-        using Chunk = Impl::BTRChunk;
+namespace BTR
+{
+struct Tracking
+{
+};
+struct Leading
+{
+};
+struct HChunkSpacing
+{
+};
+struct Pulse
+{
+};
+struct PulseDef
+{
+};
+using Color = Impl::BTREColor;
+using Wave = Impl::BTREWave;
+using Chunk = Impl::BTRChunk;
 
-        using PtrColor = Ptr<Color>;
-        using PtrChunk = Ptr<Chunk>;
-        using PtrWave = Ptr<Wave>;
-    }
+using PtrColor = Ptr<Color>;
+using PtrChunk = Ptr<Chunk>;
+using PtrWave = Ptr<Wave>;
+} // namespace BTR
 
-    using BitmapTextRich = BTR::Impl::BTRRoot;
-}
+using BitmapTextRich = BTR::Impl::BTRRoot;
+} // namespace ssvs
 
 #endif

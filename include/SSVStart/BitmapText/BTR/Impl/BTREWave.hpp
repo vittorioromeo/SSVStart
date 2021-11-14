@@ -11,47 +11,49 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREffect.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRChunk.hpp"
 
-#include <SSVUtils/MemoryManager/MemoryManager.hpp>
+#include <SSVUtils/Core/Common/Frametime.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
+
+#include <SSVUtils/MemoryManager/MemoryManager.hpp>
 
 namespace ssvs
 {
-    namespace BTR
+namespace BTR
+{
+namespace Impl
+{
+class BTREWave : public BTREffect
+{
+private:
+    float angle;
+
+public:
+    float amplitude, repeat, speedMult;
+
+public:
+    inline BTREWave(float mAmplitude = 2.f, float mSpeedMult = 0.1f,
+        float mRepeat = 4.f, float mAngleStart = 0.f)
+        : angle{mAngleStart}, amplitude{mAmplitude}, repeat{mRepeat},
+          speedMult{mSpeedMult}
     {
-        namespace Impl
-        {
-            class BTREWave : public BTREffect
-            {
-            private:
-                float angle;
-
-            public:
-                float amplitude, repeat, speedMult;
-
-            public:
-                inline BTREWave(float mAmplitude = 2.f, float mSpeedMult = 0.1f,
-                    float mRepeat = 4.f, float mAngleStart = 0.f)
-                    : angle{mAngleStart}, amplitude{mAmplitude},
-                      repeat{mRepeat}, speedMult{mSpeedMult}
-                {
-                }
-
-                inline void update(FT mFT) noexcept override
-                {
-                    angle = ssvu::getWrapRad(angle + mFT * speedMult);
-                }
-                inline void apply(BTRChunk& mX) noexcept override
-                {
-                    mX.forVertices([this](auto mIdx, auto, auto& mV, auto& mVO)
-                        {
-                            mV.position.y =
-                                mVO.position.y +
-                                std::sin(angle + (mIdx / repeat)) * amplitude;
-                        });
-                }
-            };
-        }
     }
-}
+
+    inline void update(ssvu::FT mFT) noexcept override
+    {
+        angle = ssvu::getWrapRad(angle + mFT * speedMult);
+    }
+    inline void apply(BTRChunk& mX) noexcept override
+    {
+        mX.forVertices(
+            [this](auto mIdx, auto, auto& mV, auto& mVO)
+            {
+                mV.position.y = mVO.position.y +
+                                std::sin(angle + (mIdx / repeat)) * amplitude;
+            });
+    }
+};
+} // namespace Impl
+} // namespace BTR
+} // namespace ssvs
 
 #endif

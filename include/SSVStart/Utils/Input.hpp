@@ -211,8 +211,8 @@ inline auto& add2StateInput(GameState& mGameState, const ITrigger& mOn,
     IMode mMode = IMode::Overlap)
 {
     return mGameState.addInput(
-        mOn, [&mValue](FT) { mValue = true; },
-        [&mValue](FT) { mValue = false; }, mType, mTriggerID, mMode);
+        mOn, [&mValue](ssvu::FT) { mValue = true; },
+        [&mValue](ssvu::FT) { mValue = false; }, mType, mTriggerID, mMode);
 }
 
 /// @brief Shortcut to create a simple 3-state input that operates on an int
@@ -226,15 +226,17 @@ inline auto add3StateInput(GameState& mGameState, const ITrigger& mOff,
     IType mType = IType::Always, IMode mMode = IMode::Overlap)
 {
     auto& b1(mGameState.addInput(
-        mOff, [&mValue](FT) { mValue = -1; },
-        [&mValue](FT) {
+        mOff, [&mValue](ssvu::FT) { mValue = -1; },
+        [&mValue](ssvu::FT)
+        {
             if(mValue == -1) mValue = 0;
         },
         mType, mTriggerID, mMode));
 
     auto& b2(mGameState.addInput(
-        mOn, [&mValue](FT) { mValue = 1; },
-        [&mValue](FT) {
+        mOn, [&mValue](ssvu::FT) { mValue = 1; },
+        [&mValue](ssvu::FT)
+        {
             if(mValue == 1) mValue = 0;
         },
         mType, mTriggerID, mMode));

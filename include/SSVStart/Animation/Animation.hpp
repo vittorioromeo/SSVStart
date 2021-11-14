@@ -6,9 +6,11 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
-#include <vector>
-#include <initializer_list>
+#include <SSVUtils/Core/Common/Frametime.hpp>
+
 #include <cassert>
+#include <initializer_list>
+#include <vector>
 
 namespace ssvs
 {
@@ -145,7 +147,7 @@ public:
         return getStep().index;
     }
 
-    void update(FT mFT)
+    void update(ssvu::FT mFT)
     {
         if(steps.empty()) return;
 

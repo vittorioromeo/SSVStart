@@ -12,73 +12,76 @@
 
 namespace ssvs
 {
-    class BitmapText : public Impl::BitmapTextBase<BitmapText>
+class BitmapText : public Impl::BitmapTextBase<BitmapText>
+{
+    template <typename>
+    friend class Impl::BitmapTextBase;
+
+public:
+    using BaseType = Impl::BitmapTextBase<BitmapText>;
+
+private:
+    std::string str;
+    mutable bool mustRefreshGeometry{true}, mustRefreshColor{true};
+
+    inline void refreshIfNeeded() const
     {
-        template <typename>
-        friend class Impl::BitmapTextBase;
+        refreshGeometryIfNeeded();
+        refreshColorIfNeeded();
+    }
+    inline void refreshGeometryIfNeeded() const
+    {
+        if(!mustRefreshGeometry) return;
+        mustRefreshGeometry = false;
 
-    public:
-        using BaseType = Impl::BitmapTextBase<BitmapText>;
+        refreshGeometryStart();
+        createVertices(str);
+        refreshGeometryFinish();
+    }
+    inline void refreshColorIfNeeded() const
+    {
+        if(!mustRefreshColor) return;
+        mustRefreshColor = false;
 
-    private:
-        std::string str;
-        mutable bool mustRefreshGeometry{true}, mustRefreshColor{true};
+        for(auto& v : vertices) v.color = bdd.colorFG;
+    }
 
-        inline void refreshIfNeeded() const
-        {
-            refreshGeometryIfNeeded();
-            refreshColorIfNeeded();
-        }
-        inline void refreshGeometryIfNeeded() const
-        {
-            if(!mustRefreshGeometry) return;
-            mustRefreshGeometry = false;
+public:
+    inline BitmapText() = default;
+    inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "")
+        : BaseType{mBF}, str{mStr}
+    {
+    }
 
-            refreshGeometryStart();
-            createVertices(str);
-            refreshGeometryFinish();
-        }
-        inline void refreshColorIfNeeded() const
-        {
-            if(!mustRefreshColor) return;
-            mustRefreshColor = false;
+    template <typename T>
+    inline void setString(T&& mStr)
+    {
+        str = FWD(mStr);
+        mustRefreshGeometry = true;
+    }
 
-            for(auto& v : vertices) v.color = bdd.colorFG;
-        }
+    inline void setColor(const sf::Color& mX) noexcept
+    {
+        bdd.colorFG = mX;
+        mustRefreshColor = true;
+    }
+    inline void setTracking(float mX) noexcept
+    {
+        bdd.tracking = mX;
+        mustRefreshGeometry = true;
+    }
 
-    public:
-        inline BitmapText() = default;
-        inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "")
-            : BaseType{mBF}, str{mStr}
-        {
-        }
+    inline const auto& getString() const noexcept
+    {
+        return str;
+    }
 
-        template <typename T>
-        inline void setString(T&& mStr)
-        {
-            str = FWD(mStr);
-            mustRefreshGeometry = true;
-        }
-
-        inline void setColor(const sf::Color& mX) noexcept
-        {
-            bdd.colorFG = mX;
-            mustRefreshColor = true;
-        }
-        inline void setTracking(float mX) noexcept
-        {
-            bdd.tracking = mX;
-            mustRefreshGeometry = true;
-        }
-
-        inline const auto& getString() const noexcept { return str; }
-
-        inline void setAlign(TextAlign mX) noexcept
-        {
-            BaseType::setAlign(mX);
-            mustRefreshGeometry = true;
-        }
-    };
-}
+    inline void setAlign(TextAlign mX) noexcept
+    {
+        BaseType::setAlign(mX);
+        mustRefreshGeometry = true;
+    }
+};
+} // namespace ssvs
 
 #endif

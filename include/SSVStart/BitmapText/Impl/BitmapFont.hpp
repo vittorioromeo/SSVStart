@@ -6,6 +6,7 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
+#include <SSVUtils/Core/Common/Casts.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 
 #include <SFML/Graphics/Texture.hpp>
@@ -49,7 +50,8 @@ public:
 
     auto getGlyphRect(char mX) const
     {
-        mX += toNum<long>(data.cellStart) - 33;
+        mX += ssvu::toNum<long>(data.cellStart) - 33;
+
         const auto& i(ssvu::get2DIdxFrom1D(mX, data.cellColumns));
         return sf::IntRect(std::get<0>(i) * data.cellWidth,
             std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
