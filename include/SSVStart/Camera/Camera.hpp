@@ -12,7 +12,6 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
@@ -54,30 +53,31 @@ public:
     }
 
     template <typename T = float>
-    void apply(sf::RenderTarget& mRenderTarget)
+    [[nodiscard]] sf::View apply()
     {
         if(mustRecompute)
         {
             computedView = view;
+
             computedView.setSize(
-                ssvu::toNum<T>(computedView.getSize().x * skew.x),
-                ssvu::toNum<T>(computedView.getSize().y * skew.y));
+                {ssvu::toNum<T>(computedView.getSize().x * skew.x),
+                    ssvu::toNum<T>(computedView.getSize().y * skew.y)});
+
             if(getMag(offset) != 0)
+            {
                 computedView.setCenter(
-                    view.getCenter() -
-                    getVecFromDeg(
-                        view.getRotation() + getDeg(offset), getMag(offset)));
-            computedView.setCenter(ssvu::toNum<T>(computedView.getCenter().x),
-                ssvu::toNum<T>(computedView.getCenter().y));
+                    {view.getCenter() -
+                        getVecFromDeg(view.getRotation() + getDeg(offset),
+                            getMag(offset))});
+            }
+
+            computedView.setCenter({ssvu::toNum<T>(computedView.getCenter().x),
+                ssvu::toNum<T>(computedView.getCenter().y)});
+
             mustRecompute = false;
         }
 
-        mRenderTarget.setView(computedView);
-    }
-
-    void unapply(sf::RenderTarget& mRenderTarget)
-    {
-        mRenderTarget.setView(mRenderTarget.getDefaultView());
+        return computedView;
     }
 
     // These methods change the view ON NEXT UPDATE

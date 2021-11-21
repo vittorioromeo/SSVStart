@@ -224,6 +224,11 @@ public:
         gameEngine->setGameState(mGameState);
     }
 
+    void setView(const sf::View& view)
+    {
+        renderWindow.setView(view);
+    }
+
     operator sf::RenderWindow&() noexcept
     {
         return renderWindow;

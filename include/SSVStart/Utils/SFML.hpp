@@ -443,7 +443,7 @@ inline void setOrigin(T& mX, Vec2f (*mFn)(const T&)) noexcept
 /// @param mH Hue. [0..1]
 /// @param mS Saturation. [0..1]
 /// @param mV Value. [0..1]
-inline auto getColorFromHSV(float mH, float mS, float mV) noexcept
+inline sf::Color getColorFromHSV(float mH, float mS, float mV) noexcept
 {
     assert(mH >= 0.f && mH <= 1.f);
     assert(mS >= 0.f && mS <= 1.f);
