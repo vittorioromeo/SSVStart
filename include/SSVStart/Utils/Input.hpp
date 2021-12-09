@@ -100,8 +100,8 @@ inline const auto& getStrKKeyMap() noexcept
         SSVS_INS_KEY(RBracket), SSVS_INS_KEY(SemiColon), SSVS_INS_KEY(Comma),
         SSVS_INS_KEY(Period), SSVS_INS_KEY(Quote), SSVS_INS_KEY(Slash),
         SSVS_INS_KEY(BackSlash), SSVS_INS_KEY(Tilde), SSVS_INS_KEY(Equal),
-        SSVS_INS_KEY(Dash), SSVS_INS_KEY(Space), SSVS_INS_KEY(Return),
-        SSVS_INS_KEY(BackSpace), SSVS_INS_KEY(Tab), SSVS_INS_KEY(PageUp),
+        SSVS_INS_KEY(Dash), SSVS_INS_KEY(Space), SSVS_INS_KEY(Enter),
+        SSVS_INS_KEY(Backspace), SSVS_INS_KEY(Tab), SSVS_INS_KEY(PageUp),
         SSVS_INS_KEY(PageDown), SSVS_INS_KEY(End), SSVS_INS_KEY(Home),
         SSVS_INS_KEY(Insert), SSVS_INS_KEY(Delete), SSVS_INS_KEY(Add),
         SSVS_INS_KEY(Subtract), SSVS_INS_KEY(Multiply), SSVS_INS_KEY(Divide),
@@ -128,7 +128,7 @@ inline const auto& getStrKKeyHardcodedMap() noexcept
     }
     static std::map<std::string, KKey> keys{SSVS_INS_KEY(J), SSVS_INS_KEY(K),
         SSVS_INS_KEY(L), SSVS_INS_KEY(R), SSVS_INS_KEY(Y), SSVS_INS_KEY(Escape),
-        SSVS_INS_KEY(LAlt), SSVS_INS_KEY(Return), SSVS_INS_KEY(BackSpace),
+        SSVS_INS_KEY(LAlt), SSVS_INS_KEY(Enter), SSVS_INS_KEY(Backspace),
         SSVS_INS_KEY(Up), SSVS_INS_KEY(Down), SSVS_INS_KEY(F1),
         SSVS_INS_KEY(F2), SSVS_INS_KEY(F3), SSVS_INS_KEY(F4)};
 #undef SSVS_INS_KEY
