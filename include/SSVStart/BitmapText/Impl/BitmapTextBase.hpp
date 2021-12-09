@@ -40,7 +40,7 @@ private:
 protected:
     const BitmapFont* bitmapFont{nullptr};
     const sf::Texture* texture{nullptr};
-    mutable ssvs::VertexVector<sf::PrimitiveType::Quads> vertices;
+    mutable ssvs::VertexVector<sf::PrimitiveType::Triangles> vertices;
     mutable sf::FloatRect bounds;
     mutable Impl::BitmapTextDrawState bdd;
 
@@ -69,7 +69,7 @@ protected:
 
     void createVertices(const std::string& mStr) const
     {
-        vertices.reserve(mStr.size() * 4);
+        vertices.reserve(mStr.size() * 6);
 
         for(const auto& c : mStr)
         {
@@ -98,14 +98,24 @@ protected:
             auto gBottom((bdd.iY + 1) * bdd.height);
             ssvu::clampMin(bdd.yMax, gBottom);
 
+            // NW
             vertices.emplace_back(
                 Vec2f(gLeft, gTop), bdd.colorFG, Vec2f(rect.left, rect.top));
-            vertices.emplace_back(Vec2f(gRight, gTop), bdd.colorFG,
-                Vec2f(rect.left + rect.width, rect.top));
-            vertices.emplace_back(Vec2f(gRight, gBottom), bdd.colorFG,
-                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            // SW
             vertices.emplace_back(Vec2f(gLeft, gBottom), bdd.colorFG,
                 Vec2f(rect.left, rect.top + rect.height));
+            // SE
+            vertices.emplace_back(Vec2f(gRight, gBottom), bdd.colorFG,
+                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            // NW
+            vertices.emplace_back(
+                Vec2f(gLeft, gTop), bdd.colorFG, Vec2f(rect.left, rect.top));
+            // SE
+            vertices.emplace_back(Vec2f(gRight, gBottom), bdd.colorFG,
+                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            // NE
+            vertices.emplace_back(Vec2f(gRight, gTop), bdd.colorFG,
+                Vec2f(rect.left + rect.width, rect.top));
 
             // Count printable characters in the current row.
             ++bdd.chCount;

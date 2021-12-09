@@ -46,7 +46,8 @@ class BTRRoot : public sf::Transformable, public sf::Drawable
 private:
     const BitmapFont* bitmapFont{nullptr};
     const sf::Texture* texture{nullptr};
-    mutable VertexVector<sf::PrimitiveType::Quads> vertices, verticesOriginal;
+    mutable VertexVector<sf::PrimitiveType::Triangles> vertices,
+        verticesOriginal;
     mutable sf::FloatRect bounds, globalBounds;
     mutable bool mustRefreshGeometry{true};
 
@@ -117,7 +118,7 @@ private:
         std::size_t lastVIdx{0};
         for(const auto& rd : bdd.rDatas)
         {
-            auto targetVIdx(lastVIdx + rd.cells * 4);
+            auto targetVIdx(lastVIdx + rd.cells * 6);
             auto offset(width - rd.width);
 
             for(; lastVIdx < targetVIdx; ++lastVIdx)
@@ -176,14 +177,24 @@ private:
             ssvu::clampMax(bdd.yMin, gTop);
             ssvu::clampMin(bdd.yMax, gBottom);
 
-            vertices.emplace_back(
-                Vec2f(gRight, gTop), Vec2f(rect.left + rect.width, rect.top));
+            // NW
             vertices.emplace_back(
                 Vec2f(gLeft, gTop), Vec2f(rect.left, rect.top));
+            // SW
             vertices.emplace_back(Vec2f(gLeft, gBottom),
                 Vec2f(rect.left, rect.top + rect.height));
+            // SE
             vertices.emplace_back(Vec2f(gRight, gBottom),
                 Vec2f(rect.left + rect.width, rect.top + rect.height));
+            // NW
+            vertices.emplace_back(
+                Vec2f(gLeft, gTop), Vec2f(rect.left, rect.top));
+            // SE
+            vertices.emplace_back(Vec2f(gRight, gBottom),
+                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            // NE
+            vertices.emplace_back(
+                Vec2f(gRight, gTop), Vec2f(rect.left + rect.width, rect.top));
 
             ++bdd.iX;
         }
