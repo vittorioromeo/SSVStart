@@ -48,7 +48,7 @@ inline const auto* getKKeyStrArray() noexcept
         SSVS_INS_KEY(SemiColon), SSVS_INS_KEY(Comma), SSVS_INS_KEY(Period),
         SSVS_INS_KEY(Quote), SSVS_INS_KEY(Slash), SSVS_INS_KEY(BackSlash),
         SSVS_INS_KEY(Tilde), SSVS_INS_KEY(Equal), SSVS_INS_KEY(Dash),
-        SSVS_INS_KEY(Space), SSVS_INS_KEY(Return), SSVS_INS_KEY(BackSpace),
+        SSVS_INS_KEY(Space), SSVS_INS_KEY(Enter), SSVS_INS_KEY(Backspace),
         SSVS_INS_KEY(Tab), SSVS_INS_KEY(PageUp), SSVS_INS_KEY(PageDown),
         SSVS_INS_KEY(End), SSVS_INS_KEY(Home), SSVS_INS_KEY(Insert),
         SSVS_INS_KEY(Delete), SSVS_INS_KEY(Add), SSVS_INS_KEY(Subtract),
