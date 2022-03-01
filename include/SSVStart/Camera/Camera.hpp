@@ -67,7 +67,8 @@ public:
             {
                 computedView.setCenter(
                     {view.getCenter() -
-                        getVecFromDeg(view.getRotation() + getDeg(offset),
+                        getVecFromDeg(
+                            view.getRotation().asDegrees() + getDeg(offset),
                             getMag(offset))});
             }
 
@@ -119,7 +120,7 @@ public:
 
         view.setCenter(view.getCenter() + nextPan);
         view.zoom(std::pow(nextZoomFactor, mFT));
-        view.rotate(nextRotation * mFT);
+        view.rotate(sf::degrees(nextRotation * mFT));
 
         mustRecompute = true;
         nullify(nextPan);
@@ -137,7 +138,7 @@ public:
 
     void setRotation(float mDeg) noexcept
     {
-        view.setRotation(mDeg);
+        view.setRotation(sf::degrees(mDeg));
         mustRecompute = true;
     }
 
@@ -173,7 +174,7 @@ public:
     }
     float getRotation() const noexcept
     {
-        return view.getRotation();
+        return view.getRotation().asDegrees();
     }
 
     const auto& getSkew() const noexcept
