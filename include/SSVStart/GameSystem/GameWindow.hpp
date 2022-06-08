@@ -20,8 +20,7 @@
 
 #include <cassert>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class GameWindow
 {
@@ -85,7 +84,7 @@ private:
     {
         if(renderWindow.isOpen()) renderWindow.close();
 
-        renderWindow.create({width, height}, title,
+        renderWindow.create(sf::VideoMode{{width, height}}, title,
             fullscreen ? sf::Style::Fullscreen : sf::Style::Default,
             sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 
@@ -166,7 +165,7 @@ public:
     void saveScreenshot(const std::string& mPath) const
     {
         sf::Texture t;
-        t.create(renderWindow.getSize().x, renderWindow.getSize().y);
+        t.create({renderWindow.getSize().x, renderWindow.getSize().y});
         t.update(renderWindow);
         auto img = t.copyToImage();
         img.saveToFile(mPath);
