@@ -21,7 +21,7 @@ struct VertexVector : public std::vector<sf::Vertex>, public sf::Drawable
 {
     using std::vector<sf::Vertex>::vector;
     inline void draw(sf::RenderTarget& mRenderTarget,
-        sf::RenderStates mRenderStates) const override
+        const sf::RenderStates& mRenderStates) const override
     {
         mRenderTarget.draw(
             this->data(), this->size(), TPrimitive, mRenderStates);
