@@ -246,7 +246,7 @@ public:
     }
 
     inline void draw(sf::RenderTarget& mRenderTarget,
-        sf::RenderStates mRenderStates) const override
+        const sf::RenderStates& mRenderStates) const override
     {
         assert(bitmapFont != nullptr && texture != nullptr);
 
