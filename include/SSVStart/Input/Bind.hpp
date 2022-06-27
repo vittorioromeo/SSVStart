@@ -5,16 +5,17 @@
 #ifndef SSVS_INPUT_BIND
 #define SSVS_INPUT_BIND
 
-namespace ssvs
-{
-namespace Input
-{
+#include "SSVStart/Input/Trigger.hpp"
+namespace ssvs {
+namespace Input {
 class InputState;
 class Manager;
 
 class Bind
 {
 private:
+    using InputFunc = std::function<void(ssvu::FT)>;
+
     Manager& manager;
     Trigger trigger;
     InputFunc on, off;
@@ -41,11 +42,17 @@ private:
     }
 
 public:
-    inline Bind(Manager& mManager, Trigger mTrigger, Type mType, Mode mMode,
-        int mTriggerID, const InputFunc& mOn = ssvs::Impl::getNullInputFunc(),
-        const InputFunc& mOff = ssvs::Impl::getNullInputFunc())
-        : manager(mManager), trigger{std::move(mTrigger)}, on{mOn}, off{mOff},
-          type{mType}, mode{mMode}, triggerID{mTriggerID}
+    inline Bind(
+        Manager& mManager, Trigger mTrigger, Type mType, Mode mMode,
+        int mTriggerID, const InputFunc& mOn = [](ssvu::FT) {},
+        const InputFunc& mOff = [](ssvu::FT) {})
+        : manager(mManager),
+          trigger{std::move(mTrigger)},
+          on{mOn},
+          off{mOff},
+          type{mType},
+          mode{mMode},
+          triggerID{mTriggerID}
     {
         recalculatePriorityCombo();
     }

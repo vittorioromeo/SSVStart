@@ -5,6 +5,12 @@
 #ifndef SSVS_INPUT_MANAGER
 #define SSVS_INPUT_MANAGER
 
+#include "SSVStart/Input/Bind.hpp"
+#include "SSVStart/Input/InputState.hpp"
+
+#include <vector>
+#include <memory>
+
 namespace ssvs
 {
 namespace Input

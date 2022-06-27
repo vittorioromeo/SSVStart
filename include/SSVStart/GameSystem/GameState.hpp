@@ -12,8 +12,7 @@
 
 #include <map>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class GameEngine;
 
@@ -25,7 +24,7 @@ private:
     using ITrigger = Input::Trigger;
     using IType = Input::Type;
     using IMode = Input::Mode;
-    using IFunc = InputFunc;
+    using IFunc = std::function<void(ssvu::FT)>;
     using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
     Input::Manager inputManager;
@@ -79,8 +78,8 @@ public:
         IType mType = IType::Always, int mTriggerID = -1,
         IMode mMode = IMode::Overlap)
     {
-        return addInput(mTrigger, mFuncOn, Impl::getNullInputFunc(), mType,
-            mTriggerID, mMode);
+        return addInput(
+            mTrigger, mFuncOn, [](ssvu::FT) {}, mType, mTriggerID, mMode);
     }
 
     void refreshTrigger(const Input::Trigger& trigger, int bindID)

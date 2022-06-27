@@ -5,6 +5,7 @@
 #ifndef SSVS_INPUT_COMBO
 #define SSVS_INPUT_COMBO
 
+#include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Input/Enums.hpp"
 
 namespace ssvs

@@ -38,8 +38,6 @@ using KeyBitset =
 using BtnBitset =
     std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
 
-using InputFunc = std::function<void(ssvu::FT)>;
-
 template <typename T>
 using Vec2 = sf::Vector2<T>;
 
@@ -82,17 +80,6 @@ using Vec2u = Vec2<unsigned int>;
 {
     return mBitset[ssvu::toInt(mBtn + inputBitOffset)];
 }
-
-namespace Impl
-{
-
-[[nodiscard]] inline InputFunc& getNullInputFunc() noexcept
-{
-    static InputFunc result([](ssvu::FT) {});
-    return result;
-}
-
-} // namespace Impl
 
 } // namespace ssvs
 
