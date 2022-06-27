@@ -7,6 +7,7 @@
 #include <SSVUtils/Core/Common/Frametime.hpp>
 
 #include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 
 namespace ssvs
 {

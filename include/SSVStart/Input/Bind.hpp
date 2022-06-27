@@ -6,6 +6,9 @@
 #define SSVS_INPUT_BIND
 
 #include "SSVStart/Input/Trigger.hpp"
+
+#include <functional>
+
 namespace ssvs {
 namespace Input {
 class InputState;
