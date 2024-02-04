@@ -86,8 +86,8 @@ private:
     {
         if(renderWindow.isOpen()) renderWindow.close();
 
-        renderWindow.create(sf::VideoMode{{width, height}}, title,
-            fullscreen ? sf::Style::Fullscreen : sf::Style::Default,
+        renderWindow.create(sf::VideoMode{{width, height}}, title, sf::Style::Default,
+            fullscreen ? sf::State::Fullscreen : sf::State::Windowed,
             sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 
         renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));

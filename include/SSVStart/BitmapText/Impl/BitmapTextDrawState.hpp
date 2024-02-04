@@ -8,6 +8,8 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 
+#include <SFML/Graphics/Color.hpp>
+
 namespace ssvs
 {
 namespace Impl

@@ -73,7 +73,7 @@ struct Loader<sf::SoundBuffer> // SoundBuffer can also be loaded from
         return Helper<Mode::Load, T>::load(mStream);
     }
 
-    static auto load(const sf::Int16* mSamples, std::size_t mSampleCount,
+    static auto load(const std::int16_t* mSamples, std::size_t mSampleCount,
         unsigned int mChannelCount, unsigned int mSampleRate)
     {
         return Helper<Mode::Samples, T>::load(

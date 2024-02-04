@@ -129,7 +129,7 @@ protected:
     {
         // Recalculate bounds
         auto width(bdd.xMax - bdd.xMin);
-        bounds = {bdd.xMin, bdd.yMin, width, bdd.yMax - bdd.yMin};
+        bounds = {{bdd.xMin, bdd.yMin}, {width, bdd.yMax - bdd.yMin}};
 
         // Add current row to `rowCells`, return if its the only one
         if(rowCells.empty()) return;
@@ -165,9 +165,10 @@ public:
 
         getTD().refreshIfNeeded();
 
-        mRenderStates.texture = texture;
-        mRenderStates.transform *= getTransform();
-        mRenderTarget.draw(vertices, mRenderStates);
+        auto rs = mRenderStates;
+        rs.texture = texture;
+        rs.transform *= getTransform();
+        mRenderTarget.draw(vertices, rs);
     }
 
     const auto& getBitmapFont() const noexcept

@@ -19,10 +19,10 @@ int main()
     TEST_ASSERT_NS(!ssvs::isKKeyNameValid("kf1"));
 
     TEST_ASSERT_NS(ssvs::isMBtnNameValid("bLeft"));
-    TEST_ASSERT_NS(ssvs::isMBtnNameValid("bXButton1"));
+    TEST_ASSERT_NS(ssvs::isMBtnNameValid("bExtra1"));
     TEST_ASSERT_NS(!ssvs::isMBtnNameValid(""));
     TEST_ASSERT_NS(!ssvs::isMBtnNameValid("Left"));
-    TEST_ASSERT_NS(!ssvs::isMBtnNameValid("XButton1"));
+    TEST_ASSERT_NS(!ssvs::isMBtnNameValid("Extra1"));
     TEST_ASSERT_NS(!ssvs::isMBtnNameValid("bleft"));
 
     TEST_ASSERT_NS(ssvs::getKKey("kUp") == ssvs::KKey::Up);
@@ -32,7 +32,7 @@ int main()
     TEST_ASSERT_NS(ssvs::getKKey("kF1") == ssvs::KKey::F1);
 
     TEST_ASSERT_NS(ssvs::getMBtn("bLeft") == ssvs::MBtn::Left);
-    TEST_ASSERT_NS(ssvs::getMBtn("bXButton1") == ssvs::MBtn::XButton1);
+    TEST_ASSERT_NS(ssvs::getMBtn("bExtra1") == ssvs::MBtn::Extra1);
 
     TEST_ASSERT_NS(ssvs::getKKeyName(ssvs::KKey::Up) == "kUp");
     TEST_ASSERT_NS(ssvs::getKKeyName(ssvs::KKey::A) == "kA");
@@ -41,5 +41,5 @@ int main()
     TEST_ASSERT_NS(ssvs::getKKeyName(ssvs::KKey::F1) == "kF1");
 
     TEST_ASSERT_NS(ssvs::getMBtnName(ssvs::MBtn::Left) == "bLeft");
-    TEST_ASSERT_NS(ssvs::getMBtnName(ssvs::MBtn::XButton1) == "bXButton1");
+    TEST_ASSERT_NS(ssvs::getMBtnName(ssvs::MBtn::Extra1) == "bExtra1");
 }

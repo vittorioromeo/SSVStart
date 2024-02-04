@@ -67,7 +67,7 @@ public:
     {
         sounds.refresh();
         for(auto& s : sounds)
-            if(s->getBuffer() == &mSoundBuffer) s->stop();
+            if(&s->getBuffer() == &mSoundBuffer) s->stop();
     }
 
     void setVolume(float mVolume)
@@ -90,7 +90,7 @@ public:
     {
         sounds.refresh();
         for(const auto& s : sounds)
-            if(s->getBuffer() == &mSoundBuffer) return s.get();
+            if(&s->getBuffer() == &mSoundBuffer) return s.get();
         return nullptr;
     }
 

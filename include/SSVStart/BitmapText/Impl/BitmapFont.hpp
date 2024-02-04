@@ -53,8 +53,8 @@ public:
         mX += ssvu::toNum<long>(data.cellStart) - 33;
 
         const auto& i(ssvu::get2DIdxFrom1D(mX, data.cellColumns));
-        return sf::IntRect(std::get<0>(i) * data.cellWidth,
-            std::get<1>(i) * data.cellHeight, data.cellWidth, data.cellHeight);
+        return sf::IntRect(sf::Vector2i(std::get<0>(i) * data.cellWidth,
+            std::get<1>(i) * data.cellHeight), sf::Vector2i(data.cellWidth, data.cellHeight));
     }
 };
 

@@ -65,7 +65,7 @@ struct Helper<Mode::Load, T>
     static auto load(const ssvu::FileSystem::Path& mPath)
     {
         return loadImpl<T>([&mPath](auto& mP)
-            { return mP->loadFromFile(mPath); },
+            { return mP->loadFromFile(mPath.getStr()); },
             "from path");
     }
     static auto load(const void* mData, std::size_t mSize)
@@ -121,7 +121,7 @@ template <>
 struct Helper<Mode::Samples, sf::SoundBuffer>
 {
     using T = sf::SoundBuffer;
-    static auto load(const sf::Int16* mSamples, std::size_t mSampleCount,
+    static auto load(const std::int16_t* mSamples, std::size_t mSampleCount,
         unsigned int mChannelCount, unsigned int mSampleRate)
     {
         return loadImpl<T>(
@@ -142,14 +142,14 @@ struct Helper<Mode::Shader, sf::Shader>
         sf::Shader::Type mType, ShaderFromPath)
     {
         return loadImpl<T>([&mPath, &mType](auto& mP)
-            { return mP->loadFromFile(mPath, mType); },
+            { return mP->loadFromFile(mPath.getStr(), mType); },
             "shader from path");
     }
     static auto load(const ssvu::FileSystem::Path& mPathVertex,
         const ssvu::FileSystem::Path& mPathFragment, ShaderFromPath)
     {
         return loadImpl<T>([&mPathVertex, &mPathFragment](auto& mP)
-            { return mP->loadFromFile(mPathVertex, mPathFragment); },
+            { return mP->loadFromFile(mPathVertex.getStr(), mPathFragment.getStr()); },
             "shader from path (2)");
     }
     static auto load(

@@ -42,7 +42,7 @@ int main()
     MAKETEST(ssvs::KKey, ssvs::KKey::F1);
 
     MAKETEST(ssvs::MBtn, ssvs::MBtn::Left);
-    MAKETEST(ssvs::MBtn, ssvs::MBtn::XButton1);
+    MAKETEST(ssvs::MBtn, ssvs::MBtn::Extra1);
 
     MAKETEST(ssvs::Input::Combo, {ssvs::KKey::Up}, {ssvs::MBtn::Left});
     MAKETEST(ssvs::Input::Trigger,

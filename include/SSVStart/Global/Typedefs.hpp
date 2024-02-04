@@ -25,8 +25,8 @@ using MBtn = sf::Mouse::Button;
 
 inline constexpr std::size_t inputBitOffset{1};
 inline constexpr std::size_t fingerCount{16};
-inline constexpr std::size_t kKeyCount{KKey::KeyCount};
-inline constexpr std::size_t mBtnCount{MBtn::ButtonCount};
+inline constexpr std::size_t kKeyCount{sf::Keyboard::KeyCount};
+inline constexpr std::size_t mBtnCount{sf::Mouse::ButtonCount};
 inline constexpr std::size_t jBtnCount{sf::Joystick::ButtonCount};
 
 using FingerID = unsigned int;
@@ -60,25 +60,25 @@ using Vec2u = Vec2<unsigned int>;
 [[nodiscard]] inline KeyBitset::reference getKeyBit(
     KeyBitset& mBitset, KKey mKey) noexcept
 {
-    return mBitset[ssvu::toInt(mKey + inputBitOffset)];
+    return mBitset[ssvu::toInt(ssvu::castEnum(mKey) + inputBitOffset)];
 }
 
 [[nodiscard]] inline BtnBitset::reference getBtnBit(
     BtnBitset& mBitset, MBtn mBtn) noexcept
 {
-    return mBitset[ssvu::toInt(mBtn + inputBitOffset)];
+    return mBitset[ssvu::toInt(ssvu::castEnum(mBtn) + inputBitOffset)];
 }
 
 [[nodiscard]] inline constexpr bool getKeyBit(
     const KeyBitset& mBitset, KKey mKey) noexcept
 {
-    return mBitset[ssvu::toInt(mKey + inputBitOffset)];
+    return mBitset[ssvu::toInt(ssvu::castEnum(mKey) + inputBitOffset)];
 }
 
 [[nodiscard]] inline constexpr bool getBtnBit(
     const BtnBitset& mBitset, MBtn mBtn) noexcept
 {
-    return mBitset[ssvu::toInt(mBtn + inputBitOffset)];
+    return mBitset[ssvu::toInt(ssvu::castEnum(mBtn) + inputBitOffset)];
 }
 
 } // namespace ssvs

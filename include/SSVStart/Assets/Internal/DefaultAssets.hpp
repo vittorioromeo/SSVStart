@@ -28,7 +28,7 @@ inline auto& getNullImage() noexcept
         sf::Image data;
         NullImage()
         {
-            data.create(32, 32, sf::Color::Magenta);
+            data.create({32u, 32u}, sf::Color::Magenta);
         }
     };
 

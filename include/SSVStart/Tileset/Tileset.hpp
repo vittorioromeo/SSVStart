@@ -54,7 +54,7 @@ public:
     auto operator()(unsigned int mX, unsigned int mY) const noexcept
     {
         return sf::IntRect(
-            mX * tileSize.x, mY * tileSize.y, tileSize.x, tileSize.y);
+            sf::Vector2i(mX * tileSize.x, mY * tileSize.y), sf::Vector2i(tileSize.x, tileSize.y));
     }
 
     auto operator()(const Vec2u& mIdx) const noexcept

@@ -57,6 +57,7 @@ local.properties
 *.sln.docstates
 
 # Build results
+.vscode
 [Dd]ebug/
 *_i.c
 *_p.c

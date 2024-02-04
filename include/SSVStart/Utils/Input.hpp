@@ -71,7 +71,7 @@ inline const auto* getMBtnStrArray() noexcept
 {
 #define SSVS_INS_BTN(mName) SSVS_BTN_PREFIX #mName
     static std::string btns[]{SSVS_INS_BTN(Left), SSVS_INS_BTN(Right),
-        SSVS_INS_BTN(Middle), SSVS_INS_BTN(XButton1), SSVS_INS_BTN(XButton2)};
+        SSVS_INS_BTN(Middle), SSVS_INS_BTN(Extra1), SSVS_INS_BTN(Extra2)};
 #undef SSVS_INS_BTN
 
     return btns;
@@ -143,8 +143,8 @@ inline const auto& getStrMBtnMap() noexcept
         SSVS_BTN_PREFIX #mName, MBtn::mName \
     }
     static std::map<std::string, MBtn> btns{SSVS_INS_BTN(Left),
-        SSVS_INS_BTN(Right), SSVS_INS_BTN(Middle), SSVS_INS_BTN(XButton1),
-        SSVS_INS_BTN(XButton2)};
+        SSVS_INS_BTN(Right), SSVS_INS_BTN(Middle), SSVS_INS_BTN(Extra1),
+        SSVS_INS_BTN(Extra2)};
 #undef SSVS_INS_BTN
 
     return btns;
