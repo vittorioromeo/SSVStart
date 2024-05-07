@@ -25,15 +25,12 @@ private:
     using IType = Input::Type;
     using IMode = Input::Mode;
     using IFunc = std::function<void(ssvu::FT)>;
-    using EventDelegate = ssvu::Delegate<void(const sf::Event&)>;
 
     Input::Manager inputManager;
-    std::map<sf::Event::EventType, EventDelegate> eventDelegates;
 
     void handleEvent(const sf::Event& mEvent)
     {
         onAnyEvent(mEvent);
-        eventDelegates[mEvent.type](mEvent);
     }
 
     void update(ssvu::FT mFT)
@@ -59,7 +56,7 @@ private:
 public:
     ssvu::Delegate<void()> onDraw, onPostUpdate;
     ssvu::Delegate<void(ssvu::FT)> onUpdate;
-    EventDelegate onAnyEvent;
+    ssvu::Delegate<void(const sf::Event&)> onAnyEvent;
 
     GameState() = default;
 
@@ -85,11 +82,6 @@ public:
     void refreshTrigger(const Input::Trigger& trigger, int bindID)
     {
         inputManager.refreshTriggers(trigger, bindID);
-    }
-
-    auto& onEvent(sf::Event::EventType mEventType)
-    {
-        return eventDelegates[mEventType];
     }
 
     void ignoreNextInputs() noexcept

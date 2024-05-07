@@ -43,50 +43,56 @@ private:
     {
         assert(gameEngine != nullptr);
 
-        sf::Event event;
-        while(renderWindow.pollEvent(event))
+        while(const auto event = renderWindow.pollEvent())
         {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-            switch(event.type)
+            if(event.is<sf::Event::Closed>())
             {
-                case sf::Event::Closed: gameEngine->stop(); break;
-                case sf::Event::GainedFocus: focus = true; break;
-                case sf::Event::LostFocus:
-                    inputState.reset();
-                    focus = false;
-                    break;
-                case sf::Event::KeyPressed:
-                    inputState[event.key.code] = true;
-                    break;
-                case sf::Event::KeyReleased:
-                    inputState[event.key.code] = false;
-                    break;
-                case sf::Event::MouseButtonPressed:
-                    inputState[event.mouseButton.button] = true;
-                    break;
-                case sf::Event::MouseButtonReleased:
-                    inputState[event.mouseButton.button] = false;
-                    break;
-                case sf::Event::TouchBegan:
-                    inputState.getFinger(event.touch.finger) = true;
-                    break;
-                case sf::Event::TouchEnded:
-                    inputState.getFinger(event.touch.finger) = false;
-                    break;
-                default: break;
+                gameEngine->stop();
+            }
+            else if(event.is<sf::Event::FocusGained>())
+            {
+                focus = true;
+            }
+            else if(event.is<sf::Event::FocusLost>())
+            {
+                inputState.reset();
+                focus = false;
+            }
+            else if(auto* e = event.getIf<sf::Event::KeyPressed>())
+            {
+                inputState[e->code] = true;
+            }
+            else if(auto* e = event.getIf<sf::Event::KeyReleased>())
+            {
+                inputState[e->code] = false;
+            }
+            else if(auto* e = event.getIf<sf::Event::MouseButtonPressed>())
+            {
+                inputState[e->button] = true;
+            }
+            else if(auto* e = event.getIf<sf::Event::MouseButtonReleased>())
+            {
+                inputState[e->button] = false;
+            }
+            else if(auto* e = event.getIf<sf::Event::TouchBegan>())
+            {
+                inputState.getFinger(e->finger) = true;
+            }
+            else if(auto* e = event.getIf<sf::Event::TouchEnded>())
+            {
+                inputState.getFinger(e->finger) = false;
             }
 
             gameEngine->handleEvent(event);
         }
-#pragma GCC diagnostic pop
     }
 
     void recreateWindow()
     {
         if(renderWindow.isOpen()) renderWindow.close();
 
-        renderWindow.create(sf::VideoMode{{width, height}}, title, sf::Style::Default,
+        renderWindow.create(sf::VideoMode{{width, height}}, title,
+            sf::Style::Default,
             fullscreen ? sf::State::Fullscreen : sf::State::Windowed,
             sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 

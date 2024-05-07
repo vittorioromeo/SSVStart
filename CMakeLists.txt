@@ -16,7 +16,7 @@ include(${CPM_DOWNLOAD_LOCATION})
 CPMAddPackage(
   NAME SFML
   GITHUB_REPOSITORY vittorioromeo/SFML
-  GIT_TAG aa633222470cbae3efefe6fabded611caf8f64c0
+  GIT_TAG 06b4c6ceaabaa3e15e88ca70cf61ae7bba69ad39
 )
 
 # Include `vrm_cmake`.
