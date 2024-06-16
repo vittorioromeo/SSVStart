@@ -43,8 +43,11 @@ private:
     {
         assert(gameEngine != nullptr);
 
-        while(const auto event = renderWindow.pollEvent())
+        while(
+            const std::optional<sf::Event> optEvent = renderWindow.pollEvent())
         {
+            auto& event = optEvent.value();
+
             if(event.is<sf::Event::Closed>())
             {
                 gameEngine->stop();
@@ -172,11 +175,18 @@ public:
 
     void saveScreenshot(const std::string& mPath) const
     {
-        sf::Texture t;
-        t.create({renderWindow.getSize().x, renderWindow.getSize().y});
-        t.update(renderWindow);
-        auto img = t.copyToImage();
-        img.saveToFile(mPath);
+        auto t = sf::Texture::create(
+            {renderWindow.getSize().x, renderWindow.getSize().y});
+
+        if(!t.has_value())
+        {
+            return;
+        }
+
+        t->update(renderWindow);
+        auto img = t->copyToImage();
+
+        (void)img.saveToFile(mPath);
     }
 
     void setFullscreen(bool mFullscreen) noexcept
