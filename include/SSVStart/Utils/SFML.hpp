@@ -23,22 +23,22 @@ namespace Impl
 template <typename T>
 inline float getLeft(const T& mX) noexcept
 {
-    return mX.left;
+    return mX.position.x;
 }
 template <typename T>
 inline float getTop(const T& mX) noexcept
 {
-    return mX.top;
+    return mX.position.y;
 }
 template <typename T>
 inline float getWidth(const T& mX) noexcept
 {
-    return mX.width;
+    return mX.size.x;
 }
 template <typename T>
 inline float getHeight(const T& mX) noexcept
 {
-    return mX.height;
+    return mX.size.y;
 }
 
 template <typename T>

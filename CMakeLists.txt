@@ -13,11 +13,18 @@ endif()
 include(${CPM_DOWNLOAD_LOCATION})
 # -----------------------------------------------------------------------------
 
+set(BUILD_SHARED_LIBS false)
+set(SFML_STATIC_LIBRARIES true)
+set(SFML_ENABLE_PCH true)
+set(SFML_ENABLE_LIFETIME_TRACKING true)
+
 CPMAddPackage(
   NAME SFML
   GITHUB_REPOSITORY vittorioromeo/SFML
-  GIT_TAG 17879283be7a95fd66ce76e61410ebee299819ba
+  GIT_TAG 5d73af616dfcc627158193f8b9722a039dd054bd
 )
+
+set(SFML_ENABLE_LIFETIME_TRACKING true)
 
 # Include `vrm_cmake`.
 list(APPEND CMAKE_MODULE_PATH
