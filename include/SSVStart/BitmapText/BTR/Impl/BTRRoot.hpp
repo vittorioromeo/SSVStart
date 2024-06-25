@@ -16,14 +16,11 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREColor.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRDrawState.hpp"
 
-#include "SSVStart/VertexVector/VertexVector.hpp"
-
 #include <SSVUtils/Core/Common/Frametime.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 
-#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -31,13 +28,10 @@
 
 #include <cassert>
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
-class BTRRoot : public sf::Transformable, public sf::Drawable
+namespace ssvs {
+namespace BTR {
+namespace Impl {
+class BTRRoot : public sf::Transformable
 {
     friend class BTR::Impl::BTRChunk;
     template <typename>
@@ -46,8 +40,7 @@ class BTRRoot : public sf::Transformable, public sf::Drawable
 private:
     const BitmapFont* bitmapFont{nullptr};
     const sf::Texture* texture{nullptr};
-    mutable VertexVector<sf::PrimitiveType::Triangles> vertices,
-        verticesOriginal;
+    mutable std::vector<sf::Vertex> vertices, verticesOriginal;
     mutable sf::FloatRect bounds, globalBounds;
     mutable bool mustRefreshGeometry{true};
 
@@ -204,12 +197,10 @@ private:
 
 public:
     inline BTRRoot() noexcept
-    {
-    }
+    {}
     inline BTRRoot(const BitmapFont& mBF) noexcept
         : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()}
-    {
-    }
+    {}
 
     inline void clear()
     {
@@ -246,7 +237,7 @@ public:
     }
 
     inline void draw(sf::RenderTarget& mRenderTarget,
-        const sf::RenderStates& mRenderStates) const override
+        const sf::RenderStates& mRenderStates) const
     {
         assert(bitmapFont != nullptr && texture != nullptr);
 
@@ -255,7 +246,7 @@ public:
         auto rs = mRenderStates;
         rs.texture = texture;
         rs.transform *= getTransform();
-        mRenderTarget.draw(vertices, rs);
+        mRenderTarget.draw(vertices, sf::PrimitiveType::Triangles, rs);
     }
 
     inline auto& getRoot() noexcept

@@ -4,8 +4,8 @@
 
 #pragma once
 
+#include "SFML/Graphics/PrimitiveType.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
-#include "SSVStart/VertexVector/VertexVector.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 
@@ -13,7 +13,7 @@
 #include <SSVUtils/Core/Common/Casts.hpp>
 
 #include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Vertex.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
 #include <vector>
@@ -21,11 +21,10 @@
 #include <cstddef>
 #include <cassert>
 
-namespace ssvs::Impl
-{
+namespace ssvs::Impl {
 
 template <typename TDerived>
-class BitmapTextBase : public sf::Transformable, public sf::Drawable
+class BitmapTextBase : public sf::Transformable
 {
 private:
     auto& getTD() noexcept
@@ -40,7 +39,7 @@ private:
 protected:
     const BitmapFont* bitmapFont{nullptr};
     const sf::Texture* texture{nullptr};
-    mutable ssvs::VertexVector<sf::PrimitiveType::Triangles> vertices;
+    mutable std::vector<sf::Vertex> vertices;
     mutable sf::FloatRect bounds;
     mutable Impl::BitmapTextDrawState bdd;
 
@@ -50,8 +49,7 @@ protected:
     BitmapTextBase() = default;
     BitmapTextBase(const BitmapFont& mBF)
         : bitmapFont{&mBF}, texture{&bitmapFont->getTexture()}
-    {
-    }
+    {}
 
     void setAlign(TextAlign mX) noexcept
     {
@@ -159,7 +157,7 @@ protected:
 
 public:
     void draw(sf::RenderTarget& mRenderTarget,
-        const sf::RenderStates& mRenderStates) const override
+        const sf::RenderStates& mRenderStates) const
     {
         assert(bitmapFont != nullptr && texture != nullptr);
 
@@ -168,7 +166,7 @@ public:
         auto rs = mRenderStates;
         rs.texture = texture;
         rs.transform *= getTransform();
-        mRenderTarget.draw(vertices, rs);
+        mRenderTarget.draw(vertices, sf::PrimitiveType::Triangles, rs);
     }
 
     const auto& getBitmapFont() const noexcept

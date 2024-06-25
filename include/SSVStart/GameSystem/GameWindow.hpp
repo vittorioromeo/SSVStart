@@ -8,6 +8,7 @@
 #include "SSVStart/Input/Input.hpp"
 #include "SSVStart/GameSystem/GameEngine.hpp"
 #include "SSVStart/GameSystem/GameState.hpp"
+#include "SSVUtils/Core/Common/Aliases.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -15,7 +16,6 @@
 #include <SFML/Window/VideoMode.hpp>
 
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -167,10 +167,11 @@ public:
     {
         renderWindow.clear(mColor);
     }
-    void draw(const sf::Drawable& mDrawable,
-        const sf::RenderStates& mStates = sf::RenderStates::Default)
+
+    template <typename... Ts>
+    void draw(Ts&&... xs)
     {
-        renderWindow.draw(mDrawable, mStates);
+        renderWindow.draw(FWD(xs)...);
     }
 
     void saveScreenshot(const std::string& mPath) const
