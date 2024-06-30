@@ -13,7 +13,6 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREffect.hpp"
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
-#include <SSVUtils/Core/Common/Frametime.hpp>
 
 #include <cassert>
 
@@ -68,7 +67,7 @@ private:
             if(c->enabled) c->recurseChildren<true>(mFn);
     }
 
-    inline void update(ssvu::FT mFT) noexcept
+    inline void update(float mFT) noexcept
     {
         for(auto& e : childrenEffects) e->update(mFT);
         for(auto& c : children)

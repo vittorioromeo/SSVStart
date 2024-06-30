@@ -33,7 +33,7 @@ private:
                                          // GameEngine?
     sf::RenderWindow renderWindow;
     std::string title;
-    ssvu::FT msUpdate, msDraw;
+    float msUpdate, msDraw;
     float maxFPS{60.f}, pixelMult{1.f};
     unsigned int width{640}, height{480}, antialiasingLevel{3};
     bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false},
@@ -125,13 +125,15 @@ public:
 
     void run()
     {
+        using FTDuration = std::chrono::duration<float, std::milli>;
+
         assert(gameEngine != nullptr);
 
         while(gameEngine->isRunning())
         {
             if(mustRecreate) recreateWindow();
 
-            renderWindow.setActive(true);
+            (void)renderWindow.setActive(true);
             this->clear();
 
             gameEngine->refreshTimer();
@@ -141,7 +143,7 @@ public:
                 runEvents();
                 gameEngine->runUpdate();
             }
-            msUpdate = std::chrono::duration_cast<ssvu::FTDuration>(
+            msUpdate = std::chrono::duration_cast<FTDuration>(
                 std::chrono::high_resolution_clock::now() - tempMs)
                            .count();
 
@@ -150,7 +152,7 @@ public:
                 gameEngine->runDraw();
                 renderWindow.display();
             }
-            msDraw = std::chrono::duration_cast<ssvu::FTDuration>(
+            msDraw = std::chrono::duration_cast<FTDuration>(
                 std::chrono::high_resolution_clock::now() - tempMs)
                          .count();
 
@@ -284,11 +286,11 @@ public:
         return vsync;
     }
 
-    ssvu::FT getMsUpdate() const noexcept
+    float getMsUpdate() const noexcept
     {
         return msUpdate;
     }
-    ssvu::FT getMsDraw() const noexcept
+    float getMsDraw() const noexcept
     {
         return msDraw;
     }

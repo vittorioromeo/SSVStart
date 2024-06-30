@@ -24,7 +24,7 @@ private:
     using ITrigger = Input::Trigger;
     using IType = Input::Type;
     using IMode = Input::Mode;
-    using IFunc = std::function<void(ssvu::FT)>;
+    using IFunc = std::function<void(float)>;
 
     Input::Manager inputManager;
 
@@ -33,7 +33,7 @@ private:
         onAnyEvent(mEvent);
     }
 
-    void update(ssvu::FT mFT)
+    void update(float mFT)
     {
         onUpdate(mFT);
     }
@@ -43,7 +43,7 @@ private:
         onDraw();
     }
 
-    void updateInput(Input::InputState& mInputState, ssvu::FT mFT)
+    void updateInput(Input::InputState& mInputState, float mFT)
     {
         inputManager.update(mInputState, mFT);
     }
@@ -55,7 +55,7 @@ private:
 
 public:
     ssvu::Delegate<void()> onDraw, onPostUpdate;
-    ssvu::Delegate<void(ssvu::FT)> onUpdate;
+    ssvu::Delegate<void(float)> onUpdate;
     ssvu::Delegate<void(const sf::Event&)> onAnyEvent;
 
     GameState() = default;
@@ -76,7 +76,7 @@ public:
         IMode mMode = IMode::Overlap)
     {
         return addInput(
-            mTrigger, mFuncOn, [](ssvu::FT) {}, mType, mTriggerID, mMode);
+            mTrigger, mFuncOn, [](float) {}, mType, mTriggerID, mMode);
     }
 
     void refreshTrigger(const Input::Trigger& trigger, int bindID)

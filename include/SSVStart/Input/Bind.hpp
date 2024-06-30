@@ -17,7 +17,7 @@ class Manager;
 class Bind
 {
 private:
-    using InputFunc = std::function<void(ssvu::FT)>;
+    using InputFunc = std::function<void(float)>;
 
     Manager& manager;
     Trigger trigger;
@@ -47,8 +47,8 @@ private:
 public:
     inline Bind(
         Manager& mManager, Trigger mTrigger, Type mType, Mode mMode,
-        int mTriggerID, const InputFunc& mOn = [](ssvu::FT) {},
-        const InputFunc& mOff = [](ssvu::FT) {})
+        int mTriggerID, const InputFunc& mOn = [](float) {},
+        const InputFunc& mOff = [](float) {})
         : manager(mManager),
           trigger{std::move(mTrigger)},
           on{mOn},
@@ -60,7 +60,7 @@ public:
         recalculatePriorityCombo();
     }
 
-    inline void update(ssvu::FT mFT, InputState& mInputState)
+    inline void update(float mFT, InputState& mInputState)
     {
         isActive(mInputState) ? on(mFT) : off(mFT);
     }

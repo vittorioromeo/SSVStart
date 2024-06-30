@@ -15,8 +15,6 @@
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 #include <SSVUtils/Core/Common/Casts.hpp>
-#include <SSVUtils/Core/Common/Frametime.hpp>
-
 
 namespace ssvs
 {
@@ -44,7 +42,7 @@ public:
     {
     }
 
-    inline void update(ssvu::FT mFT) noexcept override
+    inline void update(float mFT) noexcept override
     {
         if(anim == Anim::Pulse)
         {

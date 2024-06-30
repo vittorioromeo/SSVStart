@@ -114,7 +114,7 @@ public:
     }
 
     template <typename T = float>
-    void update(ssvu::FT mFT)
+    void update(float mFT)
     {
         if(!invalid) return;
 

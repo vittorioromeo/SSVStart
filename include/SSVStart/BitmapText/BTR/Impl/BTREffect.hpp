@@ -10,7 +10,6 @@
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
-#include <SSVUtils/Core/Common/Frametime.hpp>
 
 namespace ssvs
 {
@@ -27,7 +26,7 @@ public:
     {
     }
 
-    inline virtual void update(ssvu::FT) noexcept
+    inline virtual void update(float) noexcept
     {
     }
     inline virtual void apply(BTRChunk&) noexcept

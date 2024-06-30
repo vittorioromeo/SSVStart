@@ -7,20 +7,18 @@
 #include "SSVStart/GameSystem/Timers/TimerBase.hpp"
 #include "SSVStart/GameSystem/GameEngine.hpp"
 
-#include <SSVUtils/Core/Common/Frametime.hpp>
-
 namespace ssvs
 {
 
 class TimerStatic final : public TimerBase
 {
 private:
-    ssvu::FT step, timeSlice, time{0};
+    float step, timeSlice, time{0};
     float maxLoops, loops{0};
 
 public:
-    TimerStatic(GameEngine& mGameEngine, ssvu::FT mStep = 1.f,
-        ssvu::FT mTimeSlice = 1.f, float mMaxLoops = 50.f) noexcept
+    TimerStatic(GameEngine& mGameEngine, float mStep = 1.f,
+        float mTimeSlice = 1.f, float mMaxLoops = 50.f) noexcept
         : TimerBase(mGameEngine), step{mStep}, timeSlice{mTimeSlice},
           maxLoops{mMaxLoops}
     {
@@ -44,12 +42,12 @@ public:
         }
     }
 
-    void setStep(ssvu::FT mStep) noexcept
+    void setStep(float mStep) noexcept
     {
         step = mStep;
     }
 
-    void setTimeSlice(ssvu::FT mTimeSlice) noexcept
+    void setTimeSlice(float mTimeSlice) noexcept
     {
         timeSlice = mTimeSlice;
     }
@@ -59,17 +57,17 @@ public:
         maxLoops = mMaxLoops;
     }
 
-    [[nodiscard]] ssvu::FT getStep() const noexcept
+    [[nodiscard]] float getStep() const noexcept
     {
         return step;
     }
 
-    [[nodiscard]] ssvu::FT getTimeSlice() const noexcept
+    [[nodiscard]] float getTimeSlice() const noexcept
     {
         return timeSlice;
     }
 
-    [[nodiscard]] ssvu::FT getTime() const noexcept
+    [[nodiscard]] float getTime() const noexcept
     {
         return time;
     }

@@ -6,7 +6,6 @@
 #define SSVS_GLOBAL_TYPEDEFS
 
 #include <SSVUtils/Core/Common/Casts.hpp>
-#include <SSVUtils/Core/Common/Frametime.hpp>
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Joystick.hpp>

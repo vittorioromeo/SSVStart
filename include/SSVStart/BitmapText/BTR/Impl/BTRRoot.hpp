@@ -16,7 +16,6 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREColor.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRDrawState.hpp"
 
-#include <SSVUtils/Core/Common/Frametime.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
@@ -210,7 +209,7 @@ public:
         baseChunk = &mkChunk();
         lastChunk = baseChunk;
     }
-    inline void update(ssvu::FT mFT) noexcept
+    inline void update(float mFT) noexcept
     {
         baseChunk->update(mFT);
     }

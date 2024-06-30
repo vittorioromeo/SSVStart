@@ -11,7 +11,6 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREffect.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRChunk.hpp"
 
-#include <SSVUtils/Core/Common/Frametime.hpp>
 #include <SSVUtils/Core/Utils/Math.hpp>
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
@@ -38,7 +37,7 @@ public:
     {
     }
 
-    inline void update(ssvu::FT mFT) noexcept override
+    inline void update(float mFT) noexcept override
     {
         angle = ssvu::getWrapRad(angle + mFT * speedMult);
     }

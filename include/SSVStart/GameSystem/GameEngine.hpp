@@ -37,7 +37,7 @@ private:
     }
 
     // These methods are called from the timer
-    void updateFromTimer(ssvu::FT mFT)
+    void updateFromTimer(float mFT)
     {
         assert(isValid());
 

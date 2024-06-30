@@ -8,6 +8,7 @@
 #include "SSVStart/Input/Bind.hpp"
 #include "SSVStart/Input/InputState.hpp"
 
+#include <algorithm>
 #include <vector>
 #include <memory>
 
@@ -29,7 +30,7 @@ private:
     bool isIgnoringNext{false}, isIgnoringAll{false}, mustSort{false};
 
 public:
-    inline void update(InputState& mInputState, ssvu::FT mFT)
+    inline void update(InputState& mInputState, float mFT)
     {
         if(isIgnoringAll) return;
 

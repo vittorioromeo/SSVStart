@@ -19,7 +19,7 @@ class TimerBase
 protected:
     GameEngine& gameEngine;
     sf::Clock clock;
-    ssvu::FT frameTime{0};
+    float frameTime{0};
     float fps{0};
 
 public:
@@ -49,7 +49,7 @@ public:
 
     virtual void runDraw() final;
 
-    [[nodiscard]] ssvu::FT getFrameTime() const noexcept
+    [[nodiscard]] float getFrameTime() const noexcept
     {
         return frameTime;
     }
