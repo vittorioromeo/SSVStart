@@ -10,7 +10,6 @@
 
 #include <SFML/Graphics/Color.hpp>
 
-#include <tuple>
 #include <cmath>
 #include <cassert>
 
@@ -496,6 +495,7 @@ inline sf::Color getColorFromHSV(float mH, float mS, float mV) noexcept
     return sf::Color(r * 255.f, g * 255.f, b * 255.f);
 }
 
+/*
 /// @brief Creates and returns an sf::Color from HSV values.
 /// @return Returns a tuple of [0..1] HSV values.
 inline auto getHSVFromColor(const sf::Color& mX)
@@ -530,7 +530,7 @@ inline auto getHSVFromColor(const sf::Color& mX)
 
     return std::make_tuple(h, s, r);
 }
-
+*/
 
 /// @brief Creates and returns an sf::Color from an hexadecimal value.
 inline auto getColorFromHex(unsigned int mHex) noexcept

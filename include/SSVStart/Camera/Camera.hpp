@@ -4,12 +4,6 @@
 
 #pragma once
 
-#include "SSVStart/Global/Typedefs.hpp"
-#include "SSVStart/Utils/Vector2.hpp"
-#include "SSVStart/GameSystem/GameSystem.hpp"
-
-#include <SSVUtils/Core/Common/Casts.hpp>
-
 #include <SFML/System/Vector2.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -17,8 +11,7 @@
 
 #include <cassert>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class GameWindow;
 
@@ -32,22 +25,18 @@ private:
 
 public:
     Camera(const sf::View& mView) : view{mView}
-    {
-    }
+    {}
 
-    Camera(GameWindow& mGameWindow, const sf::Vector2f& mCenter,
+    Camera(float width, float height, const sf::Vector2f& mCenter,
         float mZoomFactor = 1.f)
-        : view{mCenter, {mGameWindow.getWidth() / mZoomFactor,
-                            mGameWindow.getHeight() / mZoomFactor}}
+        : view{mCenter, {width / mZoomFactor, height / mZoomFactor}}
     {
         assert(mZoomFactor != 0);
     }
 
-    Camera(GameWindow& mGameWindow, float mZoomFactor = 1.f)
-        : view{{mGameWindow.getWidth() / 2.f / mZoomFactor,
-                   mGameWindow.getHeight() / 2.f / mZoomFactor},
-              {mGameWindow.getWidth() / mZoomFactor,
-                  mGameWindow.getHeight() / mZoomFactor}}
+    Camera(float width, float height, float mZoomFactor = 1.f)
+        : view{{width / 2.f / mZoomFactor, height / 2.f / mZoomFactor},
+              {width / mZoomFactor, height / mZoomFactor}}
     {
         assert(mZoomFactor != 0);
     }
@@ -60,20 +49,19 @@ public:
             computedView = view;
 
             computedView.setSize(
-                {ssvu::toNum<T>(computedView.getSize().x * skew.x),
-                    ssvu::toNum<T>(computedView.getSize().y * skew.y)});
+                {static_cast<T>(computedView.getSize().x * skew.x),
+                    static_cast<T>(computedView.getSize().y * skew.y)});
 
-            if(getMag(offset) != 0)
+            if(offset.length() != 0)
             {
                 computedView.setCenter(
-                    {view.getCenter() -
-                        getVecFromDeg(
-                            view.getRotation().asDegrees() + getDeg(offset),
-                            getMag(offset))});
+                    view.getCenter() -
+                    sf::Vector2f(
+                        offset.length(), view.getRotation() + offset.angle()));
             }
 
-            computedView.setCenter({ssvu::toNum<T>(computedView.getCenter().x),
-                ssvu::toNum<T>(computedView.getCenter().y)});
+            computedView.setCenter({static_cast<T>(computedView.getCenter().x),
+                static_cast<T>(computedView.getCenter().y)});
 
             mustRecompute = false;
         }
@@ -123,7 +111,7 @@ public:
         view.rotate(sf::degrees(nextRotation * mFT));
 
         mustRecompute = true;
-        nullify(nextPan);
+        nextPan = {0.f, 0.f};
         nextZoomFactor = 1.f;
         nextRotation = 0.f;
         invalid = false;

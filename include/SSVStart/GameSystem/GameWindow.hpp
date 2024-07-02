@@ -20,6 +20,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <vector>
+
 #include <cassert>
 
 namespace ssvs {
