@@ -73,60 +73,60 @@ inline float getCenterY(const T& mX) noexcept
 }
 
 template <typename T>
-inline Vec2f getSize(const T& mX) noexcept
+inline sf::Vector2f getSize(const T& mX) noexcept
 {
     return {getWidth(mX), getHeight(mX)};
 }
 template <typename T>
-inline Vec2f getHalfSize(const T& mX) noexcept
+inline sf::Vector2f getHalfSize(const T& mX) noexcept
 {
     return {getHalfWidth(mX), getHalfHeight(mX)};
 }
 
 template <typename T>
-inline Vec2f getNW(const T& mX) noexcept
+inline sf::Vector2f getNW(const T& mX) noexcept
 {
     return {getLeft(mX), getTop(mX)};
 }
 template <typename T>
-inline Vec2f getNE(const T& mX) noexcept
+inline sf::Vector2f getNE(const T& mX) noexcept
 {
     return {getRight(mX), getTop(mX)};
 }
 template <typename T>
-inline Vec2f getSW(const T& mX) noexcept
+inline sf::Vector2f getSW(const T& mX) noexcept
 {
     return {getLeft(mX), getBottom(mX)};
 }
 template <typename T>
-inline Vec2f getSE(const T& mX) noexcept
+inline sf::Vector2f getSE(const T& mX) noexcept
 {
     return {getRight(mX), getBottom(mX)};
 }
 
 template <typename T>
-inline Vec2f getCenter(const T& mX) noexcept
+inline sf::Vector2f getCenter(const T& mX) noexcept
 {
     return getNW(mX) + getHalfSize(mX);
 }
 
 template <typename T>
-inline Vec2f getCenterN(const T& mX) noexcept
+inline sf::Vector2f getCenterN(const T& mX) noexcept
 {
     return {getCenterX(mX), getTop(mX)};
 }
 template <typename T>
-inline Vec2f getCenterE(const T& mX) noexcept
+inline sf::Vector2f getCenterE(const T& mX) noexcept
 {
     return {getRight(mX), getCenterY(mX)};
 }
 template <typename T>
-inline Vec2f getCenterS(const T& mX) noexcept
+inline sf::Vector2f getCenterS(const T& mX) noexcept
 {
     return {getCenterX(mX), getBottom(mX)};
 }
 template <typename T>
-inline Vec2f getCenterW(const T& mX) noexcept
+inline sf::Vector2f getCenterW(const T& mX) noexcept
 {
     return {getLeft(mX), getCenterY(mX)};
 }
@@ -205,77 +205,77 @@ inline float getGlobalCenterY(const T& mX) noexcept
 
 /// @brief Returns global size of a drawable element.
 template <typename T>
-inline Vec2f getGlobalSize(const T& mX) noexcept
+inline sf::Vector2f getGlobalSize(const T& mX) noexcept
 {
     return Impl::getSize(mX.getGlobalBounds());
 }
 
 /// @brief Returns global halfsize of a drawable element.
 template <typename T>
-inline Vec2f getGlobalHalfSize(const T& mX) noexcept
+inline sf::Vector2f getGlobalHalfSize(const T& mX) noexcept
 {
     return Impl::getHalfSize(mX.getGlobalBounds());
 }
 
 /// @brief Returns global NW corner of a drawable element.
 template <typename T>
-inline Vec2f getGlobalNW(const T& mX) noexcept
+inline sf::Vector2f getGlobalNW(const T& mX) noexcept
 {
     return Impl::getNW(mX.getGlobalBounds());
 }
 
 /// @brief Returns global NE corner of a drawable element.
 template <typename T>
-inline Vec2f getGlobalNE(const T& mX) noexcept
+inline sf::Vector2f getGlobalNE(const T& mX) noexcept
 {
     return Impl::getNE(mX.getGlobalBounds());
 }
 
 /// @brief Returns global SW corner of a drawable element.
 template <typename T>
-inline Vec2f getGlobalSW(const T& mX) noexcept
+inline sf::Vector2f getGlobalSW(const T& mX) noexcept
 {
     return Impl::getSW(mX.getGlobalBounds());
 }
 
 /// @brief Returns global SE corner of a drawable element.
 template <typename T>
-inline Vec2f getGlobalSE(const T& mX) noexcept
+inline sf::Vector2f getGlobalSE(const T& mX) noexcept
 {
     return Impl::getSE(mX.getGlobalBounds());
 }
 
 /// @brief Returns global center of a drawable element.
 template <typename T>
-inline Vec2f getGlobalCenter(const T& mX) noexcept
+inline sf::Vector2f getGlobalCenter(const T& mX) noexcept
 {
     return Impl::getCenter(mX.getGlobalBounds());
 }
 
 /// @brief Returns global center-north of a drawable element.
 template <typename T>
-inline Vec2f getGlobalCenterN(const T& mX) noexcept
+inline sf::Vector2f getGlobalCenterN(const T& mX) noexcept
 {
     return Impl::getCenterN(mX.getGlobalBounds());
 }
 
 /// @brief Returns global center-east of a drawable element.
 template <typename T>
-inline Vec2f getGlobalCenterE(const T& mX) noexcept
+inline sf::Vector2f getGlobalCenterE(const T& mX) noexcept
 {
     return Impl::getCenterE(mX.getGlobalBounds());
 }
 
 /// @brief Returns global center-south of a drawable element.
 template <typename T>
-inline Vec2f getGlobalCenterS(const T& mX) noexcept
+inline sf::Vector2f getGlobalCenterS(const T& mX) noexcept
 {
     return Impl::getCenterS(mX.getGlobalBounds());
 }
 
 /// @brief Returns global center-west of a drawable element.
 template <typename T>
-inline Vec2f getGlobalCenterW(const T& mX) noexcept
+inline sf::Vector2f getGlobalCenterW(const T& mX) noexcept
 {
     return Impl::getCenterW(mX.getGlobalBounds());
 }
@@ -354,86 +354,86 @@ inline float getLocalCenterY(const T& mX) noexcept
 
 /// @brief Returns local size of a drawable element.
 template <typename T>
-inline Vec2f getLocalSize(const T& mX) noexcept
+inline sf::Vector2f getLocalSize(const T& mX) noexcept
 {
     return Impl::getSize(mX.getLocalBounds());
 }
 
 /// @brief Returns local halfsize of a drawable element.
 template <typename T>
-inline Vec2f getLocalHalfSize(const T& mX) noexcept
+inline sf::Vector2f getLocalHalfSize(const T& mX) noexcept
 {
     return Impl::getHalfSize(mX.getLocalBounds());
 }
 
 /// @brief Returns local NW corner of a drawable element.
 template <typename T>
-inline Vec2f getLocalNW(const T& mX) noexcept
+inline sf::Vector2f getLocalNW(const T& mX) noexcept
 {
     return Impl::getNW(mX.getLocalBounds());
 }
 
 /// @brief Returns local NE corner of a drawable element.
 template <typename T>
-inline Vec2f getLocalNE(const T& mX) noexcept
+inline sf::Vector2f getLocalNE(const T& mX) noexcept
 {
     return Impl::getNE(mX.getLocalBounds());
 }
 
 /// @brief Returns local SW corner of a drawable element.
 template <typename T>
-inline Vec2f getLocalSW(const T& mX) noexcept
+inline sf::Vector2f getLocalSW(const T& mX) noexcept
 {
     return Impl::getSW(mX.getLocalBounds());
 }
 
 /// @brief Returns local SE corner of a drawable element.
 template <typename T>
-inline Vec2f getLocalSE(const T& mX) noexcept
+inline sf::Vector2f getLocalSE(const T& mX) noexcept
 {
     return Impl::getSE(mX.getLocalBounds());
 }
 
 /// @brief Returns local center of a drawable element.
 template <typename T>
-inline Vec2f getLocalCenter(const T& mX) noexcept
+inline sf::Vector2f getLocalCenter(const T& mX) noexcept
 {
     return Impl::getCenter(mX.getLocalBounds());
 }
 
 /// @brief Returns local center-north of a drawable element.
 template <typename T>
-inline Vec2f getLocalCenterN(const T& mX) noexcept
+inline sf::Vector2f getLocalCenterN(const T& mX) noexcept
 {
     return Impl::getCenterN(mX.getLocalBounds());
 }
 
 /// @brief Returns local center-east of a drawable element.
 template <typename T>
-inline Vec2f getLocalCenterE(const T& mX) noexcept
+inline sf::Vector2f getLocalCenterE(const T& mX) noexcept
 {
     return Impl::getCenterE(mX.getLocalBounds());
 }
 
 /// @brief Returns local center-south of a drawable element.
 template <typename T>
-inline Vec2f getLocalCenterS(const T& mX) noexcept
+inline sf::Vector2f getLocalCenterS(const T& mX) noexcept
 {
     return Impl::getCenterS(mX.getLocalBounds());
 }
 
 /// @brief Returns local center-west of a drawable element.
 template <typename T>
-inline Vec2f getLocalCenterW(const T& mX) noexcept
+inline sf::Vector2f getLocalCenterW(const T& mX) noexcept
 {
     return Impl::getCenterW(mX.getLocalBounds());
 }
 
 /// @brief Sets the origin of a drawable element using a function that
 /// returns a
-/// `Vec2f`.
+/// `sf::Vector2f`.
 template <typename T>
-inline void setOrigin(T& mX, Vec2f (*mFn)(const T&)) noexcept
+inline void setOrigin(T& mX, sf::Vector2f (*mFn)(const T&)) noexcept
 {
     mX.setOrigin(mFn(mX));
 }

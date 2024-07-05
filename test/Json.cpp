@@ -27,9 +27,9 @@ int main()
         EXECTEST;                   \
     } while(false)
 
-    MAKETEST(ssvs::Vec2f, 52.f, 33.f);
-    MAKETEST(ssvs::Vec2i, 52, -33);
-    MAKETEST(ssvs::Vec2u, 52, 33);
+    MAKETEST(ssvs::sf::Vector2f, 52.f, 33.f);
+    MAKETEST(ssvs::sf::Vector2i, 52, -33);
+    MAKETEST(ssvs::sf::Vector2u, 52, 33);
 
     MAKETEST(sf::Color, 52, 33, 22);
     MAKETEST(sf::Color, 0, 0, 0);

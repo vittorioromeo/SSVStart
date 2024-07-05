@@ -16,8 +16,7 @@
 #include <bitset>
 #include <cstddef>
 
-namespace ssvs
-{
+namespace ssvs {
 
 using KKey = sf::Keyboard::Key;
 using MBtn = sf::Mouse::Button;
@@ -36,13 +35,6 @@ using KeyBitset =
                                              // with KKey::Unknown, which is -1
 using BtnBitset =
     std::bitset<mBtnCount + inputBitOffset>; // +offset to stay consistent
-
-template <typename T>
-using Vec2 = sf::Vector2<T>;
-
-using Vec2i = Vec2<int>;
-using Vec2f = Vec2<float>;
-using Vec2u = Vec2<unsigned int>;
 
 [[nodiscard]] inline FingerBitset::reference getFingerBit(
     FingerBitset& mBitset, FingerID mI) noexcept

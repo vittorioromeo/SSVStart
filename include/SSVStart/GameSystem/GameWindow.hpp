@@ -101,7 +101,7 @@ private:
             fullscreen ? sf::State::Fullscreen : sf::State::Windowed,
             sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
 
-        renderWindow.setSize(Vec2u(width * pixelMult, height * pixelMult));
+        renderWindow.setSize(sf::Vector2u(width * pixelMult, height * pixelMult));
         renderWindow.setVerticalSyncEnabled(vsync);
         renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
 
@@ -319,7 +319,7 @@ public:
     }
     auto getFingerDownPositions() const noexcept
     {
-        std::vector<Vec2i> result;
+        std::vector<sf::Vector2i> result;
 
         // TODO: bitset iteration function (forTrueBits?)
         for(auto i(0u); i < fingerCount; ++i)

@@ -5,6 +5,7 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_BTRROOT
 #define SSVS_BITMAPTEXT_BTR_IMPL_BTRROOT
 
+#include "SFML/Graphics/Rect.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
 
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
@@ -135,9 +136,9 @@ private:
 
             const auto& tracking(mChunk.getTracking());
             const auto& leading(mChunk.getLeading());
-            const auto& rect(bitmapFont->getGlyphRect(c));
+            const sf::FloatRect rect(bitmapFont->getGlyphRect(c));
 
-            auto newPos(vertices.empty() ? Vec2f(0.f, bdd.height)
+            auto newPos(vertices.empty() ? sf::Vector2f(0.f, bdd.height)
                                          : vertices.back().position);
 
             newPos.x += bdd.nextHChunkSpacing;
@@ -171,22 +172,23 @@ private:
 
             // NW
             vertices.emplace_back(
-                Vec2f(gLeft, gTop), Vec2f(rect.left, rect.top));
+                sf::Vector2f(gLeft, gTop), sf::Color::White, rect.position);
             // SW
-            vertices.emplace_back(Vec2f(gLeft, gBottom),
-                Vec2f(rect.left, rect.top + rect.height));
+            vertices.emplace_back(sf::Vector2f(gLeft, gBottom),
+                sf::Color::White,
+                sf::Vector2f(rect.position.x, rect.position.y + rect.size.y));
             // SE
-            vertices.emplace_back(Vec2f(gRight, gBottom),
-                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            vertices.emplace_back(sf::Vector2f(gRight, gBottom),
+                sf::Color::White, rect.position + rect.size);
             // NW
             vertices.emplace_back(
-                Vec2f(gLeft, gTop), Vec2f(rect.left, rect.top));
+                sf::Vector2f(gLeft, gTop), sf::Color::White, rect.position);
             // SE
-            vertices.emplace_back(Vec2f(gRight, gBottom),
-                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            vertices.emplace_back(sf::Vector2f(gRight, gBottom),
+                sf::Color::White, rect.position + rect.size);
             // NE
-            vertices.emplace_back(
-                Vec2f(gRight, gTop), Vec2f(rect.left + rect.width, rect.top));
+            vertices.emplace_back(sf::Vector2f(gRight, gTop), sf::Color::White,
+                sf::Vector2f(rect.position.x + rect.size.x, rect.position.y));
 
             ++bdd.iX;
         }

@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "SFML/Graphics/PrimitiveType.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapFont.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
@@ -15,7 +14,10 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Vertex.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/PrimitiveType.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <cstddef>
@@ -84,7 +86,7 @@ protected:
                 }
             }
 
-            const auto& rect(bitmapFont->getGlyphRect(c));
+            const sf::FloatRect rect(bitmapFont->getGlyphRect(c));
             auto spacing(bdd.tracking * bdd.iX);
 
             auto gLeft(bdd.iX * bdd.width + spacing);
@@ -98,22 +100,22 @@ protected:
 
             // NW
             vertices.emplace_back(
-                Vec2f(gLeft, gTop), bdd.colorFG, Vec2f(rect.left, rect.top));
+                sf::Vector2f(gLeft, gTop), bdd.colorFG, rect.position);
             // SW
-            vertices.emplace_back(Vec2f(gLeft, gBottom), bdd.colorFG,
-                Vec2f(rect.left, rect.top + rect.height));
+            vertices.emplace_back(sf::Vector2f(gLeft, gBottom), bdd.colorFG,
+                sf::Vector2f(rect.position.x, rect.position.y + rect.size.y));
             // SE
-            vertices.emplace_back(Vec2f(gRight, gBottom), bdd.colorFG,
-                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            vertices.emplace_back(sf::Vector2f(gRight, gBottom), bdd.colorFG,
+                rect.position + rect.size);
             // NW
             vertices.emplace_back(
-                Vec2f(gLeft, gTop), bdd.colorFG, Vec2f(rect.left, rect.top));
+                sf::Vector2f(gLeft, gTop), bdd.colorFG, rect.position);
             // SE
-            vertices.emplace_back(Vec2f(gRight, gBottom), bdd.colorFG,
-                Vec2f(rect.left + rect.width, rect.top + rect.height));
+            vertices.emplace_back(sf::Vector2f(gRight, gBottom), bdd.colorFG,
+                rect.position + rect.size);
             // NE
-            vertices.emplace_back(Vec2f(gRight, gTop), bdd.colorFG,
-                Vec2f(rect.left + rect.width, rect.top));
+            vertices.emplace_back(sf::Vector2f(gRight, gTop), bdd.colorFG,
+                sf::Vector2f(rect.position.x + rect.size.x, rect.position.y));
 
             // Count printable characters in the current row.
             ++bdd.chCount;

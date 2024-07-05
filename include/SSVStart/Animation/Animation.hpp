@@ -15,7 +15,7 @@ namespace ssvs
 
 struct AnimationStep
 {
-    Vec2u index;
+    sf::Vector2u index;
     float time;
 };
 
@@ -89,7 +89,7 @@ public:
         for(const auto& s : mSteps) addStep(s);
     }
 
-    void addSteps(const std::initializer_list<Vec2u>& mIndexes, float mStepTime)
+    void addSteps(const std::initializer_list<sf::Vector2u>& mIndexes, float mStepTime)
     {
         for(const auto& i : mIndexes) addStep({i, mStepTime});
     }

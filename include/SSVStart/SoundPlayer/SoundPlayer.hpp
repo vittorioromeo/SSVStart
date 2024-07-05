@@ -8,9 +8,9 @@
 
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/PlaybackDevice.hpp>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class SoundPlayer
 {
@@ -31,7 +31,8 @@ public:
         Abort
     };
 
-    auto& play(sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap,
+    auto& play(sf::PlaybackDevice& playbackDevice,
+        sf::SoundBuffer& mSoundBuffer, Mode mMode = Mode::Overlap,
         float mPitch = 1.f)
     {
         for(const auto& s : sounds)
@@ -50,7 +51,7 @@ public:
         auto& sound(sounds.create(mSoundBuffer));
         sound.setVolume(volume);
         sound.setPitch(mPitch);
-        sound.play();
+        sound.play(playbackDevice);
 
         sounds.refresh();
 
