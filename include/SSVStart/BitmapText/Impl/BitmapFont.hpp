@@ -10,7 +10,7 @@
 #include <SSVUtils/Core/Utils/Math.hpp>
 
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Rect.hpp>
 
 namespace ssvs
 {

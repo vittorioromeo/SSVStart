@@ -5,7 +5,7 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_BTRROOT
 #define SSVS_BITMAPTEXT_BTR_IMPL_BTRROOT
 
-#include "SFML/Graphics/Rect.hpp"
+#include "SFML/System/Rect.hpp"
 #include "SSVStart/Global/Typedefs.hpp"
 
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"

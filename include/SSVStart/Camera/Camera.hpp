@@ -56,7 +56,7 @@ public:
             {
                 computedView.setCenter(
                     view.getCenter() -
-                    sf::Vector2f(
+                    sf::Vector2f::fromAngle(
                         offset.length(), view.getRotation() + offset.angle()));
             }
 

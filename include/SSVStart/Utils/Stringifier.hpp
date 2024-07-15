@@ -10,7 +10,7 @@
 #include "SSVStart/Utils/Input.hpp"
 
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Rect.hpp>
 
 #include <sstream>
 

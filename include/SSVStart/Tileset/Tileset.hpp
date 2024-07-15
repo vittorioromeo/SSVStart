@@ -6,7 +6,7 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
-#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Rect.hpp>
 
 #include <string>
 #include <unordered_map>

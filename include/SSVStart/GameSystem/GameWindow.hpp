@@ -11,6 +11,7 @@
 #include "SSVUtils/Core/Common/Aliases.hpp"
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Window/GraphicsContext.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Touch.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -20,6 +21,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <SFML/System/Path.hpp>
+
+#include <SFML/Base/Optional.hpp>
+
+#include <chrono>
 #include <vector>
 
 #include <cassert>
@@ -33,7 +39,7 @@ private:
     std::unique_ptr<GameEngine> gameEngine{
         std::make_unique<GameEngine>()}; // TODO: should the user create a
                                          // GameEngine?
-    sf::RenderWindow renderWindow;
+    sf::base::Optional<sf::RenderWindow> renderWindow;
     std::string title;
     float msUpdate, msDraw;
     float maxFPS{60.f}, pixelMult{1.f};
@@ -45,8 +51,7 @@ private:
     {
         assert(gameEngine != nullptr);
 
-        while(
-            const std::optional<sf::Event> optEvent = renderWindow.pollEvent())
+        while(const auto optEvent = renderWindow->pollEvent())
         {
             auto& event = optEvent.value();
 
@@ -92,18 +97,19 @@ private:
         }
     }
 
-    void recreateWindow()
+    void recreateWindow(sf::GraphicsContext& graphicsContext)
     {
-        if(renderWindow.isOpen()) renderWindow.close();
+        renderWindow.reset();
 
-        renderWindow.create(sf::VideoMode{{width, height}}, title,
-            sf::Style::Default,
+        renderWindow.emplace(graphicsContext, sf::VideoMode{{width, height}},
+            title, sf::Style::Default,
             fullscreen ? sf::State::Fullscreen : sf::State::Windowed,
-            sf::ContextSettings{0, 0, antialiasingLevel, 0, 0});
+            sf::ContextSettings{0, 0, antialiasingLevel, 1, 1});
 
-        renderWindow.setSize(sf::Vector2u(width * pixelMult, height * pixelMult));
-        renderWindow.setVerticalSyncEnabled(vsync);
-        renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
+        renderWindow->setSize(
+            sf::Vector2u(width * pixelMult, height * pixelMult));
+        renderWindow->setVerticalSyncEnabled(vsync);
+        renderWindow->setFramerateLimit(fpsLimited ? maxFPS : 0);
 
         inputState.reset();
 
@@ -114,8 +120,9 @@ private:
 public:
     ssvu::Delegate<void()> onRecreation;
 
-    GameWindow()
+    GameWindow(sf::GraphicsContext& graphicsContext)
     {
+        recreateWindow(graphicsContext);
         gameEngine->setInputState(inputState);
     }
 
@@ -125,7 +132,7 @@ public:
     GameWindow(GameWindow&&) = delete;
     GameWindow& operator=(GameWindow&&) = delete;
 
-    void run()
+    void run(sf::GraphicsContext& graphicsContext)
     {
         using FTDuration = std::chrono::duration<float, std::milli>;
 
@@ -133,9 +140,9 @@ public:
 
         while(gameEngine->isRunning())
         {
-            if(mustRecreate) recreateWindow();
+            if(mustRecreate) recreateWindow(graphicsContext);
 
-            (void)renderWindow.setActive(true);
+            (void)renderWindow->setActive(true);
             this->clear();
 
             gameEngine->refreshTimer();
@@ -152,7 +159,7 @@ public:
             tempMs = std::chrono::high_resolution_clock::now();
             {
                 gameEngine->runDraw();
-                renderWindow.display();
+                renderWindow->display();
             }
             msDraw = std::chrono::duration_cast<FTDuration>(
                 std::chrono::high_resolution_clock::now() - tempMs)
@@ -169,26 +176,27 @@ public:
 
     void clear(const sf::Color& mColor = sf::Color::Transparent)
     {
-        renderWindow.clear(mColor);
+        renderWindow->clear(mColor);
     }
 
     template <typename... Ts>
     void draw(Ts&&... xs)
     {
-        renderWindow.draw(FWD(xs)...);
+        renderWindow->draw(FWD(xs)...);
     }
 
-    void saveScreenshot(const std::string& mPath) const
+    void saveScreenshot(
+        sf::GraphicsContext& graphicsContext, const std::string& mPath) const
     {
-        auto t = sf::Texture::create(
-            {renderWindow.getSize().x, renderWindow.getSize().y});
+        auto t = sf::Texture::create(graphicsContext,
+            {renderWindow->getSize().x, renderWindow->getSize().y});
 
-        if(!t.has_value())
+        if(!t.hasValue())
         {
             return;
         }
 
-        t->update(renderWindow);
+        t->update(*renderWindow);
         auto img = t->copyToImage();
 
         (void)img.saveToFile(mPath);
@@ -223,22 +231,22 @@ public:
 
     void setMouseCursorVisible(bool mEnabled)
     {
-        renderWindow.setMouseCursorVisible(mEnabled);
+        renderWindow->setMouseCursorVisible(mEnabled);
     }
     void setTitle(std::string mTitle)
     {
         title = std::move(mTitle);
-        renderWindow.setTitle(mTitle);
+        renderWindow->setTitle(mTitle);
     }
     void setMaxFPS(float mMaxFPS)
     {
         maxFPS = mMaxFPS;
-        renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
+        renderWindow->setFramerateLimit(fpsLimited ? maxFPS : 0);
     }
     void setFPSLimited(bool mFPSLimited)
     {
         fpsLimited = mFPSLimited;
-        renderWindow.setFramerateLimit(fpsLimited ? maxFPS : 0);
+        renderWindow->setFramerateLimit(fpsLimited ? maxFPS : 0);
     }
     void setGameState(GameState& mGameState) noexcept
     {
@@ -248,20 +256,20 @@ public:
 
     void setView(const sf::View& view)
     {
-        renderWindow.setView(view);
+        renderWindow->setView(view);
     }
 
     operator sf::RenderWindow&() noexcept
     {
-        return renderWindow;
+        return *renderWindow;
     }
     auto& getRenderWindow() noexcept
     {
-        return renderWindow;
+        return *renderWindow;
     }
     const auto& getRenderWindow() const noexcept
     {
-        return renderWindow;
+        return *renderWindow;
     }
     bool getFullscreen() const noexcept
     {
@@ -299,13 +307,13 @@ public:
 
     auto getMousePosition() const noexcept
     {
-        return renderWindow.mapPixelToCoords(
-            sf::Mouse::getPosition(renderWindow));
+        return renderWindow->mapPixelToCoords(
+            sf::Mouse::getPosition(*renderWindow));
     }
     auto getFingerPosition(FingerID mX) const noexcept
     {
-        return renderWindow.mapPixelToCoords(
-            sf::Touch::getPosition(mX, renderWindow));
+        return renderWindow->mapPixelToCoords(
+            sf::Touch::getPosition(mX, *renderWindow));
     }
 
     const auto& getInputState() const noexcept
@@ -323,7 +331,8 @@ public:
 
         // TODO: bitset iteration function (forTrueBits?)
         for(auto i(0u); i < fingerCount; ++i)
-            if(inputState.fingers[i]) result.emplace_back(getFingerPosition(i));
+            if(inputState.fingers[i])
+                result.emplace_back(getFingerPosition(i).to<sf::Vector2i>());
 
         return result;
     }
