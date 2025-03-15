@@ -11,16 +11,18 @@
 #include "SSVUtils/Core/Common/Aliases.hpp"
 
 #include <SFML/Window/Event.hpp>
-#include <SFML/Window/GraphicsContext.hpp>
+#include <SFML/Graphics/GraphicsContext.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Touch.hpp>
 #include <SFML/Window/VideoMode.hpp>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Image.hpp>
+#include <SFML/Graphics/ImageUtils.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <SFML/System/String.hpp>
 #include <SFML/System/Path.hpp>
 
 #include <SFML/Base/Optional.hpp>
@@ -199,7 +201,7 @@ public:
         t->update(*renderWindow);
         auto img = t->copyToImage();
 
-        (void)img.saveToFile(mPath);
+        (void)sf::ImageUtils::saveToFile(img, mPath);
     }
 
     void setFullscreen(bool mFullscreen) noexcept

@@ -86,7 +86,7 @@ protected:
                 }
             }
 
-            const sf::FloatRect rect(bitmapFont->getGlyphRect(c));
+            const sf::FloatRect rect(bitmapFont->getGlyphRect(c).to<sf::FloatRect>());
             auto spacing(bdd.tracking * bdd.iX);
 
             auto gLeft(bdd.iX * bdd.width + spacing);

@@ -25,6 +25,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
+#include <SFML/Graphics/Vertex.hpp>
 
 #include <cassert>
 
@@ -136,7 +137,8 @@ private:
 
             const auto& tracking(mChunk.getTracking());
             const auto& leading(mChunk.getLeading());
-            const sf::FloatRect rect(bitmapFont->getGlyphRect(c));
+            const sf::FloatRect rect(
+                bitmapFont->getGlyphRect(c).to<sf::FloatRect>());
 
             auto newPos(vertices.empty() ? sf::Vector2f(0.f, bdd.height)
                                          : vertices.back().position);

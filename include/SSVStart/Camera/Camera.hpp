@@ -9,7 +9,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
+#include <SFML/Window/Mouse.hpp>
+
 #include <cassert>
+#include <cmath>
 
 namespace ssvs {
 
@@ -48,20 +51,18 @@ public:
         {
             computedView = view;
 
-            computedView.setSize(
-                {static_cast<T>(computedView.getSize().x * skew.x),
-                    static_cast<T>(computedView.getSize().y * skew.y)});
+            computedView.size = {static_cast<T>(computedView.size.x * skew.x),
+                static_cast<T>(computedView.size.y * skew.y)};
 
             if(offset.length() != 0)
             {
-                computedView.setCenter(
-                    view.getCenter() -
-                    sf::Vector2f::fromAngle(
-                        offset.length(), view.getRotation() + offset.angle()));
+                computedView.center =
+                    (view.center - sf::Vector2f::fromAngle(offset.length(),
+                                       view.rotation + offset.angle()));
             }
 
-            computedView.setCenter({static_cast<T>(computedView.getCenter().x),
-                static_cast<T>(computedView.getCenter().y)});
+            computedView.center = {static_cast<T>(computedView.center.x),
+                static_cast<T>(computedView.center.y)};
 
             mustRecompute = false;
         }
@@ -106,9 +107,9 @@ public:
     {
         if(!invalid) return;
 
-        view.setCenter(view.getCenter() + nextPan);
-        view.zoom(std::pow(nextZoomFactor, mFT));
-        view.rotate(sf::degrees(nextRotation * mFT));
+        view.center = view.center + nextPan;
+        view.size *= std::pow(nextZoomFactor, mFT);
+        view.rotation += sf::degrees(nextRotation * mFT);
 
         mustRecompute = true;
         nextPan = {0.f, 0.f};
@@ -126,7 +127,7 @@ public:
 
     void setRotation(float mDeg) noexcept
     {
-        view.setRotation(sf::degrees(mDeg));
+        view.rotation = sf::degrees(mDeg);
         mustRecompute = true;
     }
 
@@ -144,7 +145,7 @@ public:
 
     void setCenter(const sf::Vector2f& mPosition) noexcept
     {
-        view.setCenter(mPosition);
+        view.center = mPosition;
         mustRecompute = true;
     }
 
@@ -155,29 +156,29 @@ public:
         invalid = true;
     }
 
-    const auto& getView() const noexcept
+    const sf::View& getView() const noexcept
     {
-
         return view;
     }
+
     float getRotation() const noexcept
     {
-        return view.getRotation().asDegrees();
+        return view.rotation.asDegrees();
     }
 
-    const auto& getSkew() const noexcept
+    const sf::Vector2f& getSkew() const noexcept
     {
         return skew;
     }
 
-    const auto& getOffset() const noexcept
+    const sf::Vector2f& getOffset() const noexcept
     {
         return offset;
     }
 
-    const auto& getCenter() const noexcept
+    sf::Vector2f getCenter() const noexcept
     {
-        return view.getCenter();
+        return view.center;
     }
 
     float getNextZoomFactor() const noexcept
@@ -185,13 +186,13 @@ public:
         return nextZoomFactor;
     }
 
-    auto getMousePosition(const sf::RenderWindow& mRenderWindow) const
+    sf::Vector2f getMousePosition(const sf::RenderWindow& mRenderWindow) const
     {
         return mRenderWindow.mapPixelToCoords(
             sf::Mouse::getPosition(mRenderWindow), view);
     }
 
-    auto getConvertedCoords(
+    sf::Vector2f getConvertedCoords(
         const sf::RenderWindow& mRenderWindow, const sf::Vector2i& mPos) const
     {
         return mRenderWindow.mapPixelToCoords(mPos, view);
@@ -199,10 +200,10 @@ public:
 
     bool isInView(const sf::Vector2f& mPos) const
     {
-        return mPos.x <= view.getCenter().x + view.getSize().x &&
-               (mPos.x >= view.getCenter().x - view.getSize().x &&
-                   (mPos.y <= view.getCenter().y + view.getSize().y &&
-                       mPos.y >= view.getCenter().y - view.getSize().y));
+        return mPos.x <= view.center.x + view.size.x &&
+               (mPos.x >= view.center.x - view.size.x &&
+                   (mPos.y <= view.center.y + view.size.y &&
+                       mPos.y >= view.center.y - view.size.y));
     }
 };
 
