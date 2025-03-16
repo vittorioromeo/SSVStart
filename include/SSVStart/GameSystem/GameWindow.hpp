@@ -11,7 +11,6 @@
 #include "SSVUtils/Core/Common/Aliases.hpp"
 
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/GraphicsContext.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Touch.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -99,14 +98,18 @@ private:
         }
     }
 
-    void recreateWindow(sf::GraphicsContext& graphicsContext)
+    void recreateWindow()
     {
         renderWindow.reset();
 
-        renderWindow.emplace(graphicsContext, sf::VideoMode{{width, height}},
-            title, sf::Style::Default,
-            fullscreen ? sf::State::Fullscreen : sf::State::Windowed,
-            sf::ContextSettings{0, 0, antialiasingLevel, 1, 1});
+        sf::WindowSettings settings{
+            .size = {width, height},
+            .title = title,
+            .fullscreen = fullscreen,
+            .contextSettings = {0, 0, antialiasingLevel, 1, 1},
+        };
+
+        renderWindow.emplace(settings);
 
         renderWindow->setSize(
             sf::Vector2u(width * pixelMult, height * pixelMult));
@@ -122,9 +125,9 @@ private:
 public:
     ssvu::Delegate<void()> onRecreation;
 
-    GameWindow(sf::GraphicsContext& graphicsContext)
+    GameWindow()
     {
-        recreateWindow(graphicsContext);
+        recreateWindow();
         gameEngine->setInputState(inputState);
     }
 
@@ -134,7 +137,7 @@ public:
     GameWindow(GameWindow&&) = delete;
     GameWindow& operator=(GameWindow&&) = delete;
 
-    void run(sf::GraphicsContext& graphicsContext)
+    void run()
     {
         using FTDuration = std::chrono::duration<float, std::milli>;
 
@@ -142,7 +145,7 @@ public:
 
         while(gameEngine->isRunning())
         {
-            if(mustRecreate) recreateWindow(graphicsContext);
+            if(mustRecreate) recreateWindow();
 
             (void)renderWindow->setActive(true);
             this->clear();
@@ -187,10 +190,9 @@ public:
         renderWindow->draw(FWD(xs)...);
     }
 
-    void saveScreenshot(
-        sf::GraphicsContext& graphicsContext, const std::string& mPath) const
+    void saveScreenshot(const std::string& mPath) const
     {
-        auto t = sf::Texture::create(graphicsContext,
+        auto t = sf::Texture::create(
             {renderWindow->getSize().x, renderWindow->getSize().y});
 
         if(!t.hasValue())

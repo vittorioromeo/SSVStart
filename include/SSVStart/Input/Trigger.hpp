@@ -9,6 +9,8 @@
 
 #include <SSVUtils/Core/Utils/Macros.hpp>
 
+#include <vector>
+
 namespace ssvs
 {
 namespace Input
