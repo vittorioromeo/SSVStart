@@ -11,7 +11,7 @@
 #include <SFML/Window/Joystick.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vec2.hpp>
 
 #include <bitset>
 #include <cstddef>

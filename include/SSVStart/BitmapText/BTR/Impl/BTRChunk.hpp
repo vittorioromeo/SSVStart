@@ -16,12 +16,9 @@
 
 #include <cassert>
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 class BTRChunk
 {
     template <typename>
@@ -76,8 +73,7 @@ private:
 
 public:
     inline BTRChunk(BTRRoot& mRoot) noexcept : root{mRoot}
-    {
-    }
+    {}
 
     inline auto getTracking() const noexcept SSVU_ATTRIBUTE(pure)
     {

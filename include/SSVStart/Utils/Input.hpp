@@ -15,8 +15,7 @@
 
 #include <cassert>
 
-namespace ssvs
-{
+namespace ssvs {
 
 using ITrigger = Input::Trigger;
 using IType = Input::Type;
@@ -25,8 +24,7 @@ using IMode = Input::Mode;
 #define SSVS_KEY_PREFIX "k"
 #define SSVS_BTN_PREFIX "b"
 
-namespace Impl
-{
+namespace Impl {
 
 inline const auto* getKKeyStrArray() noexcept
 {

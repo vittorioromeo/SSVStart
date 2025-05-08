@@ -11,27 +11,21 @@
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 class BTREffect
 {
     friend class BTR::Impl::BTRRoot;
 
 public:
     inline virtual ~BTREffect()
-    {
-    }
+    {}
 
     inline virtual void update(float) noexcept
-    {
-    }
+    {}
     inline virtual void apply(BTRChunk&) noexcept
-    {
-    }
+    {}
 };
 } // namespace Impl
 } // namespace BTR

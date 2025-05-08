@@ -7,8 +7,7 @@
 #include "SSVStart/GameSystem/Timers/TimerBase.hpp"
 #include "SSVStart/GameSystem/GameEngine.hpp"
 
-namespace ssvs
-{
+namespace ssvs {
 
 class TimerStatic final : public TimerBase
 {
@@ -19,10 +18,11 @@ private:
 public:
     TimerStatic(GameEngine& mGameEngine, float mStep = 1.f,
         float mTimeSlice = 1.f, float mMaxLoops = 50.f) noexcept
-        : TimerBase(mGameEngine), step{mStep}, timeSlice{mTimeSlice},
+        : TimerBase(mGameEngine),
+          step{mStep},
+          timeSlice{mTimeSlice},
           maxLoops{mMaxLoops}
-    {
-    }
+    {}
 
     void reset() override
     {

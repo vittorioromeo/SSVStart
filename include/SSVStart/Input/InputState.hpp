@@ -7,12 +7,10 @@
 
 #include "SSVStart/Global/Typedefs.hpp"
 
-namespace ssvs
-{
+namespace ssvs {
 class GameWindow;
 
-namespace Input
-{
+namespace Input {
 class InputState
 {
     friend ssvs::GameWindow;

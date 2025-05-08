@@ -12,8 +12,7 @@
 
 #include <cstddef>
 
-namespace ssvs::Impl
-{
+namespace ssvs::Impl {
 
 template <typename T>
 struct Loader // Most resources can be loaded only from Path, Memory or

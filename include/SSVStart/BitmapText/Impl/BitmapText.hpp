@@ -10,8 +10,7 @@
 #include "SSVStart/BitmapText/Impl/BitmapTextDrawState.hpp"
 #include "SSVStart/BitmapText/Impl/BitmapTextBase.hpp"
 
-namespace ssvs
-{
+namespace ssvs {
 class BitmapText : public Impl::BitmapTextBase<BitmapText>
 {
     template <typename>
@@ -50,8 +49,7 @@ public:
     inline BitmapText() = default;
     inline BitmapText(const BitmapFont& mBF, const std::string& mStr = "")
         : BaseType{mBF}, str{mStr}
-    {
-    }
+    {}
 
     template <typename T>
     inline void setString(T&& mStr)

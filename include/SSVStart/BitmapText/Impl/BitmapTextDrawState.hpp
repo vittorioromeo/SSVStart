@@ -10,10 +10,8 @@
 
 #include <SFML/Graphics/Color.hpp>
 
-namespace ssvs
-{
-namespace Impl
-{
+namespace ssvs {
+namespace Impl {
 struct BitmapTextDrawState
 {
     sf::Color colorFG{sf::Color::White};

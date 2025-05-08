@@ -111,8 +111,7 @@ private:
 
         renderWindow.emplace(settings);
 
-        renderWindow->setSize(
-            sf::Vector2u(width * pixelMult, height * pixelMult));
+        renderWindow->setSize(sf::Vec2u(width * pixelMult, height * pixelMult));
         renderWindow->setVerticalSyncEnabled(vsync);
         renderWindow->setFramerateLimit(fpsLimited ? maxFPS : 0);
 
@@ -331,12 +330,12 @@ public:
     }
     auto getFingerDownPositions() const noexcept
     {
-        std::vector<sf::Vector2i> result;
+        std::vector<sf::Vec2i> result;
 
         // TODO: bitset iteration function (forTrueBits?)
         for(auto i(0u); i < fingerCount; ++i)
             if(inputState.fingers[i])
-                result.emplace_back(getFingerPosition(i).to<sf::Vector2i>());
+                result.emplace_back(getFingerPosition(i).to<sf::Vec2i>());
 
         return result;
     }

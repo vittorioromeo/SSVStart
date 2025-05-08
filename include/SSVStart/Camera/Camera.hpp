@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vec2.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -22,7 +22,7 @@ class Camera
 {
 private:
     sf::View view, computedView;
-    sf::Vector2f nextPan, offset, skew{1.f, 1.f};
+    sf::Vec2f nextPan, offset, skew{1.f, 1.f};
     float nextZoomFactor{1.f}, nextRotation{0.f};
     bool invalid{true}, mustRecompute{true};
 
@@ -30,7 +30,7 @@ public:
     Camera(const sf::View& mView) : view{mView}
     {}
 
-    Camera(float width, float height, const sf::Vector2f& mCenter,
+    Camera(float width, float height, const sf::Vec2f& mCenter,
         float mZoomFactor = 1.f)
         : view{mCenter, {width / mZoomFactor, height / mZoomFactor}}
     {
@@ -57,7 +57,7 @@ public:
             if(offset.length() != 0)
             {
                 computedView.center =
-                    (view.center - sf::Vector2f::fromAngle(offset.length(),
+                    (view.center - sf::Vec2f::fromAngle(offset.length(),
                                        view.rotation + offset.angle()));
             }
 
@@ -71,7 +71,7 @@ public:
     }
 
     // These methods change the view ON NEXT UPDATE
-    void pan(const sf::Vector2f& mVec)
+    void pan(const sf::Vec2f& mVec)
     {
         nextPan += mVec;
         invalid = true;
@@ -131,19 +131,19 @@ public:
         mustRecompute = true;
     }
 
-    void setSkew(const sf::Vector2f& mSkew) noexcept
+    void setSkew(const sf::Vec2f& mSkew) noexcept
     {
         skew = mSkew;
         mustRecompute = true;
     }
 
-    void setOffset(const sf::Vector2f& mOffset) noexcept
+    void setOffset(const sf::Vec2f& mOffset) noexcept
     {
         offset = mOffset;
         mustRecompute = true;
     }
 
-    void setCenter(const sf::Vector2f& mPosition) noexcept
+    void setCenter(const sf::Vec2f& mPosition) noexcept
     {
         view.center = mPosition;
         mustRecompute = true;
@@ -166,17 +166,17 @@ public:
         return view.rotation.asDegrees();
     }
 
-    const sf::Vector2f& getSkew() const noexcept
+    const sf::Vec2f& getSkew() const noexcept
     {
         return skew;
     }
 
-    const sf::Vector2f& getOffset() const noexcept
+    const sf::Vec2f& getOffset() const noexcept
     {
         return offset;
     }
 
-    sf::Vector2f getCenter() const noexcept
+    sf::Vec2f getCenter() const noexcept
     {
         return view.center;
     }
@@ -186,19 +186,19 @@ public:
         return nextZoomFactor;
     }
 
-    sf::Vector2f getMousePosition(const sf::RenderWindow& mRenderWindow) const
+    sf::Vec2f getMousePosition(const sf::RenderWindow& mRenderWindow) const
     {
         return mRenderWindow.mapPixelToCoords(
             sf::Mouse::getPosition(mRenderWindow), view);
     }
 
-    sf::Vector2f getConvertedCoords(
-        const sf::RenderWindow& mRenderWindow, const sf::Vector2i& mPos) const
+    sf::Vec2f getConvertedCoords(
+        const sf::RenderWindow& mRenderWindow, const sf::Vec2i& mPos) const
     {
         return mRenderWindow.mapPixelToCoords(mPos, view);
     }
 
-    bool isInView(const sf::Vector2f& mPos) const
+    bool isInView(const sf::Vec2f& mPos) const
     {
         return mPos.x <= view.center.x + view.size.x &&
                (mPos.x >= view.center.x - view.size.x &&

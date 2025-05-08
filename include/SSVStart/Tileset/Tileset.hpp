@@ -11,27 +11,25 @@
 #include <string>
 #include <unordered_map>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class Tileset
 {
 private:
-    sf::Vector2u tileSize;
-    std::unordered_map<std::string, sf::Vector2u> labels;
+    sf::Vec2u tileSize;
+    std::unordered_map<std::string, sf::Vec2u> labels;
 
 public:
     Tileset() = default;
-    Tileset(const sf::Vector2u& mTileSize) noexcept : tileSize{mTileSize}
-    {
-    }
+    Tileset(const sf::Vec2u& mTileSize) noexcept : tileSize{mTileSize}
+    {}
 
-    void setTileSize(const sf::Vector2u& mTileSize) noexcept
+    void setTileSize(const sf::Vec2u& mTileSize) noexcept
     {
         tileSize = mTileSize;
     }
 
-    void setLabel(const std::string& mLabel, const sf::Vector2u& mIdx)
+    void setLabel(const std::string& mLabel, const sf::Vec2u& mIdx)
     {
         labels[mLabel] = mIdx;
     }
@@ -53,11 +51,11 @@ public:
 
     auto operator()(unsigned int mX, unsigned int mY) const noexcept
     {
-        return sf::IntRect(
-            sf::Vector2i(mX * tileSize.x, mY * tileSize.y), sf::Vector2i(tileSize.x, tileSize.y));
+        return sf::IntRect(sf::Vec2i(mX * tileSize.x, mY * tileSize.y),
+            sf::Vec2i(tileSize.x, tileSize.y));
     }
 
-    auto operator()(const sf::Vector2u& mIdx) const noexcept
+    auto operator()(const sf::Vec2u& mIdx) const noexcept
     {
         return (*this)(mIdx.x, mIdx.y);
     }

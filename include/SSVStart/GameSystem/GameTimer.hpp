@@ -11,8 +11,7 @@
 #include <cassert>
 #include <memory>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class GameEngine;
 

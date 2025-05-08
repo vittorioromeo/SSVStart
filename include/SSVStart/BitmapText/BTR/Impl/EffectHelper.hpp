@@ -18,12 +18,9 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTR.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRChunk.inl"
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 template <typename T>
 struct EffectHelper
 {

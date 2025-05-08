@@ -15,12 +15,9 @@
 
 #include <SSVUtils/MemoryManager/MemoryManager.hpp>
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 class BTREWave : public BTREffect
 {
 private:
@@ -32,10 +29,11 @@ public:
 public:
     inline BTREWave(float mAmplitude = 2.f, float mSpeedMult = 0.1f,
         float mRepeat = 4.f, float mAngleStart = 0.f)
-        : angle{mAngleStart}, amplitude{mAmplitude}, repeat{mRepeat},
+        : angle{mAngleStart},
+          amplitude{mAmplitude},
+          repeat{mRepeat},
           speedMult{mSpeedMult}
-    {
-    }
+    {}
 
     inline void update(float mFT) noexcept override
     {

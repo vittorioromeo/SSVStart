@@ -12,10 +12,8 @@
 #include <vector>
 #include <memory>
 
-namespace ssvs
-{
-namespace Input
-{
+namespace ssvs {
+namespace Input {
 class Combo;
 class Bind;
 

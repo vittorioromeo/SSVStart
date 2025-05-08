@@ -14,12 +14,9 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTREWave.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTREColor.hpp"
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 struct BTRDrawState
 {
     struct RowData
@@ -29,8 +26,7 @@ struct BTRDrawState
 
         inline RowData(float mWidth, std::size_t mCells) noexcept
             : width{mWidth}, cells{mCells}
-        {
-        }
+        {}
     };
 
     std::vector<RowData> rDatas;

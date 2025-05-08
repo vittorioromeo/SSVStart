@@ -12,25 +12,18 @@
 #include "SSVStart/BitmapText/BTR/Impl/BTRDrawState.hpp"
 #include "SSVStart/BitmapText/BTR/Impl/BTRRoot.hpp"
 
-namespace ssvs
-{
-namespace BTR
-{
+namespace ssvs {
+namespace BTR {
 struct Tracking
-{
-};
+{};
 struct Leading
-{
-};
+{};
 struct HChunkSpacing
-{
-};
+{};
 struct Pulse
-{
-};
+{};
 struct PulseDef
-{
-};
+{};
 using Color = Impl::BTREColor;
 using Wave = Impl::BTREWave;
 using Chunk = Impl::BTRChunk;

@@ -12,8 +12,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Rect.hpp>
 
-namespace ssvs
-{
+namespace ssvs {
 
 struct BitmapFontData
 {
@@ -30,8 +29,7 @@ public:
     BitmapFont(
         const sf::Texture& mTexture, const BitmapFontData& mData) noexcept
         : texture(mTexture), data(mData)
-    {
-    }
+    {}
 
     const auto& getTexture() const noexcept
     {
@@ -53,8 +51,9 @@ public:
         mX += ssvu::toNum<long>(data.cellStart) - 33;
 
         const auto& i(ssvu::get2DIdxFrom1D(mX, data.cellColumns));
-        return sf::IntRect(sf::Vector2i(std::get<0>(i) * data.cellWidth,
-            std::get<1>(i) * data.cellHeight), sf::Vector2i(data.cellWidth, data.cellHeight));
+        return sf::IntRect(sf::Vec2i(std::get<0>(i) * data.cellWidth,
+                               std::get<1>(i) * data.cellHeight),
+            sf::Vec2i(data.cellWidth, data.cellHeight));
     }
 };
 

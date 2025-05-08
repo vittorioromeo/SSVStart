@@ -16,12 +16,9 @@
 #include <SSVUtils/Core/Utils/Math.hpp>
 #include <SSVUtils/Core/Common/Casts.hpp>
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 class BTREColor : public BTREffect
 {
 public:
@@ -39,8 +36,7 @@ private:
 public:
     inline BTREColor(const sf::Color& mColorFG) noexcept
         : colorFG{mColorFG}, colorFGComputed{colorFG}
-    {
-    }
+    {}
 
     inline void update(float mFT) noexcept override
     {

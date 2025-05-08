@@ -29,7 +29,7 @@ SSVJ_CNV_VAL(ssvs::Input::Trigger, getCombos())
 SSVJ_CNV_ARR(sf::Color, r, g, b, a)
 SSVJ_CNV_ARR(
     ssvs::BitmapFontData, cellColumns, cellWidth, cellHeight, cellStart)
-SSVJ_CNV_ARR_TEMPLATE(typename T, ssvs::sf::Vector2<T>, x, y)
+SSVJ_CNV_ARR_TEMPLATE(typename T, ssvs::sf::Vec2<T>, x, y)
 
 SSVJ_CNV_NAMESPACE()
 {
@@ -104,7 +104,7 @@ SSVJ_CNV_NAMESPACE()
                 for(auto iX(0u); iX < labels[iY].getSizeArr(); ++iX)
                     mX.setLabel(labels[iY][iX].as<std::string>(), {iX, iY});
 
-            mX.setTileSize(mV["tileSize"].as<ssvs::sf::Vector2u>());
+            mX.setTileSize(mV["tileSize"].as<ssvs::sf::Vec2u>());
         }
         inline static void toVal(Val& mV, const T& mX)
         {
@@ -118,8 +118,7 @@ SSVJ_CNV_NAMESPACE()
 }
 SSVJ_CNV_NAMESPACE_END()
 
-namespace ssvs
-{
+namespace ssvs {
 
 // template<typename> class AssetManager;
 

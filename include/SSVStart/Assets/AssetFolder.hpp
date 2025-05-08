@@ -22,8 +22,7 @@
 #include <vector>
 #include <string>
 
-namespace ssvs
-{
+namespace ssvs {
 
 template <typename>
 class AssetManager;
@@ -122,8 +121,7 @@ public:
         : rootPath{mRootPath},
           files{ssvu::FileSystem::getScan<ssvu::FileSystem::Mode::Recurse,
               ssvu::FileSystem::Type::File>(rootPath)}
-    {
-    }
+    {}
 
     template <typename TM>
     void loadToManager(TM& mMgr)

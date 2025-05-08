@@ -9,10 +9,8 @@
 
 #include <cassert>
 
-namespace ssvs
-{
-namespace BTR
-{
+namespace ssvs {
+namespace BTR {
 template <typename T>
 class Ptr
 {
@@ -22,17 +20,14 @@ private:
 public:
 #if defined(SSVU_DEBUG)
     inline Ptr() noexcept : ptr{nullptr}
-    {
-    }
+    {}
 #else
     inline Ptr() noexcept
-    {
-    }
+    {}
 #endif
 
     inline Ptr(T* mX) noexcept : ptr{mX}
-    {
-    }
+    {}
 
     inline Ptr(const Ptr&) = default;
     Ptr& operator=(const Ptr&) = default;

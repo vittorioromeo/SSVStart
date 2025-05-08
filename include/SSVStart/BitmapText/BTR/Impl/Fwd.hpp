@@ -5,12 +5,9 @@
 #ifndef SSVS_BITMAPTEXT_BTR_IMPL_FWD
 #define SSVS_BITMAPTEXT_BTR_IMPL_FWD
 
-namespace ssvs
-{
-namespace BTR
-{
-namespace Impl
-{
+namespace ssvs {
+namespace BTR {
+namespace Impl {
 class BTRRoot;
 class BTRChunk;
 template <typename>

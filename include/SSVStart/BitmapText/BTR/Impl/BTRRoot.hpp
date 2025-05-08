@@ -140,7 +140,7 @@ private:
             const sf::FloatRect rect(
                 bitmapFont->getGlyphRect(c).to<sf::FloatRect>());
 
-            auto newPos(vertices.empty() ? sf::Vector2f(0.f, bdd.height)
+            auto newPos(vertices.empty() ? sf::Vec2f(0.f, bdd.height)
                                          : vertices.back().position);
 
             newPos.x += bdd.nextHChunkSpacing;
@@ -174,23 +174,22 @@ private:
 
             // NW
             vertices.emplace_back(
-                sf::Vector2f(gLeft, gTop), sf::Color::White, rect.position);
+                sf::Vec2f(gLeft, gTop), sf::Color::White, rect.position);
             // SW
-            vertices.emplace_back(sf::Vector2f(gLeft, gBottom),
-                sf::Color::White,
-                sf::Vector2f(rect.position.x, rect.position.y + rect.size.y));
+            vertices.emplace_back(sf::Vec2f(gLeft, gBottom), sf::Color::White,
+                sf::Vec2f(rect.position.x, rect.position.y + rect.size.y));
             // SE
-            vertices.emplace_back(sf::Vector2f(gRight, gBottom),
-                sf::Color::White, rect.position + rect.size);
+            vertices.emplace_back(sf::Vec2f(gRight, gBottom), sf::Color::White,
+                rect.position + rect.size);
             // NW
             vertices.emplace_back(
-                sf::Vector2f(gLeft, gTop), sf::Color::White, rect.position);
+                sf::Vec2f(gLeft, gTop), sf::Color::White, rect.position);
             // SE
-            vertices.emplace_back(sf::Vector2f(gRight, gBottom),
-                sf::Color::White, rect.position + rect.size);
+            vertices.emplace_back(sf::Vec2f(gRight, gBottom), sf::Color::White,
+                rect.position + rect.size);
             // NE
-            vertices.emplace_back(sf::Vector2f(gRight, gTop), sf::Color::White,
-                sf::Vector2f(rect.position.x + rect.size.x, rect.position.y));
+            vertices.emplace_back(sf::Vec2f(gRight, gTop), sf::Color::White,
+                sf::Vec2f(rect.position.x + rect.size.x, rect.position.y));
 
             ++bdd.iX;
         }

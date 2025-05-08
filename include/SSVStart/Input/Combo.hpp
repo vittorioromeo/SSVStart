@@ -8,10 +8,8 @@
 #include "SSVStart/Global/Typedefs.hpp"
 #include "SSVStart/Input/Enums.hpp"
 
-namespace ssvs
-{
-namespace Input
-{
+namespace ssvs {
+namespace Input {
 class InputState;
 class Manager;
 
@@ -30,8 +28,7 @@ public:
         for(const MBtn& b : mBtns) addBtn(b);
     }
     inline Combo(const std::initializer_list<MBtn>& mBtns) : Combo{{}, mBtns}
-    {
-    }
+    {}
 
     inline bool operator==(const Combo& mRhs) const noexcept
     {

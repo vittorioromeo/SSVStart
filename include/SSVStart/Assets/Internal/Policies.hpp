@@ -12,8 +12,7 @@
 #include <memory>
 #include <cassert>
 
-namespace ssvs
-{
+namespace ssvs {
 
 struct RHPolicyAssert
 {
@@ -36,8 +35,7 @@ struct RHPolicyAssert
 #else
     template <typename T>
     void checkMissing(T&, const std::string&)
-    {
-    }
+    {}
 #endif
 };
 

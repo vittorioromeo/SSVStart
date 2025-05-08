@@ -6,6 +6,6 @@
 
 #include "SSVStart/Utils/Input.hpp"
 #include "SSVStart/Utils/SFML.hpp"
-#include "SSVStart/Utils/Vector2.hpp"
+#include "SSVStart/Utils/Vec2.hpp"
 #include "SSVStart/Utils/Stringifier.hpp"
 #include "SSVStart/Utils/Packet.hpp"

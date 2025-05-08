@@ -5,10 +5,8 @@
 #ifndef SSVS_INPUT_ENUMS
 #define SSVS_INPUT_ENUMS
 
-namespace ssvs
-{
-namespace Input
-{
+namespace ssvs {
+namespace Input {
 enum class Type
 {
     Always,

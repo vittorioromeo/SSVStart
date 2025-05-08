@@ -14,8 +14,7 @@
 #include <memory>
 #include <cassert>
 
-namespace ssvs::Impl
-{
+namespace ssvs::Impl {
 
 template <typename T, typename TPolicy>
 class ResourceHolder

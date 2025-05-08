@@ -23,8 +23,7 @@
 #include <memory>
 #include <cstddef>
 
-namespace ssvs::Impl
-{
+namespace ssvs::Impl {
 
 enum class Mode
 {
@@ -39,8 +38,7 @@ enum class Mode
 
 template <bool>
 struct ShaderDisambiguationTag
-{
-};
+{};
 
 using ShaderFromMemory = ShaderDisambiguationTag<true>;
 using ShaderFromPath = ShaderDisambiguationTag<false>;
@@ -65,20 +63,17 @@ struct Helper<Mode::Load, T>
     static auto load(const ssvu::FileSystem::Path& mPath)
     {
         return loadImpl<T>([&mPath](auto& mP)
-            { return mP->loadFromFile(mPath.getStr()); },
-            "from path");
+            { return mP->loadFromFile(mPath.getStr()); }, "from path");
     }
     static auto load(const void* mData, std::size_t mSize)
     {
         return loadImpl<T>([&mData, &mSize](auto& mP)
-            { return mP->loadFromMemory(mData, mSize); },
-            "from memory");
+            { return mP->loadFromMemory(mData, mSize); }, "from memory");
     }
     static auto load(sf::InputStream& mStream)
     {
         return loadImpl<T>([&mStream](auto& mP)
-            { return mP->loadFromStream(mStream); },
-            "from stream");
+            { return mP->loadFromStream(mStream); }, "from stream");
     }
 };
 
@@ -88,20 +83,17 @@ struct Helper<Mode::Open, T>
     static auto load(const ssvu::FileSystem::Path& mPath)
     {
         return loadImpl<T>([&mPath](auto& mP)
-            { return mP->openFromFile(mPath); },
-            "from path");
+            { return mP->openFromFile(mPath); }, "from path");
     }
     static auto load(const void* mData, std::size_t mSize)
     {
         return loadImpl<T>([&mData, &mSize](auto& mP)
-            { return mP->openFromMemory(mData, mSize); },
-            "from memory");
+            { return mP->openFromMemory(mData, mSize); }, "from memory");
     }
     static auto load(sf::InputStream& mStream)
     {
         return loadImpl<T>([&mStream](auto& mP)
-            { return mP->openFromStream(mStream); },
-            "from stream");
+            { return mP->openFromStream(mStream); }, "from stream");
     }
 };
 
@@ -112,8 +104,7 @@ struct Helper<Mode::Image, sf::Texture>
     static auto load(const sf::Image& mImage)
     {
         return loadImpl<T>([&mImage](auto& mP)
-            { return mP->loadFromImage(mImage); },
-            "from image");
+            { return mP->loadFromImage(mImage); }, "from image");
     }
 };
 
@@ -148,8 +139,12 @@ struct Helper<Mode::Shader, sf::Shader>
     static auto load(const ssvu::FileSystem::Path& mPathVertex,
         const ssvu::FileSystem::Path& mPathFragment, ShaderFromPath)
     {
-        return loadImpl<T>([&mPathVertex, &mPathFragment](auto& mP)
-            { return mP->loadFromFile(mPathVertex.getStr(), mPathFragment.getStr()); },
+        return loadImpl<T>(
+            [&mPathVertex, &mPathFragment](auto& mP)
+            {
+                return mP->loadFromFile(
+                    mPathVertex.getStr(), mPathFragment.getStr());
+            },
             "shader from path (2)");
     }
     static auto load(

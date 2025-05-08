@@ -17,10 +17,8 @@
 #include <SFML/Graphics/Shader.hpp>
 #include <SFML/Graphics/Image.hpp>
 
-namespace ssvs
-{
-namespace Impl
-{
+namespace ssvs {
+namespace Impl {
 inline auto& getNullImage() noexcept
 {
     struct NullImage

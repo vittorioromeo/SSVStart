@@ -14,14 +14,13 @@
 
 #include <sstream>
 
-namespace ssvu
-{
+namespace ssvu {
 
 template <typename T>
-struct Stringifier<ssvs::sf::Vector2<T>>
+struct Stringifier<ssvs::sf::Vec2<T>>
 {
     template <bool TFmt>
-    inline static void impl(std::ostream& mStream, const ssvs::sf::Vector2<T>& mX)
+    inline static void impl(std::ostream& mStream, const ssvs::sf::Vec2<T>& mX)
     {
         Impl::printBold<TFmt>(mStream, "(");
         Impl::callStringifyImpl<TFmt>(mStream, mX.x);

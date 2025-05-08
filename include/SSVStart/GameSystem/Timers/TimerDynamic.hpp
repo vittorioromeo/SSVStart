@@ -9,8 +9,7 @@
 
 #include <SSVUtils/Core/Utils/Math.hpp>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class TimerDynamic final : public TimerBase
 {
@@ -19,12 +18,10 @@ private:
 
 public:
     TimerDynamic(GameEngine& mGameEngine) noexcept : TimerBase(mGameEngine)
-    {
-    }
+    {}
 
     void reset() override
-    {
-    }
+    {}
 
     void runUpdate() override
     {

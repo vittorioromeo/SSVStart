@@ -9,8 +9,7 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class GameEngine;
 
@@ -24,18 +23,15 @@ protected:
 
 public:
     TimerBase(GameEngine& mGameEngine) noexcept : gameEngine(mGameEngine)
-    {
-    }
+    {}
 
     virtual ~TimerBase()
-    {
-    }
+    {}
 
     virtual void reset() = 0;
 
     virtual void runUpdate()
-    {
-    }
+    {}
 
     virtual void runFrameTime() final
     {

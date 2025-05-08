@@ -10,12 +10,11 @@
 #include <initializer_list>
 #include <vector>
 
-namespace ssvs
-{
+namespace ssvs {
 
 struct AnimationStep
 {
-    sf::Vector2u index;
+    sf::Vec2u index;
     float time;
 };
 
@@ -75,8 +74,7 @@ private:
 
 public:
     Animation(Type mType = Type::Loop) noexcept : type{mType}
-    {
-    }
+    {}
 
     void addStep(const AnimationStep& mStep)
     {
@@ -89,7 +87,8 @@ public:
         for(const auto& s : mSteps) addStep(s);
     }
 
-    void addSteps(const std::initializer_list<sf::Vector2u>& mIndexes, float mStepTime)
+    void addSteps(
+        const std::initializer_list<sf::Vec2u>& mIndexes, float mStepTime)
     {
         for(const auto& i : mIndexes) addStep({i, mStepTime});
     }

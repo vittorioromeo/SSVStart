@@ -86,7 +86,8 @@ protected:
                 }
             }
 
-            const sf::FloatRect rect(bitmapFont->getGlyphRect(c).to<sf::FloatRect>());
+            const sf::FloatRect rect(
+                bitmapFont->getGlyphRect(c).to<sf::FloatRect>());
             auto spacing(bdd.tracking * bdd.iX);
 
             auto gLeft(bdd.iX * bdd.width + spacing);
@@ -100,22 +101,22 @@ protected:
 
             // NW
             vertices.emplace_back(
-                sf::Vector2f(gLeft, gTop), bdd.colorFG, rect.position);
+                sf::Vec2f(gLeft, gTop), bdd.colorFG, rect.position);
             // SW
-            vertices.emplace_back(sf::Vector2f(gLeft, gBottom), bdd.colorFG,
-                sf::Vector2f(rect.position.x, rect.position.y + rect.size.y));
+            vertices.emplace_back(sf::Vec2f(gLeft, gBottom), bdd.colorFG,
+                sf::Vec2f(rect.position.x, rect.position.y + rect.size.y));
             // SE
-            vertices.emplace_back(sf::Vector2f(gRight, gBottom), bdd.colorFG,
+            vertices.emplace_back(sf::Vec2f(gRight, gBottom), bdd.colorFG,
                 rect.position + rect.size);
             // NW
             vertices.emplace_back(
-                sf::Vector2f(gLeft, gTop), bdd.colorFG, rect.position);
+                sf::Vec2f(gLeft, gTop), bdd.colorFG, rect.position);
             // SE
-            vertices.emplace_back(sf::Vector2f(gRight, gBottom), bdd.colorFG,
+            vertices.emplace_back(sf::Vec2f(gRight, gBottom), bdd.colorFG,
                 rect.position + rect.size);
             // NE
-            vertices.emplace_back(sf::Vector2f(gRight, gTop), bdd.colorFG,
-                sf::Vector2f(rect.position.x + rect.size.x, rect.position.y));
+            vertices.emplace_back(sf::Vec2f(gRight, gTop), bdd.colorFG,
+                sf::Vec2f(rect.position.x + rect.size.x, rect.position.y));
 
             // Count printable characters in the current row.
             ++bdd.chCount;

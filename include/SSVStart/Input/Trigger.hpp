@@ -11,10 +11,8 @@
 
 #include <vector>
 
-namespace ssvs
-{
-namespace Input
-{
+namespace ssvs {
+namespace Input {
 class Trigger
 {
 private:
@@ -24,8 +22,7 @@ public:
     inline Trigger() = default;
     inline Trigger(const std::initializer_list<Combo>& mCombos) noexcept
         : combos{mCombos}
-    {
-    }
+    {}
 
     inline bool SSVU_ATTRIBUTE(pure) operator==(
         const Trigger& mRhs) const noexcept

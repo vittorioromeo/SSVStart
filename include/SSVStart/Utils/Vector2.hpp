@@ -12,8 +12,7 @@
 #include <cmath>
 #include <cassert>
 
-namespace ssvs
-{
+namespace ssvs {
 
 template <typename... TArgs>
 using CT = std::common_type_t<TArgs...>;
@@ -23,7 +22,8 @@ using CT = std::common_type_t<TArgs...>;
 /// @param mB Target point.
 /// @return Returns the needed radians.
 template <typename T1, typename T2>
-inline auto getRadTowards(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline auto getRadTowards(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return ssvu::getRadTowards(mA.x, mA.y, mB.x, mB.y);
 }
@@ -33,7 +33,8 @@ inline auto getRadTowards(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) 
 /// @param mB Target point.
 /// @return Returns the needed degrees.
 template <typename T1, typename T2>
-inline auto getDegTowards(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline auto getDegTowards(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return ssvu::getDegTowards(mA.x, mA.y, mB.x, mB.y);
 }
@@ -43,7 +44,7 @@ inline auto getDegTowards(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) 
 /// @param mPoint Point to check.
 /// @return Returns true if the point is inside the polygon.
 template <typename TC, typename T>
-inline bool isPointInPolygon(const TC& mVertices, const sf::Vector2<T>& mPoint)
+inline bool isPointInPolygon(const TC& mVertices, const sf::Vec2<T>& mPoint)
 {
     bool result{false};
     for(std::size_t i{0}, j{mVertices.size() - 1}; i < mVertices.size();
@@ -61,19 +62,19 @@ inline bool isPointInPolygon(const TC& mVertices, const sf::Vector2<T>& mPoint)
 }
 
 /// @brief Static value representing a (0, 0) vector. (int)
-static sf::Vector2i zeroVec2i{0, 0}; // C++14: template value
+static sf::Vec2i zeroVec2i{0, 0}; // C++14: template value
 
 /// @brief Static value representing a (0, 0) vector. (float)
-static sf::Vector2f zeroVec2f{0.f, 0.f};
+static sf::Vec2f zeroVec2f{0.f, 0.f};
 
 /// @brief Static value representing a (0, 0) vector. (unsigned int)
-static sf::Vector2u zeroVec2u{0u, 0u};
+static sf::Vec2u zeroVec2u{0u, 0u};
 
 /// @brief Sets a vector's components to their absolute values.
 /// @details Calls std::abs on both components.
 /// @param mVec Vector to modify.
 template <typename T>
-inline void abs(sf::Vector2<T>& mVec) noexcept
+inline void abs(sf::Vec2<T>& mVec) noexcept
 {
     mVec.x = std::abs(mVec.x);
     mVec.y = std::abs(mVec.y);
@@ -85,7 +86,7 @@ inline void abs(sf::Vector2<T>& mVec) noexcept
 /// @param mVec Original vector. (will not be modified)
 ///	@return Returns a new vector with absolute value components.
 template <typename T>
-inline auto getAbs(sf::Vector2<T> mVec) noexcept
+inline auto getAbs(sf::Vec2<T> mVec) noexcept
 {
     ssvs::abs(mVec);
     return mVec;
@@ -95,7 +96,7 @@ inline auto getAbs(sf::Vector2<T> mVec) noexcept
 /// @param mVec Vector to use.
 ///	@return Returns the squared magnitude of mVec.
 template <typename T>
-inline T getMagSquared(const sf::Vector2<T>& mVec) noexcept
+inline T getMagSquared(const sf::Vec2<T>& mVec) noexcept
 {
     return mVec.x * mVec.x + mVec.y * mVec.y;
 }
@@ -104,7 +105,7 @@ inline T getMagSquared(const sf::Vector2<T>& mVec) noexcept
 /// @param mVec Vector to use.
 ///	@return Returns the magnitude of mVec.
 template <typename T>
-inline T getMag(const sf::Vector2<T>& mVec) noexcept
+inline T getMag(const sf::Vec2<T>& mVec) noexcept
 {
     return std::sqrt(getMagSquared(mVec));
 }
@@ -115,11 +116,12 @@ inline T getMag(const sf::Vector2<T>& mVec) noexcept
 /// @param mRad Number of radians.
 template <typename T1, typename T2, typename T3>
 inline void rotateRadAround(
-    sf::Vector2<T1>& mVec, const sf::Vector2<T2>& mCenter, const T3& mRad)
+    sf::Vec2<T1>& mVec, const sf::Vec2<T2>& mCenter, const T3& mRad)
 {
     auto s(std::sin(mRad)), c(std::cos(mRad));
     mVec -= mCenter;
-    mVec = sf::Vector2<T1>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) + mCenter;
+    mVec = sf::Vec2<T1>(mVec.x * c - mVec.y * s, mVec.x * s + mVec.y * c) +
+           mCenter;
 }
 
 /// @brief Rotates a vector by n degrees around a point.
@@ -128,7 +130,7 @@ inline void rotateRadAround(
 /// @param mDeg Number of degrees.
 template <typename T1, typename T2, typename T3>
 inline void rotateDegAround(
-    sf::Vector2<T1>& mVec, const sf::Vector2<T2>& mCenter, const T3& mDeg)
+    sf::Vec2<T1>& mVec, const sf::Vec2<T2>& mCenter, const T3& mDeg)
 {
     rotateRadAround(mVec, mCenter, ssvu::toRad(mDeg));
 }
@@ -136,7 +138,7 @@ inline void rotateDegAround(
 /// @brief Sets a vector's components to 0.
 /// @param mVec Vector to nullify. (will be modified)
 template <typename T>
-inline void nullify(sf::Vector2<T>& mVec) noexcept
+inline void nullify(sf::Vec2<T>& mVec) noexcept
 {
     mVec.x = mVec.y = 0;
 }
@@ -146,7 +148,7 @@ inline void nullify(sf::Vector2<T>& mVec) noexcept
 /// @param mVec Vector to normalize. (will be modified)
 ///	@param mMag Vector's current magnitude.
 template <typename T1, typename T2>
-inline void normalize(sf::Vector2<T1>& mVec, const T2& mMag) noexcept
+inline void normalize(sf::Vec2<T1>& mVec, const T2& mMag) noexcept
 {
     if(mMag != 0) mVec /= mMag;
 }
@@ -156,7 +158,7 @@ inline void normalize(sf::Vector2<T1>& mVec, const T2& mMag) noexcept
 /// @param mVec Vector to normalize. (will be modified)
 ///	@param mMag Vector's current magnitude.
 template <typename T1, typename T2>
-inline void normalizeUnsafe(sf::Vector2<T1>& mVec, const T2& mMag) noexcept
+inline void normalizeUnsafe(sf::Vec2<T1>& mVec, const T2& mMag) noexcept
 {
     assert(mMag != 0);
     mVec /= mMag;
@@ -166,7 +168,7 @@ inline void normalizeUnsafe(sf::Vector2<T1>& mVec, const T2& mMag) noexcept
 /// @details Internally checks if the magnitude is not 0.
 /// @param mVec Vector to normalize. (will be modified)
 template <typename T>
-inline void normalize(sf::Vector2<T>& mVec) noexcept
+inline void normalize(sf::Vec2<T>& mVec) noexcept
 {
     normalize(mVec, getMag(mVec));
 }
@@ -175,7 +177,7 @@ inline void normalize(sf::Vector2<T>& mVec) noexcept
 /// @details Does not check if the magnitude is 0.
 /// @param mVec Vector to normalize. (will be modified)
 template <typename T>
-inline void normalizeUnsafe(sf::Vector2<T>& mVec) noexcept
+inline void normalizeUnsafe(sf::Vec2<T>& mVec) noexcept
 {
     normalizeUnsafe(mVec, getMag(mVec));
 }
@@ -186,7 +188,8 @@ inline void normalizeUnsafe(sf::Vector2<T>& mVec) noexcept
 ///	@param mMag Vector's current magnitude.
 /// @return Returns a copy of the original vector, normalized.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getNormalized(sf::Vector2<T1> mVec, const T2& mMag) noexcept
+inline sf::Vec2<CT<T1, T2>> getNormalized(
+    sf::Vec2<T1> mVec, const T2& mMag) noexcept
 {
     normalize(mVec, mMag);
     return mVec;
@@ -199,8 +202,8 @@ inline sf::Vector2<CT<T1, T2>> getNormalized(sf::Vector2<T1> mVec, const T2& mMa
 ///	@param mMag Vector's current magnitude.
 /// @return Returns a copy of the original vector, normalized.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getNormalizedUnsafe(
-    sf::Vector2<T1> mVec, const T2& mMag) noexcept
+inline sf::Vec2<CT<T1, T2>> getNormalizedUnsafe(
+    sf::Vec2<T1> mVec, const T2& mMag) noexcept
 {
     normalizeUnsafe(mVec, mMag);
     return mVec;
@@ -211,7 +214,7 @@ inline sf::Vector2<CT<T1, T2>> getNormalizedUnsafe(
 /// @param mVec Original vector. (will not be modified)
 /// @return Returns a copy of the original vector, normalized.
 template <typename T>
-inline auto getNormalized(sf::Vector2<T> mVec) noexcept
+inline auto getNormalized(sf::Vec2<T> mVec) noexcept
 {
     normalize(mVec);
     return mVec;
@@ -222,7 +225,7 @@ inline auto getNormalized(sf::Vector2<T> mVec) noexcept
 /// @param mVec Original vector. (will not be modified)
 /// @return Returns a copy of the original vector, normalized.
 template <typename T>
-inline auto getNormalizedUnsafe(sf::Vector2<T> mVec) noexcept
+inline auto getNormalizedUnsafe(sf::Vec2<T> mVec) noexcept
 {
     normalizeUnsafe(mVec);
     return mVec;
@@ -234,7 +237,8 @@ inline auto getNormalizedUnsafe(sf::Vector2<T> mVec) noexcept
 /// @param mMag Desired magnitude.
 /// @param mCrntMag Current magnitude.
 template <typename T1, typename T2, typename T3>
-inline void resize(sf::Vector2<T1>& mVec, const T2& mMag, const T3& mCrntMag) noexcept
+inline void resize(
+    sf::Vec2<T1>& mVec, const T2& mMag, const T3& mCrntMag) noexcept
 {
     normalize(mVec, mCrntMag);
     mVec *= CT<T1, T2>(mMag);
@@ -246,7 +250,7 @@ inline void resize(sf::Vector2<T1>& mVec, const T2& mMag, const T3& mCrntMag) no
 /// @param mVec Vector to resize. (will be modified)
 /// @param mMag Desired magnitude.
 template <typename T1, typename T2>
-inline void resize(sf::Vector2<T1>& mVec, const T2& mMag) noexcept
+inline void resize(sf::Vec2<T1>& mVec, const T2& mMag) noexcept
 {
     resize(mVec, mMag, getMag(mVec));
 }
@@ -258,7 +262,8 @@ inline void resize(sf::Vector2<T1>& mVec, const T2& mMag) noexcept
 /// @param mMag Desired magnitude.
 /// @return Returns a copy of the original vector, resized.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getResized(sf::Vector2<T1> mVec, const T2& mMag) noexcept
+inline sf::Vec2<CT<T1, T2>> getResized(
+    sf::Vec2<T1> mVec, const T2& mMag) noexcept
 {
     resize(mVec, mMag);
     return mVec;
@@ -272,8 +277,8 @@ inline sf::Vector2<CT<T1, T2>> getResized(sf::Vector2<T1> mVec, const T2& mMag) 
 /// @param mCrntMag Current magnitude.
 /// @return Returns a copy of the original vector, resized.
 template <typename T1, typename T2, typename T3>
-inline sf::Vector2<CT<T1, T2, T3>> getResized(
-    sf::Vector2<T1> mVec, const T2& mMag, const T3& mCrntMag) noexcept
+inline sf::Vec2<CT<T1, T2, T3>> getResized(
+    sf::Vec2<T1> mVec, const T2& mMag, const T3& mCrntMag) noexcept
 {
     resize(mVec, mMag, mCrntMag);
     return mVec;
@@ -285,7 +290,7 @@ inline sf::Vector2<CT<T1, T2, T3>> getResized(
 /// @param mMin Min component value.
 /// @param mMax Max component value.
 template <typename T1, typename T2, typename T3>
-inline void cClamp(sf::Vector2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
+inline void cClamp(sf::Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
 {
     ssvu::clamp(mVec.x, mMin, mMax);
     ssvu::clamp(mVec.y, mMin, mMax);
@@ -296,7 +301,7 @@ inline void cClamp(sf::Vector2<T1>& mVec, const T2& mMin, const T3& mMax) noexce
 /// @param mVec Vector to clamp. (will be modified)
 /// @param mMin Min component value.
 template <typename T1, typename T2>
-inline void cClampMin(sf::Vector2<T1>& mVec, const T2& mMin) noexcept
+inline void cClampMin(sf::Vec2<T1>& mVec, const T2& mMin) noexcept
 {
     ssvu::clampMin(mVec.x, mMin);
     ssvu::clampMin(mVec.y, mMin);
@@ -307,7 +312,7 @@ inline void cClampMin(sf::Vector2<T1>& mVec, const T2& mMin) noexcept
 /// @param mVec Vector to clamp. (will be modified)
 /// @param mMax Max component value.
 template <typename T1, typename T2>
-inline void cClampMax(sf::Vector2<T1>& mVec, const T2& mMax) noexcept
+inline void cClampMax(sf::Vec2<T1>& mVec, const T2& mMax) noexcept
 {
     ssvu::clampMax(mVec.x, mMax);
     ssvu::clampMax(mVec.y, mMax);
@@ -320,8 +325,8 @@ inline void cClampMax(sf::Vector2<T1>& mVec, const T2& mMax) noexcept
 /// @param mMax Max component value.
 /// @return Returns a copy of the original vector, clamped.
 template <typename T1, typename T2, typename T3>
-inline sf::Vector2<CT<T1, T2, T3>> getCClamped(
-    sf::Vector2<T1> mVec, const T2& mMin, const T3& mMax) noexcept
+inline sf::Vec2<CT<T1, T2, T3>> getCClamped(
+    sf::Vec2<T1> mVec, const T2& mMin, const T3& mMax) noexcept
 {
     cClamp(mVec, mMin, mMax);
     return mVec;
@@ -333,7 +338,8 @@ inline sf::Vector2<CT<T1, T2, T3>> getCClamped(
 /// @param mMin Min component value.
 /// @return Returns a copy of the original vector, clamped.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getCClampedMin(sf::Vector2<T1> mVec, const T2& mMin) noexcept
+inline sf::Vec2<CT<T1, T2>> getCClampedMin(
+    sf::Vec2<T1> mVec, const T2& mMin) noexcept
 {
     cClampMin(mVec, mMin);
     return mVec;
@@ -345,7 +351,8 @@ inline sf::Vector2<CT<T1, T2>> getCClampedMin(sf::Vector2<T1> mVec, const T2& mM
 /// @param mMax Max component value.
 /// @return Returns a copy of the original vector, clamped.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getCClampedMax(sf::Vector2<T1> mVec, const T2& mMax) noexcept
+inline sf::Vec2<CT<T1, T2>> getCClampedMax(
+    sf::Vec2<T1> mVec, const T2& mMax) noexcept
 {
     cClampMax(mVec, mMax);
     return mVec;
@@ -357,7 +364,7 @@ inline sf::Vector2<CT<T1, T2>> getCClampedMax(sf::Vector2<T1> mVec, const T2& mM
 /// @param mMin Min magnitude.
 /// @param mMax Max magnitude.
 template <typename T1, typename T2, typename T3>
-inline void mClamp(sf::Vector2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
+inline void mClamp(sf::Vec2<T1>& mVec, const T2& mMin, const T3& mMax) noexcept
 {
     assert(mMin <= mMax);
     const auto& m(getMag(mVec));
@@ -372,7 +379,7 @@ inline void mClamp(sf::Vector2<T1>& mVec, const T2& mMin, const T3& mMax) noexce
 /// @param mVec Vector to clamp. (will be modified)
 /// @param mMin Min magnitude.
 template <typename T1, typename T2>
-inline void mClampMin(sf::Vector2<T1>& mVec, const T2& mMin) noexcept
+inline void mClampMin(sf::Vec2<T1>& mVec, const T2& mMin) noexcept
 {
     const auto& m(getMag(mVec));
     if(m < mMin) resize(mVec, mMin, m);
@@ -383,7 +390,7 @@ inline void mClampMin(sf::Vector2<T1>& mVec, const T2& mMin) noexcept
 /// @param mVec Vector to clamp. (will be modified)
 /// @param mMax Max magnitude.
 template <typename T1, typename T2>
-inline void mClampMax(sf::Vector2<T1>& mVec, const T2& mMax) noexcept
+inline void mClampMax(sf::Vec2<T1>& mVec, const T2& mMax) noexcept
 {
     const auto& m(getMag(mVec));
     if(m > mMax) resize(mVec, mMax, m);
@@ -396,8 +403,8 @@ inline void mClampMax(sf::Vector2<T1>& mVec, const T2& mMax) noexcept
 /// @param mMax Max magnitude.
 /// @return Returns a copy of the original vector, clamped.
 template <typename T1, typename T2, typename T3>
-inline sf::Vector2<CT<T1, T2, T3>> getMClamped(
-    sf::Vector2<T1> mVec, const T2& mMin, const T3& mMax) noexcept
+inline sf::Vec2<CT<T1, T2, T3>> getMClamped(
+    sf::Vec2<T1> mVec, const T2& mMin, const T3& mMax) noexcept
 {
     mClamp(mVec, mMin, mMax);
     return mVec;
@@ -409,7 +416,8 @@ inline sf::Vector2<CT<T1, T2, T3>> getMClamped(
 /// @param mMin Min magnitude.
 /// @return Returns a copy of the original vector, clamped.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getMClampedMin(sf::Vector2<T1> mVec, const T2& mMin) noexcept
+inline sf::Vec2<CT<T1, T2>> getMClampedMin(
+    sf::Vec2<T1> mVec, const T2& mMin) noexcept
 {
     mClampMin(mVec, mMin);
     return mVec;
@@ -421,7 +429,8 @@ inline sf::Vector2<CT<T1, T2>> getMClampedMin(sf::Vector2<T1> mVec, const T2& mM
 /// @param mMax Max magnitude.
 /// @return Returns a copy of the original vector, clamped.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getMClampedMax(sf::Vector2<T1> mVec, const T2& mMax) noexcept
+inline sf::Vec2<CT<T1, T2>> getMClampedMax(
+    sf::Vec2<T1> mVec, const T2& mMax) noexcept
 {
     mClampMax(mVec, mMax);
     return mVec;
@@ -431,7 +440,7 @@ inline sf::Vector2<CT<T1, T2>> getMClampedMax(sf::Vector2<T1> mVec, const T2& mM
 /// @param mVec Vector to use. (will not be modified)
 /// @return Returns the angle of mVec.
 template <typename T>
-inline T getRad(const sf::Vector2<T>& mVec) noexcept
+inline T getRad(const sf::Vec2<T>& mVec) noexcept
 {
     return std::atan2(mVec.y, mVec.x);
 }
@@ -441,7 +450,8 @@ inline T getRad(const sf::Vector2<T>& mVec) noexcept
 /// @param mB Second vector.
 /// @return Returns the angle between mA and mB.
 template <typename T1, typename T2>
-inline CT<T1, T2> getRad(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline CT<T1, T2> getRad(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return std::atan2(mB.y - mA.y, mB.x - mA.x);
 }
@@ -450,7 +460,7 @@ inline CT<T1, T2> getRad(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) n
 /// @param mVec Vector to use. (will not be modified)
 /// @return Returns the angle of mVec.
 template <typename T>
-inline T getDeg(const sf::Vector2<T>& mVec) noexcept
+inline T getDeg(const sf::Vec2<T>& mVec) noexcept
 {
     return ssvu::toDeg(getRad(mVec));
 }
@@ -460,7 +470,8 @@ inline T getDeg(const sf::Vector2<T>& mVec) noexcept
 /// @param mB Second vector.
 /// @return Returns the angle between mA and mB.
 template <typename T1, typename T2>
-inline CT<T1, T2> getDeg(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline CT<T1, T2> getDeg(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return ssvu::toDeg(getRad(mA, mB));
 }
@@ -472,7 +483,7 @@ inline CT<T1, T2> getDeg(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) n
 template <typename T1, typename T2 = float>
 inline auto getVecFromRad(const T1& mRad, const T2& mMag = 1.f)
 {
-    return sf::Vector2<CT<T1, T2>>(mMag * std::cos(mRad), mMag * std::sin(mRad));
+    return sf::Vec2<CT<T1, T2>>(mMag * std::cos(mRad), mMag * std::sin(mRad));
 }
 
 /// @brief Gets a vector from an angle. (from degrees)
@@ -490,8 +501,8 @@ inline auto getVecFromDeg(const T1& mDeg, const T2& mMag = 1.f)
 /// @param mB Second vector.
 /// @return Returns mB - mA, normalized
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getDirVec(
-    const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline sf::Vec2<CT<T1, T2>> getDirVec(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return getNormalized(mB - mA);
 }
@@ -502,7 +513,7 @@ inline sf::Vector2<CT<T1, T2>> getDirVec(
 /// @param mMag Magnitude of the translation.
 template <typename T1, typename T2, typename T3>
 inline void moveTowards(
-    sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB, const T3& mMag) noexcept
+    sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB, const T3& mMag) noexcept
 {
     mA += getDirVec(mA, mB) * mMag;
 }
@@ -513,8 +524,8 @@ inline void moveTowards(
 /// @param mMag Magnitude of the translation.
 /// @return Returns a copy of mA moved towards mB.
 template <typename T1, typename T2, typename T3>
-inline sf::Vector2<CT<T1, T2, T3>> getMovedTowards(
-    sf::Vector2<T1> mA, const sf::Vector2<T2>& mB, const T3& mMag) noexcept
+inline sf::Vec2<CT<T1, T2, T3>> getMovedTowards(
+    sf::Vec2<T1> mA, const sf::Vec2<T2>& mB, const T3& mMag) noexcept
 {
     moveTowards(mA, mB, mMag);
     return mA;
@@ -527,9 +538,10 @@ inline sf::Vector2<CT<T1, T2, T3>> getMovedTowards(
 /// @return Returns a copy of mVec, orbited by mRad radians and mRadius
 /// radius.
 template <typename T1, typename T2, typename T3>
-inline auto getOrbitRad(const sf::Vector2<T1>& mVec, const T2& mRad, const T3& mRadius)
+inline auto getOrbitRad(
+    const sf::Vec2<T1>& mVec, const T2& mRad, const T3& mRadius)
 {
-    return sf::Vector2<CT<T1, T2, T3>>(mVec) + getVecFromRad(mRad, mRadius);
+    return sf::Vec2<CT<T1, T2, T3>>(mVec) + getVecFromRad(mRad, mRadius);
 }
 
 /// @brief Gets a point orbited around another point.
@@ -539,7 +551,8 @@ inline auto getOrbitRad(const sf::Vector2<T1>& mVec, const T2& mRad, const T3& m
 /// @return Returns a copy of mVec, orbited by mDeg degrees and mRadius
 /// radius.
 template <typename T1, typename T2, typename T3>
-inline auto getOrbitDeg(const sf::Vector2<T1>& mVec, const T2& mDeg, const T3& mRadius)
+inline auto getOrbitDeg(
+    const sf::Vec2<T1>& mVec, const T2& mDeg, const T3& mRadius)
 {
     return getOrbitRad(mVec, ssvu::toRad(mDeg), mRadius);
 }
@@ -549,7 +562,8 @@ inline auto getOrbitDeg(const sf::Vector2<T1>& mVec, const T2& mDeg, const T3& m
 /// @param mB Second vector.
 /// @return Returns the dot product between mA and mB.
 template <typename T1, typename T2>
-inline CT<T1, T2> getDotProduct(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline CT<T1, T2> getDotProduct(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return mA.x * mB.x + mA.y * mB.y;
 }
@@ -560,7 +574,7 @@ inline CT<T1, T2> getDotProduct(const sf::Vector2<T1>& mA, const sf::Vector2<T2>
 /// @return Returns the calculated distance (squared).
 template <typename T1, typename T2>
 inline auto getDistSquaredEuclidean(
-    const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return ssvu::getDistSquaredEuclidean(mA.x, mA.y, mB.x, mB.y);
 }
@@ -570,7 +584,8 @@ inline auto getDistSquaredEuclidean(
 /// @param mB Second point.
 /// @return Returns the calculated distance.
 template <typename T1, typename T2>
-inline auto getDistEuclidean(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& mB) noexcept
+inline auto getDistEuclidean(
+    const sf::Vec2<T1>& mA, const sf::Vec2<T2>& mB) noexcept
 {
     return ssvu::getDistEuclidean(mA.x, mA.y, mB.x, mB.y);
 }
@@ -580,7 +595,7 @@ inline auto getDistEuclidean(const sf::Vector2<T1>& mA, const sf::Vector2<T2>& m
 /// @param mVec Vector to project. (will be modified)
 /// @param mTarget Projection target.
 template <typename T1, typename T2>
-inline void project(sf::Vector2<T1>& mVec, const sf::Vector2<T2>& mTarget) noexcept
+inline void project(sf::Vec2<T1>& mVec, const sf::Vec2<T2>& mTarget) noexcept
 {
     const auto& p1(getDotProduct(mVec, mTarget));
     const auto& p2(getDotProduct(mTarget, mTarget));
@@ -594,8 +609,8 @@ inline void project(sf::Vector2<T1>& mVec, const sf::Vector2<T2>& mTarget) noexc
 /// @param mVec Vector to project. (will not be modified)
 /// @param mTarget Projection target.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getProjected(
-    sf::Vector2<T1> mVec, const sf::Vector2<T2>& mTarget) noexcept
+inline sf::Vec2<CT<T1, T2>> getProjected(
+    sf::Vec2<T1> mVec, const sf::Vec2<T2>& mTarget) noexcept
 {
     project(mVec, mTarget);
     return mVec;
@@ -605,7 +620,7 @@ inline sf::Vector2<CT<T1, T2>> getProjected(
 /// @param mVec Vector to reflect. (will be modified)
 /// @param mTarget Reflection target.
 template <typename T1, typename T2>
-inline void reflect(sf::Vector2<T1>& mVec, const sf::Vector2<T2>& mTarget) noexcept
+inline void reflect(sf::Vec2<T1>& mVec, const sf::Vec2<T2>& mTarget) noexcept
 {
     mVec -= CT<T1, T2>(2) * mTarget * getDotProduct(mVec, mTarget);
 }
@@ -614,8 +629,8 @@ inline void reflect(sf::Vector2<T1>& mVec, const sf::Vector2<T2>& mTarget) noexc
 /// @param mVec Vector to reflect. (will not be modified)
 /// @param mTarget Reflection target.
 template <typename T1, typename T2>
-inline sf::Vector2<CT<T1, T2>> getReflected(
-    sf::Vector2<T1> mVec, const sf::Vector2<T2>& mTarget) noexcept
+inline sf::Vec2<CT<T1, T2>> getReflected(
+    sf::Vec2<T1> mVec, const sf::Vec2<T2>& mTarget) noexcept
 {
     reflect(mVec, mTarget);
     return mVec;
@@ -624,26 +639,28 @@ inline sf::Vector2<CT<T1, T2>> getReflected(
 // AABB utils
 // TODO: put AABB class here from SSVSC?
 template <typename T1, typename T2>
-inline auto getCenter(const sf::Vector2<T1>& mMin, const sf::Vector2<T2>& mMax) noexcept
+inline auto getCenter(
+    const sf::Vec2<T1>& mMin, const sf::Vec2<T2>& mMax) noexcept
 {
     using T = CT<T1, T2>;
-    return sf::Vector2<T>(
+    return sf::Vec2<T>(
         mMin.x + (mMax.x - mMin.x) / T(2), mMin.y + (mMax.y - mMin.y) / T(2));
 }
 template <typename T1, typename T2>
-inline auto getHalfSize(const sf::Vector2<T1>& mMin, const sf::Vector2<T2>& mMax) noexcept
+inline auto getHalfSize(
+    const sf::Vec2<T1>& mMin, const sf::Vec2<T2>& mMax) noexcept
 {
     using T = CT<T1, T2>;
-    return sf::Vector2<T>((mMax.x - mMin.x) / T(2), (mMax.y - mMin.y) / T(2));
+    return sf::Vec2<T>((mMax.x - mMin.x) / T(2), (mMax.y - mMin.y) / T(2));
 }
 template <typename T1, typename T2>
-inline auto getSize(const sf::Vector2<T1>& mMin, const sf::Vector2<T2>& mMax) noexcept
+inline auto getSize(const sf::Vec2<T1>& mMin, const sf::Vec2<T2>& mMax) noexcept
 {
     return getHalfSize(mMin, mMax) * CT<T1, T2>(2);
 }
 template <typename T1, typename T2, typename T3, typename T4>
-inline bool isInAABB(const sf::Vector2<T1>& mMin, const sf::Vector2<T2>& mMax,
-    const sf::Vector2<T3>& mPoint, const T4& mPadding) noexcept
+inline bool isInAABB(const sf::Vec2<T1>& mMin, const sf::Vec2<T2>& mMax,
+    const sf::Vec2<T3>& mPoint, const T4& mPadding) noexcept
 {
     return mPoint.x >= mMin.x - mPadding && mPoint.x < mMax.x + mPadding &&
            mPoint.y >= mMin.y - mPadding && mPoint.y < mMax.y + mPadding;

@@ -12,8 +12,7 @@
 #include <string>
 #include <tuple>
 
-namespace sf
-{
+namespace sf {
 
 class Font;
 class Image;
@@ -24,8 +23,7 @@ class Shader;
 
 } // namespace sf
 
-namespace ssvs
-{
+namespace ssvs {
 
 class BitmapFont;
 struct BitmapFontData;
@@ -80,7 +78,6 @@ public:
 };
 
 class DefaultAssetManager : public AssetManager<RHPolicyDefault>
-{
-};
+{};
 
 } // namespace ssvs

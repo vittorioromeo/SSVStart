@@ -9,8 +9,7 @@
 
 #include <cassert>
 
-namespace ssvs
-{
+namespace ssvs {
 
 class MusicPlayer
 {
