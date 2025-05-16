@@ -17,7 +17,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Image.hpp>
-#include <SFML/Graphics/ImageUtils.hpp>
+#include <SFML/Graphics/ImageUtxils.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
@@ -202,7 +202,7 @@ public:
         t->update(*renderWindow);
         auto img = t->copyToImage();
 
-        (void)sf::ImageUtils::saveToFile(img, mPath);
+        (void)img.saveToFile(mPath);
     }
 
     void setFullscreen(bool mFullscreen) noexcept
