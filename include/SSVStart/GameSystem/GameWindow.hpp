@@ -20,7 +20,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-#include <SFML/System/String.hpp>
 #include <SFML/System/Path.hpp>
 
 #include <SFML/Base/Optional.hpp>
