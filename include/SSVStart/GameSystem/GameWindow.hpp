@@ -107,7 +107,7 @@ private:
             .contextSettings = {0, 0, antialiasingLevel, 1, 1},
         };
 
-        renderWindow.emplace(settings);
+        renderWindow = sf::RenderWindow::create(settings);
 
         renderWindow->setSize(sf::Vec2u(width * pixelMult, height * pixelMult));
         renderWindow->setVerticalSyncEnabled(vsync);
