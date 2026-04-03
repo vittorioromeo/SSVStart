@@ -188,14 +188,16 @@ public:
 
     sf::Vec2f getMousePosition(const sf::RenderWindow& mRenderWindow) const
     {
-        return mRenderWindow.mapPixelToCoords(
-            sf::Mouse::getPosition(mRenderWindow), view);
+        return view.screenToWorld(sf::Mouse::getPosition(mRenderWindow)
+                                      .to<sf::Vec2f>(),
+            mRenderWindow.getSize().to<sf::Vec2f>());
     }
 
     sf::Vec2f getConvertedCoords(
         const sf::RenderWindow& mRenderWindow, const sf::Vec2i& mPos) const
     {
-        return mRenderWindow.mapPixelToCoords(mPos, view);
+        return view.screenToWorld(
+            mPos.to<sf::Vec2f>(), mRenderWindow.getSize().to<sf::Vec2f>());
     }
 
     bool isInView(const sf::Vec2f& mPos) const

@@ -24,6 +24,7 @@
 
 #include <SFML/Base/Optional.hpp>
 
+#include <array>
 #include <chrono>
 #include <vector>
 
@@ -45,6 +46,7 @@ private:
     unsigned int width{640}, height{480}, antialiasingLevel{3};
     bool fpsLimited{false}, focus{true}, mustRecreate{true}, vsync{false},
         fullscreen{false};
+    std::array<sf::Vec2i, fingerCount> fingerPositions{};
 
     void runEvents()
     {
@@ -86,10 +88,16 @@ private:
             else if(auto* e = event.getIf<sf::Event::TouchBegan>())
             {
                 inputState.getFinger(e->finger) = true;
+                fingerPositions[e->finger] = e->position;
+            }
+            else if(auto* e = event.getIf<sf::Event::TouchMoved>())
+            {
+                fingerPositions[e->finger] = e->position;
             }
             else if(auto* e = event.getIf<sf::Event::TouchEnded>())
             {
                 inputState.getFinger(e->finger) = false;
+                fingerPositions[e->finger] = e->position;
             }
 
             gameEngine->handleEvent(event);
@@ -104,7 +112,8 @@ private:
             .size = {width, height},
             .title = title,
             .fullscreen = fullscreen,
-            .contextSettings = {0, 0, antialiasingLevel, 1, 1},
+            .contextSettings =
+                {.attributeFlags = sf::ContextSettings::Attribute::Default},
         };
 
         renderWindow = sf::RenderWindow::create(settings);
@@ -197,7 +206,7 @@ public:
             return;
         }
 
-        t->update(*renderWindow);
+        (void)t->update(*renderWindow);
         auto img = t->copyToImage();
 
         (void)img.saveToFile(mPath);
@@ -255,11 +264,6 @@ public:
         gameEngine->setGameState(mGameState);
     }
 
-    void setView(const sf::View& view)
-    {
-        renderWindow->setView(view);
-    }
-
     operator sf::RenderWindow&() noexcept
     {
         return *renderWindow;
@@ -308,13 +312,11 @@ public:
 
     auto getMousePosition() const noexcept
     {
-        return renderWindow->mapPixelToCoords(
-            sf::Mouse::getPosition(*renderWindow));
+        return sf::Mouse::getPosition(*renderWindow);
     }
     auto getFingerPosition(FingerID mX) const noexcept
     {
-        return renderWindow->mapPixelToCoords(
-            sf::Touch::getPosition(mX, *renderWindow));
+        return fingerPositions[mX];
     }
 
     const auto& getInputState() const noexcept
